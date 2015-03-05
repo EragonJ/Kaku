@@ -1,0 +1,21 @@
+{
+  "name": "kaku",
+  "main": "index.js",
+  "version": "0.0.1",
+  "homepage": "https://github.com/hax4/kaku",
+  "authors": [
+    "EragonJ <eragonj@eragonj.me>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "~0.12.2",
+    "requirejs": "~2.1.16"
+  }
+}

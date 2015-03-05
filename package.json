@@ -30,5 +30,10 @@
   "bugs": {
     "url": "https://github.com/hax4/kaku/issues"
   },
-  "homepage": "https://github.com/hax4/kaku"
+  "homepage": "https://github.com/hax4/kaku",
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-react": "^3.0.0",
+    "gulp-requirejs": "^0.1.3"
+  }
 }
