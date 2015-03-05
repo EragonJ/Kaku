@@ -1,9 +1,11 @@
 var gulp = require('gulp');
 var react = require('gulp-react');
 var rjs = require('gulp-requirejs');
+var compass = require('gulp-compass');
 
 gulp.task('jsx', function() {
-  return gulp.src('./src/frontend/jsx/**/*.jsx')
+  gulp
+    .src('./src/frontend/jsx/**/*.jsx')
     .pipe(react({
        harmony: true
     }))
@@ -20,6 +22,17 @@ gulp.task('rjs', function() {
     }
   })
   .pipe(gulp.dest('dist/'));
+});
+
+gulp.task('compass', function() {
+  gulp
+    .src('./src/frontend/scss/**/*.scss')
+    .pipe(compass({
+      config_file: './config.rb',
+      css: 'src/frontend/css',
+      sass: 'src/frontend/scss'
+    }))
+    .pipe(gulp.dest('./src/frontend/css'));
 });
 
 gulp.task('default', ['jsx', 'rjs'], function() {

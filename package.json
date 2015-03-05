@@ -33,6 +33,7 @@
   "homepage": "https://github.com/hax4/kaku",
   "devDependencies": {
     "gulp": "^3.8.11",
+    "gulp-compass": "^2.0.3",
     "gulp-react": "^3.0.0",
     "gulp-requirejs": "^0.1.3"
   }
