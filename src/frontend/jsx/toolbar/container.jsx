@@ -8,14 +8,16 @@ define(function(require) {
 
   var ToolbarContainer = React.createClass({
     render: function() {
-      <div className="toolbar-container">
-        <ToolbarSongInformation/>
-        <ToolbarShrinkButton/>
-        <ToolbarEnlargeButton/>
-        <ToolbarCloseButton/>
-      </div>
+      return (
+        <div className="toolbar-container">
+          <ToolbarSongInformation/>
+          <ToolbarShrinkButton/>
+          <ToolbarEnlargeButton/>
+          <ToolbarCloseButton/>
+        </div>
+      );
     }
   });
 
-  return ToolbarContainer;
+  return <ToolbarContainer/>;
 });

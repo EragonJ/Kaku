@@ -18,7 +18,7 @@ gulp.task('rjs', function() {
     baseUrl: './src/frontend/js',
     out: 'main.min.js',
     paths: {
-      react: '../vendor/react/react.min'
+      react: '../vendor/react/react'
     }
   })
   .pipe(gulp.dest('dist/'));
