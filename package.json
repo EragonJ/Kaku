@@ -1,0 +1,34 @@
+{
+  "name": "Kaku",
+  "version": "0.0.1",
+  "description": "This is a totally free music player for some hot music sources",
+  "main": "index.html",
+  "window": {
+    "title": "Kaku",
+    "icon": "public/images/icon.png",
+    "toolbar": false,
+    "frame": false,
+    "width": 895,
+    "height": 600,
+    "min_width": 895,
+    "min_height": 600,
+    "resizable": true,
+    "position": "center"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hax4/kaku.git"
+  },
+  "keywords": [
+    "kaku",
+    "music",
+    "player",
+    "youtube"
+  ],
+  "author": "EragonJ",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hax4/kaku/issues"
+  },
+  "homepage": "https://github.com/hax4/kaku"
+}
