@@ -2,10 +2,43 @@ body {
   color: #ccc;
 }
 
-.toolbar-slot {
-  height: 20px;
-}
-
 .toolbar-container {
   text-align: right;
+  background: #efefef;
+  height: 20px;
+  *zoom: 1;
+}
+.toolbar-container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.toolbar-container .toolbar-buttons {
+  float: left;
+}
+.toolbar-container .toolbar-song-information {
+  height: 20px;
+  color: #666666;
+  text-align: center;
+}
+.toolbar-container button {
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  width: 14px;
+  height: 14px;
+  font-size: 10px;
+  text-align: center;
+  color: #666666;
+  margin: 0 3.5px;
+  vertical-align: middle;
+}
+.toolbar-container .toolbar-shrink-button {
+  background-color: #fdbc40;
+}
+.toolbar-container .toolbar-enlarge-button {
+  background-color: #34c94a;
+}
+.toolbar-container .toolbar-close-button {
+  background-color: #fc625d;
 }

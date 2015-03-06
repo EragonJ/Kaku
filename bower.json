@@ -16,6 +16,8 @@
   ],
   "dependencies": {
     "react": "~0.12.2",
-    "requirejs": "~2.1.16"
+    "requirejs": "~2.1.16",
+    "normalize.css": "~3.0.2",
+    "components-font-awesome": "~4.3.0"
   }
 }

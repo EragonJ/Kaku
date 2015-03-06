@@ -1,7 +1,47 @@
-.toolbar-slot {
-  height: 20px;
-}
+@import "compass/utilities/general/clearfix";
 
 .toolbar-container {
   text-align: right;
+  background: #efefef;
+  height: 20px;
+  @include pie-clearfix();
+
+  .toolbar-buttons {
+    float: left;
+  }
+
+  .toolbar-song-information {
+    height: 20px;
+    color: #666666;
+    text-align: center;
+  }
+
+  button {
+    padding: 0;
+    border: 0;
+    border-radius: 10px;
+    width: 14px;
+    height: 14px;
+    font-size: 10px;
+    text-align: center;
+    color: #666666;
+    margin: 0 3.5px;
+    vertical-align: middle;
+  }
+
+  .toolbar-shrink-button {
+    background-color: #fdbc40;
+  }
+
+  .toolbar-enlarge-button {
+    background-color: #34c94a;
+  }
+
+  .toolbar-close-button {
+    background-color: #fc625d;
+  }
+
+  .toolbar-devtools-button {
+    background-color: #b3cdf7;
+  }
 }
