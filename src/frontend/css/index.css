@@ -46,3 +46,21 @@ body {
 .toolbar-container .toolbar-devtools-button {
   background-color: #b3cdf7;
 }
+
+.topranking-slot {
+  width: 100%;
+  overflow-x: scroll;
+}
+
+.topranking-container {
+  height: 140px;
+  width: 14000px;
+}
+
+.topranking-track {
+  display: inline-block;
+}
+.topranking-track img {
+  width: 140px;
+  height: 140px;
+}

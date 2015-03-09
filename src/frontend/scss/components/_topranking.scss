@@ -1,0 +1,18 @@
+.topranking-slot {
+  width: 100%;
+  overflow-x: scroll;
+}
+
+.topranking-container {
+  height: 140px;
+  width: 140px * 100;
+}
+
+.topranking-track {
+  display: inline-block;
+
+  img {
+    width: 140px;
+    height: 140px;
+  }
+}

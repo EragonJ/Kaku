@@ -39,6 +39,7 @@
     "gulp-watch": "^4.1.1"
   },
   "dependencies": {
+    "request": "^2.53.0",
     "youtube-dl": "^1.10.1"
   }
 }

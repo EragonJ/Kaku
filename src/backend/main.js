@@ -1,4 +1,8 @@
-var gui = require('nw.gui');
+// By doing so, we won't mess up with `require` keyword
+window.requireNode = window.require;
+window.require = undefined;
+
+var gui = requireNode('nw.gui');
 var win = gui.Window.get();
 
 window.addEventListener('shrink-window', function() {
