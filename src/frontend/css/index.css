@@ -22,6 +22,7 @@ body {
   text-align: center;
 }
 .toolbar-container button {
+  outline: none;
   padding: 0;
   border: 0;
   border-radius: 10px;
@@ -41,4 +42,7 @@ body {
 }
 .toolbar-container .toolbar-close-button {
   background-color: #fc625d;
+}
+.toolbar-container .toolbar-devtools-button {
+  background-color: #b3cdf7;
 }
