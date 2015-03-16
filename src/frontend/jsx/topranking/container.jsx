@@ -28,7 +28,7 @@ define(function(require) {
           })}
         </div>
       );
-    }   
+    }
   });
 
   return <TopRankingContainer/>;
