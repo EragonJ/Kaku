@@ -1,0 +1,12 @@
+.player-container {
+  position: absolute;
+  bottom: 0;
+
+  .track {
+    width: 200px;
+    height: 200px;
+    background-image: url(../images/track-placeholder.png);
+    background-color: #efefef;
+    background-size: 100%;
+  }
+}

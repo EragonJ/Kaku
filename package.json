@@ -40,6 +40,7 @@
   },
   "dependencies": {
     "request": "^2.53.0",
-    "youtube-dl": "^1.10.1"
+    "youtube-dl": "^1.10.1",
+    "youtube-node": "^1.2.0"
   }
 }

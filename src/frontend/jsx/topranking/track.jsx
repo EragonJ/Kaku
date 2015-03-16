@@ -6,9 +6,10 @@ define(function(require) {
       // TODO
     },
     render: function() {
+      var data = this.props.data;
       return (
         <div className="topranking-track">
-          <img src={this.props.data.cover_url_large}/>
+          <img src={data.cover_url_large} title={data.title}/>
         </div>
       );
     }

@@ -1,5 +1,7 @@
 define(function(require) {
 
+  var YoutubeSearcher = require('backend/YoutubeSearcher');
+
   var React = require('react');
   var SearchbarUserInput = require('components/searchbar/user-input');
   var SearchbarSubmitButton = require('components/searchbar/submit-button');

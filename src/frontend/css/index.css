@@ -1,5 +1,21 @@
-body {
-  color: #ccc;
+body,
+html {
+  height: 100%;
+}
+
+.main-container {
+  height: calc(100% - 20px);
+}
+.main-container > div {
+  float: left;
+  display: inline-block;
+  height: 100%;
+}
+.main-container .sidebar-container {
+  width: 200px;
+}
+.main-container .content-container {
+  width: calc(100% - 200px);
 }
 
 .toolbar-container {
@@ -63,4 +79,16 @@ body {
 .topranking-track img {
   width: 140px;
   height: 140px;
+}
+
+.player-container {
+  position: absolute;
+  bottom: 0;
+}
+.player-container .track {
+  width: 200px;
+  height: 200px;
+  background-image: url(../images/track-placeholder.png);
+  background-color: #efefef;
+  background-size: 100%;
 }

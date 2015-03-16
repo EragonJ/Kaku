@@ -1,6 +1,27 @@
-body {
-  color: #ccc;
+body,
+html {
+  height: 100%;
+}
+
+.main-container {
+  // We have to reduce the height of toolbar
+  height: calc(100% - 20px);
+
+  & > div {
+    float: left;
+    display: inline-block;
+    height: 100%;
+  }
+
+  .sidebar-container {
+     width: 200px;
+  }
+
+  .content-container {
+    width: calc(100% - 200px);
+  }
 }
 
 @import 'components/toolbar';
 @import 'components/topranking';
+@import 'components/player';
