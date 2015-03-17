@@ -2,7 +2,19 @@
 
 // XXX
 // we have to use requirejs as entry point
-requirejs(["react", "components/toolbar/container", "components/searchbar/container", "components/topranking/container", "components/player/container"], function (React, ToolbarContainer, SearchbarContainer, TopRankingContainer, PlayerContainer) {
+requirejs([
+  "react",
+  "toolbar/container",
+  "searchbar/container",
+  "topranking/container",
+  "player/container"
+], function (
+  React,
+  ToolbarContainer,
+  SearchbarContainer,
+  TopRankingContainer,
+  PlayerContainer
+) {
 
   // slots list
   var toolbarSlot = document.querySelector(".toolbar-slot");

@@ -2,7 +2,7 @@ define(function(require) {
 
   var React = require('react');
   var TopRanking = require('backend/TopRanking');
-  var TopRankingTrack = require('components/topranking/track');
+  var TopRankingTrack = require('topranking/track');
 
   var TopRankingContainer = React.createClass({
     getInitialState: function() {

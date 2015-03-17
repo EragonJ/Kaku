@@ -3,8 +3,8 @@ define(function(require) {
   var YoutubeSearcher = require('backend/YoutubeSearcher');
 
   var React = require('react');
-  var SearchbarUserInput = require('components/searchbar/user-input');
-  var SearchbarSubmitButton = require('components/searchbar/submit-button');
+  var SearchbarUserInput = require('searchbar/user-input');
+  var SearchbarSubmitButton = require('searchbar/submit-button');
 
   var SearchbarContainer = React.createClass({
     getInitialState: function() {

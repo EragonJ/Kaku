@@ -1,12 +1,16 @@
 define(function(require) {
 
+  var YoutubeSearcher = require('backend/YoutubeSearcher');
   var React = require('react');
+
   var PlayerControlButtons = React.createClass({
     playBackward: function() {
 
     },
     playResume: function() {
-
+      YoutubeSearcher.search('周杰倫 - 稻香').then(function(results) {
+        console.log(results); 
+      });
     },
     playForward: function() {
 

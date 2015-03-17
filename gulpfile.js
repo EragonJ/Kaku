@@ -8,45 +8,50 @@ var sequence = require('gulp-sequence');
 var through2 = require('through2');
 
 const SCSS_FILES = './src/frontend/scss/**/*.scss';
-const JSX_FILES = './src/frontend/jsx/**/*.js';
 const FRONTEND_JS_FILES = './src/frontend/js/**/*.js';
 const BACKEND_JS_FILES = './src/backend/**/*.js';
+const VENDOR_FILES = './src/frontend/vendor/**/*';
 const COMPONENTS_FILES = './src/frontend/js/components/**/*.js';
 const DIST_FILES = './dist/**/*.js';
 
 gulp.task('cleanup', function() {
   return gulp
-    .src([DIST_FILES, COMPONENTS_FILES, '!./src/frontend/js/main.js'], {
+    .src([DIST_FILES], {
       read: false
     })
     .pipe(clean());
 });
 
-gulp.task('jsx', function() {
-  // jsx -> js
-  return gulp
-    .src(JSX_FILES)
-    .pipe(babel())
-    .pipe(gulp.dest('./src/frontend/js/components'));
-});
-
-gulp.task('6to5', function() {
+gulp.task('6to5:frontend', function() {
   // all frontend js in es6 -> es5
   return gulp
     .src(FRONTEND_JS_FILES)
     .pipe(babel())
-    .pipe(gulp.dest('./src/frontend/js'));
+    .pipe(gulp.dest('./dist/frontend'));
+});
+
+gulp.task('6to5:backend', function() {
+  return gulp
+    .src(BACKEND_JS_FILES)
+    .pipe(babel())
+    .pipe(gulp.dest('./dist/backend'));
+});
+
+gulp.task('copy:vendor', function() {
+  return gulp
+    .src(VENDOR_FILES)
+    .pipe(gulp.dest('./dist/vendor'));
 });
 
 gulp.task('rjs', function() {
   // all frontend + backend js -> main.js
   rjs({
     name: 'main',
-    baseUrl: './src/frontend/js',
+    baseUrl: './dist/frontend',
     out: 'main.js',
     paths: {
       react: '../vendor/react/react',
-      backend: '../../backend',
+      backend: '../backend',
     }
   })
   .pipe(through2.obj(function (file, enc, next) {
@@ -71,11 +76,16 @@ gulp.task('compass', function() {
 gulp.task('watch', function() {
   gulp.watch(SCSS_FILES, ['compass']);
   gulp.watch([
-    JSX_FILES,
     FRONTEND_JS_FILES,
     BACKEND_JS_FILES,
     '!' + COMPONENTS_FILES
   ], ['default']);
 });
 
-gulp.task('default', sequence('cleanup', 'jsx', '6to5', 'rjs'));
+gulp.task('default', sequence(
+  'cleanup',
+  '6to5:frontend',
+  '6to5:backend',
+  'copy:vendor',
+  'rjs'
+));
