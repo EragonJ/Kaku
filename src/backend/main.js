@@ -1,6 +1,5 @@
 // By doing so, we won't mess up with `require` keyword
 window.requireNode = window.require;
-window.require = undefined;
 
 var gui = requireNode('nw.gui');
 var win = gui.Window.get();
@@ -20,3 +19,14 @@ window.addEventListener('close-window', function() {
 window.addEventListener('show-devtools', function() {
   win.showDevTools(); 
 });
+
+// Auto-reload nwjs
+var gulp = requireNode('gulp');
+
+gulp.task('reload', function() {
+  if (location) {
+    location.reload();
+  }
+});
+
+gulp.watch('**/*.js', ['reload']);
