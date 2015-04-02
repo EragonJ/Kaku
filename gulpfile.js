@@ -23,17 +23,19 @@ gulp.task('cleanup', function() {
 });
 
 gulp.task('6to5:frontend', function() {
-  // all frontend js in es6 -> es5
   return gulp
     .src(FRONTEND_JS_FILES)
-    .pipe(babel())
+    .pipe(babel({
+      // we only process react here
+      whitelist: ['react']
+    }))
     .pipe(gulp.dest('./dist/frontend'));
 });
 
 gulp.task('6to5:backend', function() {
+  // we just want to move all files to the right place
   return gulp
     .src(BACKEND_JS_FILES)
-    .pipe(babel())
     .pipe(gulp.dest('./dist/backend'));
 });
 
@@ -45,7 +47,7 @@ gulp.task('copy:vendor', function() {
 
 gulp.task('rjs', function() {
   // all frontend + backend js -> main.js
-  rjs({
+  return rjs({
     name: 'main',
     baseUrl: './dist/frontend',
     out: 'main.js',
