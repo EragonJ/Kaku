@@ -1,10 +1,8 @@
 define(function(require) {
 
+  var CoreData = require('backend/CoreData');
   var YoutubeSearcher = require('backend/YoutubeSearcher');
-
   var React = require('react');
-  var SearchbarUserInput = require('searchbar/user-input');
-  var SearchbarSubmitButton = require('searchbar/submit-button');
 
   var SearchbarContainer = React.createClass({
     getInitialState: function() {
@@ -18,7 +16,7 @@ define(function(require) {
       var keyword = this.state.keyword;
       if (!keyword) {
         YoutubeSearcher.search(keyword, 10).then(function(results) {
-          console.log(results);
+          CoreData.searchResults.set(results);
         }, function() {
           // show error
         });
@@ -34,14 +32,13 @@ define(function(require) {
         <div className="searchbar-container">
           <form className="form-inline" onSubmit={this.onSubmit}>
             <div className="form-group">
-              <SearchbarUserInput onChange={this.onInputChange}/>
+              <input className="searchbar-user-input form-control" onChange={this.onInputChange} placeholder="Find something ..."/>
             </div>
-            <SearchbarSubmitButton/>
           </form>
         </div>
       );
     }
   });
 
-  return <SearchbarContainer/>;
+  return SearchbarContainer;
 });

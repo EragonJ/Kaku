@@ -31,5 +31,5 @@ define(function(require) {
     }
   });
 
-  return <TopRankingContainer/>;
+  return TopRankingContainer;
 });

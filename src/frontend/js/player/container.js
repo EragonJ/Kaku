@@ -15,5 +15,5 @@ define(function(require) {
     }
   });
 
-  return <PlayerContainer/>;
+  return PlayerContainer;
 });

@@ -15,16 +15,32 @@ requirejs([
   TopRankingContainer,
   PlayerContainer
 ) {
+  var KakuApp = React.createClass({
+    render: function() {
+      return (
+        <div className="root">
+          <div className="toolbar-slot">
+            <ToolbarContainer/>
+          </div>
+          <div className="main-container clearfix">
+            <div className="sidebar-container">
+              <div className="player-slot">
+                <PlayerContainer/>
+              </div>
+            </div>
+            <div className="content-container">
+              <div className="searchbar-slot">
+                <SearchbarContainer/>
+              </div>
+              <div className="topranking-slot">
+                <TopRankingContainer/>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+  });
 
-  // slots list
-  var toolbarSlot = document.querySelector(".toolbar-slot");
-  var searchbarSlot = document.querySelector(".searchbar-slot");
-  var toprankingSlot = document.querySelector(".topranking-slot");
-  var playerSlot = document.querySelector(".player-slot");
-
-  // render list
-  React.render(ToolbarContainer, toolbarSlot);
-  React.render(SearchbarContainer, searchbarSlot);
-  React.render(TopRankingContainer, toprankingSlot);
-  React.render(PlayerContainer, playerSlot);
+  React.renderComponent(<KakuApp/>, document.body);
 });
