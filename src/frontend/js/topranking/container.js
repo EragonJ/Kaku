@@ -1,4 +1,5 @@
 define(function(require) {
+  'use strict';
 
   var React = require('react');
   var TopRanking = require('backend/TopRanking');

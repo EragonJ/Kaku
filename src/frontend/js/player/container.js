@@ -1,4 +1,5 @@
 define(function(require) {
+  'use strict';
 
   var React = require('react');
   var PlayerControlButtons = require('player/control-buttons');

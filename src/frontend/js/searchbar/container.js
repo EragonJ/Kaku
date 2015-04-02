@@ -1,4 +1,5 @@
 define(function(require) {
+  'use strict';
 
   var CoreData = require('backend/CoreData');
   var YoutubeSearcher = require('backend/YoutubeSearcher');
