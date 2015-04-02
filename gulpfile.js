@@ -84,10 +84,12 @@ gulp.task('watch', function() {
   ], ['default']);
 });
 
-gulp.task('default', sequence(
-  'cleanup',
-  '6to5:frontend',
-  '6to5:backend',
-  'copy:vendor',
-  'rjs'
-));
+gulp.task('default', function(callback) {
+  sequence(
+    'cleanup',
+    '6to5:frontend',
+    '6to5:backend',
+    'copy:vendor',
+    'rjs'
+  )(callback);
+});
