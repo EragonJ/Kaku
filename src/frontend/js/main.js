@@ -1,13 +1,11 @@
-"use strict";
+'use strict';
 
-// XXX
-// we have to use requirejs as entry point
 requirejs([
-  "react",
-  "toolbar/container",
-  "searchbar/container",
-  "topranking/container",
-  "player/container"
+  'react',
+  'toolbar/container',
+  'searchbar/container',
+  'topranking/container',
+  'player/container'
 ], function (
   React,
   ToolbarContainer,

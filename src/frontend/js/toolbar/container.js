@@ -1,23 +1,43 @@
 define(function(require) {
 
   var React = require('react');
-  var ToolbarSongInformation = require('toolbar/song-information');
-  var ToolbarShrinkButton = require('toolbar/shrink-button');
-  var ToolbarEnlargeButton = require('toolbar/enlarge-button');
-  var ToolbarCloseButton = require('toolbar/close-button');
-  var ToolbarDevtoolsButton = require('toolbar/devtools-button');
 
   var ToolbarContainer = React.createClass({
+    handleShrinkButtonClick: function() {
+      var evt = new CustomEvent('shrink-window');
+      window.dispatchEvent(evt);
+    },
+    handleEnlargeButtonClick: function() {
+      var evt = new CustomEvent('enlarge-window');
+      window.dispatchEvent(evt);
+    },
+    handleDevtoolsButtonClick: function() {
+      var evt = new CustomEvent('show-devtools');
+      window.dispatchEvent(evt);
+    },
+    handleCloseButtonClick: function() {
+      var evt = new CustomEvent('close-window');
+      window.dispatchEvent(evt);
+    },
     render: function() {
       return (
         <div className="toolbar-container">
           <div className="toolbar-buttons">
-            <ToolbarCloseButton/>
-            <ToolbarShrinkButton/>
-            <ToolbarEnlargeButton/>
-            <ToolbarDevtoolsButton/>
+            <button className="toolbar-close-button" onClick={this.handleCloseButtonClick}>
+              <i className="fa fa-times"></i>
+            </button>
+            <button className="toolbar-shrink-button" onClick={this.handleShrinkButtonClick}>
+              <i className="fa fa-minus"></i>
+            </button>
+            <button className="toolbar-enlarge-button" onClick={this.handleEnlargeButtonClick}>
+              <i className="fa fa-plus"></i>
+            </button>
+            <button className="toolbar-devtools-button" onClick={this.handleDevtoolsButtonClick}>
+              <i className="fa fa-cog"></i>
+            </button>
           </div>
-          <ToolbarSongInformation/>
+          <div className="toolbar-song-information">
+          </div>
         </div>
       );
     }
