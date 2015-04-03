@@ -3,6 +3,10 @@ window.requireNode = window.require;
 
 var gui = requireNode('nw.gui');
 var win = gui.Window.get();
+var nativeMenuBar = new gui.Menu({ type: "menubar" });
+
+nativeMenuBar.createMacBuiltin('Kaku');
+win.menu = nativeMenuBar;
 
 window.addEventListener('shrink-window', function() {
   win.minimize();
