@@ -29,4 +29,4 @@ gulp.task('reload', function() {
   }
 });
 
-gulp.watch('**/*.js', ['reload']);
+gulp.watch('dist/main.js', ['reload']);

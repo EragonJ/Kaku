@@ -1,13 +1,22 @@
 define(function(require) {
-  var Cortex = requireNode('cortexjs');
-  var CoreData = new Cortex({
+  var Watch = requireNode('watchjs');
+  var watch = Watch.watch;
+  var unwatch = Watch.unwatch;
+
+  var CoreData = {
     currentSong: {
       coverUrl: '',
       title: '',
       artist: '',
     },
     searchResults: []
-  });
+  };
 
-  return CoreData;
+  return {
+    set: function(key, value) {
+      CoreData[key] = value;
+    },
+    watch: watch.bind({}, CoreData),
+    unwatch: unwatch.bind({}, CoreData)
+  };
 });

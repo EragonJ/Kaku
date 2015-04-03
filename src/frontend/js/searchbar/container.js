@@ -15,9 +15,9 @@ define(function(require) {
       event.preventDefault();
       // Start to search
       var keyword = this.state.keyword;
-      if (!keyword) {
+      if (keyword) {
         YoutubeSearcher.search(keyword, 10).then(function(results) {
-          CoreData.searchResults.set(results);
+          CoreData.set('searchResults', results);
         }, function() {
           // show error
         });

@@ -4,6 +4,7 @@ var compass = require('gulp-compass');
 var babel = require('gulp-babel');
 var uglify = require('gulp-uglify');
 var clean = require('gulp-clean');
+var jshint = require('gulp-jshint');
 var sequence = require('gulp-sequence');
 var through2 = require('through2');
 
@@ -37,6 +38,13 @@ gulp.task('6to5:backend', function() {
   return gulp
     .src(BACKEND_JS_FILES)
     .pipe(gulp.dest('./dist/backend'));
+});
+
+gulp.task('linter', function() {
+  return gulp
+    .src(['./dist/frontend/**/*.js', './dist/backend/**/*.js'])
+    .pipe(jshint())
+    .pipe(jshint.reporter('jshint-stylish'));
 });
 
 gulp.task('copy:vendor', function() {
@@ -89,6 +97,7 @@ gulp.task('default', function(callback) {
     'cleanup',
     '6to5:frontend',
     '6to5:backend',
+    'linter',
     'copy:vendor',
     'rjs'
   )(callback);

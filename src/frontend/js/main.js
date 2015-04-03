@@ -5,12 +5,14 @@ requirejs([
   'toolbar/container',
   'searchbar/container',
   'topranking/container',
+  'alltracks/container',
   'player/container'
 ], function (
   React,
   ToolbarContainer,
   SearchbarContainer,
   TopRankingContainer,
+  AllTracksContainer,
   PlayerContainer
 ) {
   var KakuApp = React.createClass({
@@ -32,6 +34,9 @@ requirejs([
               </div>
               <div className="topranking-slot">
                 <TopRankingContainer/>
+              </div>
+              <div className="alltracks-slot">
+                <AllTracksContainer/>
               </div>
             </div>
           </div>
