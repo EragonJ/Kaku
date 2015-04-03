@@ -1,13 +1,18 @@
 @import "compass/utilities/general/clearfix";
 
 .toolbar-container {
+  position: relative;
   text-align: right;
   background: #efefef;
-  height: 20px;
-  @include pie-clearfix();
+  height: 40px;
+  border-bottom: 1px solid #cccccc;
 
   .toolbar-buttons {
+    position: absolute;
     float: left;
+    top: 50%;
+    left: 10px;
+    margin-top: -10px;
   }
 
   .toolbar-song-information {
@@ -18,16 +23,14 @@
 
   button {
     outline: none;
-    padding: 0;
     border: 0;
     border-radius: 10px;
-    width: 14px;
-    height: 14px;
     font-size: 10px;
-    text-align: center;
     color: #666666;
     margin: 0 3.5px;
-    vertical-align: middle;
+    padding: 0;
+    width: 16px;
+    height: 16px;
   }
 
   .toolbar-shrink-button {
@@ -44,5 +47,16 @@
 
   .toolbar-devtools-button {
     background-color: #b3cdf7;
+  }
+
+  .searchbar-container {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .searchbar-user-input {
+    height: 26px;
   }
 }

@@ -1,15 +1,20 @@
 .topranking-slot {
-  width: 100%;
+  // -10px to make it align to the search form
+  width: calc(100% - 10px);
   overflow-x: scroll;
+  border: 1px solid #cccccc;
+  margin: 10px 0;
 }
 
 .topranking-container {
-  height: 140px;
-  width: 140px * 100;
+  $size: 150px;
+  height: $size;
+  width: $size * 100;
 }
 
 .topranking-track {
   display: inline-block;
+  padding: 5px;
 
   img {
     width: 140px;

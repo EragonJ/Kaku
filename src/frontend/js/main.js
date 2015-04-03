@@ -3,14 +3,12 @@
 requirejs([
   'react',
   'toolbar/container',
-  'searchbar/container',
   'topranking/container',
   'alltracks/container',
   'player/container'
 ], function (
   React,
   ToolbarContainer,
-  SearchbarContainer,
   TopRankingContainer,
   AllTracksContainer,
   PlayerContainer
@@ -19,22 +17,30 @@ requirejs([
     render: function() {
       return (
         <div className="root">
-          <div className="toolbar-slot">
-            <ToolbarContainer/>
+          <div className="row">
+            <div className="col-md-12">
+              <div className="toolbar-slot">
+                <ToolbarContainer/>
+              </div>
+            </div>
           </div>
-          <div className="main-container clearfix">
-            <div className="sidebar-container">
+          <div className="row">
+            <div className="col-md-3">
               <div className="player-slot">
                 <PlayerContainer/>
               </div>
             </div>
-            <div className="content-container">
-              <div className="searchbar-slot">
-                <SearchbarContainer/>
-              </div>
+            <div className="col-md-9">
+              <h1>Top Rankings</h1>
               <div className="topranking-slot">
                 <TopRankingContainer/>
               </div>
+            </div>
+          </div>
+          <div className="main-container clearfix">
+            <div className="sidebar-container">
+            </div>
+            <div className="content-container">
               <div className="alltracks-slot">
                 <AllTracksContainer/>
               </div>

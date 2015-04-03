@@ -19,18 +19,18 @@ html {
 }
 
 .toolbar-container {
+  position: relative;
   text-align: right;
   background: #efefef;
-  height: 20px;
-  *zoom: 1;
-}
-.toolbar-container:after {
-  content: "";
-  display: table;
-  clear: both;
+  height: 40px;
+  border-bottom: 1px solid #cccccc;
 }
 .toolbar-container .toolbar-buttons {
+  position: absolute;
   float: left;
+  top: 50%;
+  left: 10px;
+  margin-top: -10px;
 }
 .toolbar-container .toolbar-song-information {
   height: 20px;
@@ -39,16 +39,14 @@ html {
 }
 .toolbar-container button {
   outline: none;
-  padding: 0;
   border: 0;
   border-radius: 10px;
-  width: 14px;
-  height: 14px;
   font-size: 10px;
-  text-align: center;
   color: #666666;
   margin: 0 3.5px;
-  vertical-align: middle;
+  padding: 0;
+  width: 16px;
+  height: 16px;
 }
 .toolbar-container .toolbar-shrink-button {
   background-color: #fdbc40;
@@ -62,29 +60,37 @@ html {
 .toolbar-container .toolbar-devtools-button {
   background-color: #b3cdf7;
 }
+.toolbar-container .searchbar-container {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.toolbar-container .searchbar-user-input {
+  height: 26px;
+}
 
 .topranking-slot {
-  width: 100%;
+  width: calc(100% - 10px);
   overflow-x: scroll;
+  border: 1px solid #cccccc;
+  margin: 10px 0;
 }
 
 .topranking-container {
-  height: 140px;
-  width: 14000px;
+  height: 150px;
+  width: 15000px;
 }
 
 .topranking-track {
   display: inline-block;
+  padding: 5px;
 }
 .topranking-track img {
   width: 140px;
   height: 140px;
 }
 
-.player-container {
-  position: absolute;
-  bottom: 0;
-}
 .player-container .track {
   width: 200px;
   height: 200px;

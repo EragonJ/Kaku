@@ -8,9 +8,9 @@
     "icon": "public/images/icon.png",
     "toolbar": false,
     "frame": false,
-    "width": 895,
+    "width": 1000,
     "height": 600,
-    "min_width": 895,
+    "min_width": 1000,
     "min_height": 600,
     "resizable": true,
     "position": "center"

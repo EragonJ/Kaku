@@ -2,6 +2,7 @@ define(function(require) {
   'use strict';
 
   var React = require('react');
+  var SearchbarContainer = require('searchbar/container');
 
   var ToolbarContainer = React.createClass({
     handleShrinkButtonClick: function() {
@@ -22,30 +23,32 @@ define(function(require) {
     },
     render: function() {
       return (
-        <div className="toolbar-container">
+        <div className="toolbar-container clearfix">
           <div className="toolbar-buttons">
             <button
               className="toolbar-close-button"
               onClick={this.handleCloseButtonClick}>
-                <i className="fa fa-times"></i>
+                <i className="fa fa-fw fa-times"></i>
             </button>
             <button
               className="toolbar-shrink-button"
               onClick={this.handleShrinkButtonClick}>
-                <i className="fa fa-minus"></i>
+                <i className="fa fa-fw fa-minus"></i>
             </button>
             <button
               className="toolbar-enlarge-button"
               onClick={this.handleEnlargeButtonClick}>
-                <i className="fa fa-plus"></i>
+                <i className="fa fa-fw fa-plus"></i>
             </button>
             <button
               className="toolbar-devtools-button"
               onClick={this.handleDevtoolsButtonClick}>
-                <i className="fa fa-cog"></i>
+                <i className="fa fa-fw fa-cog"></i>
             </button>
           </div>
-          <div className="toolbar-song-information">
+          <span className="toolbar-song-information"></span>
+          <div className="searchbar-slot">
+            <SearchbarContainer/>
           </div>
         </div>
       );
