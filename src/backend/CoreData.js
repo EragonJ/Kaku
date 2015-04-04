@@ -4,6 +4,9 @@ define(function(require) {
   var unwatch = Watch.unwatch;
 
   var CoreData = {
+    currentTrack: {},
+    // TODO
+    // deprecate currentSong later
     currentSong: {
       coverUrl: '',
       title: '',

@@ -15,10 +15,11 @@
     "tests"
   ],
   "dependencies": {
-    "react": "~0.12.2",
+    "react": "~0.13.1",
     "requirejs": "~2.1.16",
     "normalize.css": "~3.0.2",
     "components-font-awesome": "~4.3.0",
-    "bootstrap": "~3.3.4"
+    "bootstrap": "~3.3.4",
+    "video.js": "~4.12.5"
   }
 }

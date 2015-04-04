@@ -51,5 +51,5 @@ requirejs([
     }
   });
 
-  React.renderComponent(<KakuApp/>, document.body);
+  React.render(<KakuApp/>, document.body);
 });

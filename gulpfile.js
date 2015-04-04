@@ -13,7 +13,7 @@ const FRONTEND_JS_FILES = './src/frontend/js/**/*.js';
 const BACKEND_JS_FILES = './src/backend/**/*.js';
 const VENDOR_FILES = './src/frontend/vendor/**/*';
 const COMPONENTS_FILES = './src/frontend/js/components/**/*.js';
-const DIST_FILES = './dist/**/*.js';
+const DIST_FILES = './dist';
 
 gulp.task('cleanup', function() {
   return gulp
@@ -59,9 +59,14 @@ gulp.task('rjs', function() {
     name: 'main',
     baseUrl: './dist/frontend',
     out: 'main.js',
+    shim: {
+      videojs: 'videojs'
+    },
     paths: {
       react: '../vendor/react/react',
+      vendor: '../vendor',
       backend: '../backend',
+      videojs: '../vendor/video.js/dist/video-js/video'
     }
   })
   .pipe(through2.obj(function (file, enc, next) {
