@@ -33,7 +33,7 @@ define(function(require) {
         <div className="searchbar-container">
           <form className="form-inline" onSubmit={this.onSubmit}>
             <div className="form-group">
-              <input className="searchbar-user-input form-control" onChange={this.onInputChange} placeholder="Find something ..."/>
+              <input tabIndex="1" className="searchbar-user-input form-control" onChange={this.onInputChange} placeholder="Find something ..."/>
             </div>
           </form>
         </div>

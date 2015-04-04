@@ -17,14 +17,14 @@ requirejs([
     render: function() {
       return (
         <div className="root">
-          <div className="row">
+          <div className="row row-no-padding">
             <div className="col-md-12">
               <div className="toolbar-slot">
                 <ToolbarContainer/>
               </div>
             </div>
           </div>
-          <div className="row">
+          <div className="row row-no-padding">
             <div className="col-md-3">
               <div className="player-slot">
                 <PlayerContainer/>
