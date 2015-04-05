@@ -33,4 +33,7 @@ gulp.task('reload', function() {
   }
 });
 
-gulp.watch('dist/main.js', ['reload']);
+gulp.watch([
+  'dist/frontend',
+  'dist/backend'
+], ['reload']);

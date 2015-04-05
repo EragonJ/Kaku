@@ -5,6 +5,7 @@ var babel = require('gulp-babel');
 var uglify = require('gulp-uglify');
 var clean = require('gulp-clean');
 var jshint = require('gulp-jshint');
+var htmlreplace = require('gulp-html-replace');
 var sequence = require('gulp-sequence');
 var through2 = require('through2');
 
@@ -14,6 +15,7 @@ const BACKEND_JS_FILES = './src/backend/**/*.js';
 const VENDOR_FILES = './src/frontend/vendor/**/*';
 const COMPONENTS_FILES = './src/frontend/js/components/**/*.js';
 const DIST_FILES = './dist';
+const INDEX_FILE = './index.html';
 
 gulp.task('cleanup', function() {
   return gulp
@@ -90,6 +92,18 @@ gulp.task('compass', function() {
     .pipe(gulp.dest('./src/frontend/css'));
 });
 
+gulp.task('override', function() {
+  return gulp
+    .src(INDEX_FILE)
+    .pipe(htmlreplace({
+      rjs: {
+        src: 'dist/main',
+        tpl: '<script data-main="%s" src="src/frontend/vendor/requirejs/require.js"></script>'
+      }
+    }))
+    .pipe(gulp.dest('./'));
+});
+
 gulp.task('watch', function() {
   gulp.watch(SCSS_FILES, ['compass']);
   gulp.watch([
@@ -99,13 +113,24 @@ gulp.task('watch', function() {
   ], ['default']);
 });
 
-gulp.task('default', function(callback) {
+gulp.task('build', function(callback) {
   sequence(
     'cleanup',
     '6to5:frontend',
     '6to5:backend',
     'linter',
     'copy:vendor',
-    'rjs'
+    'rjs',
+    'override'
+  )(callback);
+});
+
+gulp.task('default', function(callback) {
+  sequence(
+    'cleanup',
+    '6to5:frontend',
+    '6to5:backend',
+    'linter',
+    'copy:vendor'
   )(callback);
 });

@@ -1,5 +1,20 @@
 'use strict';
 
+requirejs.config({
+  baseUrl: './dist/frontend',
+  shim: {
+    videojs: 'videojs'
+  },
+  paths: {
+    react: '../vendor/react/react',
+    vendor: '../vendor',
+    backend: '../backend',
+    videojs: '../vendor/video.js/dist/video-js/video',
+    jquery: '../vendor/jquery/dist/jquery.min',
+    bootstrap: '../vendor/bootstrap/dist/js/bootstrap.min'
+  }
+});
+
 requirejs([
   'react',
   'toolbar/container',
