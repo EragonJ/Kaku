@@ -19,17 +19,22 @@ define(function(require) {
     },
 
     _setupPlayer: function() {
-      var player = document.createElement('video');
-      player.id = 'player';
-      this.refs.playerContainer.getDOMNode().appendChild(player);
+      var self = this;
+      var playerDOM = document.createElement('video');
+      playerDOM.id = 'player';
+      this.refs.playerContainer.getDOMNode().appendChild(playerDOM);
 
-      // fallback mechanism
       videojs.options.flash.swf = 'dist/vendor/video.js/dist/video-js.swf';
-      videojs(player, {});
-
-      this.setState({
-        player: player
-      })
+      videojs(playerDOM).ready(function() {
+        // NOTE: 
+        // this reference to videojs-ed player
+        this.width('100%');
+        this.height('auto');
+        this.bigPlayButton.hide();
+        self.setState({
+          player: this
+        })
+      });
     },
 
     _watchCurrentTrackChange: function() {
@@ -42,15 +47,14 @@ define(function(require) {
         var trackUrl = trackInfo.platformTrackUrl;
         TrackInfoFetcher.getInfo(trackUrl).then(function(fetchedInfo) {
           var trackRealUrl = fetchedInfo.url;
-
-          self.state.player.src = trackRealUrl;
+          self.state.player.src(trackRealUrl);
           self.state.player.play();
         });
       });
     },
     render: function() {
       return (
-        <div className="playerContainer" ref="playerContainer"></div>
+        <div className="playerContainer vjs-default-skin" ref="playerContainer"></div>
       );
     }
   });

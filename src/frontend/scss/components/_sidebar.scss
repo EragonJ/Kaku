@@ -1,0 +1,34 @@
+.sidebar {
+  height: 100%;
+  border-right: 1px solid #cccccc;
+
+  .menus {
+    // 155px is the height of player
+    height: calc(100% - 155px);
+
+    ul li {
+      font-size: 16px;
+      padding: 5px;
+      border-bottom: 1px solid #cccccc;
+
+      .icon {
+        margin-right: 5px;
+      }
+    }
+  }
+
+  .player {
+    // its height would be 155px
+    .track {
+      width: 200px;
+      height: 200px;
+      background-image: url(../images/track-placeholder.png);
+      background-color: #efefef;
+      background-size: 100%;
+    }
+
+    video {
+      width: 100%;
+    }
+  }
+}

@@ -66,7 +66,9 @@ gulp.task('rjs', function() {
       react: '../vendor/react/react',
       vendor: '../vendor',
       backend: '../backend',
-      videojs: '../vendor/video.js/dist/video-js/video'
+      videojs: '../vendor/video.js/dist/video-js/video',
+      jquery: '../vendor/jquery/dist/jquery.min',
+      bootstrap: '../vendor/bootstrap/dist/js/bootstrap.min'
     }
   })
   .pipe(through2.obj(function (file, enc, next) {

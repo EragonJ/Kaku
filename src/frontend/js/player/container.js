@@ -8,7 +8,7 @@ define(function(require) {
   var PlayerContainer = React.createClass({
     render: function() {
       return (
-        <div className="player-container">
+        <div className="player">
           <PlayerTrack/>
           <PlayerControlButtons/>
         </div>

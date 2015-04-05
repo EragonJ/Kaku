@@ -7,17 +7,25 @@
 }
 
 .topranking-container {
-  $size: 150px;
-  height: $size;
-  width: $size * 100;
-}
+  $imageSize: 140px;
+  $trackPadding: 5px;
+  $trackMargin: 5px;
+  $trackBorder: 1px;
 
-.topranking-track {
-  display: inline-block;
-  padding: 5px;
+  $trackSize: $imageSize + ($trackPadding + $trackMargin + $trackBorder) * 2;
+  width: $trackSize * 100;
+  height: $trackSize;
 
-  img {
-    width: 140px;
-    height: 140px;
+  .topranking-track {
+    display: inline-block;
+    padding: $trackPadding;
+    border: $trackBorder solid #cccccc;
+    margin: $trackMargin;
+
+    img {
+      width: $imageSize;
+      height: $imageSize;
+    }
   }
 }
+

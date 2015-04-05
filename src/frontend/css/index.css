@@ -1,21 +1,15 @@
 body,
-html {
+html,
+.root {
   height: 100%;
 }
 
-.main-container {
-  height: calc(100% - 20px);
+a {
+  color: initial;
 }
-.main-container > div {
-  float: left;
-  display: inline-block;
-  height: 100%;
-}
-.main-container .sidebar-container {
-  width: 200px;
-}
-.main-container .content-container {
-  width: calc(100% - 200px);
+a:hover, a:focus {
+  color: initial;
+  text-decoration: initial;
 }
 
 .row-no-padding {
@@ -25,6 +19,17 @@ html {
 .row-no-padding [class*="col-"] {
   padding-left: 0 !important;
   padding-right: 0 !important;
+}
+
+.top-row {
+  height: 40px;
+}
+
+.bottom-row {
+  height: calc(100% - 40px);
+}
+.bottom-row > .col {
+  height: 100%;
 }
 
 .toolbar-container {
@@ -87,23 +92,53 @@ html {
 }
 
 .topranking-container {
-  height: 150px;
-  width: 15000px;
+  width: 16200px;
+  height: 162px;
 }
-
-.topranking-track {
+.topranking-container .topranking-track {
   display: inline-block;
   padding: 5px;
+  border: 1px solid #cccccc;
+  margin: 5px;
 }
-.topranking-track img {
+.topranking-container .topranking-track img {
   width: 140px;
   height: 140px;
 }
 
-.player-container .track {
+.sidebar {
+  height: 100%;
+  border-right: 1px solid #cccccc;
+}
+.sidebar .menus {
+  height: calc(100% - 155px);
+}
+.sidebar .menus ul li {
+  font-size: 16px;
+  padding: 5px;
+  border-bottom: 1px solid #cccccc;
+}
+.sidebar .menus ul li .icon {
+  margin-right: 5px;
+}
+.sidebar .player .track {
   width: 200px;
   height: 200px;
   background-image: url(../images/track-placeholder.png);
   background-color: #efefef;
   background-size: 100%;
+}
+.sidebar .player video {
+  width: 100%;
+}
+
+.main-content {
+  padding: 10px;
+}
+.main-content h1 {
+  margin: 0;
+}
+
+.vjs-default-skin {
+  background-color: #000000;
 }
