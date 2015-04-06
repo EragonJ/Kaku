@@ -5,6 +5,7 @@ define(function(require) {
 
   var CoreData = {
     currentTrack: {},
+    currentTab: 'home',
     // TODO
     // deprecate currentSong later
     currentSong: {

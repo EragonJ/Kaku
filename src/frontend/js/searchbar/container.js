@@ -11,29 +11,33 @@ define(function(require) {
         keyword: ''
       };
     },
-    onSubmit: function(event) {
+
+    _onSubmit: function(event) {
       event.preventDefault();
       // Start to search
       var keyword = this.state.keyword;
       if (keyword) {
         YoutubeSearcher.search(keyword, 10).then(function(results) {
           CoreData.set('searchResults', results);
+          CoreData.set('currentTab', 'search');
         }, function() {
           // show error
         });
       }
     },
-    onInputChange: function(event) {
+
+    _onInputChange: function(event) {
       this.setState({
         keyword: event.target.value
       });
     },
+
     render: function() {
       return (
         <div className="searchbar-container">
-          <form className="form-inline" onSubmit={this.onSubmit}>
+          <form className="form-inline" onSubmit={this._onSubmit}>
             <div className="form-group">
-              <input tabIndex="1" className="searchbar-user-input form-control" onChange={this.onInputChange} placeholder="Find something ..."/>
+              <input tabIndex="1" className="searchbar-user-input form-control" onChange={this._onInputChange} placeholder="Find something ..."/>
             </div>
           </form>
         </div>

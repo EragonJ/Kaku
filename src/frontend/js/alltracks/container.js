@@ -2,7 +2,7 @@ define(function(require) {
   'use strict';
 
   var CoreData = require('backend/CoreData');
-  var Track = require('alltracks/track');
+  var Track = require('components/track');
   var React = require('react');
 
   var AllTracksContainer = React.createClass({

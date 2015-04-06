@@ -32,6 +32,17 @@ a:hover, a:focus {
   height: 100%;
 }
 
+.track {
+  display: inline-block;
+  padding: 5px;
+  border: 1px solid #cccccc;
+  margin: 5px;
+}
+.track img {
+  width: 140px;
+  height: 140px;
+}
+
 .toolbar-container {
   -webkit-app-region: drag;
   position: relative;
@@ -98,16 +109,6 @@ a:hover, a:focus {
 .topranking-container {
   width: 16200px;
   height: 162px;
-}
-.topranking-container .topranking-track {
-  display: inline-block;
-  padding: 5px;
-  border: 1px solid #cccccc;
-  margin: 5px;
-}
-.topranking-container .topranking-track img {
-  width: 140px;
-  height: 140px;
 }
 
 .sidebar {

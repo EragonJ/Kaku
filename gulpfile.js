@@ -124,3 +124,7 @@ gulp.task('default', function(callback) {
     'copy:vendor'
   )(callback);
 });
+
+// TODO
+// we have to add `compass` task back in building process
+// and have to use build:css to replace all css into one

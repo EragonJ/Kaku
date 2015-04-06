@@ -36,6 +36,10 @@ a {
   }
 }
 
+@import 'components/variables';
+@import 'components/track';
+
+
 @import 'components/toolbar';
 @import 'components/topranking';
 @import 'components/sidebar';

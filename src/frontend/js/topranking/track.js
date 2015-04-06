@@ -9,7 +9,7 @@ define(function(require) {
     render: function() {
       var data = this.props.data;
       return (
-        <div className="topranking-track">
+        <div className="track">
           <img src={data.cover_url_large} title={data.title}/>
         </div>
       );

@@ -7,25 +7,8 @@
 }
 
 .topranking-container {
-  $imageSize: 140px;
-  $trackPadding: 5px;
-  $trackMargin: 5px;
-  $trackBorder: 1px;
-
-  $trackSize: $imageSize + ($trackPadding + $trackMargin + $trackBorder) * 2;
+  $trackSize: $defaultTrackImageSize + ($defaultTrackPadding + $defaultTrackMargin + $defaultTrackBorder) * 2;
   width: $trackSize * 100;
   height: $trackSize;
-
-  .topranking-track {
-    display: inline-block;
-    padding: $trackPadding;
-    border: $trackBorder solid #cccccc;
-    margin: $trackMargin;
-
-    img {
-      width: $imageSize;
-      height: $imageSize;
-    }
-  }
 }
 

@@ -3,7 +3,7 @@ define(function(require) {
 
   var CoreData = require('backend/CoreData');
   var TrackInfoFetcher = require('backend/TrackInfoFetcher');
-  var videojs = require('videojs');
+  var Player = require('models/Player');
   var React = require('react');
 
   var PlayerTrack = React.createClass({
@@ -18,22 +18,32 @@ define(function(require) {
       this._watchCurrentTrackChange();
     },
 
+    _onPlayerPlay: function() {
+
+    },
+
+    _onPlayerPause: function() {
+
+    },
+
+    _onPlayerProgress: function() {
+      
+    },
+
     _setupPlayer: function() {
       var self = this;
       var playerDOM = document.createElement('video');
       playerDOM.id = 'player';
       this.refs.playerContainer.getDOMNode().appendChild(playerDOM);
 
-      videojs.options.flash.swf = 'dist/vendor/video.js/dist/video-js.swf';
-      videojs(playerDOM).ready(function() {
-        // NOTE: 
-        // this reference to videojs-ed player
-        this.width('100%');
-        this.height('auto');
-        this.bigPlayButton.hide();
+      Player.setPlayer(playerDOM);
+      Player.ready().then(function(player) {
+        player.on('play', self._onPlayerPlay);
+        player.on('pause', self._onPlayerPause);
+        player.on('progress', self._onPlayerProgress);
         self.setState({
-          player: this
-        })
+          player: player
+        });
       });
     },
 
@@ -52,6 +62,7 @@ define(function(require) {
         });
       });
     },
+
     render: function() {
       return (
         <div className="playerContainer vjs-default-skin" ref="playerContainer"></div>

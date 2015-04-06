@@ -1,0 +1,11 @@
+.track {
+  display: inline-block;
+  padding: $defaultTrackPadding;
+  border: $defaultTrackBorder solid #cccccc;
+  margin: $defaultTrackMargin;
+
+  img {
+    width: $defaultTrackImageSize;
+    height: $defaultTrackImageSize;
+  }
+}
