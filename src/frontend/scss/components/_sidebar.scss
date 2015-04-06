@@ -8,8 +8,17 @@
 
     ul li {
       font-size: 16px;
-      padding: 5px;
       border-bottom: 1px solid #cccccc;
+      border-left: 5px solid #ffffff;
+
+      &.active {
+        border-left-color: #cccccc;
+      }
+
+      a {
+        display: block;
+        padding: 5px;
+      }
 
       .icon {
         margin-right: 5px;

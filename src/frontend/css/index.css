@@ -115,8 +115,15 @@ a:hover, a:focus {
 }
 .sidebar .menus ul li {
   font-size: 16px;
-  padding: 5px;
   border-bottom: 1px solid #cccccc;
+  border-left: 5px solid #ffffff;
+}
+.sidebar .menus ul li.active {
+  border-left-color: #cccccc;
+}
+.sidebar .menus ul li a {
+  display: block;
+  padding: 5px;
 }
 .sidebar .menus ul li .icon {
   margin-right: 5px;

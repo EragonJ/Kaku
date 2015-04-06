@@ -65,12 +65,11 @@ fetchRjsConfig().then(function(rjsConfig) {
                         <div className="topranking-slot">
                           <TopRankingContainer/>
                         </div>
-                        <div className="alltracks-slot">
-                          <AllTracksContainer/>
-                        </div>
                     </div>
                     <div role="tabpanel" className="tab-pane" id="tab-search">
-                      123
+                      <div className="alltracks-slot">
+                        <AllTracksContainer/>
+                      </div>
                     </div>
                   </div>
                 </div>
