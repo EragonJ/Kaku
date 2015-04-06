@@ -8,7 +8,6 @@ var clean = require('gulp-clean');
 var jshint = require('gulp-jshint');
 var htmlreplace = require('gulp-html-replace');
 var sequence = require('gulp-sequence');
-var through2 = require('through2');
 
 const SCSS_FILES = './src/frontend/scss/**/*.scss';
 const FRONTEND_JS_FILES = './src/frontend/js/**/*.js';
@@ -66,13 +65,8 @@ gulp.task('rjs', function(done) {
     else {
       var rjsConfig = JSON.parse(rawData);
       rjs(rjsConfig)
-      .pipe(through2.obj(function (file, enc, next) {
-        this.push(file);
-        this.end();
-        next();
-      }))
-      .pipe(gulp.dest('dist/'))
-      .on('end', done);
+        .pipe(gulp.dest('dist/'))
+        .on('end', done);
     }
   });
 });

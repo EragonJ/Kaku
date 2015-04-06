@@ -42,8 +42,7 @@
     "gulp-sequence": "^0.3.2",
     "gulp-uglify": "^1.1.0",
     "gulp-watch": "^4.1.1",
-    "jshint-stylish": "^1.0.1",
-    "through2": "^0.6.3"
+    "jshint-stylish": "^1.0.1"
   },
   "dependencies": {
     "request": "^2.53.0",
