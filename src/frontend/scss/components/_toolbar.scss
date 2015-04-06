@@ -1,6 +1,12 @@
 @import "compass/utilities/general/clearfix";
 
 .toolbar-container {
+  -webkit-app-region: drag;
+
+  * {
+    -webkit-app-region: no-drag;
+  }
+
   position: relative;
   text-align: right;
   background: #efefef;

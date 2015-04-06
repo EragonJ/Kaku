@@ -33,11 +33,15 @@ a:hover, a:focus {
 }
 
 .toolbar-container {
+  -webkit-app-region: drag;
   position: relative;
   text-align: right;
   background: #efefef;
   height: 40px;
   border-bottom: 1px solid #cccccc;
+}
+.toolbar-container * {
+  -webkit-app-region: no-drag;
 }
 .toolbar-container .toolbar-buttons {
   position: absolute;
