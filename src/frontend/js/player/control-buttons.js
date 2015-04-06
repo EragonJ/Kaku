@@ -9,7 +9,8 @@ define(function(require) {
   var PlayerControlButtons = React.createClass({
     getInitialState: function() {
       return {
-        player: null
+        player: null,
+        isRepeating: false
       };
     },
       
@@ -47,12 +48,15 @@ define(function(require) {
     },
 
     _onResumeButtonClick: function() {
-      if (this.state.player.paused()) {
-        this.state.player.play();
-      }
-      else {
-        this.state.player.pause();
-      }
+      var self = this;
+      Player.ready().then(function(player) {
+        if (self.state.player.paused()) {
+          self.state.player.play();
+        }
+        else {
+          self.state.player.pause();
+        }
+      });
     },
 
     _onForwardButtonClick: function() {
@@ -63,20 +67,37 @@ define(function(require) {
 
     },
 
+    _onRepeatButtonClick: function() {
+      var self = this;
+      Player.ready().then(function(player) {
+        // TODO
+        // change to different icon here
+        var repeatIconDOM = self.refs.repeatIcon.getDOMNode();
+        repeatIconDOM.classList.toggle('fa-repeat');
+        repeatIconDOM.classList.toggle('fa-times');
+
+        var isRepeating = self.state.isRepeating;
+        player.loop(!isRepeating);
+      });
+    },
+
     render: function() {
       return (
         <div className="control-buttons">
           <button className="backward-button" onClick={this._onBackwardButtonClick}>
-            <i className="fa fa-step-backward"></i>
+            <i className="fa fa-fw fa-step-backward"></i>
           </button>
           <button className="resume-button" onClick={this._onResumeButtonClick}>
-            <i className="fa fa-play" ref="resumeIcon"></i>
+            <i className="fa fa-fw fa-play" ref="resumeIcon"></i>
           </button>
           <button className="forward-button" onClick={this._onForwardButtonClick}>
-            <i className="fa fa-step-forward"></i>
+            <i className="fa fa-fw fa-step-forward"></i>
           </button>
           <button className="download-button" onClick={this._onDownloadButtonClick}>
-            <i className="fa fa-cloud-download"></i>
+            <i className="fa fa-fw fa-cloud-download"></i>
+          </button>
+          <button className="repeat-button" onClick={this._onRepeatButtonClick}>
+            <i className="fa fa-fw fa-repeat" ref="repeatIcon"></i>
           </button>
         </div>
       );
