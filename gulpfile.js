@@ -1,3 +1,4 @@
+var fs = require('fs');
 var gulp = require('gulp');
 var rjs = require('gulp-requirejs');
 var compass = require('gulp-compass');
@@ -55,37 +56,32 @@ gulp.task('copy:vendor', function() {
     .pipe(gulp.dest('./dist/vendor'));
 });
 
-gulp.task('rjs', function() {
+gulp.task('rjs', function(done) {
   // all frontend + backend js -> main.js
-  return rjs({
-    name: 'main',
-    baseUrl: './dist/frontend',
-    out: 'main.js',
-    shim: {
-      videojs: 'videojs'
-    },
-    paths: {
-      react: '../vendor/react/react',
-      vendor: '../vendor',
-      backend: '../backend',
-      videojs: '../vendor/video.js/dist/video-js/video',
-      jquery: '../vendor/jquery/dist/jquery.min',
-      bootstrap: '../vendor/bootstrap/dist/js/bootstrap.min'
+  fs.readFile('./config/rjs_config.json', 'utf-8', function(error, rawData) {
+    if (error) {
+      console.log(error);
+      return;
     }
-  })
-  .pipe(through2.obj(function (file, enc, next) {
-    this.push(file);
-    this.end();
-    next();
-  }))
-  .pipe(gulp.dest('dist/'));
+    else {
+      var rjsConfig = JSON.parse(rawData);
+      rjs(rjsConfig)
+      .pipe(through2.obj(function (file, enc, next) {
+        this.push(file);
+        this.end();
+        next();
+      }))
+      .pipe(gulp.dest('dist/'))
+      .on('end', done);
+    }
+  });
 });
 
 gulp.task('compass', function() {
   return gulp
     .src(SCSS_FILES)
     .pipe(compass({
-      config_file: './config.rb',
+      config_file: './config/compass_config.rb',
       css: 'src/frontend/css',
       sass: 'src/frontend/scss'
     }))

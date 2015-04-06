@@ -1,0 +1,19 @@
+{
+  "name": "main",
+  "out": "main.js",
+  "baseUrl": "./dist/frontend",
+  "shim": {
+    "videojs": "videojs",
+    "bootstrap": {
+      "deps": ["jquery"]
+    }
+  },
+  "paths": {
+    "react": "../vendor/react/react",
+    "vendor": "../vendor",
+    "backend": "../backend",
+    "videojs": "../vendor/video.js/dist/video-js/video",
+    "jquery": "../vendor/jquery/dist/jquery.min",
+    "bootstrap": "../vendor/bootstrap/dist/js/bootstrap.min"
+  }
+}
