@@ -13,7 +13,6 @@ define(function(require) {
 
   Player.prototype = {
     _setupPlayer: function() {
-      this._player.width()
       this._player.width('100%');
       this._player.height('auto');
       this._player.bigPlayButton.hide();

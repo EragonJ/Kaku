@@ -116,7 +116,7 @@ a:hover, a:focus {
   border-right: 1px solid #cccccc;
 }
 .sidebar .menus {
-  height: calc(100% - 155px);
+  height: calc(100% - 165px);
 }
 .sidebar .menus ul li {
   font-size: 16px;
@@ -153,8 +153,13 @@ a:hover, a:focus {
 .sidebar .player .control-buttons button:last-child {
   border-right: 0;
 }
+.sidebar .player #player {
+  position: relative;
+  height: 140px;
+}
 .sidebar .player video {
   width: 100%;
+  height: 140px;
 }
 
 .main-content {
