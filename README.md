@@ -1,5 +1,9 @@
-# kaku
+# Kaku
 The next generation music client
+
+# Latest Screenshot
+
+![Latest Screenshot](http://i.imgur.com/MUXBRlR.png)
 
 # Setup environment
 
@@ -39,6 +43,22 @@ then
 ```bash
 nw .
 ```
+
+# What tech we use ?
+
+1. [Gulp](http://gulpjs.com/) - To build up our environment
+2. [NW.js](http://nwjs.io/) - Let us use web technology to build native app
+3. [Compass / SASS](http://compass-style.org/) - To help us write CSS easily
+4. [Bower](http://bower.io/) - To help us manage frontend resources
+5. [Require.js](http://requirejs.org/) - To help me make codes more structure
+6. [Bootstrap](http://getbootstrap.com/) - To boostrap the whole project including grid system ... etc
+7. [FontAwesome](http://fortawesome.github.io/Font-Awesome/) - To make Kaku look nice
+8. [jQuery](https://jquery.com/) - Bootstrap is based on jQuery
+9. [React.js](http://reactjs.org/) - To help us break UI into small components
+10. [Video.js](http://www.videojs.com/) - To help us control the player
+11. [Babel](https://babeljs.io/) - To do some pre-transfrom process
+12. [NPM](https://www.npmjs.org/) - To help us manage node modules resources
+13. ... still increasing :)
 
 # TODO
 
