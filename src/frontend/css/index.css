@@ -140,6 +140,19 @@ a:hover, a:focus {
   background-color: #efefef;
   background-size: 100%;
 }
+.sidebar .player .control-buttons button {
+  outline: none;
+  border: 0;
+  border-right: 1px solid #cccccc;
+  width: calc(100% / 7);
+  background-color: #efefef;
+}
+.sidebar .player .control-buttons button:active {
+  background-color: #d5d5d5;
+}
+.sidebar .player .control-buttons button:last-child {
+  border-right: 0;
+}
 .sidebar .player video {
   width: 100%;
 }

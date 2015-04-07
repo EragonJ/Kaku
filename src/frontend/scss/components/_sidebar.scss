@@ -36,6 +36,24 @@
       background-size: 100%;
     }
 
+    .control-buttons {
+      button {
+        outline: none;
+        border: 0;
+        border-right: 1px solid #cccccc;
+        width: calc(100% / 7); // we have 7 buttons
+        background-color: #efefef;
+      }
+
+      button:active {
+        background-color: darken(#efefef, 10%);
+      }
+
+      button:last-child {
+        border-right: 0;
+      }
+    }
+
     video {
       width: 100%;
     }

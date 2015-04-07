@@ -3,7 +3,7 @@ define(function(require) {
 
   var fs = requireNode('fs');
   var CoreData = require('backend/CoreData');
-  var Player = require('models/Player');
+  var Player = require('modules/Player');
   var React = require('react');
 
   var PlayerControlButtons = React.createClass({
@@ -67,6 +67,14 @@ define(function(require) {
 
     },
 
+    _onInfoButtonClick: function() {
+
+    },
+
+    _onLyricButtonClick: function() {
+
+    },
+
     _onRepeatButtonClick: function() {
       var self = this;
       Player.ready().then(function(player) {
@@ -93,11 +101,17 @@ define(function(require) {
           <button className="forward-button" onClick={this._onForwardButtonClick}>
             <i className="fa fa-fw fa-step-forward"></i>
           </button>
+          <button className="repeat-button" onClick={this._onRepeatButtonClick}>
+            <i className="fa fa-fw fa-repeat" ref="repeatIcon"></i>
+          </button>
           <button className="download-button" onClick={this._onDownloadButtonClick}>
             <i className="fa fa-fw fa-cloud-download"></i>
           </button>
-          <button className="repeat-button" onClick={this._onRepeatButtonClick}>
-            <i className="fa fa-fw fa-repeat" ref="repeatIcon"></i>
+          <button className="info-button" onClick={this._onInfoButtonClick}>
+            <i className="fa fa-fw fa-info"></i>
+          </button>
+          <button className="lyric-button" onClick={this._onLyricButtonClick}>
+            <i className="fa fa-fw fa-font"></i>
           </button>
         </div>
       );

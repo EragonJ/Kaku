@@ -3,7 +3,7 @@ define(function(require) {
 
   var CoreData = require('backend/CoreData');
   var TrackInfoFetcher = require('backend/TrackInfoFetcher');
-  var Player = require('models/Player');
+  var Player = require('modules/Player');
   var React = require('react');
 
   var PlayerTrack = React.createClass({
