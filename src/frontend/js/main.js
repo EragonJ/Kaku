@@ -55,22 +55,23 @@ fetchRjsConfig().then(function(rjsConfig) {
                 </div>
               </div>
               <div className="col col-md-9">
-                <div className="main-content">
-                  <div className="tab-content">
-                    <div
-                      role="tabpanel"
-                      className="tab-pane active"
-                      id="tab-home">
-                        <h1>Top Rankings</h1>
-                        <div className="topranking-slot">
-                          <TopRankingContainer/>
-                        </div>
-                    </div>
-                    <div role="tabpanel" className="tab-pane" id="tab-search">
+                <div className="tab-content">
+                  <div
+                    role="tabpanel"
+                    className="tab-pane active"
+                    id="tab-home">
+                      <h1>Top Rankings</h1>
+                      <div className="topranking-slot">
+                        <TopRankingContainer/>
+                      </div>
+                  </div>
+                  <div
+                    role="tabpanel"
+                    className="tab-pane"
+                    id="tab-search">
                       <div className="alltracks-slot">
                         <AllTracksContainer/>
                       </div>
-                    </div>
                   </div>
                 </div>
               </div>

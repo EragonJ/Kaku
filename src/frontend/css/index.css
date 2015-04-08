@@ -162,10 +162,12 @@ a:hover, a:focus {
   height: 140px;
 }
 
-.main-content {
+.tab-content {
   padding: 10px;
+  height: 100%;
+  overflow: scroll;
 }
-.main-content h1 {
+.tab-content h1 {
   margin: 0;
 }
 

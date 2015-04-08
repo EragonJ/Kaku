@@ -17,7 +17,7 @@ define(function(require) {
       // Start to search
       var keyword = this.state.keyword;
       if (keyword) {
-        YoutubeSearcher.search(keyword, 10).then(function(results) {
+        YoutubeSearcher.search(keyword, 30).then(function(results) {
           CoreData.set('searchResults', results);
           CoreData.set('currentTab', 'search');
         }, function() {
