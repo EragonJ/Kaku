@@ -60,7 +60,7 @@ fetchRjsConfig().then(function(rjsConfig) {
                     role="tabpanel"
                     className="tab-pane active"
                     id="tab-home">
-                      <h1>Top Rankings</h1>
+                      <h1><i className="fa fa-fw fa-line-chart"></i>Top Rankings</h1>
                       <div className="topranking-slot">
                         <TopRankingContainer/>
                       </div>
@@ -69,6 +69,7 @@ fetchRjsConfig().then(function(rjsConfig) {
                     role="tabpanel"
                     className="tab-pane"
                     id="tab-search">
+                      <h1><i className="fa fa-fw fa-search"></i>Search Results</h1>
                       <div className="alltracks-slot">
                         <AllTracksContainer/>
                       </div>

@@ -1,9 +1,17 @@
 .tab-content {
   padding: 10px;
   height: 100%;
-  overflow: scroll;
+  overflow: auto;
+
 
   h1 {
     margin: 0;
+    border-bottom: 1px solid #cccccc;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+  }
+
+  i {
+    margin-right: 10px;
   }
 }
