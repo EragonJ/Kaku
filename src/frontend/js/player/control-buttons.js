@@ -1,7 +1,9 @@
 define(function(require) {
   'use strict';
 
+  var request = requireNode('request');
   var fs = requireNode('fs');
+  var fdialogs = requireNode('node-webkit-fdialogs');
   var CoreData = require('backend/CoreData');
   var Player = require('modules/Player');
   var React = require('react');
@@ -13,7 +15,7 @@ define(function(require) {
         isRepeating: false
       };
     },
-      
+
     componentDidMount: function() {
       this._setupPlayer();
     },
@@ -64,7 +66,28 @@ define(function(require) {
     },
 
     _onDownloadButtonClick: function() {
-
+      Player.ready().then(function(player) {
+        var src = player.src();
+        var fakeFile = new Buffer('', 'utf-8');
+        fdialogs.saveFile(fakeFile, function (error, path) {
+          if (error) {
+            console.log('error when saving file to - ', path);
+            console.log('file src - ', src);
+          }
+          else {
+            // we got the path from fakeFile, so it's time to save
+            // the real streaming file to override it !
+            //
+            // I know this idea is smart :)
+            request
+              .get(src)
+              .on('error', function() {
+                console.log('error when saving file from stream');
+              })
+              .pipe(fs.createWriteStream(path));
+          }
+        });
+      });
     },
 
     _onInfoButtonClick: function() {
