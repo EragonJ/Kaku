@@ -37,6 +37,7 @@ a:hover, a:focus {
   padding: 5px;
   border: 1px solid #cccccc;
   margin: 5px;
+  cursor: pointer;
 }
 .track img {
   width: 140px;
