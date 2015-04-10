@@ -3,7 +3,7 @@ define(function(require) {
 
   var React = require('react');
   var TopRanking = require('backend/TopRanking');
-  var TopRankingTrack = require('topranking/track');
+  var Track = require('components/track');
 
   var TopRankingContainer = React.createClass({
     getInitialState: function() {
@@ -25,7 +25,7 @@ define(function(require) {
       return (
         <div className="topranking-container clearfix">
           {tracks.map(function(track) {
-            return <TopRankingTrack data={track}/>;
+            return <Track data={track}/>;
           })}
         </div>
       );

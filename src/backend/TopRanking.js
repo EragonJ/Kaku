@@ -2,6 +2,7 @@ define(function(require) {
 
   var request = requireNode('request');
   var BaseModule = require('backend/BaseModule');
+  var BaseTrack = require('backend/models/BaseTrack');
 
   var TopRanking = BaseModule(function() {
     this._selectedSource = 'itunes';
@@ -28,12 +29,13 @@ define(function(require) {
           else {
             var entries = data.feed.entry || [];
             var result = entries.map(function(entry) {
-              return {
-                title: entry['im:name'].label,
-                artist: entry['im:artist'].label,
-                cover_url_medium: entry['im:image'][1].label,
-                cover_url_large: entry['im:image'][2].label
-              };
+              var track = new BaseTrack();
+              track.title = entry['im:name'].label;
+              track.artist = entry['im:artist'].label;
+              track.covers.default = entry['im:image'][1].label;
+              track.covers.medium = entry['im:image'][2].label;
+              track.covers.large = entry['im:image'][2].label;
+              return track;
             });
             resolve(result);
           }

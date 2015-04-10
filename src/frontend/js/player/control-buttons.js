@@ -115,13 +115,13 @@ define(function(require) {
     render: function() {
       return (
         <div className="control-buttons">
-          <button className="backward-button" onClick={this._onBackwardButtonClick}>
+          <button className="backward-button" onClick={this._onBackwardButtonClick} disabled>
             <i className="fa fa-fw fa-step-backward"></i>
           </button>
           <button className="resume-button" onClick={this._onResumeButtonClick}>
             <i className="fa fa-fw fa-play" ref="resumeIcon"></i>
           </button>
-          <button className="forward-button" onClick={this._onForwardButtonClick}>
+          <button className="forward-button" onClick={this._onForwardButtonClick} disabled>
             <i className="fa fa-fw fa-step-forward"></i>
           </button>
           <button className="repeat-button" onClick={this._onRepeatButtonClick}>
@@ -130,10 +130,10 @@ define(function(require) {
           <button className="download-button" onClick={this._onDownloadButtonClick}>
             <i className="fa fa-fw fa-cloud-download"></i>
           </button>
-          <button className="info-button" onClick={this._onInfoButtonClick}>
+          <button className="info-button" onClick={this._onInfoButtonClick} disabled>
             <i className="fa fa-fw fa-info"></i>
           </button>
-          <button className="lyric-button" onClick={this._onLyricButtonClick}>
+          <button className="lyric-button" onClick={this._onLyricButtonClick} disabled>
             <i className="fa fa-fw fa-font"></i>
           </button>
         </div>
