@@ -13,6 +13,10 @@ define(function(require) {
       return (
         <div className="track" onClick={this.handleClick}>
           <img src={data.covers.medium} title={data.title}/>
+          <div className="info">
+            <div className="track-name">{data.title}</div>
+            <div className="track-artist">{data.artist}</div>
+          </div>
         </div>
       );
     }

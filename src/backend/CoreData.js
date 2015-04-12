@@ -17,6 +17,9 @@ define(function(require) {
   };
 
   return {
+    get: function(key) {
+      return CoreData[key];
+    },
     set: function(key, value) {
       CoreData[key] = value;
     },

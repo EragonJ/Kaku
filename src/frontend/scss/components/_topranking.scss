@@ -1,14 +1,14 @@
 .topranking-slot {
   // -10px to make it align to the search form
-  width: calc(100% - 10px);
-  overflow-x: scroll;
-  border: 1px solid #cccccc;
-  margin: 10px 0;
+  // width: calc(100% - 10px);
+  // overflow-x: scroll;
+  // border: 1px solid #cccccc;
+  // margin: 10px 0;
 }
 
 .topranking-container {
-  $trackSize: $defaultTrackImageSize + ($defaultTrackPadding + $defaultTrackMargin + $defaultTrackBorder) * 2;
-  width: $trackSize * 100;
-  height: $trackSize;
+  // $trackSize: $defaultTrackImageSize + ($defaultTrackPadding + $defaultTrackMargin + $defaultTrackBorder) * 2;
+  // width: $trackSize * 100;
+  // height: $trackSize;
 }
 

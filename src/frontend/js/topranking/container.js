@@ -11,6 +11,7 @@ define(function(require) {
         tracks: []
       };
     },
+
     componentDidMount: function() {
       var self = this;
       TopRanking.get().then(function(tracks) {
@@ -19,6 +20,7 @@ define(function(require) {
         });
       });
     },
+
     render: function() {
       var tracks = this.state.tracks;
 

@@ -1,6 +1,7 @@
 define(function(require) {
   'use strict';
 
+  var gui = requireNode('nw.gui');
   var request = requireNode('request');
   var fs = requireNode('fs');
   var fdialogs = requireNode('node-webkit-fdialogs');
@@ -90,8 +91,11 @@ define(function(require) {
       });
     },
 
-    _onInfoButtonClick: function() {
-
+    _onExternalButtonClick: function() {
+      var track = CoreData.get('currentTrack');
+      if (track) {
+        gui.Shell.openExternal(track.platformTrackUrl);
+      }
     },
 
     _onLyricButtonClick: function() {
@@ -130,8 +134,8 @@ define(function(require) {
           <button className="download-button" onClick={this._onDownloadButtonClick}>
             <i className="fa fa-fw fa-cloud-download"></i>
           </button>
-          <button className="info-button" onClick={this._onInfoButtonClick} disabled>
-            <i className="fa fa-fw fa-info"></i>
+          <button className="external-button" onClick={this._onExternalButtonClick}>
+            <i className="fa fa-fw fa-external-link"></i>
           </button>
           <button className="lyric-button" onClick={this._onLyricButtonClick} disabled>
             <i className="fa fa-fw fa-font"></i>

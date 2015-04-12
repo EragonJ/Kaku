@@ -1,12 +1,37 @@
 .track {
   display: inline-block;
+  position: relative;
   padding: $defaultTrackPadding;
   border: $defaultTrackBorder solid #cccccc;
   margin: $defaultTrackMargin;
+  background-color: rgba(0, 0, 0, 0.8);
   cursor: pointer;
 
   img {
     width: $defaultTrackImageSize;
     height: $defaultTrackImageSize;
+    object-fit: contain;
+  }
+
+  .info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: white;
+    padding-left: $defaultTrackPadding;
+    padding-right: $defaultTrackPadding;
+  }
+
+  .track-name,
+  .track-{
+    @include kaku_add_ellipsis();
+  }
+
+  &:hover {
+    .info {
+      background-color: rgba(0, 0, 0, 0.5);
+    }
   }
 }

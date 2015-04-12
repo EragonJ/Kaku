@@ -24,9 +24,15 @@ define(function(require) {
 
     render: function() {
       var tracks = this.state.tracks;
+      var noTracksDiv;
+
+      if (tracks.length === 0) {
+        noTracksDiv = <div className="notracks">No Tracks</div>
+      }
 
       return (
         <div className="alltracks-container">
+          {noTracksDiv}
           {tracks.map(function(track) {
             return <Track data={track}/>;
           })}
