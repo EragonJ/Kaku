@@ -1,43 +1,8 @@
-body,
-html,
-.root {
-  height: 100%;
-}
-
-a {
-  color: initial;
-
-  &:hover,
-  &:focus {
-    color: initial;
-    text-decoration: initial;
-  }
-}
-
-.row-no-padding {
-  margin-left: 0;
-  margin-right: 0;
-
-  [class*="col-"] {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-  }
-}
-
-.top-row {
-  height: 40px;
-}
-
-.bottom-row {
-  height: calc(100% - 40px);
-
-  & > .col {
-    height: 100%;
-  }
-}
-
-@import 'components/variables';
 @import 'components/mixins';
+@import "components/fonts";
+@import 'components/variables';
+
+@import "components/global";
 @import 'components/track';
 
 @import 'components/toolbar';

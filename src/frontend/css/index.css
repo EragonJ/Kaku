@@ -1,6 +1,11 @@
+@font-face {
+  font-family: 'Arimo';
+  src: url(../fonts/Arimo/Arimo-Regular.ttf) format("woff2");
+}
 body,
 html,
 .root {
+  font-family: 'Arimo', sans-serif;
   height: 100%;
 }
 

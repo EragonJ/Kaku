@@ -1,0 +1,39 @@
+body,
+html,
+.root {
+  font-family: 'Arimo', sans-serif;
+  height: 100%;
+}
+
+a {
+  color: initial;
+
+  &:hover,
+  &:focus {
+    color: initial;
+    text-decoration: initial;
+  }
+}
+
+.row-no-padding {
+  margin-left: 0;
+  margin-right: 0;
+
+  [class*="col-"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+.top-row {
+  height: 40px;
+}
+
+.bottom-row {
+  height: calc(100% - 40px);
+
+  & > .col {
+    height: 100%;
+  }
+}
+
