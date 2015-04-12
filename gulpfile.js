@@ -6,9 +6,12 @@ var babel = require('gulp-babel');
 var uglify = require('gulp-uglify');
 var clean = require('gulp-clean');
 var jshint = require('gulp-jshint');
+var nwBuilder = require('node-webkit-builder');
 var htmlreplace = require('gulp-html-replace');
 var sequence = require('gulp-sequence');
 
+// TODO
+// we have to double check **/*.js is a right expression or not
 const SCSS_FILES = './src/frontend/scss/**/*.scss';
 const FRONTEND_JS_FILES = './src/frontend/js/**/*.js';
 const BACKEND_JS_FILES = './src/backend/**/*.js';
@@ -103,6 +106,32 @@ gulp.task('watch', function() {
   ], ['default']);
 });
 
+gulp.task('package', function(done) {
+  // TODO
+  // we should make sure only *needed* stuffs are included
+  var nw = new nwBuilder({
+    files: ['./**/*', '!./build/**/*', '!./cache/**/*', '!./miscs/**/*'],
+    platforms: ['osx64']
+  });
+
+  nw.on('log',  console.log);
+  nw.build().then(function() {
+    console.log('all done!');
+
+    // TODO
+    // fix this path later
+    gulp
+      .src('./miscs/mac/ffmpegsumo.so', {
+        base: './miscs/mac'
+      })
+      .pipe(gulp.dest('./build/Kaku/osx64/Kaku.app/Contents/Frameworks/nwjs Framework.framework/Libraries'))
+      .on('end', done);
+  }).catch(function(error) {
+    console.error(error);
+    done();
+  });
+});
+
 gulp.task('build', function(callback) {
   sequence(
     'cleanup',
@@ -111,7 +140,8 @@ gulp.task('build', function(callback) {
     'linter',
     'copy:vendor',
     'rjs',
-    'override'
+    'override',
+    'package'
   )(callback);
 });
 

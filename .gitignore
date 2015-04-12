@@ -1,6 +1,8 @@
 *.swp
 dist
 src/frontend/vendor
+build
+cache
 node_modules
 .module_cache
 .sass-cache

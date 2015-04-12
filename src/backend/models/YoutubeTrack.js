@@ -7,8 +7,6 @@ define(function(require) {
 
     this._trackUrlPrefix = 'https://www.youtube.com/watch?v=';
 
-    console.log(o);
-
     if (!o.id || !o.snippet) {
       console.error('there is something wrong in passing object');
       console.error(o);
