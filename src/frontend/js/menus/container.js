@@ -48,6 +48,12 @@ define(function(require) {
                 <span className="title">Search Results</span>
               </a>
             </li>
+            <li role="presentation">
+              <a href="#tab-history" role="tab" data-toggle="tab" ref="tab-history">
+                <i className="icon fa fa-fw fa-lg fa-history"></i>
+                <span className="title">Histories</span>
+              </a>
+            </li>
           </ul>
         </div>
       );

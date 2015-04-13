@@ -6,19 +6,20 @@ define(function(require) {
   var CoreData = {
     currentTrack: {},
     currentTab: 'home',
-    // TODO
-    // deprecate currentSong later
-    currentSong: {
-      coverUrl: '',
-      title: '',
-      artist: '',
-    },
+    playedTracks: [],
     searchResults: []
   };
 
   return {
     get: function(key) {
-      return CoreData[key];
+      var target = CoreData[key];
+      // Because watchjs would wrap, we should make them into a simple array
+      if (Object.prototype.toString.call(target) === '[object Array]') {
+        return target.slice();
+      }
+      else {
+        return target;
+      }
     },
     set: function(key, value) {
       CoreData[key] = value;

@@ -50,15 +50,18 @@ define(function(require) {
     _watchCurrentTrackChange: function() {
       var self = this;
       CoreData.watch('currentTrack', function(_1, _2, trackInfo) {
-        // TODO
-        // we should put all information into cache later
-        // to prevent us keep fetching stuffs from server
-
         var trackUrl = trackInfo.platformTrackUrl;
         TrackInfoFetcher.getInfo(trackUrl).then(function(fetchedInfo) {
           var trackRealUrl = fetchedInfo.url;
+          trackInfo.platformTrackRealUrl = trackRealUrl;
+
           self.state.player.src(trackRealUrl);
           self.state.player.play();
+
+          // save this track to playedTracks
+          var playedTracks = CoreData.get('playedTracks');
+          playedTracks.push(trackInfo);
+          CoreData.set('playedTracks', playedTracks);
         });
       });
     },
