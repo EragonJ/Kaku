@@ -7,12 +7,14 @@ define(function(require) {
 
   var PlayerContainer = React.createClass({
     render: function() {
+      /* jshint ignore:start */
       return (
         <div className="player">
           <PlayerTrack/>
           <PlayerControlButtons/>
         </div>
       );
+      /* jshint ignore:end */
     }
   });
 

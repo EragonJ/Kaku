@@ -33,6 +33,7 @@ define(function(require) {
     },
 
     render: function() {
+      /* jshint ignore:start */
       return (
         <div className="menus">
           <ul className="list-unstyled" role="tablist" ref="menus">
@@ -57,6 +58,7 @@ define(function(require) {
           </ul>
         </div>
       );
+      /* jshint ignore:end */
     }
   });
 

@@ -56,7 +56,10 @@ gulp.task('6to5:backend', function() {
 
 gulp.task('linter', function() {
   return gulp
-    .src(['./dist/frontend/**/*.js', './dist/backend/**/*.js'])
+    .src([
+      './src/frontend/js/**/*.js',
+      './src/backend/**/*.js'
+    ])
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish'));
 });

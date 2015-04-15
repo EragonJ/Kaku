@@ -1,5 +1,3 @@
-'use strict';
-
 // TODO
 // if nw.js support chrome > 41, change to use latest fetch API
 var fetchRjsConfig = function() {
@@ -40,6 +38,7 @@ fetchRjsConfig().then(function(rjsConfig) {
   ) {
     var KakuApp = React.createClass({
       render: function() {
+        /* jshint ignore:start */
         return (
           <div className="root">
             <div className="row row-no-padding top-row">
@@ -90,8 +89,12 @@ fetchRjsConfig().then(function(rjsConfig) {
             </div>
           </div>
         );
+        /* jshint ignore:end */
       }
     });
+
+    /* jshint ignore:start */
     React.render(<KakuApp/>, document.body);
+    /* jshint ignore:end */
   });
 });

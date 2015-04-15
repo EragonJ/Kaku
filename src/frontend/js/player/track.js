@@ -67,9 +67,11 @@ define(function(require) {
     },
 
     render: function() {
+      /* jshint ignore:start */
       return (
         <div className="playerContainer vjs-default-skin" ref="playerContainer"></div>
       );
+      /* jshint ignore:end */
     }
   });
 

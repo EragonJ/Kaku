@@ -27,9 +27,12 @@ define(function(require) {
       var noTracksDiv;
 
       if (tracks.length === 0) {
+        /* jshint ignore:start */
         noTracksDiv = <div className="notracks">No Tracks</div>
+        /* jshint ignore:end */
       }
 
+      /* jshint ignore:start */
       return (
         <div className="history-container">
           {noTracksDiv}
@@ -38,6 +41,7 @@ define(function(require) {
           })}
         </div>
       );
+      /* jshint ignore:end */
     }
   });
 

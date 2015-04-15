@@ -24,6 +24,7 @@ define(function(require) {
     render: function() {
       var tracks = this.state.tracks;
 
+      /* jshint ignore:start */
       return (
         <div className="topranking-container clearfix">
           {tracks.map(function(track) {
@@ -31,6 +32,7 @@ define(function(require) {
           })}
         </div>
       );
+      /* jshint ignore:end */
     }
   });
 

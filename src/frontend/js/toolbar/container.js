@@ -22,6 +22,7 @@ define(function(require) {
       window.dispatchEvent(evt);
     },
     render: function() {
+      /* jshint ignore:start */
       return (
         <div className="toolbar-container clearfix">
           <div className="toolbar-buttons">
@@ -52,6 +53,7 @@ define(function(require) {
           </div>
         </div>
       );
+      /* jshint ignore:end */
     }
   });
 

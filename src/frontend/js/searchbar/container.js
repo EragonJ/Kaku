@@ -33,6 +33,7 @@ define(function(require) {
     },
 
     render: function() {
+      /* jshint ignore:start */
       return (
         <div className="searchbar-container">
           <form className="form-inline" onSubmit={this._onSubmit}>
@@ -42,6 +43,7 @@ define(function(require) {
           </form>
         </div>
       );
+      /* jshint ignore:end */
     }
   });
 

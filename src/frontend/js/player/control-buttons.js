@@ -117,6 +117,7 @@ define(function(require) {
     },
 
     render: function() {
+      /* jshint ignore:start */
       return (
         <div className="control-buttons">
           <button className="backward-button" onClick={this._onBackwardButtonClick} disabled>
@@ -142,6 +143,7 @@ define(function(require) {
           </button>
         </div>
       );
+      /* jshint ignore:end */
     }
   });
 

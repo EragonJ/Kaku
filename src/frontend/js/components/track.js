@@ -10,6 +10,8 @@ define(function(require) {
     },
     render: function() {
       var data = this.props.data;
+
+      /* jshint ignore:start */
       return (
         <div className="track" onClick={this.handleClick}>
           <img src={data.covers.medium} title={data.title}/>
@@ -19,6 +21,7 @@ define(function(require) {
           </div>
         </div>
       );
+      /* jshint ignore:end */
     }
   });
 
