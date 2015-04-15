@@ -1,5 +1,6 @@
 var fs = require('fs');
 var gulp = require('gulp');
+var gulpif = require('gulp-if');
 var rjs = require('gulp-requirejs');
 var compass = require('gulp-compass');
 var babel = require('gulp-babel');
@@ -11,6 +12,8 @@ var nwBuilder = require('node-webkit-builder');
 var htmlreplace = require('gulp-html-replace');
 var sequence = require('gulp-sequence');
 
+var CURRENT_ENVIRONMENT = 'development';
+
 // TODO
 // we have to double check **/*.js is a right expression or not
 const SCSS_FILES = './src/frontend/scss/**/*.scss';
@@ -21,6 +24,10 @@ const COMPONENTS_FILES = './src/frontend/js/components/**/*.js';
 const DIST_FILES = './dist';
 const INDEX_TEMPLATE_FILE = './_index.html';
 const INDEX_FILE = './index.html';
+
+function isProduction() {
+  return CURRENT_ENVIRONMENT === 'production';
+}
 
 gulp.task('cleanup', function() {
   return gulp
@@ -88,14 +95,25 @@ gulp.task('compass', function() {
 });
 
 gulp.task('override', function() {
+  // TODO
+  // we have to minify css later
   return gulp
     .src(INDEX_TEMPLATE_FILE)
-    .pipe(htmlreplace({
-      rjs: {
+    .pipe(gulpif(isProduction(), htmlreplace({
+      css: [
+        'dist/frontend/vendor/bootstrap/dist/css/bootstrap.min.css',
+        'dist/frontend/vendor/components-font-awesome/css/font-awesome.min.css',
+        'dist/frontend/vendor/video.js/dist/video-js/video-js.min.css',
+        'dist/frontend/css/index.css'
+      ],
+      backend_js: [
+        'dist/backend/main.js'
+      ],
+      frontend_js: {
         src: 'dist/main',
         tpl: '<script data-main="%s" src="src/frontend/vendor/requirejs/require.js"></script>'
       }
-    }))
+    })))
     .pipe(rename(INDEX_FILE))
     .pipe(gulp.dest('./'));
 });
@@ -136,6 +154,7 @@ gulp.task('package', function(done) {
 });
 
 gulp.task('build', function(callback) {
+  CURRENT_ENVIRONMENT = 'production';
   sequence(
     'cleanup',
     '6to5:frontend',
@@ -149,6 +168,7 @@ gulp.task('build', function(callback) {
 });
 
 gulp.task('default', function(callback) {
+  CURRENT_ENVIRONMENT = 'development';
   sequence(
     'cleanup',
     '6to5:frontend',
