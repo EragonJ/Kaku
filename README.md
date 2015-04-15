@@ -3,7 +3,7 @@ The next generation music client
 
 # Latest Screenshot
 
-![Latest Screenshot](http://i.imgur.com/MUXBRlR.png)
+![Latest Screenshot](http://i.imgur.com/EA2T6YL.jpg)
 
 # Setup environment
 
@@ -32,13 +32,19 @@ nw .
 
 In order to speed up development pace, we won't do too much building tasks in this phase. All we do is to watch all folders and see what files are changed and trigger browser to reload.
 
-First, you need to open a terminal session and do :
+But no matter how, please remember to run following command first to make sure we create all needed temporary files first.
+
+```bash
+gulp
+```
+
+After that, you need to open a terminal session and watch changes in files :
 
 ```bash
 gulp watch
 ```
 
-then
+then run Kaku :
 
 ```bash
 nw .
@@ -62,5 +68,10 @@ nw .
 
 # TODO
 
-+ fixed related UI
-+ Remember to write a installer to package all needed codec based on this article - https://github.com/nwjs/nw.js/wiki/Using-MP3-&-MP4-%28H.264%29-using-the--video--&--audio--tags.
++ Make tracks in Top Rankings playable
++ Add playlist feature
++ Add node-webkit updator
++ Add settings page to make sure users can change their streaming platform
++ Add i18n support
++ Fixed related UI
++ [Done] Remember to write a installer to package all needed codec based on this article - https://github.com/nwjs/nw.js/wiki/Using-MP3-&-MP4-%28H.264%29-using-the--video--&--audio--tags.

@@ -126,6 +126,7 @@ gulp.task('watch', function() {
   gulp.watch([
     FRONTEND_JS_FILES,
     BACKEND_JS_FILES,
+    INDEX_TEMPLATE_FILE,
     '!' + COMPONENTS_FILES
   ], ['default']);
 });
