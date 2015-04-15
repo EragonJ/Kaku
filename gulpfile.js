@@ -6,6 +6,7 @@ var babel = require('gulp-babel');
 var uglify = require('gulp-uglify');
 var clean = require('gulp-clean');
 var jshint = require('gulp-jshint');
+var rename = require("gulp-rename");
 var nwBuilder = require('node-webkit-builder');
 var htmlreplace = require('gulp-html-replace');
 var sequence = require('gulp-sequence');
@@ -18,6 +19,7 @@ const BACKEND_JS_FILES = './src/backend/**/*.js';
 const VENDOR_FILES = './src/frontend/vendor/**/*';
 const COMPONENTS_FILES = './src/frontend/js/components/**/*.js';
 const DIST_FILES = './dist';
+const INDEX_TEMPLATE_FILE = './_index.html';
 const INDEX_FILE = './index.html';
 
 gulp.task('cleanup', function() {
@@ -87,13 +89,14 @@ gulp.task('compass', function() {
 
 gulp.task('override', function() {
   return gulp
-    .src(INDEX_FILE)
+    .src(INDEX_TEMPLATE_FILE)
     .pipe(htmlreplace({
       rjs: {
         src: 'dist/main',
         tpl: '<script data-main="%s" src="src/frontend/vendor/requirejs/require.js"></script>'
       }
     }))
+    .pipe(rename(INDEX_FILE))
     .pipe(gulp.dest('./'));
 });
 
@@ -151,7 +154,8 @@ gulp.task('default', function(callback) {
     '6to5:frontend',
     '6to5:backend',
     'linter',
-    'copy:vendor'
+    'copy:vendor',
+    'override'
   )(callback);
 });
 
