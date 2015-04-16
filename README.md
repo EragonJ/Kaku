@@ -22,17 +22,17 @@ We need to make sure all codes would be moved to the right place and generated t
 gulp build
 ```
 
-After that, you can use nw.js to run Kaku.
-
-```bash
-nw .
-```
+After that, you will get a solid application to run !
 
 ## How to develop
 
 In order to speed up development pace, we won't do too much building tasks in this phase. All we do is to watch all folders and see what files are changed and trigger browser to reload.
 
 But no matter how, please remember to run following command first to make sure we create all needed temporary files first.
+
+**Notes**
+
+If you are using your local `nw.js` to test Kaku, please remember to copy needed **ffmpegsumo** from `miscs/` to your nw.js by following the official article here - http://goo.gl/h1zQ4W
 
 ```bash
 gulp
@@ -68,10 +68,10 @@ nw .
 
 # TODO
 
-+ Make tracks in Top Rankings playable
 + Add playlist feature
 + Add node-webkit updator
 + Add settings page to make sure users can change their streaming platform
 + Add i18n support
 + Fixed related UI
++ [Done] Make tracks in Top Rankings playable
 + [Done] Remember to write a installer to package all needed codec based on this article - https://github.com/nwjs/nw.js/wiki/Using-MP3-&-MP4-%28H.264%29-using-the--video--&--audio--tags.
