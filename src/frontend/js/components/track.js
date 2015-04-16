@@ -5,9 +5,19 @@ define(function(require) {
   var React = require('react');
 
   var Track = React.createClass({
-    handleClick: function(event) {
-      CoreData.set('currentTrack', this.props.data);
+    handleClick: function() {
+      var self = this;
+      var fetchDataFn = this.props.fetchDataFn || function() {
+        var promise = new Promise(function(resolve) {
+          resolve(self.props.data);
+        });
+        return promise;
+      };
+      fetchDataFn().then(function(data) {
+        CoreData.set('currentTrack', data);
+      });
     },
+
     render: function() {
       var data = this.props.data;
 
