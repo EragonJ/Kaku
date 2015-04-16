@@ -5,6 +5,11 @@ define(function(require) {
   var React = require('react');
 
   var Track = React.createClass({
+    propTypes: {
+      data: React.PropTypes.object.isRequired,
+      fetchDataFn: React.PropTypes.func
+    },
+
     handleClick: function() {
       var self = this;
       var fetchDataFn = this.props.fetchDataFn || function() {
