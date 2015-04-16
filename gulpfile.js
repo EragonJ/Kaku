@@ -20,7 +20,6 @@ const SCSS_FILES = './src/frontend/scss/**/*.scss';
 const FRONTEND_JS_FILES = './src/frontend/js/**/*.js';
 const BACKEND_JS_FILES = './src/backend/**/*.js';
 const VENDOR_FILES = './src/frontend/vendor/**/*';
-const COMPONENTS_FILES = './src/frontend/js/components/**/*.js';
 const DIST_FILES = './dist';
 const INDEX_TEMPLATE_FILE = './_index.html';
 const INDEX_FILE = './index.html';
@@ -126,8 +125,7 @@ gulp.task('watch', function() {
   gulp.watch([
     FRONTEND_JS_FILES,
     BACKEND_JS_FILES,
-    INDEX_TEMPLATE_FILE,
-    '!' + COMPONENTS_FILES
+    INDEX_TEMPLATE_FILE
   ], ['default']);
 });
 
