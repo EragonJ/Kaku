@@ -30,10 +30,6 @@ In order to speed up development pace, we won't do too much building tasks in th
 
 But no matter how, please remember to run following command first to make sure we create all needed temporary files first.
 
-**Notes**
-
-If you are using your local `nw.js` to test Kaku, please remember to copy needed **ffmpegsumo** from `miscs/` to your nw.js by following the official article here - http://goo.gl/h1zQ4W
-
 ```bash
 gulp
 ```
@@ -49,6 +45,10 @@ then run Kaku :
 ```bash
 nw .
 ```
+
+**Notes**
+
+If you are using your local `nw.js` to test Kaku, please remember to copy needed **ffmpegsumo** from `miscs/` to your nw.js by following the official article here - http://goo.gl/h1zQ4W
 
 # What tech we use ?
 
