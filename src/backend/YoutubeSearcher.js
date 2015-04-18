@@ -3,7 +3,7 @@ define(function(require) {
 
   var BaseModule = require('backend/BaseModule');
   var Constants = require('backend/Constants');
-  var YoutubeTrack = require('backend/models/YoutubeTrack');
+  var YoutubeTrack = require('backend/models/track/YoutubeTrack');
   var Youtube = requireNode('youtube-node');
   var youtube = new Youtube();
   youtube.setKey(Constants.YOUTUBE_API_KEY);

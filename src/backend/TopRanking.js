@@ -2,7 +2,7 @@ define(function(require) {
 
   var request = requireNode('request');
   var BaseModule = require('backend/BaseModule');
-  var BaseTrack = require('backend/models/BaseTrack');
+  var BaseTrack = require('backend/models/track/BaseTrack');
 
   var TopRanking = BaseModule(function() {
     this._selectedSource = 'itunes';

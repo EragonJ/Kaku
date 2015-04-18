@@ -1,7 +1,7 @@
 define(function(require) {
   'use strict';
 
-  var BaseTrack = require('backend/models/BaseTrack');
+  var BaseTrack = require('backend/models/track/BaseTrack');
   var YoutubeTrack = function(o) {
     BaseTrack.call(this);
 
