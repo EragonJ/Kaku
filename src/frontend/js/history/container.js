@@ -2,6 +2,7 @@ define(function(require) {
   'use strict';
 
   var CoreData = require('backend/CoreData');
+  var NoTrack = require('components/no-track');
   var Track = require('components/track');
   var React = require('react');
 
@@ -23,16 +24,14 @@ define(function(require) {
     },
 
     render: function() {
+      /* jshint ignore:start */
       var tracks = this.state.tracks;
       var noTracksDiv;
 
       if (tracks.length === 0) {
-        /* jshint ignore:start */
-        noTracksDiv = <div className="notracks">No Tracks</div>
-        /* jshint ignore:end */
+        noTracksDiv = <NoTrack/>;
       }
 
-      /* jshint ignore:start */
       return (
         <div className="history-container">
           {noTracksDiv}
