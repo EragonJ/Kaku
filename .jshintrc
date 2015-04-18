@@ -2,5 +2,6 @@
   "curly": true,
   "maxlen": 80,
   "futurehostile": true,
-  "newcap": false
+  "newcap": false,
+  "esnext": true
 }

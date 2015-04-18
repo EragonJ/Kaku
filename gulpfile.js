@@ -39,10 +39,7 @@ gulp.task('cleanup', function() {
 gulp.task('6to5:frontend', function() {
   return gulp
     .src(FRONTEND_JS_FILES)
-    .pipe(babel({
-      // we only process react here
-      whitelist: ['react']
-    }))
+    .pipe(babel())
     .pipe(gulp.dest('./dist/frontend'));
 });
 
@@ -50,6 +47,7 @@ gulp.task('6to5:backend', function() {
   // we just want to move all files to the right place
   return gulp
     .src(BACKEND_JS_FILES)
+    .pipe(babel())
     .pipe(gulp.dest('./dist/backend'));
 });
 
