@@ -13,11 +13,10 @@ define(function(require) {
   });
 
   YoutubeSearcher.prototype.search = function(keyword, limit) {
-    var self = this;
-    var promise = new Promise(function(resolve, reject) {
-      youtube.search(keyword, limit, function(error, result) {
+    var promise = new Promise((resolve, reject) => {
+      youtube.search(keyword, limit, (error, result) => {
         if (error) {
-          self.debug(error);
+          this.debug(error);
           reject();
         }
         else {

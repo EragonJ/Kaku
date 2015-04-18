@@ -14,10 +14,9 @@ define(function(require) {
     },
 
     componentDidMount: function() {
-      var self = this;
-      CoreData.watch('searchResults', function(_1, _2, newValue) {
+      CoreData.watch('searchResults', (_1, _2, newValue) => {
         var tracks = newValue;
-        self.setState({
+        this.setState({
           tracks: tracks
         });
       });

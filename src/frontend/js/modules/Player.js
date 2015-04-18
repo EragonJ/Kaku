@@ -23,13 +23,13 @@ define(function(require) {
     },
 
     ready: function() {
-      var self = this;
       if (this._player) {
         return Promise.resolve(this._player);
       }
       else {
-        var promise = new Promise(function(resolve) {
-          videojs(self._playerDOM).ready(function() {
+        var self = this;
+        var promise = new Promise((resolve) => {
+          videojs(this._playerDOM).ready(function() {
             self._player = this;
             self._setupPlayer();
             // return real videojs-ed player out

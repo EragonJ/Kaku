@@ -31,32 +31,30 @@ define(function(require) {
     },
 
     _setupPlayer: function() {
-      var self = this;
       var playerDOM = document.createElement('video');
       playerDOM.id = 'player';
       this.refs.playerContainer.getDOMNode().appendChild(playerDOM);
 
       Player.setPlayer(playerDOM);
-      Player.ready().then(function(player) {
-        player.on('play', self._onPlayerPlay);
-        player.on('pause', self._onPlayerPause);
-        player.on('progress', self._onPlayerProgress);
-        self.setState({
+      Player.ready().then((player) => {
+        player.on('play', this._onPlayerPlay);
+        player.on('pause', this._onPlayerPause);
+        player.on('progress', this._onPlayerProgress);
+        this.setState({
           player: player
         });
       });
     },
 
     _watchCurrentTrackChange: function() {
-      var self = this;
-      CoreData.watch('currentTrack', function(_1, _2, trackInfo) {
+      CoreData.watch('currentTrack', (_1, _2, trackInfo) => {
         var trackUrl = trackInfo.platformTrackUrl;
-        TrackInfoFetcher.getInfo(trackUrl).then(function(fetchedInfo) {
+        TrackInfoFetcher.getInfo(trackUrl).then((fetchedInfo) => {
           var trackRealUrl = fetchedInfo.url;
           trackInfo.platformTrackRealUrl = trackRealUrl;
 
-          self.state.player.src(trackRealUrl);
-          self.state.player.play();
+          this.state.player.src(trackRealUrl);
+          this.state.player.play();
 
           // save this track to playedTracks
           var playedTracks = CoreData.get('playedTracks');

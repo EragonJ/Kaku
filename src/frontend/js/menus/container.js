@@ -33,9 +33,8 @@ define(function(require) {
     },
 
     _watchTabChangeEvent: function() {
-      var self = this;
-      CoreData.watch('currentTab', function(_1, _2, newTabName) {
-        var linkToTabRef = self.refs['tab-' + newTabName];
+      CoreData.watch('currentTab', (_1, _2, newTabName) => {
+        var linkToTabRef = this.refs['tab-' + newTabName];
         $(linkToTabRef.getDOMNode()).tab('show');
       });
     },

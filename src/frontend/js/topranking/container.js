@@ -15,9 +15,8 @@ define(function(require) {
     },
 
     componentDidMount: function() {
-      var self = this;
-      TopRanking.get().then(function(tracks) {
-        self.setState({
+      TopRanking.get().then((tracks) => {
+        this.setState({
           tracks: tracks
         });
       });
@@ -37,14 +36,13 @@ define(function(require) {
     },
 
     render: function() {
-      var self = this;
       var tracks = this.state.tracks;
 
       /* jshint ignore:start */
       return (
         <div className="topranking-container clearfix">
-          {tracks.map(function(track) {
-            return <Track data={track} fetchDataFn={self._fetchDataFn.bind(null, track)}/>;
+          {tracks.map((track) => {
+            return <Track data={track} fetchDataFn={this._fetchDataFn.bind(null, track)}/>;
           })}
         </div>
       );

@@ -36,11 +36,10 @@ define(function(require) {
     },
 
     _setupPlayer: function() {
-      var self = this;
-      Player.ready().then(function(player) {
-        player.on('play', self._onPlayerPlay);
-        player.on('pause', self._onPlayerPause);
-        self.setState({
+      Player.ready().then((player) => {
+        player.on('play', this._onPlayerPlay);
+        player.on('pause', this._onPlayerPause);
+        this.setState({
           player: player
         });
       });
@@ -51,13 +50,12 @@ define(function(require) {
     },
 
     _onResumeButtonClick: function() {
-      var self = this;
-      Player.ready().then(function(player) {
-        if (self.state.player.paused()) {
-          self.state.player.play();
+      Player.ready().then((player) => {
+        if (this.state.player.paused()) {
+          this.state.player.play();
         }
         else {
-          self.state.player.pause();
+          this.state.player.pause();
         }
       });
     },
@@ -103,15 +101,14 @@ define(function(require) {
     },
 
     _onRepeatButtonClick: function() {
-      var self = this;
-      Player.ready().then(function(player) {
+      Player.ready().then((player) => {
         // TODO
         // change to different icon here
-        var repeatIconDOM = self.refs.repeatIcon.getDOMNode();
+        var repeatIconDOM = this.refs.repeatIcon.getDOMNode();
         repeatIconDOM.classList.toggle('fa-repeat');
         repeatIconDOM.classList.toggle('fa-times');
 
-        var isRepeating = self.state.isRepeating;
+        var isRepeating = this.state.isRepeating;
         player.loop(!isRepeating);
       });
     },

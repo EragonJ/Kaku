@@ -8,11 +8,10 @@ define(function(require) {
   });
 
   TrackInfoFetcher.prototype.getInfo = function(url, options) {
-    var self = this;
-    var promise = new Promise(function(resolve, reject) {
-      youtubeDownloader.getInfo(url, options, function(error, info) {
+    var promise = new Promise((resolve, reject) => {
+      youtubeDownloader.getInfo(url, options, (error, info) => {
         if (error) {
-          self.debug(error);
+          this.debug(error);
           reject();
         } else {
           resolve(info);

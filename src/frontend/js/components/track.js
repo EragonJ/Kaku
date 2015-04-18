@@ -11,10 +11,9 @@ define(function(require) {
     },
 
     handleClick: function() {
-      var self = this;
-      var fetchDataFn = this.props.fetchDataFn || function() {
-        var promise = new Promise(function(resolve) {
-          resolve(self.props.data);
+      var fetchDataFn = this.props.fetchDataFn || () => {
+        var promise = new Promise((resolve) => {
+          resolve(this.props.data);
         });
         return promise;
       };
