@@ -1,11 +1,19 @@
 define(function(require) {
   'use strict';
-  
+
   var CoreData = require('backend/CoreData');
+  var crypto = requireNode('crypto');
+  var PlaylistManager = require('backend/PlaylistManager');
   var React = require('react');
   var $ = require('jquery');
 
   var MenusContainer = React.createClass({
+    getInitialState: function() {
+      return {
+        playlists: []
+      };
+    },
+
     componentDidMount: function() {
       this._bindTabChangeEvent();
       this._watchTabChangeEvent();
@@ -32,7 +40,33 @@ define(function(require) {
       });
     },
 
+    _addPlaylist: function() {
+      // TODO
+      // fix this native behavior with customzied dialog
+      var randomSuffix = crypto.randomBytes(3).toString('hex');
+      var rawPlaylistName = prompt('Please input your playlist name',
+        'playlist-' + randomSuffix) || '';
+      var sanitizedPlaylistName = rawPlaylistName.trim();
+      if (!sanitizedPlaylistName) {
+        alert('Please make sure you did input the playlist name');
+      }
+      else {
+        PlaylistManager
+          .addNormalPlaylist(sanitizedPlaylistName)
+          .then(() => {
+            this.setState({
+              playlists: PlaylistManager.playlists
+            });
+          })
+          .catch((error) => {
+            alert(error);
+          });
+      }
+    },
+
     render: function() {
+      var playlists = this.state.playlists;
+
       /* jshint ignore:start */
       return (
         <div className="menus">
@@ -55,6 +89,22 @@ define(function(require) {
                 <span className="title">Histories</span>
               </a>
             </li>
+            <li>
+              <a href="#" onClick={this._addPlaylist}>
+                <i className="icon fa fa-fw fa-lg fa-plus"></i>
+                <span className="title">Add Playlist</span>
+              </a>
+            </li>
+            {playlists.map(function(playlist) {
+              return (
+                <li className="playlist">
+                  <a href="#">
+                    <i className="icon fa fa-fw fa-lg fa-music"></i>
+                    <span className="title">{playlist.name}</span>
+                  </a>
+                </li>
+              );
+            })}
           </ul>
         </div>
       );

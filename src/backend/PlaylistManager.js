@@ -8,7 +8,26 @@ define(function(require) {
   };
 
   PlaylistManager.prototype = {
-    addPlaylist: function(options) {
+    get playlists() {
+      return this._playlists;
+    },
+
+    addNormalPlaylist: function(name) {
+      return this._addPlaylist({
+        type: 'normal',
+        name: name
+      });
+    },
+
+    addYoutubePlaylist: function(youtubeId, name) {
+      return this._addPlaylist({
+        type: 'youtube',
+        name: name,
+        id: youtubeId
+      });
+    },
+
+    _addPlaylist: function(options) {
       var promise = new Promise((resolve, reject) => {
         var name = options.name;
         var sameNamePlaylist = this.findPlaylistByName(name);

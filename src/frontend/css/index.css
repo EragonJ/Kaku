@@ -142,6 +142,9 @@ a:hover, a:focus {
 .sidebar .menus ul li.active {
   border-left-color: #cccccc;
 }
+.sidebar .menus ul li.playlist {
+  padding-left: 10px;
+}
 .sidebar .menus ul li a {
   display: block;
   padding: 5px;
