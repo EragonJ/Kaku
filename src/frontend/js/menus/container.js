@@ -29,17 +29,19 @@ define(function(require) {
         var href = $(this).attr('href');
         var options = $(this).attr('data-options');
         var tabName = href.replace('#tab-', '');
-        CoreData.set('currentTab', {
-          name: tabName,
-          options: options
-        });
+
+        // we have to tell each managers to do related works here
+        if (tabName === 'playlist') {
+          var playlistId = options;
+          PlaylistManager.displayPlaylist(playlistId);
+        }
+
+        CoreData.set('currentTab', tabName);
       });
     },
 
     _watchTabChangeEvent: function() {
-      CoreData.watch('currentTab', (_1, _2, tab) => {
-        var tabName = tab.name;
-        var tabOptions = tab.options;
+      CoreData.watch('currentTab', (_1, _2, tabName) => {
         var linkToTabRef = this.refs['tab-' + tabName];
         $(linkToTabRef.getDOMNode()).tab('show');
       });

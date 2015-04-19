@@ -10,6 +10,10 @@ define(function(require) {
   };
 
   BasePlaylist.prototype = {
+    get tracks() {
+      return this._tracks;
+    },
+
     addTrack: function(track) {
       // TODO
       // track should already be an instance of BaseTrack,
