@@ -39,6 +39,7 @@
     "gulp-html-replace": "^1.4.4",
     "gulp-if": "^1.2.5",
     "gulp-jshint": "^1.10.0",
+    "gulp-plumber": "^1.0.0",
     "gulp-rename": "^1.2.2",
     "gulp-requirejs": "git://github.com/EragonJ/gulp-requirejs",
     "gulp-sequence": "^0.3.2",

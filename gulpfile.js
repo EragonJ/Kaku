@@ -7,7 +7,8 @@ var babel = require('gulp-babel');
 var uglify = require('gulp-uglify');
 var clean = require('gulp-clean');
 var jshint = require('gulp-jshint');
-var rename = require("gulp-rename");
+var rename = require('gulp-rename');
+var plumber = require('gulp-plumber');
 var nwBuilder = require('node-webkit-builder');
 var htmlreplace = require('gulp-html-replace');
 var sequence = require('gulp-sequence');
@@ -39,6 +40,7 @@ gulp.task('cleanup', function() {
 gulp.task('6to5:frontend', function() {
   return gulp
     .src(FRONTEND_JS_FILES)
+    .pipe(plumber())
     .pipe(babel())
     .pipe(gulp.dest('./dist/frontend'));
 });
@@ -47,6 +49,7 @@ gulp.task('6to5:backend', function() {
   // we just want to move all files to the right place
   return gulp
     .src(BACKEND_JS_FILES)
+    .pipe(plumber())
     .pipe(babel())
     .pipe(gulp.dest('./dist/backend'));
 });
@@ -86,6 +89,7 @@ gulp.task('rjs', function(done) {
 gulp.task('compass', function() {
   return gulp
     .src(SCSS_FILES)
+    .pipe(plumber())
     .pipe(compass({
       config_file: './config/compass_config.rb',
       css: 'src/frontend/css',
@@ -99,6 +103,7 @@ gulp.task('override', function() {
   // we have to minify css later
   return gulp
     .src(INDEX_TEMPLATE_FILE)
+    .pipe(plumber())
     .pipe(gulpif(isProduction(), htmlreplace({
       css: [
         'dist/frontend/vendor/bootstrap/dist/css/bootstrap.min.css',
