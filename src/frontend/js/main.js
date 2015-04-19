@@ -25,6 +25,7 @@ fetchRjsConfig().then(function(rjsConfig) {
     'player/container',
     'menus/container',
     'history/container',
+    'playlist/container',
     'jquery',
     'bootstrap'
   ], function (
@@ -34,7 +35,8 @@ fetchRjsConfig().then(function(rjsConfig) {
     AllTracksContainer,
     PlayerContainer,
     MenusContainer,
-    HistoryContainer
+    HistoryContainer,
+    PlaylistContainer
   ) {
     var KakuApp = React.createClass({
       render: function() {
@@ -82,6 +84,15 @@ fetchRjsConfig().then(function(rjsConfig) {
                       <h1><i className="fa fa-fw fa-history"></i>Histories</h1>
                       <div className="histories-slot">
                         <HistoryContainer/>
+                      </div>
+                  </div>
+                  <div
+                    role="tabpanel"
+                    className="tab-pane"
+                    id="tab-playlist">
+                      <h1><i className="fa fa-fw fa-music"></i>Playlist</h1>
+                      <div className="playlist-slot">
+                        <PlaylistContainer/>
                       </div>
                   </div>
                 </div>

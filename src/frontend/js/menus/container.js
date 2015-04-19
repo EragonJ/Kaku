@@ -27,14 +27,20 @@ define(function(require) {
       // bootstrap events
       $(links).on('shown.bs.tab', function() {
         var href = $(this).attr('href');
+        var options = $(this).attr('data-options');
         var tabName = href.replace('#tab-', '');
-        CoreData.set('currentTab', tabName);
+        CoreData.set('currentTab', {
+          name: tabName,
+          options: options
+        });
       });
     },
 
     _watchTabChangeEvent: function() {
-      CoreData.watch('currentTab', (_1, _2, newTabName) => {
-        var linkToTabRef = this.refs['tab-' + newTabName];
+      CoreData.watch('currentTab', (_1, _2, tab) => {
+        var tabName = tab.name;
+        var tabOptions = tab.options;
+        var linkToTabRef = this.refs['tab-' + tabName];
         $(linkToTabRef.getDOMNode()).tab('show');
       });
     },
@@ -96,11 +102,16 @@ define(function(require) {
             </li>
             {playlists.map(function(playlist) {
               return (
-                <li className="playlist">
-                  <a href="#">
-                    <i className="icon fa fa-fw fa-lg fa-music"></i>
-                    <span className="title">{playlist.name}</span>
-                  </a>
+                <li role="presentation" className="playlist">
+                  <a
+                    href="#tab-playlist"
+                    role="tab"
+                    data-toggle="tab"
+                    data-options={playlist.id}
+                    ref="tab-playlist">
+                      <i className="icon fa fa-fw fa-lg fa-music"></i>
+                      <span className="title">{playlist.name}</span>
+                    </a>
                 </li>
               );
             })}

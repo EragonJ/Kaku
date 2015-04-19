@@ -23,16 +23,14 @@ define(function(require) {
     },
 
     render: function() {
+      /* jshint ignore:start */
       var tracks = this.state.tracks;
       var noTracksDiv;
 
       if (tracks.length === 0) {
-        /* jshint ignore:start */
         noTracksDiv = <NoTrack/>;
-        /* jshint ignore:end */
       }
 
-      /* jshint ignore:start */
       return (
         <div className="alltracks-container">
           {noTracksDiv}
