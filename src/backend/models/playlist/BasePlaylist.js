@@ -65,9 +65,10 @@ define(function(require) {
 
   BasePlaylist.prototype.findTrackByTitleAndArtist = function(title, artist) {
     // We assume that there is only one track with same title & artist
-    return this._tracks.filter((track) => {
+    var tracks = this._tracks.filter((track) => {
       return (track.title === title) && (track.artist === artist);
     });
+    return tracks[0];
   };
 
   BasePlaylist.prototype.findTracksByTitle = function(title) {
