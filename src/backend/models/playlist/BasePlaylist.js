@@ -6,7 +6,7 @@ define(function(require) {
 
   var BasePlaylist = function(options) {
     EventEmitter.call(this);
-    this.id = crypto.randomBytes(20).toString('hex');
+    this.id = crypto.randomBytes(3).toString('hex');
     this.name = options.name || 'playlist';
     this._tracks = [];
   };
