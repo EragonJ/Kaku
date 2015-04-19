@@ -21,7 +21,7 @@ window.addEventListener('close-window', function() {
 });
 
 window.addEventListener('show-devtools', function() {
-  win.showDevTools(); 
+  win.showDevTools();
 });
 
 // Auto-reload nwjs

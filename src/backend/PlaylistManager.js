@@ -5,6 +5,7 @@ define(function(require) {
   var BasePlaylist = require('backend/models/playlist/BasePlaylist');
 
   var PlaylistManager = function() {
+    EventEmitter.call(this);
     this._playlists = [];
     this._activePlaylist = null;
   };
@@ -83,9 +84,10 @@ define(function(require) {
   };
 
   PlaylistManager.prototype.findPlaylistById = function(id) {
-    return this._playlists.filter((playlist) => {
+    var playlists = this._playlists.filter((playlist) => {
       return playlist.id === id;
     });
+    return playlists[0];
   };
 
   PlaylistManager.prototype.findPlaylistIndexByName = function(name) {

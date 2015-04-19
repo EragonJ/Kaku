@@ -15,10 +15,20 @@ define(function(require) {
     },
 
     componentDidMount: function() {
+      // TODO
+      // we should make sure when playlist is changed,
+      // this event listeners would be removed
       PlaylistManager.on('shown', (playlist) => {
-        this.state.set({
+        this.setState({
           playlistId: playlist.id,
           tracks: playlist.tracks
+        });
+
+        playlist.on('tracksUpdated', () => {
+          debugger;
+          this.setState({
+            tracks: playlist.tracks
+          });
         });
       });
     },

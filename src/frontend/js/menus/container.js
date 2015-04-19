@@ -19,6 +19,11 @@ define(function(require) {
       this._watchTabChangeEvent();
     },
 
+    componentDidUpdate: function() {
+      this._unbindTabChangeEvent();
+      this._bindTabChangeEvent();
+    },
+
     _bindTabChangeEvent: function() {
       var menusDOM = this.refs.menus.getDOMNode();
       var links = menusDOM.querySelectorAll('a[data-toggle="tab"]');
@@ -38,6 +43,12 @@ define(function(require) {
 
         CoreData.set('currentTab', tabName);
       });
+    },
+
+    _unbindTabChangeEvent: function() {
+      var menusDOM = this.refs.menus.getDOMNode();
+      var links = menusDOM.querySelectorAll('a[data-toggle="tab"]');
+      $(links).off('shown.bs.tab');
     },
 
     _watchTabChangeEvent: function() {
