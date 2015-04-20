@@ -1,7 +1,14 @@
 define(function(require) {
+  'use strict';
+
+  var dataPath = requireNode('nw.gui').App.dataPath;
+  var serialize = requireNode('serialize-javascript');
   var Watch = requireNode('watchjs');
+  var fs = requireNode('fs');
   var watch = Watch.watch;
   var unwatch = Watch.unwatch;
+
+  var storageFile = dataPath + '/core_data';
 
   var CoreData = {
     currentTrack: {},
@@ -25,6 +32,35 @@ define(function(require) {
       CoreData[key] = value;
     },
     watch: watch.bind({}, CoreData),
-    unwatch: unwatch.bind({}, CoreData)
+    unwatch: unwatch.bind({}, CoreData),
+    export: function() {
+      console.log(storageFile);
+      var promise = new Promise((resolve, reject) => {
+        var result = serialize(CoreData);
+        fs.writeFile(storageFile, result, (error) => {
+          if (error) {
+            reject(error);
+          }
+          else {
+            resolve();
+          }
+        });
+      });
+      return promise;
+    },
+    import: function() {
+      var promise = new Promise((resolve, reject) => {
+        fs.readFile(storageFile, (error, content) => {
+          if (error) {
+            reject(error);
+          }
+          else {
+            CoreData = JSON.parse(content);
+            resolve();
+          }
+        });
+      });
+      return promise;
+    }
   };
 });

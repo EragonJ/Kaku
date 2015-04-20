@@ -51,6 +51,7 @@
   "dependencies": {
     "node-webkit-fdialogs": "^0.2.7",
     "request": "^2.53.0",
+    "serialize-javascript": "^1.0.0",
     "watchjs": "0.0.0",
     "youtube-dl": "^1.10.1",
     "youtube-node": "^1.2.0"
