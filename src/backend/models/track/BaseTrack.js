@@ -2,7 +2,7 @@ define(function(require) {
   'use strict';
 
   var BaseTrack = function() {
-    this._trackUrlPrefix = '_prefix_';
+    this._trackUrlPrefix = '';
     this.title = 'Unknown Title';
     this.artist = 'Unknown Artist';
     this.description = 'Unknown Description';

@@ -36,10 +36,16 @@ define(function(require) {
       /* jshint ignore:start */
       return (
         <div className="searchbar-container">
-          <form className="form-inline" onSubmit={this._onSubmit}>
-            <div className="form-group">
-              <input tabIndex="1" className="searchbar-user-input form-control" onChange={this._onInputChange} placeholder="Find something ..."/>
-            </div>
+          <form
+            className="form-inline"
+            onSubmit={this._onSubmit}>
+              <div className="form-group">
+                <input
+                  tabIndex="1"
+                  className="searchbar-user-input form-control"
+                  onChange={this._onInputChange}
+                  placeholder="Find something ..."/>
+              </div>
           </form>
         </div>
       );

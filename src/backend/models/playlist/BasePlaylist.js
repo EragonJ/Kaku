@@ -30,7 +30,7 @@ define(function(require) {
       var title = track.title;
       var artist = track.artist;
       var foundTrack = this.findTrackByTitleAndArtist(title, artist);
-      if (foundTrack.length > 0) {
+      if (foundTrack) {
         reject('You already have a track with same name & artist, ' +
           'please try another one');
       }

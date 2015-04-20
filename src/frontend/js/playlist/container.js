@@ -25,7 +25,6 @@ define(function(require) {
         });
 
         playlist.on('tracksUpdated', () => {
-          debugger;
           this.setState({
             tracks: playlist.tracks
           });

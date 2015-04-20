@@ -3,25 +3,38 @@ define(function(require) {
 
   var gui = requireNode('nw.gui');
   var CoreData = require('backend/CoreData');
+  var YoutubeSearcher = require('backend/YoutubeSearcher');
   var PlaylistManager = require('backend/PlaylistManager');
   var React = require('react');
 
   var Track = React.createClass({
     propTypes: {
-      data: React.PropTypes.object.isRequired,
-      fetchDataFn: React.PropTypes.func
+      data: React.PropTypes.object.isRequired
+    },
+
+    _fetchData: function() {
+      var data = this.props.data;
+      var promise = new Promise((resolve) => {
+        var keyword = data.artist + ' - ' + data.title;
+        YoutubeSearcher.search(keyword, 1).then(function(tracks) {
+          var trackInfo = tracks[0];
+          resolve(trackInfo);
+        });
+      });
+      return promise;
     },
 
     _clickToPlay: function() {
-      var fetchDataFn = this.props.fetchDataFn || () => {
-        var promise = new Promise((resolve) => {
-          resolve(this.props.data);
+      if (this.props.data.platformTrackUrl) {
+        CoreData.set('currentTrack', this.props.data);
+      }
+      else {
+        // for top ranking tracks, we have no data at first,
+        // so we have to lazily fetch the information
+        this._fetchData().then((data) => {
+          CoreData.set('currentTrack', data);
         });
-        return promise;
-      };
-      fetchDataFn().then(function(data) {
-        CoreData.set('currentTrack', data);
-      });
+      }
     },
 
     _clickToShowContextMenu: function(event) {
@@ -45,7 +58,11 @@ define(function(require) {
 
         menuItem.click = ((playlist) => {
           return () => {
-            playlist.addTrack(this.props.data);
+            playlist
+              .addTrack(this.props.data)
+              .catch((error) => {
+                alert(error);
+              });
           };
         }(playlist));
 
