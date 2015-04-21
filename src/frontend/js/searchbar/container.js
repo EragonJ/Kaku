@@ -2,6 +2,7 @@ define(function(require) {
   'use strict';
 
   var CoreData = require('backend/CoreData');
+  var TabManager = require('modules/TabManager');
   var YoutubeSearcher = require('backend/YoutubeSearcher');
   var React = require('react');
 
@@ -19,7 +20,7 @@ define(function(require) {
       if (keyword) {
         YoutubeSearcher.search(keyword, 30).then(function(results) {
           CoreData.set('searchResults', results);
-          CoreData.set('currentTab', 'search');
+          TabManager.currentTab = 'search';
         }, function() {
           // show error
         });

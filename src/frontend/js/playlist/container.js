@@ -3,6 +3,7 @@ define(function(require) {
 
   var React = require('react');
   var PlaylistManager = require('backend/PlaylistManager');
+  var TabManager = require('modules/TabManager');
   var NoTrack = require('components/no-track');
   var Track = require('components/track');
 
@@ -15,6 +16,13 @@ define(function(require) {
     },
 
     componentDidMount: function() {
+      TabManager.on('changed', (tabName, tabOptions) => {
+        if (tabName === 'playlist') {
+          var playlistId = tabOptions;
+          PlaylistManager.displayPlaylist(playlistId);
+        }
+      });
+
       // TODO
       // we should make sure when playlist is changed,
       // this event listeners would be removed
