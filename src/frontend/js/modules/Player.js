@@ -70,6 +70,13 @@ define(function(require) {
       }
     },
 
+    on: function() {
+      var args = arguments;
+      this.ready().then(() => {
+        this._player.on.apply(this._player, args);
+      });
+    },
+
     play: function(rawTrack) {
       this.ready().then(() => {
         this._getRealTrack(rawTrack).then((realTrack) => {

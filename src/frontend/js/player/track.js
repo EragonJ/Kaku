@@ -6,12 +6,6 @@ define(function(require) {
   var React = require('react');
 
   var PlayerTrack = React.createClass({
-    getInitialState: function() {
-      return {
-        player: null
-      };
-    },
-
     componentDidMount: function() {
       this._setupPlayer();
     },
@@ -34,14 +28,9 @@ define(function(require) {
       this.refs.playerContainer.getDOMNode().appendChild(playerDOM);
 
       Player.setPlayer(playerDOM);
-      Player.ready().then((player) => {
-        player.on('play', this._onPlayerPlay);
-        player.on('pause', this._onPlayerPause);
-        player.on('progress', this._onPlayerProgress);
-        this.setState({
-          player: player
-        });
-      });
+      Player.on('play', this._onPlayerPlay);
+      Player.on('pause', this._onPlayerPause);
+      Player.on('progress', this._onPlayerProgress);
     },
 
     render: function() {
