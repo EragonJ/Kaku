@@ -11,7 +11,6 @@ define(function(require) {
   var storageFile = dataPath + '/core_data';
 
   var CoreData = {
-    currentTrack: {},
     currentTab: 'home',
     playedTracks: [],
     searchResults: []

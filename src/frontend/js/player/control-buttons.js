@@ -90,7 +90,7 @@ define(function(require) {
     },
 
     _onExternalButtonClick: function() {
-      var track = CoreData.get('currentTrack');
+      var track = Player.playingTrack;
       if (track) {
         gui.Shell.openExternal(track.platformTrackUrl);
       }

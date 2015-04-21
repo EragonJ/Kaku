@@ -2,9 +2,9 @@ define(function(require) {
   'use strict';
 
   var gui = requireNode('nw.gui');
-  var CoreData = require('backend/CoreData');
   var YoutubeSearcher = require('backend/YoutubeSearcher');
   var PlaylistManager = require('backend/PlaylistManager');
+  var Player = require('modules/Player');
   var React = require('react');
 
   var Track = React.createClass({
@@ -26,13 +26,13 @@ define(function(require) {
 
     _clickToPlay: function() {
       if (this.props.data.platformTrackUrl) {
-        CoreData.set('currentTrack', this.props.data);
+        Player.play(this.props.data);
       }
       else {
         // for top ranking tracks, we have no data at first,
         // so we have to lazily fetch the information
         this._fetchData().then((data) => {
-          CoreData.set('currentTrack', data);
+          Player.play(data);
         });
       }
     },
