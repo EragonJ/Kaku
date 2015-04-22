@@ -20,7 +20,7 @@ define(function(require) {
       if (keyword) {
         YoutubeSearcher.search(keyword, 30).then(function(results) {
           CoreData.set('searchResults', results);
-          TabManager.currentTab = 'search';
+          TabManager.setTab('search');
         }, function() {
           // show error
         });

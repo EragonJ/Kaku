@@ -16,6 +16,12 @@ define(function(require) {
     },
 
     componentDidMount: function() {
+      // If we changed tab by API directly,
+      // we have to reflect it to UI here
+      TabManager.on('changed', (tabName) => {
+        this._showTab(tabName);
+      });
+
       this._bindTabChangeEvent();
     },
 
@@ -28,6 +34,7 @@ define(function(require) {
       var self = this;
       var menusDOM = this.refs.menus.getDOMNode();
       var links = menusDOM.querySelectorAll('a[data-toggle="tab"]');
+
       // NOTE
       // not sure whether this would conflict with pre-bound
       // bootstrap events
@@ -35,9 +42,8 @@ define(function(require) {
         var href = $(this).attr('href');
         var tabOptions = $(this).attr('data-tab-options');
         var tabName = href.replace('#tab-', '');
-        var linkToTabRef = self.refs['tab-' + tabName];
 
-        $(linkToTabRef.getDOMNode()).tab('show');
+        self._showTab(tabName);
         TabManager.setTab(tabName, tabOptions);
       });
     },
@@ -46,6 +52,13 @@ define(function(require) {
       var menusDOM = this.refs.menus.getDOMNode();
       var links = menusDOM.querySelectorAll('a[data-toggle="tab"]');
       $(links).off('shown.bs.tab');
+    },
+
+    _showTab: function(tabName) {
+      var linkToTabRef = this.refs['tab-' + tabName];
+      if (linkToTabRef) {
+        $(linkToTabRef.getDOMNode()).tab('show');
+      }
     },
 
     _addPlaylist: function() {
