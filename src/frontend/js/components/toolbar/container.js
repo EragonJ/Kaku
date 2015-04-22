@@ -3,7 +3,7 @@ define(function(require) {
 
   var gui = requireNode('nw.gui');
   var React = require('react');
-  var SearchbarContainer = require('searchbar/container');
+  var SearchbarContainer = require('components/searchbar/container');
 
   var ToolbarContainer = React.createClass({
     _handleShrinkButtonClick: function() {

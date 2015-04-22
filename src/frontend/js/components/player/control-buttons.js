@@ -1,10 +1,10 @@
 define(function(require) {
   'use strict';
 
-  var gui = requireNode('nw.gui');
-  var request = requireNode('request');
-  var fs = requireNode('fs');
   var fdialogs = requireNode('node-webkit-fdialogs');
+  var request = requireNode('request');
+  var gui = requireNode('nw.gui');
+  var fs = requireNode('fs');
   var CoreData = require('backend/CoreData');
   var Player = require('modules/Player');
   var React = require('react');

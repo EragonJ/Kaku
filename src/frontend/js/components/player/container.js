@@ -2,8 +2,8 @@ define(function(require) {
   'use strict';
 
   var React = require('react');
-  var PlayerControlButtons = require('player/control-buttons');
-  var PlayerTrack = require('player/track');
+  var PlayerControlButtons = require('components/player/control-buttons');
+  var PlayerTrack = require('components/player/track');
 
   var PlayerContainer = React.createClass({
     render: function() {

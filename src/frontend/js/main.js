@@ -19,13 +19,13 @@ fetchRjsConfig().then(function(rjsConfig) {
   requirejs.config(rjsConfig);
   requirejs([
     'react',
-    'toolbar/container',
-    'topranking/container',
-    'alltracks/container',
-    'player/container',
-    'menus/container',
-    'history/container',
-    'playlist/container',
+    'components/toolbar/container',
+    'components/topranking/container',
+    'components/alltracks/container',
+    'components/player/container',
+    'components/menus/container',
+    'components/history/container',
+    'components/playlist/container',
     'jquery',
     'bootstrap'
   ], function (

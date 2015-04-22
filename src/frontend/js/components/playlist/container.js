@@ -4,8 +4,8 @@ define(function(require) {
   var React = require('react');
   var PlaylistManager = require('backend/PlaylistManager');
   var TabManager = require('modules/TabManager');
-  var NoTrack = require('components/no-track');
-  var Track = require('components/track');
+  var NoTrack = require('components/shared/no-track');
+  var Track = require('components/shared/track');
 
   var PlaylistContainer = React.createClass({
     getInitialState: function() {

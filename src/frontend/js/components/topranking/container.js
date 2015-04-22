@@ -4,7 +4,7 @@ define(function(require) {
   var React = require('react');
   var TrackInfoFetcher = require('backend/TrackInfoFetcher');
   var TopRanking = require('backend/TopRanking');
-  var Track = require('components/track');
+  var Track = require('components/shared/track');
 
   var TopRankingContainer = React.createClass({
     getInitialState: function() {
