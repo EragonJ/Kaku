@@ -1,4 +1,5 @@
 define(function(require) {
+  'use strict';
 
   var BaseModule = require('backend/BaseModule');
   var youtubeDownloader = requireNode('youtube-dl');

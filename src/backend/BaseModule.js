@@ -1,6 +1,5 @@
 define(function(require) {
-
-  // We can extend more functionalities here
+  'use strict';
 
   var BaseModule = function(constructor) {
     this._debug = false;

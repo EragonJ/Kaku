@@ -1,4 +1,5 @@
 define(function(require) {
+  'use strict';
 
   var request = requireNode('request');
   var BaseModule = require('backend/BaseModule');
