@@ -6,10 +6,25 @@ define(function(require) {
   var PlaylistManager = require('backend/PlaylistManager');
   var Player = require('modules/Player');
   var React = require('react');
+  var ClassNames = require('classnames');
 
   var Track = React.createClass({
     propTypes: {
       data: React.PropTypes.object.isRequired
+    },
+
+    getInitialState: function() {
+      return {
+        playingTrack: {}
+      };
+    },
+
+    componentDidMount: function() {
+      Player.on('play', () => {
+        this.setState({
+          playingTrack: Player.playingTrack
+        });
+      });
     },
 
     _fetchData: function() {
@@ -18,6 +33,9 @@ define(function(require) {
         var keyword = data.artist + ' - ' + data.title;
         YoutubeSearcher.search(keyword, 1).then(function(tracks) {
           var trackInfo = tracks[0];
+          // we have to keep its original title & artist
+          trackInfo.artist = data.artist;
+          trackInfo.title = data.title;
           resolve(trackInfo);
         });
       });
@@ -72,18 +90,24 @@ define(function(require) {
     },
 
     render: function() {
-      var data = this.props.data;
+      var track = this.props.data;
+      var isActive = track.isSameTrackWith(this.state.playingTrack);
+      var className = ClassNames({
+        track: true,
+        active: isActive
+      });
 
       /* jshint ignore:start */
       return (
         <div
-          className="track"
+          className={className}
           onClick={this._clickToPlay}
-          onContextMenu={this._clickToShowContextMenu}>
-            <img src={data.covers.medium} title={data.title}/>
+          onContextMenu={this._clickToShowContextMenu}
+          ref="trackBlock">
+            <img src={track.covers.medium} title={track.title}/>
             <div className="info">
-              <div className="track-name">{data.title}</div>
-              <div className="track-artist">{data.artist}</div>
+              <div className="track-name">{track.title}</div>
+              <div className="track-artist">{track.artist}</div>
             </div>
         </div>
       );

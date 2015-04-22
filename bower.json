@@ -20,6 +20,7 @@
     "normalize.css": "~3.0.2",
     "components-font-awesome": "~4.3.0",
     "bootstrap": "~3.3.4",
-    "video.js": "~4.12.5"
+    "video.js": "~4.12.5",
+    "classnames": "~1.2.1"
   }
 }

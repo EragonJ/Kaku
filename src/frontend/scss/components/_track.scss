@@ -7,6 +7,16 @@
   background-color: rgba(0, 0, 0, 0.8);
   cursor: pointer;
 
+  &.active {
+    background-color: lightskyblue;
+  }
+
+  &:hover {
+    .info {
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+  }
+
   img {
     width: $defaultTrackImageSize;
     height: $defaultTrackImageSize;
@@ -27,11 +37,5 @@
   .track-name,
   .track-{
     @include kaku_add_ellipsis();
-  }
-
-  &:hover {
-    .info {
-      background-color: rgba(0, 0, 0, 0.5);
-    }
   }
 }
