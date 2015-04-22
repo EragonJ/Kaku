@@ -33,9 +33,13 @@ define(function(require) {
         var keyword = data.artist + ' - ' + data.title;
         YoutubeSearcher.search(keyword, 1).then(function(tracks) {
           var trackInfo = tracks[0];
-          // we have to keep its original title & artist
+
+          // NOTE
+          // we have to keep its original title, artist and covers
+          // in order not to confuse users
           trackInfo.artist = data.artist;
           trackInfo.title = data.title;
+          trackInfo.covers = data.covers;
           resolve(trackInfo);
         });
       });
