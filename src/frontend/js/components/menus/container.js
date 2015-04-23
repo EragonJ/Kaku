@@ -1,6 +1,7 @@
 define(function(require) {
   'use strict';
 
+  var gui = requireNode("nw.gui");
   var crypto = requireNode('crypto');
   var CoreData = require('backend/CoreData');
   var PlaylistManager = require('backend/PlaylistManager');
@@ -61,6 +62,12 @@ define(function(require) {
       }
     },
 
+    _updateInternalStates: function() {
+      this.setState({
+        playlists: PlaylistManager.playlists
+      });
+    },
+
     _addPlaylist: function() {
       // TODO
       // fix this native behavior with customzied dialog
@@ -75,14 +82,63 @@ define(function(require) {
         PlaylistManager
           .addNormalPlaylist(sanitizedPlaylistName)
           .then(() => {
-            this.setState({
-              playlists: PlaylistManager.playlists
-            });
+            this._updateInternalStates();
           })
           .catch((error) => {
             alert(error);
           });
       }
+    },
+
+    _createContextMenuForPlaylist: function(playlist) {
+      var oldName = playlist.name;
+      var menu = new gui.Menu();
+
+      var removeMenuItem = new gui.MenuItem({
+        label: 'Remove this playlist',
+        click: () => {
+          PlaylistManager
+            .removePlaylist(oldName)
+            .then(() => {
+              this._updateInternalStates();
+            })
+            .catch((error) => {
+              alert(error);
+            });
+        }
+      });
+
+      var renameMenuItem = new gui.MenuItem({
+        label: 'Rename this playlist',
+        click: () => {
+          var rawPlaylistName = prompt('Please input your playlist name',
+            oldName) || '';
+          var sanitizedPlaylistName = rawPlaylistName.trim();
+          if (!sanitizedPlaylistName) {
+            alert('Please make sure you did input the playlist name');
+          }
+          else {
+            PlaylistManager
+              .rename(oldName, sanitizedPlaylistName)
+              .then(() => {
+                this._updateInternalStates();
+              })
+              .catch((error) => {
+                alert(error);
+              });
+          }
+        }
+      });
+
+      menu.append(renameMenuItem);
+      menu.append(removeMenuItem);
+      return menu;
+    },
+
+    _clickToShowContextMenu: function(playlist, event) {
+      event.preventDefault();
+      var menu = this._createContextMenuForPlaylist(playlist);
+      menu.popup(event.clientX, event.clientY);
     },
 
     render: function() {
@@ -128,7 +184,9 @@ define(function(require) {
                 <span className="title">Add Playlist</span>
               </a>
             </li>
-            {playlists.map(function(playlist) {
+            {playlists.map((playlist) => {
+              var clickToShowContextMenu =
+                this._clickToShowContextMenu.bind(this, playlist);
               return (
                 <li role="presentation" className="playlist">
                   <a
@@ -136,6 +194,7 @@ define(function(require) {
                     role="tab"
                     data-toggle="tab"
                     data-tab-options={playlist.id}
+                    onContextMenu={clickToShowContextMenu}
                     ref="tab-playlist">
                       <i className="icon fa fa-fw fa-lg fa-music"></i>
                       <span className="title">{playlist.name}</span>

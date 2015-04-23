@@ -52,7 +52,7 @@ define(function(require) {
     var promise = new Promise((resolve, reject) => {
       var name = options.name;
       var sameNamePlaylist = this.findPlaylistByName(name);
-      if (sameNamePlaylist.length > 0) {
+      if (sameNamePlaylist) {
         reject('You already one playlist with same name, ' +
           'please try another one');
       }
@@ -87,6 +87,8 @@ define(function(require) {
     var playlists = this._playlists.filter((playlist) => {
       return playlist.id === id;
     });
+
+    // id is unique
     return playlists[0];
   };
 
@@ -96,9 +98,25 @@ define(function(require) {
   };
 
   PlaylistManager.prototype.findPlaylistByName = function(name) {
-    return this._playlists.filter((playlist) => {
+    var playlists = this._playlists.filter((playlist) => {
       return playlist.name === name;
     });
+
+    // name is unique
+    return playlists[0];
+  };
+
+  PlaylistManager.prototype.rename = function(oldName, newName) {
+    var index = this.findPlaylistIndexByName(oldName);
+    if (index < 0) {
+      return Promise.reject('can\'t find playlist named - ', oldName);
+    }
+    else {
+      var playlist = this._playlists[index];
+      playlist.name = newName;
+      this._playlists[index] = playlist;
+      return Promise.resolve();
+    }
   };
 
   // singleton

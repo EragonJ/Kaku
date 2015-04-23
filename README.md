@@ -70,13 +70,13 @@ If you are using your local `nw.js` to test Kaku, please remember to copy needed
 
 + Add node-webkit updator
 + serialize / deserialize data and store them into persistent data (maybe just a simple file, not db)
-+ Add "rename" feature for Playlist
 + Show the right playlist name when navigating to specific playlist
 + Add timeline for Player (maybe we can use the native one from Videojs ?)
 + Take off forward / backward button and add volume control instead
 + Add settings page to make sure users can change their streaming platform
 + Add i18n support
 + Fixed related UI
++ [Done] Add "rename", "remove" feature for Playlist
 + [Done] Fix the problem that if we save top tracks in playlist, these tracks would be not playable (because no realPlatformUrl)
 + [Done] Add playlist feature
 + [Done] Make tracks in Top Rankings playable
