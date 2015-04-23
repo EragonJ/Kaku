@@ -63,6 +63,8 @@ define(function(require) {
         // so we can create different one here
         var playlist = new BasePlaylist(options);
         this._playlists.push(playlist);
+
+        this.emit('added', playlist);
         resolve();
       }
     });
@@ -76,7 +78,9 @@ define(function(require) {
         reject('Can\'t find the playlist');
       }
       else {
-        this._playlists.splice(index, 1);
+        var removedPlaylist = this._playlists.splice(index, 1);
+
+        this.emit('removed', removePlaylist);
         resolve();
       }
     });
@@ -115,6 +119,8 @@ define(function(require) {
       var playlist = this._playlists[index];
       playlist.name = newName;
       this._playlists[index] = playlist;
+
+      this.emit('renamed', playlist);
       return Promise.resolve();
     }
   };

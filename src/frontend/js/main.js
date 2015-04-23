@@ -26,6 +26,8 @@ fetchRjsConfig().then(function(rjsConfig) {
     'components/menus/container',
     'components/history/container',
     'components/playlist/container',
+    'backend/PlaylistManager',
+    'modules/TabManager',
     'jquery',
     'bootstrap'
   ], function (
@@ -36,10 +38,42 @@ fetchRjsConfig().then(function(rjsConfig) {
     PlayerContainer,
     MenusContainer,
     HistoryContainer,
-    PlaylistContainer
+    PlaylistContainer,
+    PlaylistManager,
+    TabManager
   ) {
     var KakuApp = React.createClass({
+      getInitialState: function() {
+        return {
+          currentPlaylist: {}
+        };
+      },
+
+      componentDidMount: function() {
+        PlaylistManager.on('renamed', (playlist) => {
+          if (playlist.id === this.state.currentPlaylist.id) {
+            this._refreshInternalState(playlist);
+          }
+        });
+
+        TabManager.on('changed', (tabName, tabOptions) => {
+          if (tabName === 'playlist') {
+            var playlistId = tabOptions;
+            var playlist = PlaylistManager.findPlaylistById(playlistId);
+            this._refreshInternalState(playlist);
+          }
+        });
+      },
+
+      _refreshInternalState: function(playlist) {
+        this.setState({
+          currentPlaylist: playlist
+        });
+      },
+
       render: function() {
+        var currentPlaylistName = this.state.currentPlaylist.name || '';
+
         /* jshint ignore:start */
         return (
           <div className="root">
@@ -90,7 +124,7 @@ fetchRjsConfig().then(function(rjsConfig) {
                     role="tabpanel"
                     className="tab-pane"
                     id="tab-playlist">
-                      <h1><i className="fa fa-fw fa-music"></i>Playlist</h1>
+                      <h1><i className="fa fa-fw fa-music"></i>{currentPlaylistName}</h1>
                       <div className="playlist-slot">
                         <PlaylistContainer/>
                       </div>
