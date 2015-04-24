@@ -28,6 +28,7 @@ fetchRjsConfig().then(function(rjsConfig) {
     'components/playlist/container',
     'backend/PlaylistManager',
     'modules/TabManager',
+    'backend/AutoUpdater',
     'jquery',
     'bootstrap'
   ], function (
@@ -40,7 +41,8 @@ fetchRjsConfig().then(function(rjsConfig) {
     HistoryContainer,
     PlaylistContainer,
     PlaylistManager,
-    TabManager
+    TabManager,
+    AutoUpdater
   ) {
     var KakuApp = React.createClass({
       getInitialState: function() {
@@ -50,6 +52,10 @@ fetchRjsConfig().then(function(rjsConfig) {
       },
 
       componentDidMount: function() {
+        // TODO
+        // I have to do more tests on this
+        // this._triggerUpdatorAfter5seconds();
+
         PlaylistManager.on('renamed', (playlist) => {
           if (playlist.id === this.state.currentPlaylist.id) {
             this._refreshInternalState(playlist);
@@ -63,6 +69,12 @@ fetchRjsConfig().then(function(rjsConfig) {
             this._refreshInternalState(playlist);
           }
         });
+      },
+
+      _triggerUpdatorAfter5seconds: function() {
+        setTimeout(function() {
+          AutoUpdater.run();
+        }, 5000);
       },
 
       _refreshInternalState: function(playlist) {
