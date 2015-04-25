@@ -7,6 +7,7 @@ define(function(require) {
   var gui = requireNode('nw.gui');
   var fs = requireNode('fs');
   var CoreData = require('backend/CoreData');
+  var Notifier = require('modules/Notifier');
   var Player = require('modules/Player');
   var React = require('react');
 
@@ -80,16 +81,23 @@ define(function(require) {
             console.log('file src - ', src);
           }
           else {
+            Notifier.alert('Start to download your track !');
+
             // we got the path from fakeFile, so it's time to save
             // the real streaming file to override it !
             //
             // I know this idea is smart :)
-            request
-              .get(src)
-              .on('error', function() {
+            var downloadRequest = request.get(src).pipe(
+              fs.createWriteStream(path));
+
+            downloadRequest
+              .on('error', () => {
+                Notifier.alert('Sorry, something went wrong, please try again');
                 console.log('error when saving file from stream');
               })
-              .pipe(fs.createWriteStream(path));
+              .on('finish', () => {
+                Notifier.alert('Download finished ! Go check your track :)');
+              });
           }
         });
       });

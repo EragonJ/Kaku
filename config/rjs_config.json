@@ -6,6 +6,9 @@
     "videojs": "videojs",
     "bootstrap": {
       "deps": ["jquery"]
+    },
+    "notify": {
+      "deps": ["jquery"]
     }
   },
   "paths": {
@@ -15,6 +18,7 @@
     "videojs": "../vendor/video.js/dist/video-js/video",
     "jquery": "../vendor/jquery/dist/jquery.min",
     "bootstrap": "../vendor/bootstrap/dist/js/bootstrap.min",
-    "classnames": "../vendor/classnames/index"
+    "classnames": "../vendor/classnames/index",
+    "notify": "../vendor/remarkable-bootstrap-notify/bootstrap-notify.min"
   }
 }
