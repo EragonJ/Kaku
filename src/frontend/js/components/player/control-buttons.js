@@ -3,6 +3,7 @@ define(function(require) {
 
   var fdialogs = requireNode('node-webkit-fdialogs');
   var request = requireNode('request');
+  var crypto = requireNode('crypto');
   var gui = requireNode('nw.gui');
   var fs = requireNode('fs');
   var CoreData = require('backend/CoreData');
@@ -68,7 +69,12 @@ define(function(require) {
       Player.ready().then(function(player) {
         var src = player.src();
         var fakeFile = new Buffer('', 'utf-8');
-        fdialogs.saveFile(fakeFile, function (error, path) {
+        // TODO
+        // we can make a better naming in the future
+        var filename =
+          'music-' + crypto.randomBytes(3).toString('hex') + '.mp4';
+
+        fdialogs.saveFile(fakeFile, filename, function (error, path) {
           if (error) {
             console.log('error when saving file to - ', path);
             console.log('file src - ', src);
