@@ -21,7 +21,7 @@ define(function(require) {
     }
   });
 
-  PlaylistManager.prototype.displayPlaylist = function(id) {
+  PlaylistManager.prototype.displayPlaylistById = function(id) {
     var playlist = this.findPlaylistById(id);
     if (!playlist) {
       console.error('we can\'t find any playlist with id - ', id);
@@ -71,20 +71,24 @@ define(function(require) {
     return promise;
   };
 
-  PlaylistManager.prototype.removePlaylist = function(name) {
+  PlaylistManager.prototype.removePlaylistById = function(id) {
     var promise = new Promise((resolve, reject) => {
-      var index = this.findPlaylistIndexByName(name);
+      var index = this.findPlaylistIndexById(id);
       if (index === -1) {
         reject('Can\'t find the playlist');
       }
       else {
         var removedPlaylist = this._playlists.splice(index, 1);
-
-        this.emit('removed', removePlaylist);
+        this.emit('removed', removedPlaylist);
         resolve();
       }
     });
     return promise;
+  };
+
+  PlaylistManager.prototype.findPlaylistIndexById = function(id) {
+    var playlist = this.findPlaylistById(id);
+    return this._playlists.indexOf(playlist);
   };
 
   PlaylistManager.prototype.findPlaylistById = function(id) {
@@ -110,10 +114,10 @@ define(function(require) {
     return playlists[0];
   };
 
-  PlaylistManager.prototype.rename = function(oldName, newName) {
-    var index = this.findPlaylistIndexByName(oldName);
+  PlaylistManager.prototype.renamePlaylistById = function(id, newName) {
+    var index = this.findPlaylistIndexById(id);
     if (index < 0) {
-      return Promise.reject('can\'t find playlist named - ', oldName);
+      return Promise.reject('can\'t find playlist id - ', id);
     }
     else {
       var playlist = this._playlists[index];

@@ -91,14 +91,13 @@ define(function(require) {
     },
 
     _createContextMenuForPlaylist: function(playlist) {
-      var oldName = playlist.name;
       var menu = new gui.Menu();
 
       var removeMenuItem = new gui.MenuItem({
         label: 'Remove this playlist',
         click: () => {
           PlaylistManager
-            .removePlaylist(oldName)
+            .removePlaylistById(playlist.id)
             .then(() => {
               this._updateInternalStates();
             })
@@ -112,14 +111,14 @@ define(function(require) {
         label: 'Rename this playlist',
         click: () => {
           var rawPlaylistName = prompt('Please input your playlist name',
-            oldName) || '';
+            playlist.name) || '';
           var sanitizedPlaylistName = rawPlaylistName.trim();
           if (!sanitizedPlaylistName) {
             alert('Please make sure you did input the playlist name');
           }
           else {
             PlaylistManager
-              .rename(oldName, sanitizedPlaylistName)
+              .renamePlaylistById(playlist.id, sanitizedPlaylistName)
               .then(() => {
                 this._updateInternalStates();
               })

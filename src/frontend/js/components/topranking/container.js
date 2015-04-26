@@ -26,10 +26,13 @@ define(function(require) {
 
       /* jshint ignore:start */
       return (
-        <div className="topranking-container clearfix">
-          {tracks.map((track) => {
-            return <Track data={track}/>;
-          })}
+        <div className="topranking-slot">
+          <h1><i className="fa fa-fw fa-line-chart"></i>Top Rankings</h1>
+          <div className="topranking-container clearfix">
+            {tracks.map((track) => {
+              return <Track data={track}/>;
+            })}
+          </div>
         </div>
       );
       /* jshint ignore:end */

@@ -10,7 +10,7 @@ define(function(require) {
   var PlaylistContainer = React.createClass({
     getInitialState: function() {
       return {
-        playlistId: '',
+        playlist: {},
         tracks: []
       };
     },
@@ -19,16 +19,14 @@ define(function(require) {
       TabManager.on('changed', (tabName, tabOptions) => {
         if (tabName === 'playlist') {
           var playlistId = tabOptions;
-          PlaylistManager.displayPlaylist(playlistId);
+          var playlist = PlaylistManager.findPlaylistById(playlistId);
+          PlaylistManager.displayPlaylistById(playlist.id);
         }
       });
 
-      // TODO
-      // we should make sure when playlist is changed,
-      // this event listeners would be removed
       PlaylistManager.on('shown', (playlist) => {
         this.setState({
-          playlistId: playlist.id,
+          playlist: playlist,
           tracks: playlist.tracks
         });
 
@@ -38,10 +36,19 @@ define(function(require) {
           });
         });
       });
+
+      PlaylistManager.on('renamed', (playlist) => {
+        if (playlist.id === this.state.playlist.id) {
+          this.setState({
+            playlist: playlist
+          });
+        }
+      });
     },
 
     render: function() {
       /* jshint ignore:start */
+      var playlistName = this.state.playlist.name || '';
       var tracks = this.state.tracks;
       var noTracksDiv;
 
@@ -50,11 +57,14 @@ define(function(require) {
       }
 
       return (
-        <div className="playlist-container">
-          {noTracksDiv}
-          {tracks.map(function(track) {
-            return <Track data={track}/>;
-          })}
+        <div className="playlist-slot">
+          <h1><i className="fa fa-fw fa-music"></i>{playlistName}</h1>
+          <div className="playlist-container">
+            {noTracksDiv}
+            {tracks.map(function(track) {
+              return <Track data={track}/>;
+            })}
+          </div>
         </div>
       );
       /* jshint ignore:end */

@@ -32,11 +32,14 @@ define(function(require) {
       }
 
       return (
-        <div className="alltracks-container">
-          {noTracksDiv}
-          {tracks.map(function(track) {
-            return <Track data={track}/>;
-          })}
+        <div className="alltracks-slot">
+          <h1><i className="fa fa-fw fa-search"></i>Search Results</h1>
+          <div className="alltracks-container">
+            {noTracksDiv}
+            {tracks.map(function(track) {
+              return <Track data={track}/>;
+            })}
+          </div>
         </div>
       );
       /* jshint ignore:end */
