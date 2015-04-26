@@ -25,6 +25,8 @@ define(function(require) {
     _setupPlayer: function() {
       var playerDOM = document.createElement('video');
       playerDOM.id = 'player';
+      playerDOM.classList.add('video-js');
+      playerDOM.classList.add('vjs-default-skin');
       this.refs.playerContainer.getDOMNode().appendChild(playerDOM);
 
       Player.setPlayer(playerDOM);

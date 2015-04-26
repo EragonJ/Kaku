@@ -28,10 +28,19 @@ define(function(require) {
     }
   });
 
-  Player.prototype._setupPlayer = function() {
-    this._player.width('100%');
-    this._player.height('auto');
-    this._player.bigPlayButton.hide();
+  Player.prototype._getDefaultVideoJSConfig = function() {
+    return {
+      width: '100%',
+      height: 'auto',
+      autoplay: false,
+      bigPlayButton: false,
+      controls: true,
+      controlBar: {
+        playToggle: false,
+        fullscreenToggle: false,
+        muteToggle: false
+      }
+    };
   };
 
   Player.prototype._getRealTrack = function(track) {
@@ -68,9 +77,11 @@ define(function(require) {
     else {
       var self = this;
       var promise = new Promise((resolve) => {
-        videojs(this._playerDOM).ready(function() {
+        videojs(
+          this._playerDOM,
+          this._getDefaultVideoJSConfig()
+        ).ready(function() {
           self._player = this;
-          self._setupPlayer();
           // return real videojs-ed player out
           resolve(self._player);
         });
