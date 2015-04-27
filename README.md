@@ -76,6 +76,7 @@ If you are using your local `nw.js` to test Kaku, please remember to copy needed
 + Add i18n support
 + Fixed related UI
 + Make native vjs button and remove our controls
++ [Done] Add play all tracks feature
 + [Done] Show the right playlist name when navigating to specific playlist
 + [Done] Add "rename", "remove" feature for Playlist
 + [Done] Fix the problem that if we save top tracks in playlist, these tracks would be not playable (because no realPlatformUrl)
