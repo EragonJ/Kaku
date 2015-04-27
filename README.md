@@ -3,7 +3,7 @@ The next generation music client
 
 # Latest Screenshot
 
-![Latest Screenshot](http://i.imgur.com/EA2T6YL.jpg)
+![Latest Screenshot](http://i.imgur.com/xeIrxyu.jpg)
 
 # Setup environment
 
