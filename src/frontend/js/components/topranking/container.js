@@ -3,6 +3,7 @@ define(function(require) {
 
   var React = require('react');
   var TrackInfoFetcher = require('backend/TrackInfoFetcher');
+  var PlayAllButton = require('components/shared/playall-button');
   var TopRanking = require('backend/TopRanking');
   var Track = require('components/shared/track');
 
@@ -27,7 +28,12 @@ define(function(require) {
       /* jshint ignore:start */
       return (
         <div className="topranking-slot">
-          <h1><i className="fa fa-fw fa-line-chart"></i>Top Rankings</h1>
+          <div className="header clearfix">
+            <h1><i className="fa fa-fw fa-line-chart"></i>Top Rankings</h1>
+            <div className="control-buttons">
+              <PlayAllButton/>
+            </div>
+          </div>
           <div className="topranking-container clearfix">
             {tracks.map((track) => {
               return <Track data={track}/>;

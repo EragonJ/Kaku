@@ -2,10 +2,11 @@ define(function(require) {
   'use strict';
 
   var React = require('react');
+  var PlayAllButton = require('components/shared/playall-button');
   var PlaylistManager = require('backend/PlaylistManager');
-  var TabManager = require('modules/TabManager');
   var NoTrack = require('components/shared/no-track');
   var Track = require('components/shared/track');
+  var TabManager = require('modules/TabManager');
 
   var PlaylistContainer = React.createClass({
     getInitialState: function() {
@@ -58,7 +59,12 @@ define(function(require) {
 
       return (
         <div className="playlist-slot">
-          <h1><i className="fa fa-fw fa-music"></i>{playlistName}</h1>
+          <div className="header clearfix">
+            <h1><i className="fa fa-fw fa-music"></i>{playlistName}</h1>
+            <div className="control-buttons">
+              <PlayAllButton/>
+            </div>
+          </div>
           <div className="playlist-container">
             {noTracksDiv}
             {tracks.map(function(track) {

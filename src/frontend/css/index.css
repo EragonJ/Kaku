@@ -189,14 +189,22 @@ a:hover, a:focus {
   height: 100%;
   overflow: auto;
 }
-.tab-content h1 {
-  margin: 0;
+.tab-content .header {
+  position: relative;
   border-bottom: 1px solid #cccccc;
   padding-bottom: 10px;
   margin-bottom: 15px;
 }
-.tab-content i {
+.tab-content h1 {
+  float: left;
+  margin: 0;
+}
+.tab-content h1 i {
   margin-right: 10px;
+}
+.tab-content .control-buttons {
+  float: right;
+  transform: translateY(25%);
 }
 
 .vjs-default-skin {

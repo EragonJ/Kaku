@@ -2,6 +2,7 @@ define(function(require) {
   'use strict';
 
   var CoreData = require('backend/CoreData');
+  var PlayAllButton = require('components/shared/playall-button');
   var NoTrack = require('components/shared/no-track');
   var Track = require('components/shared/track');
   var React = require('react');
@@ -33,7 +34,12 @@ define(function(require) {
 
       return (
         <div className="histories-slot">
-          <h1><i className="fa fa-fw fa-history"></i>Histories</h1>
+          <div className="header clearfix">
+            <h1><i className="fa fa-fw fa-history"></i>Histories</h1>
+            <div className="control-buttons">
+              <PlayAllButton/>
+            </div>
+          </div>
           <div className="history-container">
             {noTracksDiv}
             {tracks.map(function(track) {

@@ -3,15 +3,24 @@
   height: 100%;
   overflow: auto;
 
-
-  h1 {
-    margin: 0;
+  .header {
+    position: relative;
     border-bottom: 1px solid #cccccc;
     padding-bottom: 10px;
     margin-bottom: 15px;
   }
 
-  i {
-    margin-right: 10px;
+  h1 {
+    float: left;
+    margin: 0;
+
+    i {
+      margin-right: 10px;
+    }
+  }
+
+  .control-buttons {
+    float: right;
+    transform: translateY(25%);
   }
 }
