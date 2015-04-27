@@ -2,8 +2,9 @@ define(function(require) {
   'use strict';
 
   var EventEmitter = requireNode('events').EventEmitter;
-  var CoreData = require('backend/CoreData');
   var TrackInfoFetcher = require('backend/TrackInfoFetcher');
+  var YoutubeSearcher = require('backend/YoutubeSearcher');
+  var CoreData = require('backend/CoreData');
   var videojs = require('videojs');
   videojs.options.flash.swf = 'dist/vendor/video.js/dist/video-js.swf';
 
@@ -15,6 +16,13 @@ define(function(require) {
     this._playingTrack = null;
     this._playerDOM = null;
     this._player = null;
+
+    this._inPlayAllMode = false;
+
+    // TODO
+    // If users click on track, we have to update this index ?
+    this._pendingTrackIndex = 0;
+    this._pendingTracks = [];
   };
 
   Player.prototype = Object.create(EventEmitter.prototype);
@@ -43,18 +51,10 @@ define(function(require) {
     };
   };
 
-  Player.prototype._getRealTrack = function(track) {
-    if (track.platformTrackRealUrl) {
-      return Promise.resolve(track);
-    }
-    else {
-      var trackUrl = track.platformTrackUrl;
-      return TrackInfoFetcher.getInfo(trackUrl).then((fetchedInfo) => {
-        var trackRealUrl = fetchedInfo.url;
-        track.platformTrackRealUrl= trackRealUrl;
-        return Promise.resolve(track);
-      });
-    }
+  Player.prototype._addPlayerEvents = function() {
+    this._player.on('ended', () => {
+      this.playNextTrack();
+    });
   };
 
   Player.prototype._addToPlayedHistories = function(track) {
@@ -82,12 +82,48 @@ define(function(require) {
           this._getDefaultVideoJSConfig()
         ).ready(function() {
           self._player = this;
+          self._addPlayerEvents();
           // return real videojs-ed player out
           resolve(self._player);
         });
       });
       return promise;
     }
+  };
+
+  Player.prototype.playAll = function(tracks) {
+    // let's override tracks at first
+    this._pendingTracks = tracks;
+    this._pendingTrackIndex = 0;
+    this._inPlayAllMode = true;
+
+    // then play the first one !
+    this.play(this._pendingTracks[this._pendingTrackIndex]);
+  };
+
+  Player.prototype.playNextTrack = function() {
+    if (this._pendingTrackIndex > this._pendingTracks.length - 1) {
+      // we are in the end
+      this._pendingTracks = [];
+      this._inPlayAllMode = false;
+    }
+    else {
+      this._pendingTrackIndex += 1;
+      this.play(this._pendingTracks[this._pendingTrackIndex]);
+    }
+  };
+
+  Player.prototype.playPreviousTrack = function() {
+    if (this._pendingTrackIndex < 0) {
+      // if we keep pressing play previous button,
+      // we will keep playing the first one
+      this._pendingTrackIndex = 0;
+    }
+    else {
+      this._pendingTrackIndex -= 1;
+    }
+
+    this.play(this._pendingTracks[this._pendingTrackIndex]);
   };
 
   Player.prototype.on = function() {
@@ -97,13 +133,52 @@ define(function(require) {
     });
   };
 
+  Player.prototype._prepareTrackData = function(rawTrack) {
+    if (rawTrack.platformTrackUrl) {
+      return Promise.resolve(rawTrack);
+    }
+    else {
+      var promise = new Promise((resolve) => {
+        var keyword = rawTrack.artist + ' - ' + rawTrack.title;
+        YoutubeSearcher.search(keyword, 1).then(function(tracks) {
+          var trackInfo = tracks[0];
+
+          // NOTE
+          // we have to keep its original title, artist and covers
+          // in order not to confuse users
+          trackInfo.artist = rawTrack.artist;
+          trackInfo.title = rawTrack.title;
+          trackInfo.covers = rawTrack.covers;
+          resolve(trackInfo);
+        });
+      });
+      return promise;
+    }
+  };
+
+  Player.prototype._getRealTrack = function(track) {
+    if (track.platformTrackRealUrl) {
+      return Promise.resolve(track);
+    }
+    else {
+      var trackUrl = track.platformTrackUrl;
+      return TrackInfoFetcher.getInfo(trackUrl).then((fetchedInfo) => {
+        var trackRealUrl = fetchedInfo.url;
+        track.platformTrackRealUrl= trackRealUrl;
+        return Promise.resolve(track);
+      });
+    }
+  };
+
   Player.prototype.play = function(rawTrack) {
     this.ready().then(() => {
-      this._getRealTrack(rawTrack).then((realTrack) => {
-        this._playingTrack = realTrack;
-        this._player.src(realTrack.platformTrackRealUrl);
-        this._player.play();
-        this._addToPlayedHistories(realTrack);
+      this._prepareTrackData(rawTrack)
+        .then(this._getRealTrack)
+        .then((realTrack) => {
+          this._playingTrack = realTrack;
+          this._player.src(realTrack.platformTrackRealUrl);
+          this._player.play();
+          this._addToPlayedHistories(realTrack);
       });
     });
   };

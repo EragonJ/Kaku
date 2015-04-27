@@ -27,36 +27,8 @@ define(function(require) {
       });
     },
 
-    _fetchData: function() {
-      var data = this.props.data;
-      var promise = new Promise((resolve) => {
-        var keyword = data.artist + ' - ' + data.title;
-        YoutubeSearcher.search(keyword, 1).then(function(tracks) {
-          var trackInfo = tracks[0];
-
-          // NOTE
-          // we have to keep its original title, artist and covers
-          // in order not to confuse users
-          trackInfo.artist = data.artist;
-          trackInfo.title = data.title;
-          trackInfo.covers = data.covers;
-          resolve(trackInfo);
-        });
-      });
-      return promise;
-    },
-
     _clickToPlay: function() {
-      if (this.props.data.platformTrackUrl) {
-        Player.play(this.props.data);
-      }
-      else {
-        // for top ranking tracks, we have no data at first,
-        // so we have to lazily fetch the information
-        this._fetchData().then((data) => {
-          Player.play(data);
-        });
-      }
+      Player.play(this.props.data);
     },
 
     _clickToShowContextMenu: function(event) {

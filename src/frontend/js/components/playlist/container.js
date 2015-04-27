@@ -62,7 +62,7 @@ define(function(require) {
           <div className="header clearfix">
             <h1><i className="fa fa-fw fa-music"></i>{playlistName}</h1>
             <div className="control-buttons">
-              <PlayAllButton/>
+              <PlayAllButton data={tracks}/>
             </div>
           </div>
           <div className="playlist-container">

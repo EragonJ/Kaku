@@ -37,7 +37,7 @@ define(function(require) {
           <div className="header clearfix">
             <h1><i className="fa fa-fw fa-search"></i>Search Results</h1>
             <div className="control-buttons">
-              <PlayAllButton/>
+              <PlayAllButton data={tracks}/>
             </div>
           </div>
           <div className="alltracks-container">
