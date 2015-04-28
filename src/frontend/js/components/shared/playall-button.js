@@ -15,10 +15,14 @@ define(function(require) {
 
     render: function() {
       /* jshint ignore:start */
+      var isDiabled = (this.props.data.length === 0);
       return (
-        <button className="playall-button" onClick={this._clickToPlayAll}>
-          <i className="fa fa-fw fa-play-circle"></i>
-          Play All
+        <button
+          className="playall-button"
+          onClick={this._clickToPlayAll}
+          disabled={isDiabled}>
+            <i className="fa fa-fw fa-play-circle"></i>
+            Play All
         </button>
       );
       /* jshint ignore:end */
