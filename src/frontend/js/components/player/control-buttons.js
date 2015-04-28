@@ -48,7 +48,11 @@ define(function(require) {
     },
 
     _onBackwardButtonClick: function() {
+      Player.playNextTrack();
+    },
 
+    _onForwardButtonClick: function() {
+      Player.playPreviousTrack();
     },
 
     _onResumeButtonClick: function() {
@@ -60,10 +64,6 @@ define(function(require) {
           this.state.player.pause();
         }
       });
-    },
-
-    _onForwardButtonClick: function() {
-
     },
 
     _onDownloadButtonClick: function() {
@@ -131,13 +131,13 @@ define(function(require) {
       /* jshint ignore:start */
       return (
         <div className="control-buttons">
-          <button className="backward-button" onClick={this._onBackwardButtonClick} disabled>
+          <button className="backward-button" onClick={this._onBackwardButtonClick}>
             <i className="fa fa-fw fa-step-backward"></i>
           </button>
           <button className="resume-button" onClick={this._onResumeButtonClick}>
             <i className="fa fa-fw fa-play" ref="resumeIcon"></i>
           </button>
-          <button className="forward-button" onClick={this._onForwardButtonClick} disabled>
+          <button className="forward-button" onClick={this._onForwardButtonClick}>
             <i className="fa fa-fw fa-step-forward"></i>
           </button>
           <button className="repeat-button" onClick={this._onRepeatButtonClick}>
