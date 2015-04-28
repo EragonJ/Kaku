@@ -145,26 +145,48 @@ define(function(require) {
       /* jshint ignore:start */
       return (
         <div className="control-buttons">
-          <button className="backward-button" onClick={this._onBackwardButtonClick}>
-            <i className="fa fa-fw fa-step-backward"></i>
+          <button
+            className="backward-button"
+            onClick={this._onBackwardButtonClick}
+            title="Play Previuos Track">
+              <i className="fa fa-fw fa-step-backward"></i>
           </button>
-          <button className="resume-button" onClick={this._onResumeButtonClick}>
-            <i className="fa fa-fw fa-play" ref="resumeIcon"></i>
+          <button
+            className="resume-button"
+            onClick={this._onResumeButtonClick}
+            title="Play / Pause">
+              <i className="fa fa-fw fa-play" ref="resumeIcon"></i>
           </button>
-          <button className="forward-button" onClick={this._onForwardButtonClick}>
-            <i className="fa fa-fw fa-step-forward"></i>
+          <button
+            className="forward-button"
+            onClick={this._onForwardButtonClick}
+            title="Play Next Track">
+              <i className="fa fa-fw fa-step-forward"></i>
           </button>
-          <button className="repeat-button" onClick={this._onRepeatButtonClick}>
-            <i className="fa fa-fw fa-repeat" ref="repeatIcon"></i>
+          <button
+            className="repeat-button"
+            onClick={this._onRepeatButtonClick}
+            title="Repeat this track">
+              <i className="fa fa-fw fa-repeat" ref="repeatIcon"></i>
           </button>
-          <button className="download-button" onClick={this._onDownloadButtonClick}>
-            <i className="fa fa-fw fa-cloud-download"></i>
+          <button
+            className="download-button"
+            onClick={this._onDownloadButtonClick}
+            title="Download this track">
+              <i className="fa fa-fw fa-cloud-download"></i>
           </button>
-          <button className="external-button" onClick={this._onExternalButtonClick}>
-            <i className="fa fa-fw fa-external-link"></i>
+          <button
+            className="external-button"
+            onClick={this._onExternalButtonClick}
+            title="Open in browser">
+              <i className="fa fa-fw fa-external-link"></i>
           </button>
-          <button className="lyric-button" onClick={this._onLyricButtonClick} disabled>
-            <i className="fa fa-fw fa-font"></i>
+          <button
+            className="lyric-button"
+            onClick={this._onLyricButtonClick}
+            title="Show Lyrics"
+            disabled>
+              <i className="fa fa-fw fa-font"></i>
           </button>
         </div>
       );
