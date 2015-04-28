@@ -31,16 +31,30 @@ define(function(require) {
       this._togglePlayIcon();
     },
 
-    _togglePlayIcon: function() {
+    _updatePlayIconState: function(state) {
       var resumeIconDOM = this.refs.resumeIcon.getDOMNode();
-      resumeIconDOM.classList.toggle('fa-play');
-      resumeIconDOM.classList.toggle('fa-pause');
+      if (state === 'play') {
+        // show pause button
+        resumeIconDOM.classList.remove('fa-play');
+        resumeIconDOM.classList.add('fa-pause');
+      }
+      else {
+        // show play button
+        resumeIconDOM.classList.add('fa-play');
+        resumeIconDOM.classList.remove('fa-pause');
+      }
     },
 
     _setupPlayer: function() {
       Player.ready().then((player) => {
-        player.on('play', this._onPlayerPlay);
-        player.on('pause', this._onPlayerPause);
+        player.on('play', () => {
+          this._updatePlayIconState('play');
+        });
+
+        player.on('pause', () => {
+          this._updatePlayIconState('pause');
+        });
+
         this.setState({
           player: player
         });
@@ -56,7 +70,7 @@ define(function(require) {
     },
 
     _onResumeButtonClick: function() {
-      Player.ready().then((player) => {
+      Player.ready().then(() => {
         if (this.state.player.paused()) {
           this.state.player.play();
         }
