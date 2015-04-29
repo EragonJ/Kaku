@@ -68,18 +68,19 @@ If you are using your local `nw.js` to test Kaku, please remember to copy needed
 
 # TODO
 
-+ [WIP] Add node-webkit updator
-+ [WIP] Add settings page to make sure users can change their streaming platform
-+ serialize / deserialize data and store them into persistent data (maybe just a simple file, not db)
-+ Add i18n support
-+ Fixed related UI
-+ Make native vjs button and remove our controls
-+ [Done] fix forward / backward button and add volume control instead (native slider from vjs)
-+ [Done] Add timeline for Player (maybe we can use the native one from Videojs ?)
-+ [Done] Add play all tracks feature
-+ [Done] Show the right playlist name when navigating to specific playlist
-+ [Done] Add "rename", "remove" feature for Playlist
-+ [Done] Fix the problem that if we save top tracks in playlist, these tracks would be not playable (because no realPlatformUrl)
-+ [Done] Add playlist feature
-+ [Done] Make tracks in Top Rankings playable
-+ [Done] Remember to write a installer to package all needed codec based on this article - https://github.com/nwjs/nw.js/wiki/Using-MP3-&-MP4-%28H.264%29-using-the--video--&--audio--tags.
++ [] **[WIP]** Add node-webkit updator
++ [] serialize / deserialize data and store them into persistent data (maybe just a simple file, not db)
++ [] Add i18n support
++ [] Fixed related UI
++ [] Make native vjs button and remove our controls
++ [] Add Desktop notification
++ [-] Add settings page to make sure users can change their streaming platform
++ [-] fix forward / backward button and add volume control instead (native slider from vjs)
++ [-] Add timeline for Player (maybe we can use the native one from Videojs ?)
++ [-] Add play all tracks feature
++ [-] Show the right playlist name when navigating to specific playlist
++ [-] Add "rename", "remove" feature for Playlist
++ [-] Fix the problem that if we save top tracks in playlist, these tracks would be not playable (because no realPlatformUrl)
++ [-] Add playlist feature
++ [-] Make tracks in Top Rankings playable
++ [-] Remember to write a installer to package all needed codec based on this article - https://github.com/nwjs/nw.js/wiki/Using-MP3-&-MP4-%28H.264%29-using-the--video--&--audio--tags.
