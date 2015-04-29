@@ -26,6 +26,7 @@ fetchRjsConfig().then(function(rjsConfig) {
     'components/menus/container',
     'components/history/container',
     'components/playlist/container',
+    'components/settings/container',
     'backend/PlaylistManager',
     'modules/TabManager',
     'backend/AutoUpdater',
@@ -40,6 +41,7 @@ fetchRjsConfig().then(function(rjsConfig) {
     MenusContainer,
     HistoryContainer,
     PlaylistContainer,
+    SettingsContainer,
     PlaylistManager,
     TabManager,
     AutoUpdater
@@ -88,6 +90,12 @@ fetchRjsConfig().then(function(rjsConfig) {
                     className="tab-pane"
                     id="tab-search">
                       <AllTracksContainer/>
+                  </div>
+                  <div
+                    role="tabpanel"
+                    className="tab-pane"
+                    id="tab-settings">
+                      <SettingsContainer/>
                   </div>
                   <div
                     role="tabpanel"

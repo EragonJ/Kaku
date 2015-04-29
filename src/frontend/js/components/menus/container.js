@@ -177,6 +177,16 @@ define(function(require) {
                   <span className="title">Histories</span>
               </a>
             </li>
+            <li role="presentation">
+              <a
+                href="#tab-settings"
+                role="tab"
+                data-toggle="tab"
+                ref="tab-settings">
+                  <i className="icon fa fa-fw fa-lg fa-cog"></i>
+                  <span className="title">Settings</span>
+              </a>
+            </li>
             <li>
               <a href="#" onClick={this._addPlaylist}>
                 <i className="icon fa fa-fw fa-lg fa-plus"></i>
