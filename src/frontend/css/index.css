@@ -207,6 +207,11 @@ a:hover, a:focus {
   transform: translateY(25%);
 }
 
+.settings-container ul {
+  padding-left: 10px;
+  font-size: 16px;
+}
+
 .vjs-default-skin {
   background-color: #000000;
 }
