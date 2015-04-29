@@ -73,7 +73,7 @@ If you are using your local `nw.js` to test Kaku, please remember to copy needed
 - [ ] Add i18n support
 - [ ] Fixed related UI
 - [ ] Make native vjs button and remove our controls
-- [ ] Add Desktop notification
+- [x] Add Desktop notification
 - [x] Add settings page to make sure users can change their streaming platform
 - [x] fix forward / backward button and add volume control instead (native slider from vjs)
 - [x] Add timeline for Player (maybe we can use the native one from Videojs ?)

@@ -4,6 +4,7 @@ define(function(require) {
   var EventEmitter = requireNode('events').EventEmitter;
   var TrackInfoFetcher = require('backend/TrackInfoFetcher');
   var YoutubeSearcher = require('backend/YoutubeSearcher');
+  var Notifier = require('modules/Notifier');
   var CoreData = require('backend/CoreData');
   var videojs = require('videojs');
   videojs.options.flash.swf = 'dist/vendor/video.js/dist/video-js.swf';
@@ -179,6 +180,11 @@ define(function(require) {
           this._player.src(realTrack.platformTrackRealUrl);
           this._player.play();
           this._addToPlayedHistories(realTrack);
+
+          Notifier.sendDesktopNotification({
+            body: realTrack.title,
+            icon: realTrack.covers.default
+          });
       });
     });
   };

@@ -1,6 +1,7 @@
 define(function(require) {
   'use strict';
 
+  var PreferenceManager = require('backend/PreferenceManager');
   var $ = require('jquery');
   var _ = require('notify');
 
@@ -8,7 +9,6 @@ define(function(require) {
 
   var Notifier = function() {
     EventEmitter.call(this);
-    
   };
 
   Notifier.prototype = Object.create(EventEmitter.prototype);
@@ -56,6 +56,18 @@ define(function(require) {
   Notifier.prototype.alert = function() {
     var args = this._getProcessedArguments.apply(this, arguments);
     $.notify(args[0], args[1]);
+  };
+
+  Notifier.prototype.sendDesktopNotification = function(options) {
+    var isDesktopNotificationEnabled =
+      PreferenceManager.getPreference('desktop.notification.enabled');
+    // TODO
+    // 1. add more checks here
+    // 2. change default kaku icon
+    if (isDesktopNotificationEnabled && options.body) {
+      var title = options.title || 'Love from Kaku';
+      var notification = new window.Notification(title, options);
+    }
   };
 
   return new Notifier();
