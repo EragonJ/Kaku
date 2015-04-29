@@ -68,19 +68,19 @@ If you are using your local `nw.js` to test Kaku, please remember to copy needed
 
 # TODO
 
-+ [] **[WIP]** Add node-webkit updator
-+ [] serialize / deserialize data and store them into persistent data (maybe just a simple file, not db)
-+ [] Add i18n support
-+ [] Fixed related UI
-+ [] Make native vjs button and remove our controls
-+ [] Add Desktop notification
-+ [-] Add settings page to make sure users can change their streaming platform
-+ [-] fix forward / backward button and add volume control instead (native slider from vjs)
-+ [-] Add timeline for Player (maybe we can use the native one from Videojs ?)
-+ [-] Add play all tracks feature
-+ [-] Show the right playlist name when navigating to specific playlist
-+ [-] Add "rename", "remove" feature for Playlist
-+ [-] Fix the problem that if we save top tracks in playlist, these tracks would be not playable (because no realPlatformUrl)
-+ [-] Add playlist feature
-+ [-] Make tracks in Top Rankings playable
-+ [-] Remember to write a installer to package all needed codec based on this article - https://github.com/nwjs/nw.js/wiki/Using-MP3-&-MP4-%28H.264%29-using-the--video--&--audio--tags.
+- [ ] **[WIP]** Add node-webkit updator
+- [ ] serialize / deserialize data and store them into persistent data (maybe just a simple file, not db)
+- [ ] Add i18n support
+- [ ] Fixed related UI
+- [ ] Make native vjs button and remove our controls
+- [ ] Add Desktop notification
+- [x] Add settings page to make sure users can change their streaming platform
+- [x] fix forward / backward button and add volume control instead (native slider from vjs)
+- [x] Add timeline for Player (maybe we can use the native one from Videojs ?)
+- [x] Add play all tracks feature
+- [x] Show the right playlist name when navigating to specific playlist
+- [x] Add "rename", "remove" feature for Playlist
+- [x] Fix the problem that if we save top tracks in playlist, these tracks would be not playable (because no realPlatformUrl)
+- [x] Add playlist feature
+- [x] Make tracks in Top Rankings playable
+- [x] Remember to write a installer to package all needed codec based on this article - https://github.com/nwjs/nw.js/wiki/Using-MP3-&-MP4-%28H.264%29-using-the--video--&--audio--tags.
