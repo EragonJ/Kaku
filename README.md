@@ -73,6 +73,7 @@ If you are using your local `nw.js` to test Kaku, please remember to copy needed
 - [ ] Add i18n support
 - [ ] Fixed related UI
 - [ ] Make native vjs button and remove our controls
+- [ ] Add resolution chooser
 - [x] Add Desktop notification
 - [x] Add settings page to make sure users can change their streaming platform
 - [x] fix forward / backward button and add volume control instead (native slider from vjs)
