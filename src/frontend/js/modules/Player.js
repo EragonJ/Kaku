@@ -182,8 +182,7 @@ define(function(require) {
           this._addToPlayedHistories(realTrack);
 
           Notifier.sendDesktopNotification({
-            body: realTrack.title,
-            icon: realTrack.covers.default
+            body: realTrack.title
           });
       });
     });

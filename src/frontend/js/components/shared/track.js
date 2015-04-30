@@ -1,9 +1,13 @@
 define(function(require) {
   'use strict';
 
-  var gui = requireNode('nw.gui');
+  var remote = requireNode('remote');
+  var Menu = remote.require('menu');
+  var MenuItem = remote.require('menu-item');
+
   var YoutubeSearcher = require('backend/YoutubeSearcher');
   var PlaylistManager = require('backend/PlaylistManager');
+  var Notifier = require('modules/Notifier');
   var Player = require('modules/Player');
   var React = require('react');
   var ClassNames = require('classnames');
@@ -37,28 +41,29 @@ define(function(require) {
       // we should not shown this context menu
       event.preventDefault();
       var menu = this._createContextMenu();
-      menu.popup(event.clientX, event.clientY);
+      menu.popup(remote.getCurrentWindow());
     },
 
     _createContextMenu: function() {
-      var menu = new gui.Menu();
+      var menu = new Menu();
       var playlists = PlaylistManager.playlists;
       // TODO
       // what should we do if there is no playlist ?
       playlists.forEach((playlist) => {
-        var menuItem = new gui.MenuItem({
-          label: 'Add to ' + playlist.name
-        });
-
-        menuItem.click = ((playlist) => {
+        var clickHandler = ((playlist) => {
           return () => {
             playlist
               .addTrack(this.props.data)
               .catch((error) => {
-                alert(error);
+                Notifier.alert(error);
               });
           };
         }(playlist));
+
+        var menuItem = new MenuItem({
+          label: 'Add to ' + playlist.name,
+          click: clickHandler
+        });
 
         menu.append(menuItem);
       });

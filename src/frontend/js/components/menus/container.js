@@ -1,11 +1,16 @@
 define(function(require) {
   'use strict';
 
-  var gui = requireNode("nw.gui");
+  var remote = requireNode('remote');
+  var Menu = remote.require('menu');
+  var MenuItem = remote.require('menu-item');
+
   var crypto = requireNode('crypto');
   var CoreData = require('backend/CoreData');
   var PlaylistManager = require('backend/PlaylistManager');
   var TabManager = require('modules/TabManager');
+  var Notifier = require('modules/Notifier');
+  var Dialog = require('modules/Dialog');
   var React = require('react');
   var $ = require('jquery');
 
@@ -72,28 +77,33 @@ define(function(require) {
       // TODO
       // fix this native behavior with customzied dialog
       var randomSuffix = crypto.randomBytes(3).toString('hex');
-      var rawPlaylistName = prompt('Please input your playlist name',
-        'playlist-' + randomSuffix) || '';
-      var sanitizedPlaylistName = rawPlaylistName.trim();
-      if (!sanitizedPlaylistName) {
-        alert('Please make sure you did input the playlist name');
-      }
-      else {
-        PlaylistManager
-          .addNormalPlaylist(sanitizedPlaylistName)
-          .then(() => {
-            this._updateInternalStates();
-          })
-          .catch((error) => {
-            alert(error);
-          });
-      }
+      Dialog.prompt({
+        title: 'Please input your playlist name',
+        value: 'playlist-' + randomSuffix,
+        callback: (rawPlaylistName) => {
+          rawPlaylistName = rawPlaylistName || '';
+          var sanitizedPlaylistName = rawPlaylistName.trim();
+          if (!sanitizedPlaylistName) {
+            Notifier.alert('Please make sure you did input the playlist name');
+          }
+          else {
+            PlaylistManager
+              .addNormalPlaylist(sanitizedPlaylistName)
+              .then(() => {
+                this._updateInternalStates();
+              })
+              .catch((error) => {
+                Notifier.alert(error);
+              });
+          }
+        }
+      });
     },
 
     _createContextMenuForPlaylist: function(playlist) {
-      var menu = new gui.Menu();
+      var menu = new Menu();
 
-      var removeMenuItem = new gui.MenuItem({
+      var removeMenuItem = new MenuItem({
         label: 'Remove this playlist',
         click: () => {
           PlaylistManager
@@ -102,30 +112,36 @@ define(function(require) {
               this._updateInternalStates();
             })
             .catch((error) => {
-              alert(error);
+              Notifier.alert(error);
             });
         }
       });
 
-      var renameMenuItem = new gui.MenuItem({
+      var renameMenuItem = new MenuItem({
         label: 'Rename this playlist',
         click: () => {
-          var rawPlaylistName = prompt('Please input your playlist name',
-            playlist.name) || '';
-          var sanitizedPlaylistName = rawPlaylistName.trim();
-          if (!sanitizedPlaylistName) {
-            alert('Please make sure you did input the playlist name');
-          }
-          else {
-            PlaylistManager
-              .renamePlaylistById(playlist.id, sanitizedPlaylistName)
-              .then(() => {
-                this._updateInternalStates();
-              })
-              .catch((error) => {
-                alert(error);
-              });
-          }
+          Dialog.prompt({
+            title: 'Please input your playlist name',
+            value: playlist.name,
+            callback: function(rawPlaylistName) {
+              rawPlaylistName = rawPlaylistName || '';
+              var sanitizedPlaylistName = rawPlaylistName.trim();
+              if (!sanitizedPlaylistName) {
+                Notifier.alert(
+                  'Please make sure you did input the playlist name');
+              }
+              else {
+                PlaylistManager
+                  .renamePlaylistById(playlist.id, sanitizedPlaylistName)
+                  .then(() => {
+                    this._updateInternalStates();
+                  })
+                  .catch((error) => {
+                    Notifier.alert(error);
+                  });
+              }
+            }
+          });
         }
       });
 

@@ -1,10 +1,12 @@
 define(function(require) {
   'use strict';
 
-  var fdialogs = requireNode('node-webkit-fdialogs');
+  var remote = requireNode('remote');
+  var dialog = remote.require('dialog');
+
+  var shell = requireNode('shell');
   var request = requireNode('request');
   var crypto = requireNode('crypto');
-  var gui = requireNode('nw.gui');
   var fs = requireNode('fs');
   var CoreData = require('backend/CoreData');
   var Notifier = require('modules/Notifier');
@@ -83,20 +85,18 @@ define(function(require) {
     _onDownloadButtonClick: function() {
       Player.ready().then(function(player) {
         var src = player.src();
-        var fakeFile = new Buffer('', 'utf-8');
-        // TODO
-        // we can make a better naming in the future
         var filename =
           'music-' + crypto.randomBytes(3).toString('hex') + '.mp4';
 
-        fdialogs.saveFile(fakeFile, filename, function (error, path) {
-          if (error) {
-            console.log('error when saving file to - ', path);
-            console.log('file src - ', src);
+        dialog.showSaveDialog({
+          title: 'Where to download your track ?',
+          defaultPath: filename
+        }, (path) => {
+          if (!path) {
+            Notifier.alert('Please double check your filepath.');
           }
           else {
             Notifier.alert('Start to download your track !');
-
             // we got the path from fakeFile, so it's time to save
             // the real streaming file to override it !
             //
@@ -120,7 +120,7 @@ define(function(require) {
     _onExternalButtonClick: function() {
       var track = Player.playingTrack;
       if (track) {
-        gui.Shell.openExternal(track.platformTrackUrl);
+        shell.openExternal(track.platformTrackUrl);
       }
     },
 

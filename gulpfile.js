@@ -134,28 +134,30 @@ gulp.task('watch', function() {
 
 gulp.task('package', function(done) {
   // TODO
+  // Because I just migrate from nw.js to electron, I have to fix this later
+
   // we should make sure only *needed* stuffs are included
-  var nw = new nwBuilder({
-    files: ['./**/*', '!./build/**/*', '!./cache/**/*', '!./miscs/**/*'],
-    platforms: ['osx64']
-  });
+  // var nw = new nwBuilder({
+  //   files: ['./**/*', '!./build/**/*', '!./cache/**/*', '!./miscs/**/*'],
+  //   platforms: ['osx64']
+  // });
 
-  nw.on('log',  console.log);
-  nw.build().then(function() {
-    console.log('all done!');
+  // nw.on('log',  console.log);
+  // nw.build().then(function() {
+  //   console.log('all done!');
 
-    // TODO
-    // fix this path later
-    gulp
-      .src('./miscs/mac/ffmpegsumo.so', {
-        base: './miscs/mac'
-      })
-      .pipe(gulp.dest('./build/Kaku/osx64/Kaku.app/Contents/Frameworks/nwjs Framework.framework/Libraries'))
-      .on('end', done);
-  }).catch(function(error) {
-    console.error(error);
-    done();
-  });
+  //   // TODO
+  //   // fix this path later
+  //   gulp
+  //     .src('./miscs/mac/ffmpegsumo.so', {
+  //       base: './miscs/mac'
+  //     })
+  //     .pipe(gulp.dest('./build/Kaku/osx64/Kaku.app/Contents/Frameworks/nwjs Framework.framework/Libraries'))
+  //     .on('end', done);
+  // }).catch(function(error) {
+  //   console.error(error);
+  //   done();
+  // });
 });
 
 gulp.task('build', function(callback) {

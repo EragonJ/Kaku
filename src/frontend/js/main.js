@@ -29,9 +29,7 @@ fetchRjsConfig().then(function(rjsConfig) {
     'components/settings/container',
     'backend/PlaylistManager',
     'modules/TabManager',
-    'backend/AutoUpdater',
-    'jquery',
-    'bootstrap'
+    'jquery'
   ], function (
     React,
     ToolbarContainer,
@@ -44,19 +42,17 @@ fetchRjsConfig().then(function(rjsConfig) {
     SettingsContainer,
     PlaylistManager,
     TabManager,
-    AutoUpdater
+    $
   ) {
+    // NOTE:
+    // please check https://github.com/atom/electron/issues/254
+    window.$ = window.jQuery = $;
+    requirejs(['bootstrap']);
+
     var KakuApp = React.createClass({
       componentDidMount: function() {
         // TODO
-        // I have to do more tests on this
-        // this._triggerUpdatorAfter5seconds();
-      },
-
-      _triggerUpdatorAfter5seconds: function() {
-        setTimeout(function() {
-          AutoUpdater.run();
-        }, 5000);
+        // we have to enable AutoUpdater here later
       },
 
       render: function() {

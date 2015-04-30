@@ -22,6 +22,7 @@
     "video.js": "~4.12.5",
     "classnames": "~1.2.1",
     "remarkable-bootstrap-notify": "~3.0.2",
-    "animate.css": "~3.2.6"
+    "animate.css": "~3.2.6",
+    "bootbox": "~4.4.0"
   }
 }

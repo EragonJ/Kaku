@@ -1,7 +1,7 @@
 define(function(require) {
   'use strict';
 
-  var dataPath = requireNode('nw.gui').App.dataPath;
+  var dataPath = process.cwd();
   var serialize = requireNode('serialize-javascript');
   var Watch = requireNode('watchjs');
   var fs = requireNode('fs');

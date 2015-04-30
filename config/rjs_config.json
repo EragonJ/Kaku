@@ -9,6 +9,9 @@
     },
     "notify": {
       "deps": ["jquery"]
+    },
+    "bootbox": {
+      "deps": ["jquery"]
     }
   },
   "paths": {
@@ -19,6 +22,7 @@
     "jquery": "../vendor/jquery/dist/jquery.min",
     "bootstrap": "../vendor/bootstrap/dist/js/bootstrap.min",
     "classnames": "../vendor/classnames/index",
-    "notify": "../vendor/remarkable-bootstrap-notify/bootstrap-notify.min"
+    "notify": "../vendor/remarkable-bootstrap-notify/bootstrap-notify.min",
+    "bootbox": "../vendor/bootbox/bootbox"
   }
 }
