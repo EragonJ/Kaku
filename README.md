@@ -43,37 +43,35 @@ gulp watch
 then run Kaku :
 
 ```bash
-nw .
+electron .
 ```
-
-**Notes**
-
-If you are using your local `nw.js` to test Kaku, please remember to copy needed **ffmpegsumo** from `miscs/` to your nw.js by following the official article here - http://goo.gl/h1zQ4W
 
 # What tech we use ?
 
 1. [Gulp](http://gulpjs.com/) - To build up our environment
-2. [NW.js](http://nwjs.io/) - Let us use web technology to build native app
-3. [Compass / SASS](http://compass-style.org/) - To help us write CSS easily
-4. [Bower](http://bower.io/) - To help us manage frontend resources
-5. [Require.js](http://requirejs.org/) - To help me make codes more structure
-6. [Bootstrap](http://getbootstrap.com/) - To boostrap the whole project including grid system ... etc
-7. [FontAwesome](http://fortawesome.github.io/Font-Awesome/) - To make Kaku look nice
-8. [jQuery](https://jquery.com/) - Bootstrap is based on jQuery
-9. [React.js](http://reactjs.org/) - To help us break UI into small components
-10. [Video.js](http://www.videojs.com/) - To help us control the player
-11. [Babel](https://babeljs.io/) - To do some pre-transfrom process
-12. [NPM](https://www.npmjs.org/) - To help us manage node modules resources
-13. ... still increasing :)
+2. [NW.js](http://nwjs.io/) - (Moved to Electron)
+3. [Electron](http://electron.atom.io) - Let us use web technology to build native app 
+4. [Compass / SASS](http://compass-style.org/) - To help us write CSS easily
+5. [Bower](http://bower.io/) - To help us manage frontend resources
+6. [Require.js](http://requirejs.org/) - To help me make codes more structure
+7. [Bootstrap](http://getbootstrap.com/) - To boostrap the whole project including grid system ... etc
+8. [FontAwesome](http://fortawesome.github.io/Font-Awesome/) - To make Kaku look nice
+9. [jQuery](https://jquery.com/) - Bootstrap is based on jQuery
+10. [React.js](http://reactjs.org/) - To help us break UI into small components
+11. [Video.js](http://www.videojs.com/) - To help us control the player
+12. [Babel](https://babeljs.io/) - To do some pre-transfrom process
+13. [NPM](https://www.npmjs.org/) - To help us manage node modules resources
+14. ... still increasing :)
 
 # TODO
 
-- [ ] **[WIP]** Add node-webkit updator
+- [ ] **[WIP]** Add auto-updator
 - [ ] serialize / deserialize data and store them into persistent data (maybe just a simple file, not db)
 - [ ] Add i18n support
 - [ ] Fixed related UI
 - [ ] Make native vjs button and remove our controls
 - [ ] Add resolution chooser
+- [x] Moved to Electron
 - [x] Add Desktop notification
 - [x] Add settings page to make sure users can change their streaming platform
 - [x] fix forward / backward button and add volume control instead (native slider from vjs)
