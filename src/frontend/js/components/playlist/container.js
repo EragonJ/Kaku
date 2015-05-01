@@ -31,6 +31,7 @@ define(function(require) {
           tracks: playlist.tracks
         });
 
+        playlist.removeAllListeners('tracksUpdated');
         playlist.on('tracksUpdated', () => {
           this.setState({
             tracks: playlist.tracks

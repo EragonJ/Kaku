@@ -22,10 +22,10 @@ define(function(require) {
     },
 
     componentDidMount: function() {
-      // If we changed tab by API directly,
-      // we have to reflect it to UI here
-      TabManager.on('changed', (tabName) => {
-        this._showTab(tabName);
+      // tab is clicked -> trigger bootstrap .tab('show')
+      //                -> trigger TabManager.on('changed')
+      TabManager.on('changed', (tabName, tabOptions) => {
+        this._showTab(tabName, tabOptions);
       });
 
       this._bindTabChangeEvent();
@@ -39,29 +39,35 @@ define(function(require) {
     _bindTabChangeEvent: function() {
       var self = this;
       var menusDOM = this.refs.menus.getDOMNode();
-      var links = menusDOM.querySelectorAll('a[data-toggle="tab"]');
+      var links = menusDOM.querySelectorAll('a[role="tab"]');
 
       // NOTE
       // not sure whether this would conflict with pre-bound
       // bootstrap events
-      $(links).on('shown.bs.tab', function() {
+      $(links).on('click', function() {
         var href = $(this).attr('href');
         var tabOptions = $(this).attr('data-tab-options');
         var tabName = href.replace('#tab-', '');
-
-        self._showTab(tabName);
         TabManager.setTab(tabName, tabOptions);
       });
     },
 
     _unbindTabChangeEvent: function() {
       var menusDOM = this.refs.menus.getDOMNode();
-      var links = menusDOM.querySelectorAll('a[data-toggle="tab"]');
-      $(links).off('shown.bs.tab');
+      var links = menusDOM.querySelectorAll('a[role="tab"]');
+      $(links).off('click');
     },
 
-    _showTab: function(tabName) {
-      var linkToTabRef = this.refs['tab-' + tabName];
+    _showTab: function(tabName, tabOptions) {
+      var linkToTabRef;
+      if (tabName === 'playlist') {
+        var playlistId = tabOptions;
+        linkToTabRef = this.refs['tab-playlist' + playlistId];
+      }
+      else {
+        linkToTabRef = this.refs['tab-' + tabName];
+      }
+
       if (linkToTabRef) {
         $(linkToTabRef.getDOMNode()).tab('show');
       }
@@ -84,7 +90,7 @@ define(function(require) {
           rawPlaylistName = rawPlaylistName || '';
           var sanitizedPlaylistName = rawPlaylistName.trim();
           if (!sanitizedPlaylistName) {
-            Notifier.alert('Please make sure you did input the playlist name');
+            // do nothing
           }
           else {
             PlaylistManager
@@ -123,12 +129,11 @@ define(function(require) {
           Dialog.prompt({
             title: 'Please input your playlist name',
             value: playlist.name,
-            callback: function(rawPlaylistName) {
+            callback: (rawPlaylistName) => {
               rawPlaylistName = rawPlaylistName || '';
               var sanitizedPlaylistName = rawPlaylistName.trim();
               if (!sanitizedPlaylistName) {
-                Notifier.alert(
-                  'Please make sure you did input the playlist name');
+                // do nothing
               }
               else {
                 PlaylistManager
@@ -153,7 +158,7 @@ define(function(require) {
     _clickToShowContextMenu: function(playlist, event) {
       event.preventDefault();
       var menu = this._createContextMenuForPlaylist(playlist);
-      menu.popup(event.clientX, event.clientY);
+      menu.popup(remote.getCurrentWindow());
     },
 
     render: function() {
@@ -167,7 +172,6 @@ define(function(require) {
               <a
                 href="#tab-home"
                 role="tab"
-                data-toggle="tab"
                 ref="tab-home">
                   <i className="icon fa fa-fw fa-lg fa-home"></i>
                   <span className="title">Home</span>
@@ -177,7 +181,6 @@ define(function(require) {
               <a
                 href="#tab-search"
                 role="tab"
-                data-toggle="tab"
                 ref="tab-search">
                   <i className="icon fa fa-fw fa-lg fa-search"></i>
                   <span className="title">Search Results</span>
@@ -187,7 +190,6 @@ define(function(require) {
               <a
                 href="#tab-history"
                 role="tab"
-                data-toggle="tab"
                 ref="tab-history">
                   <i className="icon fa fa-fw fa-lg fa-history"></i>
                   <span className="title">Histories</span>
@@ -197,7 +199,6 @@ define(function(require) {
               <a
                 href="#tab-settings"
                 role="tab"
-                data-toggle="tab"
                 ref="tab-settings">
                   <i className="icon fa fa-fw fa-lg fa-cog"></i>
                   <span className="title">Settings</span>
@@ -210,6 +211,7 @@ define(function(require) {
               </a>
             </li>
             {playlists.map((playlist) => {
+              var ref= 'tab-playlist' + playlist.id;
               var clickToShowContextMenu =
                 this._clickToShowContextMenu.bind(this, playlist);
               return (
@@ -217,10 +219,9 @@ define(function(require) {
                   <a
                     href="#tab-playlist"
                     role="tab"
-                    data-toggle="tab"
                     data-tab-options={playlist.id}
                     onContextMenu={clickToShowContextMenu}
-                    ref="tab-playlist">
+                    ref={ref}>
                       <i className="icon fa fa-fw fa-lg fa-music"></i>
                       <span className="title">{playlist.name}</span>
                     </a>
