@@ -182,7 +182,8 @@ define(function(require) {
           this._addToPlayedHistories(realTrack);
 
           Notifier.sendDesktopNotification({
-            body: realTrack.title
+            title: realTrack.title,
+            body: realTrack.artist
           });
       });
     });
