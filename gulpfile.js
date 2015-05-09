@@ -12,6 +12,7 @@ var plumber = require('gulp-plumber');
 var nwBuilder = require('node-webkit-builder');
 var htmlreplace = require('gulp-html-replace');
 var sequence = require('gulp-sequence');
+var changed = require('gulp-changed');
 
 var CURRENT_ENVIRONMENT = 'development';
 
@@ -38,20 +39,24 @@ gulp.task('cleanup', function() {
 });
 
 gulp.task('6to5:frontend', function() {
+  var dest = './dist/frontend';
   return gulp
     .src(FRONTEND_JS_FILES)
+    .pipe(changed(dest))
     .pipe(plumber())
     .pipe(babel())
-    .pipe(gulp.dest('./dist/frontend'));
+    .pipe(gulp.dest(dest));
 });
 
 gulp.task('6to5:backend', function() {
+  var dest = './dist/backend';
   // we just want to move all files to the right place
   return gulp
     .src(BACKEND_JS_FILES)
+    .pipe(changed(dest))
     .pipe(plumber())
     .pipe(babel())
-    .pipe(gulp.dest('./dist/backend'));
+    .pipe(gulp.dest(dest));
 });
 
 gulp.task('linter', function() {
@@ -65,9 +70,11 @@ gulp.task('linter', function() {
 });
 
 gulp.task('copy:vendor', function() {
+  var dest = './dist/vendor';
   return gulp
     .src(VENDOR_FILES)
-    .pipe(gulp.dest('./dist/vendor'));
+    .pipe(changed(dest))
+    .pipe(gulp.dest(dest));
 });
 
 gulp.task('rjs', function(done) {
@@ -177,7 +184,6 @@ gulp.task('build', function(callback) {
 gulp.task('default', function(callback) {
   CURRENT_ENVIRONMENT = 'development';
   sequence(
-    'cleanup',
     '6to5:frontend',
     '6to5:backend',
     'linter',
