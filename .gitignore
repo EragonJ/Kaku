@@ -2,7 +2,6 @@
 dist
 src/frontend/vendor
 build
-cache
 node_modules
 index.html
 .module_cache

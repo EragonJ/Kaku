@@ -9,7 +9,7 @@ var clean = require('gulp-clean');
 var jshint = require('gulp-jshint');
 var rename = require('gulp-rename');
 var plumber = require('gulp-plumber');
-var nwBuilder = require('node-webkit-builder');
+var atomshell = require('gulp-atom-shell');
 var htmlreplace = require('gulp-html-replace');
 var sequence = require('gulp-sequence');
 
@@ -134,30 +134,13 @@ gulp.task('watch', function() {
 
 gulp.task('package', function(done) {
   // TODO
-  // Because I just migrate from nw.js to electron, I have to fix this later
-
-  // we should make sure only *needed* stuffs are included
-  // var nw = new nwBuilder({
-  //   files: ['./**/*', '!./build/**/*', '!./cache/**/*', '!./miscs/**/*'],
-  //   platforms: ['osx64']
-  // });
-
-  // nw.on('log',  console.log);
-  // nw.build().then(function() {
-  //   console.log('all done!');
-
-  //   // TODO
-  //   // fix this path later
-  //   gulp
-  //     .src('./miscs/mac/ffmpegsumo.so', {
-  //       base: './miscs/mac'
-  //     })
-  //     .pipe(gulp.dest('./build/Kaku/osx64/Kaku.app/Contents/Frameworks/nwjs Framework.framework/Libraries'))
-  //     .on('end', done);
-  // }).catch(function(error) {
-  //   console.error(error);
-  //   done();
-  // });
+  // We have to fix more stuffs later after atomshell is updated
+  return gulp.src(['./**/*', '!./build/**/*', '!./cache/**/*', '!./miscs/**/*'])
+    .pipe(atomshell({
+      version: '0.19.4',
+      platform: 'darwin'
+    }))
+    .pipe(atomshell.zfsdest('build/app.zip'));
 });
 
 gulp.task('build', function(callback) {
