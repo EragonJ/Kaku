@@ -15,14 +15,14 @@
     }
   },
   "paths": {
-    "react": "../vendor/react/react",
-    "vendor": "../vendor",
+    "react": "vendor/react/react",
+    "vendor": "vendor",
     "backend": "../backend",
-    "videojs": "../vendor/video.js/dist/video-js/video",
-    "jquery": "../vendor/jquery/dist/jquery.min",
-    "bootstrap": "../vendor/bootstrap/dist/js/bootstrap.min",
-    "classnames": "../vendor/classnames/index",
-    "notify": "../vendor/remarkable-bootstrap-notify/bootstrap-notify.min",
-    "bootbox": "../vendor/bootbox/bootbox"
+    "videojs": "vendor/video.js/dist/video-js/video",
+    "jquery": "vendor/jquery/dist/jquery.min",
+    "bootstrap": "vendor/bootstrap/dist/js/bootstrap.min",
+    "classnames": "vendor/classnames/index",
+    "notify": "vendor/remarkable-bootstrap-notify/bootstrap-notify.min",
+    "bootbox": "vendor/bootbox/bootbox"
   }
 }

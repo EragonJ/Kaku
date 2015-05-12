@@ -12,6 +12,7 @@ var plumber = require('gulp-plumber');
 var atomshell = require('gulp-atom-shell');
 var htmlreplace = require('gulp-html-replace');
 var sequence = require('gulp-sequence');
+var merge = require('merge-stream');
 
 var CURRENT_ENVIRONMENT = 'development';
 
@@ -19,8 +20,11 @@ var CURRENT_ENVIRONMENT = 'development';
 // we have to double check **/*.js is a right expression or not
 const SCSS_FILES = './src/frontend/scss/**/*.scss';
 const FRONTEND_JS_FILES = './src/frontend/js/**/*.js';
+const FRONTEND_CSS_FILES = './src/frontend/css/**/*.css';
+const FRONTEND_FONTS_FILES = './src/frontend/fonts/**/*.*';
+const FRONTEND_VENDOR_FILES = './src/frontend/vendor/**/*.*';
+const FRONTEND_IMAGES_FILES = './src/frontend/images/**/*.*';
 const BACKEND_JS_FILES = './src/backend/**/*.js';
-const VENDOR_FILES = './src/frontend/vendor/**/*';
 const DIST_FILES = './dist';
 const INDEX_TEMPLATE_FILE = './_index.html';
 const INDEX_FILE = './index.html';
@@ -64,10 +68,13 @@ gulp.task('linter', function() {
     .pipe(jshint.reporter('jshint-stylish'));
 });
 
-gulp.task('copy:vendor', function() {
-  return gulp
-    .src(VENDOR_FILES)
-    .pipe(gulp.dest('./dist/vendor'));
+gulp.task('copy:frontend', function() {
+  var base = './dist/frontend/';
+  var vendor = gulp.src(FRONTEND_VENDOR_FILES).pipe(gulp.dest(base + 'vendor'));
+  var css = gulp.src(FRONTEND_CSS_FILES).pipe(gulp.dest(base + 'css'));
+  var fonts = gulp.src(FRONTEND_FONTS_FILES).pipe(gulp.dest(base + 'fonts'));
+  var images = gulp.src(FRONTEND_IMAGES_FILES).pipe(gulp.dest(base + 'images'));
+  return merge(vendor, css, fonts, images);
 });
 
 gulp.task('rjs', function(done) {
@@ -116,7 +123,7 @@ gulp.task('override', function() {
       ],
       frontend_js: {
         src: 'dist/main',
-        tpl: '<script data-main="%s" src="src/frontend/vendor/requirejs/require.js"></script>'
+        tpl: '<script data-main="%s" src="dist/frontend/vendor/requirejs/require.js"></script>'
       }
     })))
     .pipe(rename(INDEX_FILE))
@@ -150,7 +157,7 @@ gulp.task('build', function(callback) {
     '6to5:frontend',
     '6to5:backend',
     'linter',
-    'copy:vendor',
+    'copy:frontend',
     'rjs',
     'override',
     'package'
@@ -163,12 +170,9 @@ gulp.task('default', function(callback) {
     'cleanup',
     '6to5:frontend',
     '6to5:backend',
+    'compass',
     'linter',
-    'copy:vendor',
+    'copy:frontend',
     'override'
   )(callback);
 });
-
-// TODO
-// we have to add `compass` task back in building process
-// and have to use build:css to replace all css into one
