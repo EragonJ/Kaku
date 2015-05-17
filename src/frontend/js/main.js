@@ -110,11 +110,9 @@ fetchRjsConfig().then(function(rjsConfig) {
             </div>
           </div>
         );
-        /* jshint ignore:end */
       }
     });
 
-    /* jshint ignore:start */
     React.render(<KakuApp/>, document.body);
     /* jshint ignore:end */
   });
