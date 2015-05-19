@@ -25,6 +25,7 @@ const FRONTEND_FONTS_FILES = './src/frontend/fonts/**/*.*';
 const FRONTEND_VENDOR_FILES = './src/frontend/vendor/**/*.*';
 const FRONTEND_IMAGES_FILES = './src/frontend/images/**/*.*';
 const BACKEND_JS_FILES = './src/backend/**/*.js';
+const BACKEND_L10N_FILES = './src/backend/locales/**/*.*';
 const DIST_FILES = './dist';
 const INDEX_TEMPLATE_FILE = './_index.html';
 const INDEX_FILE = './index.html';
@@ -75,6 +76,13 @@ gulp.task('copy:frontend', function() {
   var fonts = gulp.src(FRONTEND_FONTS_FILES).pipe(gulp.dest(base + 'fonts'));
   var images = gulp.src(FRONTEND_IMAGES_FILES).pipe(gulp.dest(base + 'images'));
   return merge(vendor, css, fonts, images);
+});
+
+gulp.task('copy:backend', function() {
+  var base = './dist/backend/';
+  var l10nFiles = gulp.src(BACKEND_L10N_FILES)
+    .pipe(gulp.dest(base + 'locales'));
+  return merge(l10nFiles);
 });
 
 gulp.task('rjs', function(done) {
@@ -158,6 +166,7 @@ gulp.task('build', function(callback) {
     '6to5:backend',
     'linter',
     'copy:frontend',
+    'copy:backend',
     'rjs',
     'override',
     'package'
@@ -173,6 +182,7 @@ gulp.task('default', function(callback) {
     'compass',
     'linter',
     'copy:frontend',
+    'copy:backend',
     'override'
   )(callback);
 });
