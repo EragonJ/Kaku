@@ -2,15 +2,15 @@
 window.requireNode = window.require;
 
 // auto reload
+var remote = requireNode('remote');
 var gulp = requireNode('gulp');
 
+
 gulp.task('reload', function() {
-  if (location) {
-    location.reload();
-  }
+  remote.getCurrentWindow().reload();
 });
 
 gulp.watch([
-  'dist/frontend',
-  'dist/backend'
+  'src/frontend/**/*.*',
+  'src/backend/**/*.*'
 ], ['reload']);
