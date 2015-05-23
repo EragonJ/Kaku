@@ -50,7 +50,7 @@ electron .
 
 1. [Gulp](http://gulpjs.com/) - To build up our environment
 2. [NW.js](http://nwjs.io/) - (Moved to Electron)
-3. [Electron](http://electron.atom.io) - Let us use web technology to build native app 
+3. [Electron](http://electron.atom.io) - Let us use web technology to build native app
 4. [Compass / SASS](http://compass-style.org/) - To help us write CSS easily
 5. [Bower](http://bower.io/) - To help us manage frontend resources
 6. [Require.js](http://requirejs.org/) - To help me make codes more structure
@@ -66,11 +66,17 @@ electron .
 # TODO
 
 - [ ] **[WIP]** Add auto-updator
+- [ ] **[WIP]** Translate all panels
 - [ ] serialize / deserialize data and store them into persistent data (maybe just a simple file, not db)
-- [ ] Add i18n support
 - [ ] Fixed related UI
 - [ ] Make native vjs button and remove our controls
 - [ ] Add resolution chooser
+- [ ] We have to provide a better way to communicate between panels & L10nManager
+- [ ] Remove API_KEY from sourcecode, we should only include that when building from env
+- [ ] Fix the scrolling problem in Home panel, not sure why it won't always go to the top
+- [ ] Implement Database to store playlist (Pouchdb looks like a good choice)
+- [ ] Port Kaku to the other platforms
+- [x] Add i18n support
 - [x] Moved to Electron
 - [x] Add Desktop notification
 - [x] Add settings page to make sure users can change their streaming platform
