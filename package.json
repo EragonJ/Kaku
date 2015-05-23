@@ -3,21 +3,9 @@
   "version": "0.0.1",
   "description": "This is a totally free music player for some hot music sources",
   "main": "bootup.js",
-  "window": {
-    "title": "Kaku",
-    "icon": "public/images/icon.png",
-    "toolbar": false,
-    "frame": false,
-    "width": 1060,
-    "height": 600,
-    "min_width": 1060,
-    "min_height": 600,
-    "resizable": true,
-    "position": "center"
-  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/hax4/kaku.git"
+    "url": "https://github.com/EragonJ/kaku"
   },
   "keywords": [
     "kaku",
@@ -28,9 +16,9 @@
   "author": "EragonJ <eragonj@eragonj.me>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hax4/kaku/issues"
+    "url": "https://github.com/EragonJ/kaku/issues"
   },
-  "homepage": "https://github.com/hax4/kaku",
+  "homepage": "https://github.com/EragonJ/kaku",
   "devDependencies": {
     "gulp": "^3.8.11",
     "gulp-babel": "^4.0.0",
