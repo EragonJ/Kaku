@@ -14,6 +14,14 @@ bower install
 npm install
 ```
 
+## Prepare needed configs
+
+**PLEASE READ THIS**
+
+In order to successfully make Kaku functional, you have to prepare all needed configs first. (Take Youtube API for example, in latest 3.0 API, you need your own API KEY to execute their API)  No matter you are in production or development environment, this is important and please make sure you already did this before building !
+
+Please take a look at `config/`, you will notice there are some files named like `*.sample.json`, remember to update them with correct config and rename them to `*.production.json`, then everything should work as perfect !
+
 ## Make production build
 
 We need to make sure all codes would be moved to the right place and generated the final entry point to reduce requests to load data, so you have to build first.
@@ -72,10 +80,10 @@ electron .
 - [ ] Make native vjs button and remove our controls
 - [ ] Add resolution chooser
 - [ ] We have to provide a better way to communicate between panels & L10nManager
-- [ ] Remove API_KEY from sourcecode, we should only include that when building from env
 - [ ] Fix the scrolling problem in Home panel, not sure why it won't always go to the top
 - [ ] Implement Database to store playlist (Pouchdb looks like a good choice)
 - [ ] Port Kaku to the other platforms
+- [x] Remove API_KEY from sourcecode, we should only include that when building from env
 - [x] Add i18n support
 - [x] Moved to Electron
 - [x] Add Desktop notification

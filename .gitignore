@@ -1,6 +1,7 @@
 *.swp
 dist
 src/frontend/vendor
+config/*.production.json
 build
 node_modules
 index.html
