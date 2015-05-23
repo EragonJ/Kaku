@@ -8,6 +8,7 @@ define(function(require) {
   var crypto = requireNode('crypto');
   var CoreData = require('backend/CoreData');
   var PlaylistManager = require('backend/PlaylistManager');
+  var L10nManager = require('backend/L10nManager');
   var TabManager = require('modules/TabManager');
   var Notifier = require('modules/Notifier');
   var Dialog = require('modules/Dialog');
@@ -17,7 +18,14 @@ define(function(require) {
   var MenusContainer = React.createClass({
     getInitialState: function() {
       return {
-        playlists: []
+        playlists: [],
+        l10n: {
+          sidebar_home: '',
+          sidebar_settings: '',
+          sidebar_histories: '',
+          sidebar_search_results: '',
+          sidebar_add_playlist: ''
+        }
       };
     },
 
@@ -28,7 +36,19 @@ define(function(require) {
         this._showTab(tabName, tabOptions);
       });
 
+      L10nManager.on('language-initialized', () => {
+        // XXX
+        // it seems that we will emit this event before it is bounds,
+        // maybe we have to find a better way to make this function work ?
+        this._updateL10nStates();
+      });
+
+      L10nManager.on('language-changed', () => {
+        this._updateL10nStates();
+      });
+
       this._bindTabChangeEvent();
+      this._updateL10nStates();
     },
 
     componentDidUpdate: function() {
@@ -73,7 +93,30 @@ define(function(require) {
       }
     },
 
-    _updateInternalStates: function() {
+    _updateL10nStates: function() {
+      // XXX
+      // this function looks a little bit tedious and may be needed in every
+      // panel, maybe we have to find a better way to do this
+      let ids = Object.keys(this.state.l10n);
+      let newL10n = {};
+      let promises = [];
+
+      ids.forEach((id) => {
+        promises.push(L10nManager.get(id));
+      });
+
+      Promise.all(promises).then((translations) => {
+        translations.forEach((translation, index) => {
+          let id = ids[index];
+          newL10n[id] = translation;
+        });
+        this.setState({
+          l10n: newL10n
+        })
+      }).catch(console.log.bind(console));
+    },
+
+    _updatePlaylistsStates: function() {
       this.setState({
         playlists: PlaylistManager.playlists
       });
@@ -96,7 +139,7 @@ define(function(require) {
             PlaylistManager
               .addNormalPlaylist(sanitizedPlaylistName)
               .then(() => {
-                this._updateInternalStates();
+                this._updatePlaylistsStates();
               })
               .catch((error) => {
                 Notifier.alert(error);
@@ -115,7 +158,7 @@ define(function(require) {
           PlaylistManager
             .removePlaylistById(playlist.id)
             .then(() => {
-              this._updateInternalStates();
+              this._updatePlaylistsStates();
             })
             .catch((error) => {
               Notifier.alert(error);
@@ -139,7 +182,7 @@ define(function(require) {
                 PlaylistManager
                   .renamePlaylistById(playlist.id, sanitizedPlaylistName)
                   .then(() => {
-                    this._updateInternalStates();
+                    this._updatePlaylistsStates();
                   })
                   .catch((error) => {
                     Notifier.alert(error);
@@ -163,6 +206,7 @@ define(function(require) {
 
     render: function() {
       var playlists = this.state.playlists;
+      var l10n = this.state.l10n;
 
       /* jshint ignore:start */
       return (
@@ -174,7 +218,7 @@ define(function(require) {
                 role="tab"
                 ref="tab-home">
                   <i className="icon fa fa-fw fa-lg fa-home"></i>
-                  <span className="title">Home</span>
+                  <span className="title">{l10n.sidebar_home}</span>
               </a>
             </li>
             <li role="presentation">
@@ -183,7 +227,7 @@ define(function(require) {
                 role="tab"
                 ref="tab-search">
                   <i className="icon fa fa-fw fa-lg fa-search"></i>
-                  <span className="title">Search Results</span>
+                  <span className="title">{l10n.sidebar_search_results}</span>
               </a>
             </li>
             <li role="presentation">
@@ -192,7 +236,7 @@ define(function(require) {
                 role="tab"
                 ref="tab-history">
                   <i className="icon fa fa-fw fa-lg fa-history"></i>
-                  <span className="title">Histories</span>
+                  <span className="title">{l10n.sidebar_histories}</span>
               </a>
             </li>
             <li role="presentation">
@@ -201,13 +245,13 @@ define(function(require) {
                 role="tab"
                 ref="tab-settings">
                   <i className="icon fa fa-fw fa-lg fa-cog"></i>
-                  <span className="title">Settings</span>
+                  <span className="title">{l10n.sidebar_settings}</span>
               </a>
             </li>
             <li>
               <a href="#" onClick={this._addPlaylist}>
                 <i className="icon fa fa-fw fa-lg fa-plus"></i>
-                <span className="title">Add Playlist</span>
+                <span className="title">{l10n.sidebar_add_playlist}</span>
               </a>
             </li>
             {playlists.map((playlist) => {

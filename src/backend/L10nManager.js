@@ -5,18 +5,26 @@ define(function(require) {
   var EventEmitter = requireNode('events').EventEmitter;
   var fs = requireNode('fs');
   var path = requireNode('path');
-  
-  const EVENTS = {
-    LANGUAGE_CHANGED: 'language-changed'
-  };
+  // [Note]
+  // We can't use __dirname because we use requirejs to load all scripts,
+  // and this will always report the root to be kaku/, instead, we have to
+  // use requirejs's API to get the right path
+  var basePath = require.toUrl('.');
 
   var L10nManager = function() {
     this._cachedStrings = {};
-    this._l10nFolder = path.join(__dirname, 'locales');
+    this._cachedMetadata = null;
+
+    this._l10nFolderPath = path.join(basePath, 'locales');
+    this._metadataPath = path.join(this._l10nFolderPath, 'metadata.json');
+    this._suffixForLanguageFile = '.ini';
+
     this._currentLanguage = 'en';
     this._reParam = /\{\{\s*(\w+)\s*\}\}/g;
+
+    this.init();
   };
-  
+
   L10nManager.prototype = Object.create(EventEmitter.prototype);
   L10nManager.constructor = L10nManager;
 
@@ -25,24 +33,26 @@ define(function(require) {
     if (defaultLanguage) {
       this._currentLanguage = defaultLanguage;
     }
-    return this._fetchLanguageFileAndStore(this._currentLanguage);
+    return this._ready(this._currentLanguage);
   };
 
-  L10nManager.prototype._fetchLanguageFileAndStore = function(language) {
+  L10nManager.prototype._ready = function(language) {
     // it means that we already have related l10n strings
-    if (Object.keys(this._cachedStrings[language]).length > 0) {
+    if (this._cachedStrings[language]) {
       return Promise.resolve();
     }
     else {
       return this._fetchLanguageFile(language).then((result) => {
         this._cachedStrings[language] = result;
+        this.emit('language-initialized');
       });
     }
   };
 
   L10nManager.prototype._fetchLanguageFile = function(language) {
     var promise = new Promise((resolve, reject) => {
-      var languageFilePath = this._l10nFolder + language;
+      var fileName = language + this._suffixForLanguageFile;
+      var languageFilePath = path.join(this._l10nFolderPath, fileName);
       fs.readFile(languageFilePath, 'utf-8', (error, rawIniData) => {
         if (error) {
           reject(error);
@@ -53,6 +63,7 @@ define(function(require) {
         }
       });
     });
+    return promise;
   };
 
   L10nManager.prototype.changeLanguage = function(newLanguage) {
@@ -63,9 +74,29 @@ define(function(require) {
       var oldLanguage = this._currentLanguage;
       this._currentLanguage = newLanguage;
 
-      this._fetchLanguageFileAndStore(newLanguage).then(() => {
-        this.emit(EVENTS.LANGUAGE_CHANGED, newLanguage, oldLanguage);
+      return this._ready(newLanguage).then(() => {
+        this.emit('language-changed', newLanguage, oldLanguage);
       });
+    }
+  };
+
+  L10nManager.prototype.getSupportedLanguages = function() {
+    if (this._cachedMetadata) {
+      return Promise.resolve(this._cachedMetadata);
+    }
+    else {
+      var promise = new Promise((resolve, reject) => {
+        fs.readFile(this._metadataPath, 'utf-8', (error, rawMetadata) => {
+          if (error) {
+            reject(error);
+          }
+          else {
+            this._cachedMetadata = JSON.parse(rawMetadata);
+            resolve(this._cachedMetadata.languages);
+          }
+        });
+      });
+      return promise;
     }
   };
 
@@ -76,23 +107,25 @@ define(function(require) {
       currentLanguage = 'en';
     }
 
-    var rawString = this._cachedStrings[currentLanguage];
-    var replacedString = this._getReplacedString(rawString, params);
+    return this._ready(currentLanguage).then(() => {
+      var rawString = this._cachedStrings[currentLanguage][id];
+      var replacedString = this._getReplacedString(rawString, params);
 
-    if (!replacedString) {
-      console.log('You are accessing a non-exist l10nId : ', id, 
-        ' in lang: ', currentLanguage);
-      // If we still find nothing in `en`, we should exit directly.
-      if (fallbackToEn) {
-        return '';
+      if (!replacedString) {
+        console.log('You are accessing a non-exist l10nId : ', id,
+          ' in lang: ', currentLanguage);
+        // If we still find nothing in `en`, we should exit directly.
+        if (fallbackToEn) {
+          return '';
+        }
+        else {
+          return this.get(id, params, true);
+        }
       }
       else {
-        return this.get(id, params, true);
+        return replacedString;
       }
-    }
-    else {
-      return replacedString;
-    }
+    });
   };
 
   L10nManager.prototype._getReplacedString = function(rawString, params) {
@@ -101,9 +134,11 @@ define(function(require) {
     var replacedParam;
     var foundError = false;
 
-    while (matched = replacedString.exec(this._reParam) && !foundError) {
+    // TODO
+    // fix the linter error here
+    while (matched = replacedString.match(this._reParam) && !foundError) {
       var matchedBracketSubject = matched && matched[0];
-      var matchedParamKey = matched && matched[1]; 
+      var matchedParamKey = matched && matched[1];
 
       if (matchedBracketSubject && matchedParamKey) {
         replacedParam = params[matchedParamKey];
@@ -124,4 +159,7 @@ define(function(require) {
     }
     return replacedString;
   };
+
+  // singleton
+  return new L10nManager();
 });

@@ -2,6 +2,7 @@ define(function(require) {
   'use strict';
 
   var PreferenceManager = require('backend/PreferenceManager');
+  var L10nManager = require('backend/L10nManager');
   var React = require('react');
 
   var SettingsContainer = React.createClass({
@@ -12,10 +13,34 @@ define(function(require) {
     },
 
     componentDidMount: function() {
+      L10nManager.init();
+      L10nManager.getSupportedLanguages().then((languages) => {
+        this._makeLanguageOptions(languages);
+
+        // we have to dynamically change to related language
+        PreferenceManager.getPreference('default.language', (language) => {
+          // TODO 
+        });
+      });
+
       PreferenceManager.on('preference-updated', (key, newPreference) => {
         var obj = {};
         obj[key] = newPreference;
         this.setState(obj);
+      });
+
+      L10nManager.on('language-changed', (newLanguage) => {
+        PreferenceManager.setPreference('default.language', newLanguage);
+      });
+    },
+
+    _makeLanguageOptions: function(languages = []) {
+      var select = this.refs.supportedLanguagesSelect.getDOMNode();
+      languages.forEach((language) => {
+        var option = document.createElement('option');
+        option.text = language.label;
+        option.value = language.lang;
+        select.add(option);
       });
     },
 
@@ -27,6 +52,11 @@ define(function(require) {
       if (key) {
         PreferenceManager.setPreference(key, enabled);
       }
+    },
+
+    _onLanguageChange: function(event) {
+      var language = event.target.value;
+      L10nManager.changeLanguage(language);
     },
 
     render: function() {
@@ -52,6 +82,9 @@ define(function(require) {
                         Enable Desktop Notification
                   </label>
                 </div>
+              </li>
+              <li>
+                <select onChange={this._onLanguageChange} ref="supportedLanguagesSelect"></select>
               </li>
             </ul>
           </div>
