@@ -27,7 +27,9 @@ fetchRjsConfig().then(function(rjsConfig) {
     'components/history/container',
     'components/playlist/container',
     'components/settings/container',
+    'backend/PreferenceManager',
     'backend/PlaylistManager',
+    'backend/L10nManager',
     'modules/TabManager',
     'jquery'
   ], function (
@@ -40,7 +42,9 @@ fetchRjsConfig().then(function(rjsConfig) {
     HistoryContainer,
     PlaylistContainer,
     SettingsContainer,
+    PreferenceManager,
     PlaylistManager,
+    L10nManager,
     TabManager,
     $
   ) {
@@ -51,6 +55,17 @@ fetchRjsConfig().then(function(rjsConfig) {
 
     var KakuApp = React.createClass({
       componentDidMount: function() {
+        this._triggerAutoUpdater();
+        this._initializeDefaultLanguage();
+      },
+
+      _initializeDefaultLanguage: function() {
+        var defaultLanguage =
+          PreferenceManager.getPreference('default.language');
+        L10nManager.changeLanguage(defaultLanguage);
+      },
+
+      _triggerAutoUpdater: function() {
         // TODO
         // we have to enable AutoUpdater here later
       },

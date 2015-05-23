@@ -13,14 +13,10 @@ define(function(require) {
     },
 
     componentDidMount: function() {
-      L10nManager.init();
       L10nManager.getSupportedLanguages().then((languages) => {
-        this._makeLanguageOptions(languages);
-
-        // we have to dynamically change to related language
-        PreferenceManager.getPreference('default.language', (language) => {
-          // TODO 
-        });
+        var defaultLanguage =
+          PreferenceManager.getPreference('default.language');
+        this._makeLanguageOptions(languages, defaultLanguage);
       });
 
       PreferenceManager.on('preference-updated', (key, newPreference) => {
@@ -34,12 +30,13 @@ define(function(require) {
       });
     },
 
-    _makeLanguageOptions: function(languages = []) {
+    _makeLanguageOptions: function(languages = [], defaultLanguage = 'en') {
       var select = this.refs.supportedLanguagesSelect.getDOMNode();
       languages.forEach((language) => {
         var option = document.createElement('option');
         option.text = language.label;
         option.value = language.lang;
+        option.selected = (language.lang === defaultLanguage);
         select.add(option);
       });
     },

@@ -22,17 +22,13 @@ define(function(require) {
     this._currentLanguage = 'en';
     this._reParam = /\{\{\s*(\w+)\s*\}\}/g;
 
-    this.init();
+    this._init();
   };
 
   L10nManager.prototype = Object.create(EventEmitter.prototype);
   L10nManager.constructor = L10nManager;
 
-  L10nManager.prototype.init = function(defaultLanguage) {
-    // we can change default language if needed (from users' settings)
-    if (defaultLanguage) {
-      this._currentLanguage = defaultLanguage;
-    }
+  L10nManager.prototype._init = function() {
     return this._ready(this._currentLanguage);
   };
 
@@ -134,29 +130,32 @@ define(function(require) {
     var replacedParam;
     var foundError = false;
 
-    // TODO
-    // fix the linter error here
-    while (matched = replacedString.match(this._reParam) && !foundError) {
-      var matchedBracketSubject = matched && matched[0];
-      var matchedParamKey = matched && matched[1];
+    do {
+      matched = replacedString.match(this._reParam);
+      if (matched) {
+        var matchedBracketSubject = matched[0];
+        var matchedParamKey = matched[1];
 
-      if (matchedBracketSubject && matchedParamKey) {
-        replacedParam = params[matchedParamKey];
+        if (matchedBracketSubject && matchedParamKey) {
+          replacedParam = params[matchedParamKey];
 
-        // we find a {{ xxx }} block, but there is no related key to replace it
-        if (!replacedParam) {
-          // in order not to get stucked in infinite loop, let's make sure
-          // we would jump out.
-          foundError = true;
-          console.log('we can\'t find related param - ', matchedParamKey,
-            ' to replace it, please check your passing params again');
-        }
-        else {
-          replacedString = replacedString.replace(
-            matchedBracketSubject, replacedParam);
+          // we find a {{ xxx }} block,
+          // but there is no related key to replace it
+          if (!replacedParam) {
+            // in order not to get stucked in infinite loop, let's make sure
+            // we would jump out.
+            foundError = true;
+            console.log('we can\'t find related param - ', matchedParamKey,
+              ' to replace it, please check your passing params again');
+          }
+          else {
+            replacedString = replacedString.replace(
+              matchedBracketSubject, replacedParam);
+          }
         }
       }
-    }
+    } while(matched && !foundError);
+
     return replacedString;
   };
 

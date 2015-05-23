@@ -112,7 +112,7 @@ define(function(require) {
         });
         this.setState({
           l10n: newL10n
-        })
+        });
       }).catch(console.log.bind(console));
     },
 
