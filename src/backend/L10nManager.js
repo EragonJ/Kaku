@@ -12,6 +12,8 @@ define(function(require) {
   var basePath = require.toUrl('.');
 
   var L10nManager = function() {
+    EventEmitter.call(this);
+
     this._cachedStrings = {};
     this._cachedMetadata = null;
 
@@ -21,6 +23,10 @@ define(function(require) {
 
     this._currentLanguage = 'en';
     this._reParam = /\{\{\s*(\w+)\s*\}\}/g;
+
+    // Because might have a lot of L10nSpan, so we should de-limit the number
+    // of listeners here
+    this.setMaxListeners(0);
 
     this._init();
   };

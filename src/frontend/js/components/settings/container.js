@@ -1,9 +1,11 @@
 define(function(require) {
   'use strict';
 
+  var React = require('react');
   var PreferenceManager = require('backend/PreferenceManager');
   var L10nManager = require('backend/L10nManager');
-  var React = require('react');
+
+  var L10nSpan = require('components/shared/l10n-span');
 
   var SettingsContainer = React.createClass({
     getInitialState: function() {
@@ -64,7 +66,10 @@ define(function(require) {
       return (
         <div className="settings-slot">
           <div className="header clearfix">
-            <h1><i className="fa fa-fw fa-cog"></i>Settings</h1>
+            <h1>
+              <i className="fa fa-fw fa-cog"></i>
+              <L10nSpan l10nId="settings_header"/>
+              </h1>
           </div>
           <div className="settings-container">
             <ul className="list-unstyled">
@@ -76,7 +81,7 @@ define(function(require) {
                       checked={isDesktopNotificationEnabled}
                       data-key="desktop.notification.enabled"
                       onChange={this._onCheckboxChange}/>
-                        Enable Desktop Notification
+                    <L10nSpan l10nId="settings_option_desktop_notificaion_enabled"/>
                   </label>
                 </div>
               </li>

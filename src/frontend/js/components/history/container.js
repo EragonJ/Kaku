@@ -1,11 +1,12 @@
 define(function(require) {
   'use strict';
 
+  var React = require('react');
   var CoreData = require('backend/CoreData');
   var PlayAllButton = require('components/shared/playall-button');
   var NoTrack = require('components/shared/no-track');
   var Track = require('components/shared/track');
-  var React = require('react');
+  var L10nSpan = require('components/shared/l10n-span');
 
   var HistoryContainer = React.createClass({
     getInitialState: function() {
@@ -35,7 +36,10 @@ define(function(require) {
       return (
         <div className="histories-slot">
           <div className="header clearfix">
-            <h1><i className="fa fa-fw fa-history"></i>Histories</h1>
+            <h1>
+              <i className="fa fa-fw fa-history"></i>
+              <L10nSpan l10nId="history_header"/>
+            </h1>
             <div className="control-buttons">
               <PlayAllButton data={tracks}/>
             </div>
