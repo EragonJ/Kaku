@@ -3,6 +3,8 @@ define(function(require) {
 
   var React = require('react');
   var TrackInfoFetcher = require('backend/TrackInfoFetcher');
+
+  var L10nSpan = require('components/shared/l10n-span');
   var PlayAllButton = require('components/shared/playall-button');
   var TopRanking = require('backend/TopRanking');
   var Track = require('components/shared/track');
@@ -29,7 +31,10 @@ define(function(require) {
       return (
         <div className="topranking-slot">
           <div className="header clearfix">
-            <h1><i className="fa fa-fw fa-line-chart"></i>Top Rankings</h1>
+            <h1>
+              <i className="fa fa-fw fa-line-chart"></i>
+              <L10nSpan l10nId="topranking_header"/>
+            </h1>
             <div className="control-buttons">
               <PlayAllButton data={tracks}/>
             </div>
