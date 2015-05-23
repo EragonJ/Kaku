@@ -83,6 +83,8 @@ electron .
 - [ ] Fix the scrolling problem in Home panel, not sure why it won't always go to the top
 - [ ] Implement Database to store playlist (Pouchdb looks like a good choice)
 - [ ] Port Kaku to the other platforms
+- [ ] Add lyrics feature
+- [ ] Add show / hide / maximize player feature
 - [x] Remove API_KEY from sourcecode, we should only include that when building from env
 - [x] Add i18n support
 - [x] Moved to Electron
