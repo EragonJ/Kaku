@@ -4,6 +4,7 @@ define(function(require) {
   var EventEmitter = requireNode('events').EventEmitter;
   var TrackInfoFetcher = require('backend/TrackInfoFetcher');
   var YoutubeSearcher = require('backend/YoutubeSearcher');
+  var L10nManager = require('backend/L10nManager');
   var Notifier = require('modules/Notifier');
   var CoreData = require('backend/CoreData');
   var videojs = require('videojs');
@@ -53,7 +54,11 @@ define(function(require) {
   };
 
   Player.prototype._addPlayerEvents = function() {
+    this._player.on('play', () => {
+      this._updateAppHeader('play');
+    });
     this._player.on('ended', () => {
+      this._updateAppHeader('ended');
       this.playNextTrack();
     });
   };
@@ -167,6 +172,21 @@ define(function(require) {
         var trackRealUrl = fetchedInfo.url;
         track.platformTrackRealUrl= trackRealUrl;
         return Promise.resolve(track);
+      });
+    }
+  };
+
+  Player.prototype._updateAppHeader = function(state) {
+    if (state === 'play') {
+      L10nManager.get('app_title_playing', {
+        name: this._playingTrack.title
+      }).then((translatedTitle) => {
+        document.title = translatedTitle;
+      });
+    }
+    else if (state === 'ended') {
+      L10nManager.get('app_title_normal').then((translatedTitle) => {
+        document.title = translatedTitle;
       });
     }
   };

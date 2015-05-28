@@ -137,7 +137,7 @@ define(function(require) {
     var foundError = false;
 
     do {
-      matched = replacedString.match(this._reParam);
+      matched = this._reParam.exec(replacedString);
       if (matched) {
         var matchedBracketSubject = matched[0];
         var matchedParamKey = matched[1];

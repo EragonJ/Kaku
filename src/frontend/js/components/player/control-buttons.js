@@ -85,6 +85,10 @@ define(function(require) {
     _onDownloadButtonClick: function() {
       Player.ready().then(function(player) {
         var src = player.src();
+        if (!src) {
+          return;
+        }
+
         var filename =
           'music-' + crypto.randomBytes(3).toString('hex') + '.mp4';
 
