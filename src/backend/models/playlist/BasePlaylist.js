@@ -1,14 +1,19 @@
 define(function(require) {
   'use strict';
 
-  var EventEmitter = requireNode('events').EventEmitter;
   var crypto = requireNode('crypto');
+  var EventEmitter = requireNode('events').EventEmitter;
 
-  var BasePlaylist = function(options) {
+  var supportedTracks = {
+    BaseTrack: require('backend/models/track/BaseTrack'),
+    YoutubeTrack: require('backend/models/track/YoutubeTrack')
+  };
+
+  var BasePlaylist = function(options = {}) {
     EventEmitter.call(this);
-    this.id = crypto.randomBytes(3).toString('hex');
+    this.id = options.id || crypto.randomBytes(3).toString('hex');
     this.name = options.name || 'playlist';
-    this._tracks = [];
+    this._tracks = options._tracks || [];
   };
 
   BasePlaylist.prototype = Object.create(EventEmitter.prototype);
@@ -21,6 +26,29 @@ define(function(require) {
       return this._tracks;
     }
   });
+
+  // static method
+  BasePlaylist.fromJSON = function(json) {
+    var tracks = json._tracks.map((rawTrackInfo) => {
+      var trackType = rawTrackInfo.trackType;
+      var trackConstructor = supportedTracks[trackType];
+      if (!trackConstructor) {
+        console.error('This track may lose some data, let\'s just drop it');
+        return;
+      }
+      else {
+        return new trackConstructor(rawTrackInfo);
+      }
+    });
+
+    // TODO
+    // we may need to support different playlist here
+    return new BasePlaylist({
+      id: json.id,
+      name: json.name,
+      _tracks: tracks
+    });
+  };
 
   BasePlaylist.prototype.addTrack = function(track) {
     // TODO
@@ -51,6 +79,7 @@ define(function(require) {
       }
       else {
         this._tracks.splice(index, 1);
+        this.emit('tracksUpdated');
         resolve();
       }
     });
@@ -81,6 +110,18 @@ define(function(require) {
     return this._tracks.filter((track) => {
       return track.artist === artist;
     });
+  };
+
+  BasePlaylist.prototype.toJSON = function() {
+    var tracks = this._tracks.map((track) => {
+      return track.toJSON();
+    });
+
+    return {
+      id: this.id,
+      name: this.name,
+      _tracks: tracks
+    };
   };
 
   return BasePlaylist;

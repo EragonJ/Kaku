@@ -3,11 +3,15 @@ define(function(require) {
 
   var EventEmitter = requireNode('events').EventEmitter;
   var BasePlaylist = require('backend/models/playlist/BasePlaylist');
+  var DB = require('backend/Database');
 
   var PlaylistManager = function() {
     EventEmitter.call(this);
     this._playlists = [];
     this._activePlaylist = null;
+
+    // we have to initialize playlist from db
+    this._initializedPromise = this.init();
   };
 
   PlaylistManager.prototype = Object.create(EventEmitter.prototype);
@@ -20,6 +24,42 @@ define(function(require) {
       return this._playlists;
     }
   });
+
+  PlaylistManager.prototype.init = function() {
+    return DB.get('playlists')
+      .catch((error) => {
+        if (error.status === 404) {
+          return DB.put({
+            _id: 'playlists',
+            playlists: []
+          });
+        }
+        else {
+          throw error;
+        }
+      })
+      .then((doc) => {
+        // Transform rawData into real objects
+        this._playlists = doc.playlists.map((rawPlaylist) => {
+          return BasePlaylist.fromJSON(rawPlaylist);
+        });
+      })
+      .then(() => {
+        // bind needed events for these playlists
+        this._playlists.forEach((playlist) => {
+          playlist.on('tracksUpdated', () => {
+            this._storePlaylistsToDB();
+          });
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  PlaylistManager.prototype.ready = function() {
+    return this._initializedPromise;
+  };
 
   PlaylistManager.prototype.displayPlaylistById = function(id) {
     var playlist = this.findPlaylistById(id);
@@ -64,11 +104,32 @@ define(function(require) {
         var playlist = new BasePlaylist(options);
         this._playlists.push(playlist);
 
-        this.emit('added', playlist);
-        resolve();
+        playlist.on('tracksUpdated', () => {
+          this._storePlaylistsToDB();
+        });
+
+        this._storePlaylistsToDB().then(() => {
+          this.emit('added', playlist);
+          resolve();
+        });
       }
     });
     return promise;
+  };
+
+  PlaylistManager.prototype._storePlaylistsToDB = function() {
+    return DB.get('playlists').then((doc) => {
+      return DB.put({
+        _id: 'playlists',
+        _rev: doc._rev,
+        playlists: this._playlists.map((playlist) => {
+         return playlist.toJSON();
+        })
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   };
 
   PlaylistManager.prototype.removePlaylistById = function(id) {
@@ -79,8 +140,12 @@ define(function(require) {
       }
       else {
         var removedPlaylist = this._playlists.splice(index, 1);
-        this.emit('removed', removedPlaylist);
-        resolve();
+        this._storePlaylistsToDB().then(() => {
+          // TODO
+          // we can try to remove listeners from playlist here if needed
+          this.emit('removed', removedPlaylist);
+          resolve();
+        });
       }
     });
     return promise;
@@ -124,8 +189,9 @@ define(function(require) {
       playlist.name = newName;
       this._playlists[index] = playlist;
 
-      this.emit('renamed', playlist);
-      return Promise.resolve();
+      return this._storePlaylistsToDB().then(() => {
+        this.emit('renamed', playlist);
+      });
     }
   };
 

@@ -2,31 +2,35 @@ define(function(require) {
   'use strict';
 
   var BaseTrack = require('backend/models/track/BaseTrack');
-  var YoutubeTrack = function(o) {
+  var YoutubeTrack = function(options) {
     BaseTrack.call(this);
 
+    this.trackType = 'YoutubeTrack';
     this._trackUrlPrefix = 'https://www.youtube.com/watch?v=';
 
-    if (!o.id || !o.snippet) {
+    if (!options.id || !options.snippet) {
       console.error('there is something wrong in passing object');
-      console.error(o);
+      console.error(options);
     } else {
-      this.title = o.snippet.title;
-      this.description = o.snippet.description;
-      this.platformId = o.id.videoId;
+      this.title = options.snippet.title;
+      this.description = options.snippet.description;
+      this.platformId = options.id.videoId;
 
-      if (o.snippet.thumbnails) {
+      if (options.snippet.thumbnails) {
         this.covers.default =
-          o.snippet.thumbnails &&
-          o.snippet.thumbnails.default && o.snippet.thumbnails.default.url;
+          options.snippet.thumbnails &&
+          options.snippet.thumbnails.default &&
+          options.snippet.thumbnails.default.url;
 
         this.covers.medium =
-          o.snippet.thumbnails &&
-          o.snippet.thumbnails.medium && o.snippet.thumbnails.medium.url;
+          options.snippet.thumbnails &&
+          options.snippet.thumbnails.medium &&
+          options.snippet.thumbnails.medium.url;
 
         this.covers.large =
-          o.snippet.thumbnails &&
-          o.snippet.thumbnails.high && o.snippet.thumbnails.high.url;
+          options.snippet.thumbnails &&
+          options.snippet.thumbnails.high &&
+          options.snippet.thumbnails.high.url;
       }
     }
   };

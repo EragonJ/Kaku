@@ -31,6 +31,10 @@ define(function(require) {
         this._showTab(tabName, tabOptions);
       });
 
+      PlaylistManager.ready().then(() => {
+        this._updatePlaylistsStates();
+      });
+
       this._bindTabChangeEvent();
     },
 
@@ -119,6 +123,10 @@ define(function(require) {
             .removePlaylistById(playlist.id)
             .then(() => {
               this._updatePlaylistsStates();
+              // [Note]
+              // Redirect users back to default home page, otherwise they
+              // will still see deleted page on the screen.
+              TabManager.setTab('home');
             })
             .catch((error) => {
               Notifier.alert(error);

@@ -1,18 +1,24 @@
 define(function(require) {
   'use strict';
 
-  var BaseTrack = function() {
+  var BaseTrack = function(options = {}) {
     this._trackUrlPrefix = '';
-    this.title = 'Unknown Title';
-    this.artist = 'Unknown Artist';
-    this.description = 'Unknown Description';
-    this.platformId = '';
-    this.platformTrackRealUrl = '';
-    this.covers = {
+    this.trackType = 'BaseTrack';
+    this.title = options.title || 'Unknown Title';
+    this.artist = options.artist || 'Unknown Artist';
+    this.description = options.description || 'Unknown Description';
+    this.platformId = options.platformId || '';
+    this.platformTrackRealUrl = options.platformTrackRealUrl || '';
+    this.covers = options.covers || {
       default: '',
       medium: '',
       large: ''
     };
+  };
+
+  // static method
+  BaseTrack.fromJSON = function(json) {
+    return new BaseTrack(json);
   };
 
   BaseTrack.prototype = {
@@ -32,6 +38,18 @@ define(function(require) {
 
     _isSamePlatformUrlWith: function(otherTrack) {
       return this.platformTrackUrl === otherTrack.platformTrackUrl;
+    },
+
+    toJSON: function() {
+      return {
+        trackType: this.trackType,
+        title: this.title,
+        artist: this.artist,
+        description: this.description,
+        platformId: this.platformId,
+        platformTrackRealUrl: this.platformTrackRealUrl,
+        covers: this.covers
+      };
     }
   };
 

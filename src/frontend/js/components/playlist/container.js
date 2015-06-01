@@ -26,25 +26,29 @@ define(function(require) {
       });
 
       PlaylistManager.on('shown', (playlist) => {
+        this._boundUpdateInternalPlaylist =
+          this._updateInternalPlaylist.bind(this, playlist);
+
         this.setState({
           playlist: playlist,
           tracks: playlist.tracks
         });
 
-        playlist.removeAllListeners('tracksUpdated');
-        playlist.on('tracksUpdated', () => {
-          this.setState({
-            tracks: playlist.tracks
-          });
-        });
+        playlist.removeListener('tracksUpdated',
+          this._boundUpdateInternalPlaylist);
+        playlist.on('tracksUpdated', this._boundUpdateInternalPlaylist);
       });
 
       PlaylistManager.on('renamed', (playlist) => {
         if (playlist.id === this.state.playlist.id) {
-          this.setState({
-            playlist: playlist
-          });
+          this._updateInternalPlaylist(playlist);
         }
+      });
+    },
+
+    _updateInternalPlaylist: function(playlist) {
+      this.setState({
+        playlist: playlist
       });
     },
 

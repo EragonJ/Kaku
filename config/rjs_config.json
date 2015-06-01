@@ -23,6 +23,7 @@
     "bootstrap": "vendor/bootstrap/dist/js/bootstrap.min",
     "classnames": "vendor/classnames/index",
     "notify": "vendor/remarkable-bootstrap-notify/bootstrap-notify.min",
-    "bootbox": "vendor/bootbox/bootbox"
+    "bootbox": "vendor/bootbox/bootbox",
+    "pouchdb": "vendor/pouchdb/dist/pouchdb.min"
   }
 }

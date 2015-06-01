@@ -75,16 +75,15 @@ electron .
 
 - [ ] **[WIP]** Add auto-updator
 - [ ] **[WIP]** Translate all panels
-- [ ] serialize / deserialize data and store them into persistent data (maybe just a simple file, not db)
 - [ ] Fixed related UI
 - [ ] Make native vjs button and remove our controls
 - [ ] Add resolution chooser
-- [ ] We have to provide a better way to communicate between panels & L10nManager
 - [ ] Fix the scrolling problem in Home panel, not sure why it won't always go to the top
-- [ ] Implement Database to store playlist (Pouchdb looks like a good choice)
 - [ ] Port Kaku to the other platforms
 - [ ] Add lyrics feature
 - [ ] Add show / hide / maximize player feature
+- [x] Implement Database to store playlist (Pouchdb looks like a good choice)
+- [x] We have to provide a better way to communicate between panels & L10nManager
 - [x] Remove API_KEY from sourcecode, we should only include that when building from env
 - [x] Add i18n support
 - [x] Moved to Electron

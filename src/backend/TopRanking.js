@@ -30,12 +30,15 @@ define(function(require) {
           else {
             var entries = data.feed.entry || [];
             var result = entries.map(function(entry) {
-              var track = new BaseTrack();
-              track.title = entry['im:name'].label;
-              track.artist = entry['im:artist'].label;
-              track.covers.default = entry['im:image'][1].label;
-              track.covers.medium = entry['im:image'][2].label;
-              track.covers.large = entry['im:image'][2].label;
+              var track = new BaseTrack({
+                title: entry['im:name'].label,
+                artist: entry['im:artist'].label,
+                covers: {
+                  default: entry['im:image'][1].label,
+                  medium: entry['im:image'][2].label,
+                  large: entry['im:image'][2].label
+                }
+              });
               return track;
             });
             resolve(result);
