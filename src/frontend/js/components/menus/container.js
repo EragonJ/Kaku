@@ -203,7 +203,7 @@ define(function(require) {
                 role="tab"
                 ref="tab-history">
                   <i className="icon fa fa-fw fa-lg fa-history"></i>
-                  <span className="title"><L10nSpan l10nId="sidebar_histories"/></span>
+                  <span className="title"><L10nSpan l10nId="sidebar_history"/></span>
               </a>
             </li>
             <li role="presentation">
