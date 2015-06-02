@@ -31,6 +31,8 @@ fetchRjsConfig().then(function(rjsConfig) {
     'backend/PlaylistManager',
     'backend/L10nManager',
     'modules/TabManager',
+    'modules/KonamiCodeManager',
+    'modules/EasterEggs',
     'jquery'
   ], function (
     React,
@@ -46,6 +48,8 @@ fetchRjsConfig().then(function(rjsConfig) {
     PlaylistManager,
     L10nManager,
     TabManager,
+    KonamiCodeManager,
+    EasterEggs,
     $
   ) {
     // NOTE:
@@ -57,12 +61,19 @@ fetchRjsConfig().then(function(rjsConfig) {
       componentDidMount: function() {
         this._triggerAutoUpdater();
         this._initializeDefaultLanguage();
+        this._initializeKonamiCode();
       },
 
       _initializeDefaultLanguage: function() {
         var defaultLanguage =
           PreferenceManager.getPreference('default.language');
         L10nManager.changeLanguage(defaultLanguage);
+      },
+
+      _initializeKonamiCode: function() {
+        KonamiCodeManager.attach(document.body, () => {
+          EasterEggs.show();
+        });
       },
 
       _triggerAutoUpdater: function() {

@@ -82,6 +82,7 @@ electron .
 - [ ] Port Kaku to the other platforms
 - [ ] Add lyrics feature
 - [ ] Add show / hide / maximize player feature
+- [x] Add KonamiCode / EasterEggs !
 - [x] Implement Database to store playlist (Pouchdb looks like a good choice)
 - [x] We have to provide a better way to communicate between panels & L10nManager
 - [x] Remove API_KEY from sourcecode, we should only include that when building from env
