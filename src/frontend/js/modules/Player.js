@@ -48,7 +48,7 @@ define(function(require) {
       controlBar: {
         playToggle: false,
         fullscreenToggle: false,
-        muteToggle: false
+        muteToggle: true
       }
     };
   };
