@@ -7,6 +7,7 @@ var jsdom = require('jsdom').jsdom;
 var requirejs = require('requirejs');
 var rjsConfig = require('../config/rjs_config.json');
 
+rjsConfig.baseUrl = './src/frontend';
 requirejs.config(rjsConfig);
 
 var testRequire = function(modules, map, callback) {
