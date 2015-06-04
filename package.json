@@ -19,7 +19,11 @@
     "url": "https://github.com/EragonJ/kaku/issues"
   },
   "homepage": "https://github.com/EragonJ/kaku",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha -u tdd -t 5000 tests/**/*.test.js"
+  },
   "devDependencies": {
+    "chai": "^2.3.0",
     "gulp": "^3.8.11",
     "gulp-atom-electron": "^0.12.0",
     "gulp-babel": "^4.0.0",
@@ -35,11 +39,16 @@
     "gulp-sequence": "^0.3.2",
     "gulp-uglify": "^1.1.0",
     "gulp-watch": "^4.1.1",
+    "jsdom": "^3.1.2",
     "jshint-stylish": "^1.0.1",
-    "merge-stream": "^0.1.7"
+    "merge-stream": "^0.1.7",
+    "mocha": "^2.2.5",
+    "mock-browser": "^0.90.33",
+    "sinon": "^1.14.1"
   },
   "dependencies": {
     "request": "^2.53.0",
+    "requirejs": "^2.1.18",
     "serialize-javascript": "^1.0.0",
     "watchjs": "0.0.0",
     "youtube-dl": "^1.10.1",
