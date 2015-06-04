@@ -9,7 +9,7 @@ define(function(require) {
   // We can't use __dirname because we use requirejs to load all scripts,
   // and this will always report the root to be kaku/, instead, we have to
   // use requirejs's API to get the right path
-  var basePath = require.toUrl('.');
+  var basePath = (__dirname + '/' + require.toUrl('.'));
 
   var L10nManager = function() {
     EventEmitter.call(this);
