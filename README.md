@@ -1,6 +1,10 @@
 # Kaku
 The next generation music client
 
+# Build Status
+
+[![Build Status](https://travis-ci.org/EragonJ/kaku.svg?branch=master)](https://travis-ci.org/EragonJ/kaku)
+
 # Latest Screenshot
 
 ![Latest Screenshot](http://i.imgur.com/xeIrxyu.jpg)
@@ -82,6 +86,7 @@ electron .
 - [ ] Port Kaku to the other platforms
 - [ ] Add lyrics feature
 - [ ] Add show / hide / maximize player feature
+- [x] Add unit tests + Travis
 - [x] Add KonamiCode / EasterEggs !
 - [x] Implement Database to store playlist (Pouchdb looks like a good choice)
 - [x] We have to provide a better way to communicate between panels & L10nManager
