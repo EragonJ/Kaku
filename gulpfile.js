@@ -67,7 +67,7 @@ gulp.task('linter', function() {
       './src/backend/**/*.js'
     ])
     .pipe(jshint())
-    .pipe(jshint.reporter('jshint-stylish'))
+    .pipe(jshint.reporter('jshint-stylish'));
 });
 
 gulp.task('copy:frontend', function() {
