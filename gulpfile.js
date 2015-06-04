@@ -9,7 +9,7 @@ var clean = require('gulp-clean');
 var jshint = require('gulp-jshint');
 var rename = require('gulp-rename');
 var plumber = require('gulp-plumber');
-var atomshell = require('gulp-atom-shell');
+var electron = require('gulp-atom-electron');
 var htmlreplace = require('gulp-html-replace');
 var sequence = require('gulp-sequence');
 var merge = require('merge-stream');
@@ -117,18 +117,17 @@ gulp.task('compass', function() {
 });
 
 gulp.task('override', function() {
-  var dest = './';
   // TODO
   // we have to minify css later
   return gulp
     .src(INDEX_TEMPLATE_FILE)
-    .pipe(changed(dest))
     .pipe(plumber())
     .pipe(gulpif(isProduction(), htmlreplace({
       css: [
         'dist/frontend/vendor/bootstrap/dist/css/bootstrap.min.css',
         'dist/frontend/vendor/components-font-awesome/css/font-awesome.min.css',
         'dist/frontend/vendor/video.js/dist/video-js/video-js.min.css',
+        'dist/frontend/vendor/animate.css/animate.min.css',
         'dist/frontend/css/index.css'
       ],
       backend_js: [
@@ -155,12 +154,15 @@ gulp.task('watch', function() {
 gulp.task('package', function(done) {
   // TODO
   // We have to fix more stuffs later after atomshell is updated
-  return gulp.src(['./**/*', '!./build/**/*', '!./cache/**/*', '!./miscs/**/*'])
-    .pipe(atomshell({
-      version: '0.19.4',
-      platform: 'darwin'
-    }))
-    .pipe(atomshell.zfsdest('build/app.zip'));
+  return gulp.src([
+    './**/*.*',
+    '!./build/**/*.*',
+    '!./tests/**/*.*',
+    '!./node_modules/gulp-*/**.*'
+  ]).pipe(electron({
+    version: '0.19.4',
+    platform: 'darwin'
+  })).pipe(electron.zfsdest('build/app.zip'));
 });
 
 gulp.task('build', function(callback) {

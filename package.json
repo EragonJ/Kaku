@@ -21,6 +21,7 @@
   "homepage": "https://github.com/EragonJ/kaku",
   "devDependencies": {
     "gulp": "^3.8.11",
+    "gulp-atom-electron": "^0.12.0",
     "gulp-babel": "^4.0.0",
     "gulp-changed": "^1.2.1",
     "gulp-clean": "^0.3.1",
@@ -38,7 +39,6 @@
     "merge-stream": "^0.1.7"
   },
   "dependencies": {
-    "gulp-atom-shell": "^0.9.0",
     "request": "^2.53.0",
     "serialize-javascript": "^1.0.0",
     "watchjs": "0.0.0",
