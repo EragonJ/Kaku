@@ -24,7 +24,9 @@ define(function(require) {
             // there are results mixing with youtube#channel so we have to
             // ignore them
             if (rawTrack.id && rawTrack.id.kind === 'youtube#video') {
-              tracks.push(YoutubeTrack(rawTrack));
+              var youtubeTrack = new YoutubeTrack();
+              youtubeTrack.initYoutubeResult(rawTrack);
+              tracks.push(youtubeTrack);
             }
           });
           resolve(tracks);
