@@ -30,6 +30,8 @@ Please take a look at `config/`, you will notice there are some files named like
 
 We need to make sure all codes would be moved to the right place and generated the final entry point to reduce requests to load data, so you have to build first.
 
+Pass wanted platform in gulpfile.js in 'package' task
+
 ```bash
 gulp build
 ```
@@ -83,9 +85,9 @@ electron .
 - [ ] Make native vjs button and remove our controls
 - [ ] Add resolution chooser
 - [ ] Fix the scrolling problem in Home panel, not sure why it won't always go to the top
-- [ ] Port Kaku to the other platforms
 - [ ] Add lyrics feature
 - [ ] Add show / hide / maximize player feature
+- [x] Port Kaku to the other platforms
 - [x] Add unit tests + Travis
 - [x] Add KonamiCode / EasterEggs !
 - [x] Implement Database to store playlist (Pouchdb looks like a good choice)
