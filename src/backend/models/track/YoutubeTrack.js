@@ -3,11 +3,16 @@ define(function(require) {
 
   var BaseTrack = require('backend/models/track/BaseTrack');
   var YoutubeTrack = function(options) {
-    BaseTrack.call(this);
+    BaseTrack.call(this, options);
 
     this.trackType = 'YoutubeTrack';
     this._trackUrlPrefix = 'https://www.youtube.com/watch?v=';
+  };
 
+  YoutubeTrack.prototype = Object.create(BaseTrack.prototype);
+  YoutubeTrack.prototype.constructor = YoutubeTrack;
+
+  YoutubeTrack.prototype.initYoutubeResult = function(options) {
     if (!options.id || !options.snippet) {
       console.error('there is something wrong in passing object');
       console.error(options);
@@ -35,10 +40,5 @@ define(function(require) {
     }
   };
 
-  YoutubeTrack.prototype = Object.create(BaseTrack.prototype);
-  YoutubeTrack.prototype.constructor = YoutubeTrack;
-
-  return function ctor_youtube_track(objectFromYoutube) {
-    return new YoutubeTrack(objectFromYoutube);
-  };
+  return YoutubeTrack;
 });
