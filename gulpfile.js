@@ -1,4 +1,3 @@
-var fs = require('fs');
 var gulp = require('gulp');
 var gulpif = require('gulp-if');
 var rjs = require('gulp-requirejs');
@@ -12,8 +11,7 @@ var plumber = require('gulp-plumber');
 var electron = require('gulp-atom-electron');
 var htmlreplace = require('gulp-html-replace');
 var sequence = require('gulp-sequence');
-var merge = require('merge-stream');
-var changed = require('gulp-changed');
+var newer = require('gulp-newer');
 
 var CURRENT_ENVIRONMENT = 'development';
 
@@ -44,7 +42,7 @@ gulp.task('6to5:frontend', function() {
   var dest = './dist/frontend';
   return gulp
     .src(FRONTEND_JS_FILES)
-    .pipe(changed(dest))
+    .pipe(newer(dest))
     .pipe(plumber())
     .pipe(babel())
     .pipe(gulp.dest(dest));
@@ -54,7 +52,7 @@ gulp.task('6to5:backend', function() {
   var dest = './dist/backend';
   return gulp
     .src(BACKEND_JS_FILES)
-    .pipe(changed(dest))
+    .pipe(newer(dest))
     .pipe(plumber())
     .pipe(babel())
     .pipe(gulp.dest(dest));
@@ -74,7 +72,7 @@ gulp.task('copy:frontend', function() {
   var dest = './dist/frontend/';
   return gulp
     .src('./src/frontend/+(vendor|css|fonts|images)/**/*.*')
-    .pipe(changed(dest))
+    .pipe(newer(dest))
     .pipe(gulp.dest(dest));
 });
 
@@ -82,7 +80,7 @@ gulp.task('copy:backend', function() {
   var dest = './dist/backend/';
   return gulp
     .src('./src/backend/+(locales)/**/*.*')
-    .pipe(changed(dest))
+    .pipe(newer(dest))
     .pipe(gulp.dest(dest));
 });
 
@@ -103,10 +101,10 @@ gulp.task('rjs', function(done) {
 });
 
 gulp.task('compass', function() {
-  var dest = './src/frontend/css';
+  var dest = './src/frontend/css/';
   return gulp
     .src(SCSS_FILES)
-    .pipe(changed(dest))
+    .pipe(newer(dest + 'index.css'))
     .pipe(plumber())
     .pipe(compass({
       config_file: './config/compass_config.rb',
