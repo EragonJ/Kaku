@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 var gulpif = require('gulp-if');
 var rjs = require('gulp-requirejs');
-var compass = require('gulp-compass');
+var sass = require('gulp-sass');
 var babel = require('gulp-babel');
 var uglify = require('gulp-uglify');
 var clean = require('gulp-clean');
@@ -19,9 +19,7 @@ var CURRENT_ENVIRONMENT = 'development';
 // we have to double check **/*.js is a right expression or not
 const SCSS_FILES = './src/frontend/scss/**/*.scss';
 const FRONTEND_JS_FILES = './src/frontend/js/**/*.js';
-const FRONTEND_CSS_FILES = './src/frontend/css/**/*.css';
 const BACKEND_JS_FILES = './src/backend/**/*.js';
-const BACKEND_L10N_FILES = './src/backend/locales/**/*.*';
 const DIST_FILES = './dist';
 const INDEX_TEMPLATE_FILE = './_index.html';
 const INDEX_FILE = './index.html';
@@ -100,17 +98,13 @@ gulp.task('rjs', function(done) {
   });
 });
 
-gulp.task('compass', function() {
-  var dest = './src/frontend/css/';
+gulp.task('sass', function() {
+  var dest = './src/frontend/css';
   return gulp
     .src(SCSS_FILES)
     .pipe(newer(dest + 'index.css'))
     .pipe(plumber())
-    .pipe(compass({
-      config_file: './config/compass_config.rb',
-      css: 'src/frontend/css',
-      sass: 'src/frontend/scss'
-    }))
+    .pipe(sass({ outputStyle: 'compressed' }).on('error', sass.logError))
     .pipe(gulp.dest(dest));
 });
 
@@ -141,7 +135,7 @@ gulp.task('override', function() {
 });
 
 gulp.task('watch', function() {
-  gulp.watch(SCSS_FILES, ['compass']);
+  gulp.watch(SCSS_FILES, ['sass']);
   gulp.watch([
     FRONTEND_JS_FILES,
     BACKEND_JS_FILES,
@@ -149,7 +143,7 @@ gulp.task('watch', function() {
   ], ['default']);
 });
 
-gulp.task('package', function(done) {
+gulp.task('package', function() {
   // TODO
   // We have to fix more stuffs later after atomshell is updated
   return gulp.src([
@@ -169,6 +163,7 @@ gulp.task('build', function(callback) {
     'cleanup',
     '6to5:frontend',
     '6to5:backend',
+    'sass',
     'linter',
     'copy:frontend',
     'copy:backend',
@@ -183,7 +178,7 @@ gulp.task('default', function(callback) {
   sequence(
     '6to5:frontend',
     '6to5:backend',
-    'compass',
+    'sass',
     'linter',
     'copy:frontend',
     'copy:backend',
