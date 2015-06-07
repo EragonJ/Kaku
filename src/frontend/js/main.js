@@ -57,7 +57,14 @@ fetchRjsConfig().then(function(rjsConfig) {
     window.$ = window.jQuery = $;
     requirejs(['bootstrap']);
 
+    var loadingPageDOM = document.querySelector('.loading-page');
+    var contentPageDOM = document.querySelector('.content-page');
+
     var KakuApp = React.createClass({
+      componentWillMount: function() {
+        this._hideLoadingPage();
+      },
+
       componentDidMount: function() {
         this._triggerAutoUpdater();
         this._initializeDefaultLanguage();
@@ -79,6 +86,11 @@ fetchRjsConfig().then(function(rjsConfig) {
       _triggerAutoUpdater: function() {
         // TODO
         // we have to enable AutoUpdater here later
+      },
+
+      _hideLoadingPage: function() {
+        // for better UX
+        loadingPageDOM.hidden = true;
       },
 
       render: function() {
@@ -141,7 +153,7 @@ fetchRjsConfig().then(function(rjsConfig) {
     });
 
     /* jshint ignore:start */
-    React.render(<KakuApp/>, document.body);
+    React.render(<KakuApp/>, contentPageDOM);
     /* jshint ignore:end */
   });
 });

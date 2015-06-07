@@ -1,8 +1,26 @@
 body,
 html,
-.root {
+.root,
+.content-page {
   font-family: 'Arimo', sans-serif;
   height: 100%;
+}
+
+.loading-page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+
+  h1 {
+    position: absolute;
+    font-size: 20px;
+    right: 10px;
+    bottom: 0;
+    color: white;
+  }
 }
 
 a {
