@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var gulpif = require('gulp-if');
+var fs = require('fs');
 var rjs = require('gulp-requirejs');
 var compass = require('gulp-compass');
 var babel = require('gulp-babel');
