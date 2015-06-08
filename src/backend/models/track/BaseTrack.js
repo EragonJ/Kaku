@@ -1,8 +1,11 @@
 define(function(require) {
   'use strict';
 
+  var crypto = requireNode('crypto');
+
   var BaseTrack = function(options = {}) {
     this._trackUrlPrefix = '';
+    this.id = options.id || crypto.randomBytes(3).toString('hex');
     this.trackType = 'BaseTrack';
     this.title = options.title || 'Unknown Title';
     this.artist = options.artist || 'Unknown Artist';
@@ -42,6 +45,7 @@ define(function(require) {
 
     toJSON: function() {
       return {
+        id: this.id,
         trackType: this.trackType,
         title: this.title,
         artist: this.artist,

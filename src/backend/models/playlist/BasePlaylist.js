@@ -71,9 +71,9 @@ define(function(require) {
     return promise;
   };
 
-  BasePlaylist.prototype.removeTrack = function(title, artist) {
+  BasePlaylist.prototype.removeTrackById = function(id) {
     var promise = new Promise((resolve, reject) => {
-      var index = this.findTrackIndexByTitleAndArtist(title, artist);
+      var index = this.findTrackIndexById(id);
       if (index === -1) {
         reject('Can\'t find the track');
       }
@@ -86,10 +86,11 @@ define(function(require) {
     return promise;
   };
 
-  BasePlaylist.prototype.findTrackIndexByTitleAndArtist =
-    function(title, artist) {
-      var track = this.findTrackByTitleAndArtist(title, artist);
-      return this._tracks.indexOf(track);
+  BasePlaylist.prototype.findTrackIndexById = function(id) {
+    var tracks = this._tracks.filter((track) => {
+      return track.id === id;
+    });
+    return tracks[0];
   };
 
   BasePlaylist.prototype.findTrackByTitleAndArtist = function(title, artist) {
@@ -110,6 +111,10 @@ define(function(require) {
     return this._tracks.filter((track) => {
       return track.artist === artist;
     });
+  };
+
+  BasePlaylist.prototype.isSameWith = function(anotherPlaylist) {
+    return this.id === anotherPlaylist.id;
   };
 
   BasePlaylist.prototype.toJSON = function() {

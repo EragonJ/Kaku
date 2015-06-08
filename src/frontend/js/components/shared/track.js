@@ -47,10 +47,9 @@ define(function(require) {
     _createContextMenu: function() {
       var menu = new Menu();
       var playlists = PlaylistManager.playlists;
-      // TODO
-      // what should we do if there is no playlist ?
+
       playlists.forEach((playlist) => {
-        var clickHandler = ((playlist) => {
+        var clickToAddTrack = ((playlist) => {
           return () => {
             playlist
               .addTrack(this.props.data)
@@ -60,12 +59,44 @@ define(function(require) {
           };
         }(playlist));
 
-        var menuItem = new MenuItem({
+        var clickToRemoveTrack = ((playlist) => {
+          return () => {
+            playlist
+              .removeTrackById(this.props.data.id)
+              .catch((error) => {
+                Notifier.alert(error);
+              });
+          };
+        }(playlist));
+
+        // TODO
+        // add l10n support here
+        var menuItemToAddTrack = new MenuItem({
           label: 'Add to ' + playlist.name,
-          click: clickHandler
+          click: clickToAddTrack
         });
 
-        menu.append(menuItem);
+        var menuItemToRemoveTrack = new MenuItem({
+          label: 'Remove from ' + playlist.name,
+          click: clickToRemoveTrack
+        });
+
+        if (PlaylistManager.isDisplaying) {
+          if (PlaylistManager.activePlaylist.isSameWith(playlist)) {
+            menu.append(menuItemToRemoveTrack);
+          }
+          else {
+            menu.insert(0, menuItemToAddTrack);
+          }
+        }
+        else {
+          // TODO
+          // we have to check if this track does exist in this playlist,
+          // but no matter how, right now we have internal protect in
+          // playlist.addTrack() to make sure we won't add the same track
+          // to the same playlist.
+          menu.insert(0, menuItemToAddTrack);
+        }
       });
       return menu;
     },

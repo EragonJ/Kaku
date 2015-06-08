@@ -21,7 +21,11 @@ define(function(require) {
         if (tabName === 'playlist') {
           var playlistId = tabOptions;
           var playlist = PlaylistManager.findPlaylistById(playlistId);
-          PlaylistManager.displayPlaylistById(playlist.id);
+          PlaylistManager.showPlaylistById(playlist.id);
+        }
+        else {
+          // we should clean the internal state of activePlaylist
+          PlaylistManager.hidePlaylist();
         }
       });
 
