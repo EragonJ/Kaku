@@ -8,6 +8,8 @@ define(function(require) {
   var PlaylistManager = function() {
     EventEmitter.call(this);
     this._playlists = [];
+
+    this._isDisplaying = false;
     this._activePlaylist = null;
 
     // we have to initialize playlist from db
@@ -22,6 +24,22 @@ define(function(require) {
     configurable: false,
     get: function() {
       return this._playlists;
+    }
+  });
+
+  Object.defineProperty(PlaylistManager.prototype, 'activePlaylist', {
+    enumerable: true,
+    configurable: false,
+    get: function() {
+      return this._activePlaylist;
+    }
+  });
+
+  Object.defineProperty(PlaylistManager.prototype, 'isDisplaying', {
+    enumerable: true,
+    configurable: false,
+    get: function() {
+      return this._isDisplaying;
     }
   });
 
@@ -61,15 +79,22 @@ define(function(require) {
     return this._initializedPromise;
   };
 
-  PlaylistManager.prototype.displayPlaylistById = function(id) {
+  PlaylistManager.prototype.showPlaylistById = function(id) {
     var playlist = this.findPlaylistById(id);
     if (!playlist) {
       console.error('we can\'t find any playlist with id - ', id);
     }
     else {
       this._activePlaylist = playlist;
+      this._isDisplaying = true;
       this.emit('shown', playlist);
     }
+  };
+
+  PlaylistManager.prototype.hidePlaylist = function() {
+    this._activePlaylist = null;
+    this._isDisplaying = false;
+    this.emit('hidden');
   };
 
   PlaylistManager.prototype.addNormalPlaylist = function(name) {
