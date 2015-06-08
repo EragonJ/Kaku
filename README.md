@@ -13,16 +13,16 @@ The next generation music client
 
 Because we use bower & npm to maintain our third party libraries, you have to make sure before doing anything, these needed stuffs are all installed already.
 
-```bash
-bower install
-npm install
-```
+1. `bower install`
+2. `npm install`
+3. `npm install electron-prebuilt -g` - Install **electron** command
+4. `gem update --system && gem install compass` - Install **compass** command
 
-## Prepare needed configs
+## Prerequistiques
 
-**PLEASE READ THIS**
+**This is IMPORTANT, please read this**
 
-In order to successfully make Kaku functional, you have to prepare all needed configs first. (Take Youtube API for example, in latest 3.0 API, you need your own API KEY to execute their API)  No matter you are in production or development environment, this is important and please make sure you already did this before building !
+In order to successfully make Kaku functional, you have to prepare all needed configs first. (Take Youtube API for example, in latest 3.0 API, you need your own API KEY to execute their API)  No matter you are in production or development environment, this is important and please make sure you already did this before building. [Follow the instruction to here to register your API key.](https://developers.google.com/youtube/v3/getting-started)
 
 Please take a look at `config/`, you will notice there are some files named like `*.sample.json`, remember to update them with correct config and rename them to `*.production.json`, then everything should work as perfect !
 

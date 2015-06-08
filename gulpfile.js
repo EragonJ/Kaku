@@ -159,7 +159,7 @@ gulp.task('package', function(done) {
     '!./tests/**/*.*',
     '!./node_modules/gulp-*/**.*'
   ]).pipe(electron({
-    version: '0.19.4',
+    version: '0.27.0',
     platform: 'darwin'
   })).pipe(electron.zfsdest('build/app.zip'));
 });
