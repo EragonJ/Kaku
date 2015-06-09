@@ -71,14 +71,16 @@ define(function(require) {
     return promise;
   };
 
-  BasePlaylist.prototype.removeTrackById = function(id) {
+  BasePlaylist.prototype.removeTrack = function(track) {
     var promise = new Promise((resolve, reject) => {
-      var index = this.findTrackIndexById(id);
+      var index = this.findTrackIndex(track);
       if (index === -1) {
         reject('Can\'t find the track');
       }
       else {
-        this._tracks.splice(index, 1);
+        var removedTrack = this._tracks.splice(index, 1);
+        console.log('Removed track - ', removedTrack);
+
         this.emit('tracksUpdated');
         resolve();
       }
@@ -86,11 +88,8 @@ define(function(require) {
     return promise;
   };
 
-  BasePlaylist.prototype.findTrackIndexById = function(id) {
-    var tracks = this._tracks.filter((track) => {
-      return track.id === id;
-    });
-    return tracks[0];
+  BasePlaylist.prototype.findTrackIndex = function(track) {
+    return this._tracks.indexOf(track);
   };
 
   BasePlaylist.prototype.findTrackByTitleAndArtist = function(title, artist) {
