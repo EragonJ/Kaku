@@ -2,7 +2,7 @@ define(function(require) {
   'use strict';
 
   var React = require('react');
-  var CoreData = require('backend/CoreData');
+  var HistoryManager = require('backend/HistoryManager');
   var PlayAllButton = require('components/shared/playall-button');
   var NoTrack = require('components/shared/no-track');
   var Track = require('components/shared/track');
@@ -16,8 +16,10 @@ define(function(require) {
     },
 
     componentDidMount: function() {
-      CoreData.watch('playedTracks', (_1, _2, newValue) => {
-        var tracks = newValue;
+      // TODO
+      // With DB support, we should make sure stored tracks can be
+      // reflected here
+      HistoryManager.on('history-updated', (tracks) => {
         this.setState({
           tracks: tracks
         });

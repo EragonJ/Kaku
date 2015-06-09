@@ -5,7 +5,6 @@ define(function(require) {
   var Menu = remote.require('menu');
   var MenuItem = remote.require('menu-item');
 
-  var YoutubeSearcher = require('backend/YoutubeSearcher');
   var PlaylistManager = require('backend/PlaylistManager');
   var Notifier = require('modules/Notifier');
   var Player = require('modules/Player');

@@ -1,7 +1,7 @@
 define(function(require) {
   'use strict';
 
-  var CoreData = require('backend/CoreData');
+  var Searcher = require('backend/Searcher');
   var React = require('react');
 
   var L10nSpan = require('components/shared/l10n-span');
@@ -17,10 +17,9 @@ define(function(require) {
     },
 
     componentDidMount: function() {
-      CoreData.watch('searchResults', (_1, _2, newValue) => {
-        var tracks = newValue;
+      Searcher.on('search-results-updated', (results) => {
         this.setState({
-          tracks: tracks
+          tracks: results
         });
       });
     },

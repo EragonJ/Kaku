@@ -1,9 +1,8 @@
 define(function(require) {
   'use strict';
 
-  var CoreData = require('backend/CoreData');
+  var Searcher = require('backend/Searcher');
   var TabManager = require('modules/TabManager');
-  var YoutubeSearcher = require('backend/YoutubeSearcher');
   var React = require('react');
 
   var SearchbarContainer = React.createClass({
@@ -18,10 +17,11 @@ define(function(require) {
       // Start to search
       var keyword = this.state.keyword;
       if (keyword) {
-        YoutubeSearcher.search(keyword, 30).then(function(results) {
-          CoreData.set('searchResults', results);
+        // TODO we should change Searcher.search interface to make it more
+        // readable, no one knows what does the *true* mean here
+        Searcher.search(keyword, 30, true).then((results) => {
           TabManager.setTab('search');
-        }, function() {
+        }, () => {
           // show error
         });
       }

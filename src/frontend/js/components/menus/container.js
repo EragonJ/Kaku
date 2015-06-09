@@ -9,7 +9,6 @@ define(function(require) {
   var $ = require('jquery');
   var React = require('react');
 
-  var CoreData = require('backend/CoreData');
   var PlaylistManager = require('backend/PlaylistManager');
   var TabManager = require('modules/TabManager');
   var Notifier = require('modules/Notifier');
