@@ -8,7 +8,6 @@ define(function(require) {
   var request = requireNode('request');
   var crypto = requireNode('crypto');
   var fs = requireNode('fs');
-  var CoreData = require('backend/CoreData');
   var Notifier = require('modules/Notifier');
   var Player = require('modules/Player');
   var React = require('react');

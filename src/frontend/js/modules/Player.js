@@ -3,10 +3,10 @@ define(function(require) {
 
   var EventEmitter = requireNode('events').EventEmitter;
   var TrackInfoFetcher = require('backend/TrackInfoFetcher');
-  var YoutubeSearcher = require('backend/YoutubeSearcher');
+  var Searcher = require('backend/Searcher');
+  var HistoryManager = require('backend/HistoryManager');
   var L10nManager = require('backend/L10nManager');
   var Notifier = require('modules/Notifier');
-  var CoreData = require('backend/CoreData');
   var videojs = require('videojs');
   videojs.options.flash.swf = 'dist/vendor/video.js/dist/video-js.swf';
 
@@ -61,15 +61,6 @@ define(function(require) {
       this._updateAppHeader('ended');
       this.playNextTrack();
     });
-  };
-
-  Player.prototype._addToPlayedHistories = function(track) {
-    // TODO
-    // we have to add backend/histories for this
-    // save this track to playedTracks
-    var playedTracks = CoreData.get('playedTracks');
-    playedTracks.push(track);
-    CoreData.set('playedTracks', playedTracks);
   };
 
   Player.prototype.setPlayer = function(playerDOM) {
@@ -146,7 +137,7 @@ define(function(require) {
     else {
       var promise = new Promise((resolve) => {
         var keyword = rawTrack.artist + ' - ' + rawTrack.title;
-        YoutubeSearcher.search(keyword, 1).then(function(tracks) {
+        Searcher.search(keyword, 1).then(function(tracks) {
           var trackInfo = tracks[0];
 
           // NOTE
@@ -199,8 +190,11 @@ define(function(require) {
           this._playingTrack = realTrack;
           this._player.src(realTrack.platformTrackRealUrl);
           this._player.play();
-          this._addToPlayedHistories(realTrack);
 
+          // keep this track into history
+          HistoryManager.add(realTrack);
+
+          // show notification on desktop if possible
           Notifier.sendDesktopNotification({
             title: realTrack.title,
             body: realTrack.artist

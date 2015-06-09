@@ -1,7 +1,6 @@
 define(function(require) {
   'use strict';
 
-  var CoreData = require('backend/CoreData');
   var Player = require('modules/Player');
   var React = require('react');
 
