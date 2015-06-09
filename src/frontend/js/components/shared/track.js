@@ -62,7 +62,7 @@ define(function(require) {
         var clickToRemoveTrack = ((playlist) => {
           return () => {
             playlist
-              .removeTrackById(this.props.data.id)
+              .removeTrack(this.props.data)
               .catch((error) => {
                 Notifier.alert(error);
               });
