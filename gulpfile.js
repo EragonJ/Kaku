@@ -159,8 +159,9 @@ gulp.task('package', function(done) {
     '!./tests/**/*.*',
     '!./node_modules/gulp-*/**.*'
   ]).pipe(electron({
-    version: '0.27.0',
-    platform: 'darwin'
+    version: '0.27.3',
+    platform: 'darwin', // 'darwin' / 'linux' / 'win'
+    arch: 'x64' // 'x64' / 'ia32'
   })).pipe(electron.zfsdest('build/app.zip'));
 });
 
