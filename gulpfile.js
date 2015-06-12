@@ -1,6 +1,7 @@
+var fs = require('fs');
 var gulp = require('gulp');
 var gulpif = require('gulp-if');
-var fs = require('fs');
+var debug = require('gulp-debug');
 var rjs = require('gulp-requirejs');
 var compass = require('gulp-compass');
 var babel = require('gulp-babel');
@@ -14,6 +15,9 @@ var htmlreplace = require('gulp-html-replace');
 var sequence = require('gulp-sequence');
 var newer = require('gulp-newer');
 
+var path = require('path');
+var packageJSON = require(path.join(__dirname, 'package.json'));
+
 var CURRENT_ENVIRONMENT = 'development';
 
 // TODO
@@ -24,6 +28,7 @@ const FRONTEND_CSS_FILES = './src/frontend/css/**/*.css';
 const BACKEND_JS_FILES = './src/backend/**/*.js';
 const BACKEND_L10N_FILES = './src/backend/locales/**/*.*';
 const DIST_FILES = './dist';
+const BUILD_FILES = './build';
 const INDEX_TEMPLATE_FILE = './_index.html';
 const INDEX_FILE = './index.html';
 
@@ -31,9 +36,17 @@ function isProduction() {
   return CURRENT_ENVIRONMENT === 'production';
 }
 
-gulp.task('cleanup', function() {
+gulp.task('cleanup:dist', function() {
   return gulp
     .src([DIST_FILES], {
+      read: false
+    })
+    .pipe(clean());
+});
+
+gulp.task('cleanup:build', function() {
+  return gulp
+    .src([BUILD_FILES], {
       read: false
     })
     .pipe(clean());
@@ -151,14 +164,23 @@ gulp.task('watch', function() {
 });
 
 gulp.task('package', function(done) {
+  var devDependencies = packageJSON.devDependencies;
+  var devDependenciesKeys = Object.keys(devDependencies);
+  var includedFiles = [
+    '**/*',
+    '!./build/**',
+    '!./tests/**',
+    '!./src/**'
+  ];
+
+  // Let's ignore files listed inside devDependencies
+  devDependenciesKeys.forEach(function(key) {
+    includedFiles.push('!./node_modules/' + key + '/**');
+  });
+
   // TODO
   // We have to fix more stuffs later after atomshell is updated
-  return gulp.src([
-    './**/*.*',
-    '!./build/**/*.*',
-    '!./tests/**/*.*',
-    '!./node_modules/gulp-*/**.*'
-  ]).pipe(electron({
+  return gulp.src(includedFiles).pipe(electron({
     version: '0.27.0',
     platform: 'darwin'
   })).pipe(electron.zfsdest('build/app.zip'));
@@ -167,7 +189,8 @@ gulp.task('package', function(done) {
 gulp.task('build', function(callback) {
   CURRENT_ENVIRONMENT = 'production';
   sequence(
-    'cleanup',
+    'cleanup:dist',
+    'cleanup:build',
     '6to5:frontend',
     '6to5:backend',
     'linter',
