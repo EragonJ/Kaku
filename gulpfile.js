@@ -181,9 +181,8 @@ gulp.task('package', function(done) {
   // TODO
   // We have to fix more stuffs later after atomshell is updated
   return gulp.src(includedFiles).pipe(electron({
-    version: '0.28.0',
-    platform: 'darwin', // 'darwin' / 'linux' / 'win'
-    arch: 'x64' // 'x64' / 'ia32'
+    version: '0.27.0',
+    platform: 'darwin'
   })).pipe(electron.zfsdest('build/app.zip'));
 });
 
