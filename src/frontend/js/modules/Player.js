@@ -57,10 +57,32 @@ define(function(require) {
     this._player.on('play', () => {
       this._updateAppHeader('play');
     });
+
     this._player.on('ended', () => {
       this._updateAppHeader('ended');
       this.playNextTrack();
     });
+
+    this._player.on('error', (error) => {
+      Notifier.alert('Unknown errors, please try again');
+
+      // Some hints
+      console.log('Please report following errors to us, thanks !');
+      console.log(error);
+    });
+  };
+
+  Player.prototype._toggleSpinner = function(show) {
+    // Because _player.loadingSpinner.show() doesn't work in this case,
+    // we have to forcely toggle vjs-waiting class to make the loading
+    // spinner work.
+    var elem = this._player.el();
+    if (show) {
+      elem.classList.add('vjs-waiting');
+    }
+    else {
+      elem.classList.remove('vjs-waiting');
+    }
   };
 
   Player.prototype.setPlayer = function(playerDOM) {
@@ -184,12 +206,16 @@ define(function(require) {
 
   Player.prototype.play = function(rawTrack) {
     this.ready().then(() => {
+      this._player.pause();
+      this._toggleSpinner(true);
+
       this._prepareTrackData(rawTrack)
         .then(this._getRealTrack)
         .then((realTrack) => {
           this._playingTrack = realTrack;
           this._player.src(realTrack.platformTrackRealUrl);
           this._player.play();
+          this._toggleSpinner(false);
 
           // keep this track into history
           HistoryManager.add(realTrack);
