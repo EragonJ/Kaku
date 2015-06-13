@@ -21,6 +21,8 @@ define(function(require) {
     this._metadataPath = path.join(this._l10nFolderPath, 'metadata.json');
     this._suffixForLanguageFile = '.ini';
 
+    // Note
+    // we will reflect real value from PreferenceManager in frontend/main.js
     this._currentLanguage = 'en';
     this._reParam = /\{\{\s*(\w+)\s*\}\}/g;
 

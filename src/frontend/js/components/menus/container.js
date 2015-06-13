@@ -10,6 +10,7 @@ define(function(require) {
   var React = require('react');
 
   var PlaylistManager = require('backend/PlaylistManager');
+  var L10nManager = require('backend/L10nManager');
   var TabManager = require('modules/TabManager');
   var Notifier = require('modules/Notifier');
   var Dialog = require('modules/Dialog');
@@ -86,29 +87,32 @@ define(function(require) {
     },
 
     _addPlaylist: function() {
-      // TODO
-      // fix this native behavior with customzied dialog
       var randomSuffix = crypto.randomBytes(3).toString('hex');
-      Dialog.prompt({
-        title: 'Please input your playlist name',
-        value: 'playlist-' + randomSuffix,
-        callback: (rawPlaylistName) => {
-          rawPlaylistName = rawPlaylistName || '';
-          var sanitizedPlaylistName = rawPlaylistName.trim();
-          if (!sanitizedPlaylistName) {
-            // do nothing
+      Promise.all([
+        L10nManager.get('notifier_input_playlist_name'),
+        L10nManager.get('notifier_playlist')
+      ]).then((translations) => {
+        Dialog.prompt({
+          title: translations[0],
+          value: translations[1] + '-' + randomSuffix,
+          callback: (rawPlaylistName) => {
+            rawPlaylistName = rawPlaylistName || '';
+            var sanitizedPlaylistName = rawPlaylistName.trim();
+            if (!sanitizedPlaylistName) {
+              // do nothing
+            }
+            else {
+              PlaylistManager
+                .addNormalPlaylist(sanitizedPlaylistName)
+                .then(() => {
+                  this._updatePlaylistsStates();
+                })
+                .catch((error) => {
+                  Notifier.alert(error);
+                });
+            }
           }
-          else {
-            PlaylistManager
-              .addNormalPlaylist(sanitizedPlaylistName)
-              .then(() => {
-                this._updatePlaylistsStates();
-              })
-              .catch((error) => {
-                Notifier.alert(error);
-              });
-          }
-        }
+        });
       });
     },
 
