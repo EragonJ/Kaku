@@ -4,6 +4,8 @@ define(function(require) {
   var React = require('react');
   var Player = require('modules/Player');
 
+  var L10nSpan = require('components/shared/l10n-span');
+
   var PlayAllButton = React.createClass({
     propTypes: {
       data: React.PropTypes.array.isRequired
@@ -22,7 +24,7 @@ define(function(require) {
           onClick={this._clickToPlayAll}
           disabled={isDiabled}>
             <i className="fa fa-fw fa-play-circle"></i>
-            Play All
+            <L10nSpan l10nId="component_play_all"/>
         </button>
       );
       /* jshint ignore:end */

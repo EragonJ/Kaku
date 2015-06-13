@@ -1,6 +1,7 @@
 define(function(require) {
   'use strict';
 
+  var L10nManager = require('backend/L10nManager');
   var Bootbox = require('bootbox');
 
   var Dialog = function() {
@@ -10,7 +11,8 @@ define(function(require) {
   var SUPPORT_FUNCTIONS = [
     'alert',
     'confirm',
-    'prompt'
+    'prompt',
+    'setLocale'
   ];
 
   SUPPORT_FUNCTIONS.forEach((name) => {
@@ -18,7 +20,28 @@ define(function(require) {
       Bootbox[name].apply(Bootbox, arguments);
     };
   });
+
+  var dialog = new Dialog();
+
+  L10nManager.on('language-changed', (newLanguage) => {
+    var transformedLanguage = newLanguage;
+
+    // TODO
+    // we have to make sure our language naming is the same with
+    // bootbox's language.
+    switch (newLanguage) {
+      case 'zh-TW':
+        transformedLanguage = 'zh_TW';
+        break;
+
+      default:
+        transformedLanguage = 'en';
+        break;
+    }
+
+    dialog.setLocale(transformedLanguage);
+  });
   
   // singleton
-  return new Dialog();
+  return dialog;
 });
