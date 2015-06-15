@@ -2,6 +2,10 @@
   font-family: 'Arimo';
   src: url(../fonts/Arimo/Arimo-Regular.ttf) format("woff2");
 }
+* {
+  -webkit-user-select: none;
+}
+
 body,
 html,
 .root,
