@@ -25,6 +25,9 @@
       a {
         display: block;
         padding: 5px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
       }
 
       .icon {

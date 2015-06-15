@@ -172,6 +172,9 @@ a:hover, a:focus {
 .sidebar .menus ul li a {
   display: block;
   padding: 5px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .sidebar .menus ul li .icon {
   margin-right: 5px;
@@ -219,6 +222,10 @@ a:hover, a:focus {
 .tab-content h1 {
   float: left;
   margin: 0;
+  width: 85%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .tab-content h1 i {
   margin-right: 10px;

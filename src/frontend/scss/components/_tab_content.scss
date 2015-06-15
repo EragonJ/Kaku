@@ -13,6 +13,10 @@
   h1 {
     float: left;
     margin: 0;
+    width: 85%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 
     i {
       margin-right: 10px;
