@@ -1,14 +1,19 @@
+// Variables
 @import 'components/mixins';
 @import "components/fonts";
 @import 'components/variables';
 
+// Global & Shared components
 @import "components/global";
 @import 'components/track';
 
+// Individual components
 @import 'components/toolbar';
 @import 'components/topranking';
 @import 'components/sidebar';
 @import 'components/tab_content';
+@import 'components/connection_check';
 @import 'components/settings';
 
+// 3rd party customizations
 @import 'components/videojs';
