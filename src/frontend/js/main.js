@@ -27,6 +27,7 @@ fetchRjsConfig().then(function(rjsConfig) {
     'components/history/container',
     'components/playlist/container',
     'components/settings/container',
+    'components/connection-check/container',
     'backend/PreferenceManager',
     'backend/PlaylistManager',
     'backend/L10nManager',
@@ -44,6 +45,7 @@ fetchRjsConfig().then(function(rjsConfig) {
     HistoryContainer,
     PlaylistContainer,
     SettingsContainer,
+    ConnectionCheckContainer,
     PreferenceManager,
     PlaylistManager,
     L10nManager,
@@ -97,6 +99,7 @@ fetchRjsConfig().then(function(rjsConfig) {
         /* jshint ignore:start */
         return (
           <div className="root">
+            <ConnectionCheckContainer/>
             <div className="row row-no-padding top-row">
               <div className="col-md-12">
                 <div className="toolbar-slot">

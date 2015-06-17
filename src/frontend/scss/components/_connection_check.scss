@@ -1,0 +1,10 @@
+.connection-check-container {
+  i {
+    margin-right: 5px;
+  }
+
+  // for others, check .global-overlay in _global.scss
+  &.is-online {
+    display: none;
+  }
+}

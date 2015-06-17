@@ -14,15 +14,16 @@ html,
   height: 100%;
 }
 
-.loading-page {
+.global-overlay {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
 }
-.loading-page h1 {
+.global-overlay h1 {
   position: absolute;
   font-size: 20px;
   right: 10px;
@@ -233,6 +234,13 @@ a:hover, a:focus {
 .tab-content .control-buttons {
   float: right;
   transform: translateY(25%);
+}
+
+.connection-check-container i {
+  margin-right: 5px;
+}
+.connection-check-container.is-online {
+  display: none;
 }
 
 .settings-container ul {
