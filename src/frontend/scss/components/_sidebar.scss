@@ -8,6 +8,7 @@
   .menus {
     // 155px is the height of player
     height: calc(100% - #{$videoHeight + $controlsHeight});
+    overflow: auto;
 
     ul li {
       font-size: 16px;
