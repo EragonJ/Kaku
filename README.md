@@ -32,6 +32,8 @@ Please take a look at `config/`, you will notice there are some files named like
 
 We need to make sure all codes would be moved to the right place and generated the final entry point to reduce requests to load data, so you have to build first.
 
+Pass wanted platform in gulpfile.js in 'package' task
+
 ```bash
 gulp build
 ```
