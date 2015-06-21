@@ -163,6 +163,7 @@ define(function(require) {
     if (this._pendingTrackIndex > this._pendingTracks.length - 1) {
       // we are in the end
       this._pendingTracks = [];
+      this.stop();
     }
     else {
       this._pendingTrackIndex += 1;
@@ -263,6 +264,13 @@ define(function(require) {
           // nothing
           break;
       }
+    });
+  };
+
+  Player.prototype.stop = function() {
+    this.ready().then(() => {
+      this._player.pause();
+      this._player.currentTime(0);
     });
   };
 

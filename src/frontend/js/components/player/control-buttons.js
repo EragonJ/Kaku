@@ -63,11 +63,11 @@ define(function(require) {
     },
 
     _onBackwardButtonClick: function() {
-      Player.playNextTrack();
+      Player.playPreviousTrack();
     },
 
     _onForwardButtonClick: function() {
-      Player.playPreviousTrack();
+      Player.playNextTrack();
     },
 
     _onResumeButtonClick: function() {
