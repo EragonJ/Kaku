@@ -22,7 +22,6 @@ Because we use bower & npm to maintain our third party libraries, you have to ma
 1. `bower install`
 2. `npm install`
 3. `npm install electron-prebuilt -g` - Install **electron** command
-4. `gem update --system && gem install compass` - Install **compass** command
 
 ## Prerequistiques
 
@@ -70,48 +69,33 @@ then run Kaku :
 electron .
 ```
 
+# TODO / Issues
+
+Moved all todos and issues to https://github.com/EragonJ/Kaku/issues, so if your are interested with them, please go check it there !
+
 # What tech we use ?
 
-1. [Gulp](http://gulpjs.com/) - To build up our environment
-2. [NW.js](http://nwjs.io/) - (Moved to Electron)
-3. [Electron](http://electron.atom.io) - Let us use web technology to build native app
-4. [Compass / SASS](http://compass-style.org/) - To help us write CSS easily
-5. [Bower](http://bower.io/) - To help us manage frontend resources
-6. [Require.js](http://requirejs.org/) - To help me make codes more structure
-7. [Bootstrap](http://getbootstrap.com/) - To boostrap the whole project including grid system ... etc
-8. [FontAwesome](http://fortawesome.github.io/Font-Awesome/) - To make Kaku look nice
-9. [jQuery](https://jquery.com/) - Bootstrap is based on jQuery
-10. [React.js](http://reactjs.org/) - To help us break UI into small components
-11. [Video.js](http://www.videojs.com/) - To help us control the player
-12. [Babel](https://babeljs.io/) - To do some pre-transfrom process
-13. [NPM](https://www.npmjs.org/) - To help us manage node modules resources
-14. ... still increasing :)
+## Still in use
 
-# TODO
++ [Gulp](http://gulpjs.com/) - To build up our environment
++ [Electron](http://electron.atom.io) - Let us use web technology to build native app
++ [Bower](http://bower.io/) - To help us manage frontend resources
++ [Require.js](http://requirejs.org/) - To help me make codes more structure
++ [Bootstrap](http://getbootstrap.com/) - To boostrap the whole project including grid system ... etc
++ [FontAwesome](http://fortawesome.github.io/Font-Awesome/) - To make Kaku look nice
++ [jQuery](https://jquery.com/) - Bootstrap is based on jQuery
++ [React.js](http://reactjs.org/) - To help us break UI into small components
++ [Video.js](http://www.videojs.com/) - To help us control the player
++ [Babel](https://babeljs.io/) - To do some pre-transfrom process
++ [NPM](https://www.npmjs.org/) - To help us manage node modules resources
++ [Less](http://lesscss.org) - Make life better when writting CSS
++ [Pouchdb](http://pouchdb.com) - Our database to store trakcs
++ [Bootbox](http://bootboxjs.com) - To help us show dialogs based on Bootstrap
++ [Animate.css](https://daneden.github.io/animate.css/) - Animation matters
++ [Youtube-dl](https://github.com/rg3/youtube-dl/) - Download youtube tracks on the fly
++ ... still increasing :)
 
-- [ ] **[WIP]** Add auto-updator
-- [ ] **[WIP]** Translate all panels
-- [ ] Make native vjs button and remove our controls
-- [ ] Add resolution chooser
-- [ ] Fix the scrolling problem in Home panel, not sure why it won't always go to the top
-- [ ] Add lyrics feature
-- [ ] Add show / hide / maximize player feature
-- [x] Port Kaku to the other platforms
-- [x] Add unit tests + Travis
-- [x] Add KonamiCode / EasterEggs !
-- [x] Implement Database to store playlist (Pouchdb looks like a good choice)
-- [x] We have to provide a better way to communicate between panels & L10nManager
-- [x] Remove API_KEY from sourcecode, we should only include that when building from env
-- [x] Add i18n support
-- [x] Moved to Electron
-- [x] Add Desktop notification
-- [x] Add settings page to make sure users can change their streaming platform
-- [x] fix forward / backward button and add volume control instead (native slider from vjs)
-- [x] Add timeline for Player (maybe we can use the native one from Videojs ?)
-- [x] Add play all tracks feature
-- [x] Show the right playlist name when navigating to specific playlist
-- [x] Add "rename", "remove" feature for Playlist
-- [x] Fix the problem that if we save top tracks in playlist, these tracks would be not playable (because no realPlatformUrl)
-- [x] Add playlist feature
-- [x] Make tracks in Top Rankings playable
-- [x] Remember to write a installer to package all needed codec based on this article - https://github.com/nwjs/nw.js/wiki/Using-MP3-&-MP4-%28H.264%29-using-the--video--&--audio--tags.
+## Deprecated
++ [Compass / SASS](http://compass-style.org/) - To help us write CSS easily
++ [NW.js](http://nwjs.io/) - (Moved to Electron)
++ ... thanks for these old friends :)
