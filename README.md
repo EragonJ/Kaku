@@ -81,7 +81,8 @@ electron .
 11. [Video.js](http://www.videojs.com/) - To help us control the player
 12. [Babel](https://babeljs.io/) - To do some pre-transfrom process
 13. [NPM](https://www.npmjs.org/) - To help us manage node modules resources
-14. ... still increasing :)
+14. [Pouchdb] (http://pouchdb.com/) - The database to store playlists
+15. ... still increasing :)
 
 # TODO
 
