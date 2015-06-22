@@ -174,7 +174,8 @@ Bootup.prototype = {
       mainWindow = new BrowserWindow({
         width: 1060,
         height: 600,
-        resizable: false
+        'min-width': 1060,
+        'min-height': 600
       });
 
       // and load the index.html of the app.

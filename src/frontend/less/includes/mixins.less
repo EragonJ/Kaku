@@ -3,3 +3,14 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.clearfix() {
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
