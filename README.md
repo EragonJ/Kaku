@@ -1,15 +1,19 @@
 # Kaku
-
-[![Join the chat at https://gitter.im/EragonJ/Kaku](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/EragonJ/Kaku?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 The next generation music client
 
 # Build Status
 
 [![Build Status](https://travis-ci.org/EragonJ/Kaku.svg?branch=master)](https://travis-ci.org/EragonJ/kaku)
 
+# Let's talk !
+
+We have a gitter chatting room and please feel free to join us and talk there :)
+
+[![Join the chat at https://gitter.im/EragonJ/Kaku](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/EragonJ/Kaku?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 # Latest Screenshot
 
-![Latest Screenshot](http://i.imgur.com/xeIrxyu.jpg)
+![Latest Screenshot](http://i.imgur.com/aPzU4ER.jpg)
 
 # Setup environment
 
@@ -87,13 +91,12 @@ electron .
 
 - [ ] **[WIP]** Add auto-updator
 - [ ] **[WIP]** Translate all panels
-- [ ] Fixed related UI
 - [ ] Make native vjs button and remove our controls
 - [ ] Add resolution chooser
 - [ ] Fix the scrolling problem in Home panel, not sure why it won't always go to the top
-- [ ] Port Kaku to the other platforms
 - [ ] Add lyrics feature
 - [ ] Add show / hide / maximize player feature
+- [x] Port Kaku to the other platforms
 - [x] Add unit tests + Travis
 - [x] Add KonamiCode / EasterEggs !
 - [x] Implement Database to store playlist (Pouchdb looks like a good choice)
