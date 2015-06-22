@@ -1,10 +1,10 @@
 var fs = require('fs');
 var argv = require('yargs').argv;
 var gulp = require('gulp');
+var less = require('gulp-less');
 var gulpif = require('gulp-if');
 var debug = require('gulp-debug');
 var rjs = require('gulp-requirejs');
-var compass = require('gulp-compass');
 var babel = require('gulp-babel');
 var uglify = require('gulp-uglify');
 var clean = require('gulp-clean');
@@ -21,9 +21,8 @@ var packageJSON = require(path.join(__dirname, 'package.json'));
 
 var CURRENT_ENVIRONMENT = 'development';
 
-// TODO
-// we have to double check **/*.js is a right expression or not
-const SCSS_FILES = './src/frontend/scss/**/*.scss';
+const LESS_FILES = './src/frontend/less/**/*.less';
+const FRONTEND_LESS_FOLDER = './src/frontend/less';
 const FRONTEND_JS_FILES = './src/frontend/js/**/*.js';
 const FRONTEND_CSS_FILES = './src/frontend/css/**/*.css';
 const BACKEND_JS_FILES = './src/backend/**/*.js';
@@ -115,16 +114,13 @@ gulp.task('rjs', function(done) {
   });
 });
 
-gulp.task('compass', function() {
+gulp.task('less', function() {
   var dest = './src/frontend/css/';
   return gulp
-    .src(SCSS_FILES)
+    .src(LESS_FILES)
     .pipe(newer(dest + 'index.css'))
-    .pipe(plumber())
-    .pipe(compass({
-      config_file: './config/compass_config.rb',
-      css: 'src/frontend/css',
-      sass: 'src/frontend/scss'
+      .pipe(less({
+      paths: [ path.join(FRONTEND_LESS_FOLDER, 'includes') ]
     }))
     .pipe(gulp.dest(dest));
 });
@@ -156,7 +152,7 @@ gulp.task('override', function() {
 });
 
 gulp.task('watch', function() {
-  gulp.watch(SCSS_FILES, ['compass']);
+  gulp.watch(LESS_FILES, ['less']);
   gulp.watch([
     FRONTEND_JS_FILES,
     BACKEND_JS_FILES,
@@ -231,7 +227,7 @@ gulp.task('default', function(callback) {
   sequence(
     '6to5:frontend',
     '6to5:backend',
-    'compass',
+    'less',
     'linter',
     'copy:frontend',
     'copy:backend',

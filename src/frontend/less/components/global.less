@@ -1,3 +1,5 @@
+@import '../includes/variables.less';
+
 * {
   -webkit-user-select: none;
 }
@@ -17,7 +19,7 @@ html,
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
-  z-index: $highestZindex;
+  z-index: @highestZindex;
 
   h1 {
     position: absolute;
@@ -53,7 +55,7 @@ a {
 }
 
 .bottom-row {
-  height: calc(100% - 40px);
+  height: calc(~"100% - 40px");
 
   & > .col {
     height: 100%;
