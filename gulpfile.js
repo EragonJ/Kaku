@@ -1,4 +1,5 @@
 var fs = require('fs');
+var argv = require('yargs').argv;
 var gulp = require('gulp');
 var gulpif = require('gulp-if');
 var debug = require('gulp-debug');
@@ -178,11 +179,34 @@ gulp.task('package', function(done) {
     includedFiles.push('!./node_modules/' + key + '/**');
   });
 
+  var platform = argv.platform || process.platform;
+  platform = platform.toLowerCase();
+
+  switch (platform) {
+    case 'mac':
+    case 'darwin':
+      platform = 'darwin';
+      break;
+    case 'freebsd':
+    case 'linux':
+      platform = 'linux';
+      break;
+    case 'win':
+    case 'win32':
+    case 'windows':
+      platform = 'win32';
+      break;
+    default:
+      console.log('We don\'t support your platform ' + platform);
+      process.exit(1);
+      break;
+  }
+
   // TODO
   // We have to fix more stuffs later after atomshell is updated
   return gulp.src(includedFiles).pipe(electron({
     version: '0.27.0',
-    platform: 'darwin'
+    platform: platform
   })).pipe(electron.zfsdest('build/app.zip'));
 });
 

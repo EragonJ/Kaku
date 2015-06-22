@@ -33,7 +33,13 @@ Please take a look at `config/`, you will notice there are some files named like
 We need to make sure all codes would be moved to the right place and generated the final entry point to reduce requests to load data, so you have to build first.
 
 ```bash
-gulp build
+gulp build # without plaform argument, we will build Kaku based on your platform
+```
+
+or you can be more precise about which platform you are going to build like this :
+
+```bash
+gulp build --platform=mac # =linux, =windows, =win, =mac, =darwin are all valid
 ```
 
 After that, you will get a solid application to run !
