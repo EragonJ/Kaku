@@ -55,10 +55,21 @@ a {
 }
 
 .bottom-row {
+  .clearfix();
   height: calc(~"100% - 40px");
 
-  & > .col {
+  .left,
+  .right {
     height: 100%;
+    float: left;
+  }
+
+  .left {
+    max-width: 260px;
+  }
+
+  .right {
+    width: calc(~"100% - 260px");
   }
 }
 
