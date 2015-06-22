@@ -1,13 +1,13 @@
 .sidebar {
-  $videoHeight: 140px;
-  $controlsHeight: 25px;
+  @videoHeight: 140px;
+  @controlsHeight: 25px;
 
   height: 100%;
   border-right: 1px solid #cccccc;
 
   .menus {
     // 155px is the height of player
-    height: calc(100% - #{$videoHeight + $controlsHeight});
+    height: ~"calc(100% - @{videoHeight} - @{controlsHeight})";
     overflow: auto;
 
     ul li {
@@ -69,12 +69,12 @@
       // to make spinner at the right place
       position: relative;
       // We have to override its height directly
-      height: $videoHeight;
+      height: @videoHeight;
     }
 
     video {
       width: 100%;
-      height: $videoHeight;
+      height: @videoHeight;
     }
   }
 }

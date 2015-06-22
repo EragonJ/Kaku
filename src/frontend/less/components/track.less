@@ -1,9 +1,12 @@
+@import '../includes/variables.less';
+@import '../includes/mixins.less';
+
 .track {
   display: inline-block;
   position: relative;
-  padding: $defaultTrackPadding;
-  border: $defaultTrackBorder solid #cccccc;
-  margin: $defaultTrackMargin;
+  padding: @defaultTrackPadding;
+  border: @defaultTrackBorder solid #cccccc;
+  margin: @defaultTrackMargin;
   background-color: rgba(0, 0, 0, 0.8);
   cursor: pointer;
 
@@ -18,8 +21,8 @@
   }
 
   img {
-    width: $defaultTrackImageSize;
-    height: $defaultTrackImageSize;
+    width: @defaultTrackImageSize;
+    height: @defaultTrackImageSize;
     object-fit: contain;
   }
 
@@ -30,12 +33,12 @@
     right: 0;
     background-color: rgba(0, 0, 0, 0.3);
     color: white;
-    padding-left: $defaultTrackPadding;
-    padding-right: $defaultTrackPadding;
+    padding-left: @defaultTrackPadding;
+    padding-right: @defaultTrackPadding;
   }
 
   .track-name,
   .track-{
-    @include kaku_add_ellipsis();
+    .kaku_add_ellipsis();
   }
 }
