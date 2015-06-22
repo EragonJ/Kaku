@@ -5,12 +5,12 @@ define(function(require) {
   var youtubeDownloader = requireNode('youtube-dl');
 
   var TrackInfoFetcher = BaseModule(function() {
-    // add something
+    this._options = ['--no-check-certificate'];
   });
 
-  TrackInfoFetcher.prototype.getInfo = function(url, options) {
+  TrackInfoFetcher.prototype.getInfo = function(url) {
     var promise = new Promise((resolve, reject) => {
-      youtubeDownloader.getInfo(url, options, (error, info) => {
+      youtubeDownloader.getInfo(url, this._options, (error, info) => {
         if (error) {
           this.debug(error);
           reject();

@@ -5,7 +5,7 @@ The next generation music client
 
 # Build Status
 
-[![Build Status](https://travis-ci.org/EragonJ/kaku.svg?branch=master)](https://travis-ci.org/EragonJ/kaku)
+[![Build Status](https://travis-ci.org/EragonJ/Kaku.svg?branch=master)](https://travis-ci.org/EragonJ/kaku)
 
 # Latest Screenshot
 
