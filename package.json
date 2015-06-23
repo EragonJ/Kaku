@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/EragonJ/Kaku",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha -u tdd -t 5000 tests/**/*.test.js"
+    "test": "./node_modules/mocha/bin/mocha -u tdd -t 5000 --require ./tests/setup.js --harmony_arrow_functions tests/**/*.test.js"
   },
   "devDependencies": {
     "chai": "^2.3.0",

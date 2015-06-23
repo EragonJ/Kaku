@@ -7,30 +7,23 @@ var jsdom = require('jsdom').jsdom;
 var requirejs = require('requirejs');
 var rjsConfig = require('../config/rjs_config.json');
 
+var contextId = 0;
+var map = {};
+
 rjsConfig.baseUrl = './src/frontend';
+rjsConfig.context = contextId;
 requirejs.config(rjsConfig);
 
-var testRequire = function(modules, map, callback) {
+var testRequire = function(modules, mockMap, callback) {
   var ctx;
-  var contextId = 0;
   if (arguments.length === 2) {
-    callback = map;
-    map = null;
+    callback = mockMap;
+    mockMap = null;
   }
 
-  ctx = requirejs.config({
-    context: contextId++
-  });
-
-  // TODO
-  // need to fix here ?
-  //
-  // console.log(ctx.config);
-  // ctx.config(rjsConfig);
-  // ctx.config({
-  //   map: map || {}
-  // });
-
+  contextId ++;
+  map = mockMap || {};
+  ctx = requirejs.config(rjsConfig);
   ctx(modules, callback);
   return ctx;
 };
