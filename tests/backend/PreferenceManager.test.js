@@ -1,60 +1,60 @@
-require('../setup');
+suite('PreferenceManager', () => {
+  'use strict';
 
-suite('Dialog', function() {
   var preferenceManager;
 
-  setup(function(done) {
-    testRequire(['backend/PreferenceManager'], {}, function(PreferenceManager) {
+  setup((done) => {
+    testRequire(['backend/PreferenceManager'], {}, (PreferenceManager) => {
       preferenceManager = PreferenceManager;
       preferenceManager._preferenceStorage = {};
       done();
     });
   });
 
-  suite('setPreference() >', function() {
+  suite('setPreference() >', () => {
     var testKey = 'testKey';
     var sandbox = sinon.sandbox.create();
 
-    setup(function() {
+    setup(() => {
       sandbox.stub(preferenceManager, 'emit');
     });
 
-    teardown(function() {
+    teardown(() => {
       sandbox.restore();
     });
 
-    test('if preference is still the same, do nothing', function() {
+    test('if preference is still the same, do nothing', () => {
       preferenceManager._preferenceStorage[testKey] = 'true';
       preferenceManager.setPreference(testKey, true);
       assert.isFalse(preferenceManager.emit.called);
     });
 
-    test('if preference is different, do emit', function() {
+    test('if preference is different, do emit', () => {
       preferenceManager._preferenceStorage[testKey] = 'true';
       preferenceManager.setPreference(testKey, false);
       assert.ok(preferenceManager.emit.calledWith('preference-updated'));
     });
   });
 
-  suite('getPreference() > ', function() {
+  suite('getPreference() > ', () => {
     var testKey = 'testKey';
 
-    test('\'true\' would be true', function() {
+    test('\'true\' would be true', () => {
       preferenceManager._preferenceStorage[testKey] = 'true';
       assert.equal(preferenceManager.getPreference(testKey), true);
     });
 
-    test('\'false\' would be false', function() {
+    test('\'false\' would be false', () => {
       preferenceManager._preferenceStorage[testKey] = 'false';
       assert.equal(preferenceManager.getPreference(testKey), false);
     });
 
-    test('undefined would be false', function() {
+    test('undefined would be false', () => {
       preferenceManager._preferenceStorage[testKey] = undefined;
       assert.equal(preferenceManager.getPreference(testKey), false);
     });
 
-    test('othwers would be its original value', function() {
+    test('othwers would be its original value', () => {
       preferenceManager._preferenceStorage[testKey] = 'test';
       assert.equal(preferenceManager.getPreference(testKey), 'test');
     });
