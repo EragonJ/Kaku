@@ -4,6 +4,10 @@ The next generation music client
 # Build Status
 
 [![Build Status](https://travis-ci.org/EragonJ/Kaku.svg?branch=master)](https://travis-ci.org/EragonJ/kaku)
+[![GitHub version](https://badge.fury.io/gh/EragonJ%2Fkaku.svg)](https://github.com/EragonJ/Kaku/releases)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/EragonJ/Kaku/blob/master/LICENSE)
+[![Dependency Status](https://david-dm.org/EragonJ/kaku.svg)](https://david-dm.org/EragonJ/kaku)
+[![devDependency Status](https://david-dm.org/EragonJ/kaku/dev-status.svg)](https://david-dm.org/EragonJ/kaku#info=devDependencies)
 
 # Let's talk !
 
