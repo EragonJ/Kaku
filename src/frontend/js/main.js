@@ -31,6 +31,7 @@ fetchRjsConfig().then(function(rjsConfig) {
     'backend/PreferenceManager',
     'backend/PlaylistManager',
     'backend/L10nManager',
+    'backend/AutoUpdater',
     'modules/TabManager',
     'modules/KonamiCodeManager',
     'modules/EasterEggs',
@@ -49,6 +50,7 @@ fetchRjsConfig().then(function(rjsConfig) {
     PreferenceManager,
     PlaylistManager,
     L10nManager,
+    AutoUpdater,
     TabManager,
     KonamiCodeManager,
     EasterEggs,
@@ -61,6 +63,11 @@ fetchRjsConfig().then(function(rjsConfig) {
 
     var loadingPageDOM = document.querySelector('.loading-page');
     var contentPageDOM = document.querySelector('.content-page');
+
+    var shell = requireNode('shell');
+    var remote = requireNode('remote');
+    var dialog = remote.require('dialog');
+    var App = remote.require('app');
 
     var KakuApp = React.createClass({
       componentWillMount: function() {
@@ -86,8 +93,46 @@ fetchRjsConfig().then(function(rjsConfig) {
       },
 
       _triggerAutoUpdater: function() {
-        // TODO
-        // we have to enable AutoUpdater here later
+        AutoUpdater.checkUpdate().then((result) => {
+          if (result.isNewer) {
+            var release = result.release;
+            // TODO
+            // Need l10n here
+            dialog.showMessageBox({
+              type: 'info',
+              title: 'New release',
+              message:
+                'Detect a new release version ' + release.version + '\n' +
+                'Click ok to download it.',
+              detail: release.note,
+              buttons: ['ok', 'cancel']
+            }, (response) => {
+              // means ok
+              if (response === 0) {
+                var platform = process.platform;
+                var downloadLink = '';
+
+                if (platform.match(/win32/)) {
+                  downloadLink = release.download.win.link;
+                }
+                else if (platform.match(/darwin/)) {
+                  downloadLink = release.download.mac.link;
+                }
+                else if (platform.match(/linux/)) {
+                  downloadLink = release.download.linux.link;
+                }
+
+                if (downloadLink) {
+                  shell.openExternal(downloadLink);
+                  // a little delay to quit application
+                  setTimeout(() => {
+                    App.quit();
+                  }, 1000);
+                }
+              }
+            });
+          }
+        });
       },
 
       _hideLoadingPage: function() {
