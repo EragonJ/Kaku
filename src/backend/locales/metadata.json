@@ -1,6 +1,7 @@
 {
   "languages": [
     { "label": "English", "lang": "en" },
+    { "label": "Polski", "lang": "pl" },
     { "label": "繁體中文", "lang": "zh-TW" }
   ]
 }
