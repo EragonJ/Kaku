@@ -52,6 +52,8 @@
     "request": "^2.53.0",
     "requirejs": "^2.1.18",
     "semver": "EragonJ/node-semver",
+    "electron-cookies": "^1.1.0",
+    "universal-analytics": "EragonJ/universal-analytics",
     "yargs": "^3.12.0",
     "youtube-dl": "^1.10.1",
     "youtube-node": "^1.2.0"

@@ -12,6 +12,7 @@ define(function(require) {
   var HistoryManager = require('backend/HistoryManager');
   var L10nManager = require('backend/L10nManager');
   var Searcher = require('backend/Searcher');
+  var Tracker = require('backend/Tracker');
 
   videojs.options.flash.swf = 'dist/vendor/video.js/dist/video-js.swf';
 
@@ -264,6 +265,7 @@ define(function(require) {
           // nothing
           break;
       }
+      Tracker.event('Player', 'set volume', this._player.volume()).send();
     });
   };
 
@@ -307,6 +309,8 @@ define(function(require) {
         this._prepareTrackData(rawTrack)
           .then(this._getRealTrack)
           .then((realTrack) => {
+            Tracker.event('Player', 'play', realTrack.platformTrackUrl).send();
+
             this._playingTrack = realTrack;
             this._player.src(realTrack.platformTrackRealUrl);
             this._player.play();
