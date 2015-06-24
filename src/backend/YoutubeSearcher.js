@@ -1,8 +1,9 @@
 define(function(require) {
   'use strict';
 
-  var Constants = require('backend/Constants');
   var YoutubeTrack = require('backend/models/track/YoutubeTrack');
+  var Constants = require('backend/Constants');
+  var Tracker = require('backend/Tracker');
   var Youtube = requireNode('youtube-node');
 
   var YoutubeSearcher = function() {
@@ -29,6 +30,7 @@ define(function(require) {
               tracks.push(youtubeTrack);
             }
           });
+          Tracker.event('YoutubeSearcher', 'search', keyword).send();
           resolve(tracks);
         }
       });

@@ -32,6 +32,7 @@ fetchRjsConfig().then(function(rjsConfig) {
     'backend/PlaylistManager',
     'backend/L10nManager',
     'backend/AutoUpdater',
+    'backend/Tracker',
     'modules/TabManager',
     'modules/KonamiCodeManager',
     'modules/EasterEggs',
@@ -51,6 +52,7 @@ fetchRjsConfig().then(function(rjsConfig) {
     PlaylistManager,
     L10nManager,
     AutoUpdater,
+    Tracker,
     TabManager,
     KonamiCodeManager,
     EasterEggs,
@@ -78,6 +80,9 @@ fetchRjsConfig().then(function(rjsConfig) {
         this._triggerAutoUpdater();
         this._initializeDefaultLanguage();
         this._initializeKonamiCode();
+
+        // Say hi :)
+        Tracker.pageview('/').send();
       },
 
       _initializeDefaultLanguage: function() {

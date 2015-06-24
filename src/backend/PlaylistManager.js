@@ -3,6 +3,7 @@ define(function(require) {
 
   var EventEmitter = requireNode('events').EventEmitter;
   var BasePlaylist = require('backend/models/playlist/BasePlaylist');
+  var Tracker = require('backend/Tracker');
   var DB = require('backend/Database');
 
   var PlaylistManager = function() {
@@ -122,6 +123,8 @@ define(function(require) {
           'please try another one');
       }
       else {
+        Tracker.event('PlaylistManager', 'add playlist', name).send();
+
         // TODO
         // we may support different playlist in the future, for example,
         // we can import playlist from Youtube / Vimeo ... etc,
@@ -210,6 +213,8 @@ define(function(require) {
       return Promise.reject('can\'t find playlist id - ', id);
     }
     else {
+      Tracker.event('PlaylistManager', 'rename playlist', newName).send();
+
       var playlist = this._playlists[index];
       playlist.name = newName;
       this._playlists[index] = playlist;

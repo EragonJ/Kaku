@@ -5,7 +5,6 @@ window.requireNode = window.require;
 var remote = requireNode('remote');
 var gulp = requireNode('gulp');
 
-
 gulp.task('reload', function() {
   remote.getCurrentWindow().reload();
 });
