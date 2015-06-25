@@ -39,11 +39,17 @@ define(function(require) {
         return release;
       }
     })
-    .then((release) => {
+    .then((release = {}) => {
       var latestVersion = release.version;
       var currentVersion = packageJSON.version;
+      var isNewer = false;
+
+      if (latestVersion) {
+        isNewer = semver(latestVersion, currentVersion);
+      }
+
       return {
-        isNewer: semver(latestVersion, currentVersion),
+        isNewer: isNewer,
         release: release
       };
     });
