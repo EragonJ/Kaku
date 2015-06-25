@@ -23,10 +23,10 @@
     "test": "./node_modules/mocha/bin/mocha -u tdd -t 5000 --require ./tests/setup.js --harmony_arrow_functions tests/**/*.test.js"
   },
   "devDependencies": {
-    "chai": "^2.3.0",
+    "chai": "^3.0.0",
     "gulp": "^3.8.11",
     "gulp-atom-electron": "^0.12.0",
-    "gulp-babel": "^4.0.0",
+    "gulp-babel": "^5.1.0",
     "gulp-clean": "^0.3.1",
     "gulp-debug": "^2.0.1",
     "gulp-html-replace": "^1.4.4",
@@ -40,8 +40,8 @@
     "gulp-sequence": "^0.3.2",
     "gulp-uglify": "^1.1.0",
     "gulp-watch": "^4.1.1",
-    "jsdom": "^3.1.2",
-    "jshint-stylish": "^1.0.1",
+    "jsdom": "^5.4.3",
+    "jshint-stylish": "^2.0.1",
     "merge-stream": "^0.1.7",
     "mocha": "^2.2.5",
     "mock-browser": "^0.90.33",
