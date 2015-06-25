@@ -51,17 +51,17 @@
       button {
         outline: none;
         border: 0;
-        border-right: 1px solid #cccccc;
         width: calc(100% / 7); // we have 7 buttons
-        background-color: #efefef;
+        color: #ccc; // sync with videojs's style
+        background-color: #000;
       }
 
       button:active {
-        background-color: darken(#efefef, 10%);
+        background-color: #444;
       }
 
-      button:last-child {
-        border-right: 0;
+      button:hover {
+        color: lighten(#ccc, 10%);
       }
     }
 
@@ -69,11 +69,6 @@
       // to make spinner at the right place
       position: relative;
       // We have to override its height directly
-      height: @videoHeight;
-    }
-
-    video {
-      width: 100%;
       height: @videoHeight;
     }
   }
