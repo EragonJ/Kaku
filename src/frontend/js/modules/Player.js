@@ -75,7 +75,7 @@ define(function(require) {
       controls: true,
       controlBar: {
         playToggle: false,
-        fullscreenToggle: false,
+        fullscreenToggle: true,
         muteToggle: false
       }
     };
