@@ -69,7 +69,7 @@ define(function(require) {
             <h1>
               <i className="fa fa-fw fa-cog"></i>
               <L10nSpan l10nId="settings_header"/>
-              </h1>
+            </h1>
           </div>
           <div className="settings-container">
             <ul className="list-unstyled">
