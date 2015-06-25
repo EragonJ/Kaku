@@ -158,40 +158,44 @@ fetchRjsConfig().then(function(rjsConfig) {
               </div>
             </div>
             <div className="row row-no-padding bottom-row">
-              <div className="left sidebar">
-                <MenusContainer/>
-                <PlayerContainer/>
+              <div className="left">
+                <div className="sidebar">
+                  <MenusContainer/>
+                  <PlayerContainer/>
+                </div>
               </div>
-              <div className="right tab-content">
-                <div
-                  role="tabpanel"
-                  className="tab-pane active"
-                  id="tab-home">
-                    <TopRankingContainer/>
-                </div>
-                <div
-                  role="tabpanel"
-                  className="tab-pane"
-                  id="tab-search">
-                    <AllTracksContainer/>
-                </div>
-                <div
-                  role="tabpanel"
-                  className="tab-pane"
-                  id="tab-settings">
-                    <SettingsContainer/>
-                </div>
-                <div
-                  role="tabpanel"
-                  className="tab-pane"
-                  id="tab-history">
-                    <HistoryContainer/>
-                </div>
-                <div
-                  role="tabpanel"
-                  className="tab-pane"
-                  id="tab-playlist">
-                    <PlaylistContainer/>
+              <div className="right">
+                <div className="tab-content">
+                  <div
+                    role="tabpanel"
+                    className="tab-pane active"
+                    id="tab-home">
+                      <TopRankingContainer/>
+                  </div>
+                  <div
+                    role="tabpanel"
+                    className="tab-pane"
+                    id="tab-search">
+                      <AllTracksContainer/>
+                  </div>
+                  <div
+                    role="tabpanel"
+                    className="tab-pane"
+                    id="tab-settings">
+                      <SettingsContainer/>
+                  </div>
+                  <div
+                    role="tabpanel"
+                    className="tab-pane"
+                    id="tab-history">
+                      <HistoryContainer/>
+                  </div>
+                  <div
+                    role="tabpanel"
+                    className="tab-pane"
+                    id="tab-playlist">
+                      <PlaylistContainer/>
+                  </div>
                 </div>
               </div>
             </div>
