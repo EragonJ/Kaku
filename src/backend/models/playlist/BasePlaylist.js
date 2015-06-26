@@ -9,7 +9,9 @@ define(function(require) {
     YoutubeTrack: require('backend/models/track/YoutubeTrack')
   };
 
-  var BasePlaylist = function(options = {}) {
+  var BasePlaylist = function(options) {
+    options = options || {};
+
     EventEmitter.call(this);
     this.id = options.id || crypto.randomBytes(3).toString('hex');
     this.name = options.name || 'playlist';
@@ -57,7 +59,7 @@ define(function(require) {
     var promise = new Promise((resolve, reject) => {
       var title = track.title;
       var artist = track.artist;
-      var foundTrack = this.findTrackByTitleAndArtist(title, artist);
+      var foundTrack = this.findTrackByArtistAndTitle(artist, title);
       if (foundTrack) {
         reject('You already have a track with same name & artist, ' +
           'please try another one');
@@ -92,7 +94,7 @@ define(function(require) {
     return this._tracks.indexOf(track);
   };
 
-  BasePlaylist.prototype.findTrackByTitleAndArtist = function(title, artist) {
+  BasePlaylist.prototype.findTrackByArtistAndTitle = function(artist, title) {
     // We assume that there is only one track with same title & artist
     var tracks = this._tracks.filter((track) => {
       return (track.title === title) && (track.artist === artist);
