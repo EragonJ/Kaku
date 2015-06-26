@@ -3,7 +3,9 @@ define(function(require) {
 
   var crypto = requireNode('crypto');
 
-  var BaseTrack = function(options = {}) {
+  var BaseTrack = function(options) {
+    options = options || {};
+
     this._trackUrlPrefix = '';
     this.id = options.id || crypto.randomBytes(3).toString('hex');
     this.trackType = 'BaseTrack';

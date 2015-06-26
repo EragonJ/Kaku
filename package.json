@@ -44,6 +44,7 @@
     "jshint-stylish": "^1.0.1",
     "merge-stream": "^0.1.7",
     "mocha": "^2.2.5",
+    "mocha-traceur": "^2.1.0",
     "mock-browser": "^0.90.33",
     "sinon": "^1.14.1"
   },
