@@ -1,53 +1,174 @@
 define(function(require) {
   'use strict';
 
+  var ClassNames = require('classnames');
+  var Constants = require('backend/Constants');
   var Searcher = require('backend/Searcher');
   var TabManager = require('modules/TabManager');
   var React = require('react');
 
+  const SEARCH_TIMEOUT = 600;
+
   var SearchbarContainer = React.createClass({
     getInitialState: function() {
       return {
-        keyword: ''
+        keyword: '',
+        selectedIndex: -1,
+        searchTracks: []
       };
     },
 
+    _searchTimer: null,
+
     _onSubmit: function(event) {
       event.preventDefault();
-      // Start to search
-      var keyword = this.state.keyword;
-      if (keyword) {
-        // TODO we should change Searcher.search interface to make it more
-        // readable, no one knows what does the *true* mean here
-        Searcher.search(keyword, 30, true).then((results) => {
-          TabManager.setTab('search');
-        }, () => {
-          // show error
-        });
-      }
     },
 
     _onInputChange: function(event) {
+      var keyword = event.target.value;
       this.setState({
-        keyword: event.target.value
+        keyword: keyword
+      });
+
+      window.clearTimeout(this._searchTimer);
+      this._searchTimer = window.setTimeout(() => {
+        Searcher.search(keyword, 10, false).then((tracks) => {
+          // we have to reset selectedIndex for each search
+          this.setState({
+            searchTracks: tracks,
+            selectedIndex: -1
+          });
+        }, (error) => {
+          console.log(error);
+        });
+      }, SEARCH_TIMEOUT);
+    },
+
+    _onKeyDown: function(event) {
+      var key = Constants.KEY_MAP[event.keyCode];
+      switch (key) {
+        case 'ARROW_UP':
+          event.preventDefault();
+          this._handleArrowKey('up');
+          break;
+
+        case 'ARROW_DOWN':
+          event.preventDefault();
+          this._handleArrowKey('down');
+          break;
+
+        case 'ESC':
+          this.setState({
+            keyword: ''
+          });
+          break;
+
+        case 'ENTER':
+          this._doSelctAutoCompleteItem();
+          break;
+      }
+    },
+
+    _doSelctAutoCompleteItem: function() {
+      var keyword;
+
+      // If users don't want to select options from AutoComplete list,
+      // we will directly use the keyword from input and revoke the
+      // search request
+      if (this.state.selectedIndex === -1) {
+        window.clearTimeout(this._searchTimer);
+        keyword = this.state.keyword;
+      }
+      else if (this.state.selectedIndex >= 0) {
+        var track = this.state.searchTracks[this.state.selectedIndex];
+        keyword = track.title;
+      }
+
+      // then search
+      Searcher.search(keyword, 30, true).then((tracks) => {
+        TabManager.setTab('search');
+        // refresh internal state
+        this.setState({
+          keyword: keyword,
+          searchTracks: [],
+          selectedIndex: -1
+        });
+      }, (error) => {
+        console.log(error);
+      });
+    },
+
+    _onAutoCompleteItemClick: function() {
+      this._doSelctAutoCompleteItem();
+    },
+
+    _onAutoCompleteItemMouseEnter: function(event) {
+      var item = event.target;
+      var index = parseInt(item.dataset.index, 10);
+      this.setState({
+        selectedIndex: index
+      });
+    },
+
+    _handleArrowKey: function(direction) {
+      var searchTracks = this.state.searchTracks;
+      if (!searchTracks.length) {
+        return;
+      }
+
+      var index = this.state.selectedIndex;
+      if (direction === 'up') {
+        index --;
+        if (index < 0) {
+          index = searchTracks.length - 1;
+        }
+      }
+      else {
+        index ++;
+        if (index > searchTracks.length - 1) {
+          index = 0;
+        }
+      }
+
+      this.setState({
+        selectedIndex: index
       });
     },
 
     render: function() {
+      var keyword = this.state.keyword;
+      var selectedIndex = this.state.selectedIndex;
+      var searchTracks = this.state.searchTracks;
+
       /* jshint ignore:start */
       return (
         <div className="searchbar-container">
           <form
             className="form-inline"
             onSubmit={this._onSubmit}>
-              <div className="form-group">
-                <input
-                  tabIndex="1"
-                  className="searchbar-user-input form-control"
-                  onChange={this._onInputChange}
-                  placeholder="Find something ..."/>
-              </div>
+            <div className="form-group">
+              <input
+                tabIndex="1"
+                className="searchbar-user-input form-control"
+                onChange={this._onInputChange}
+                onKeyDown={this._onKeyDown}
+                value={keyword}
+                placeholder="Find something ..."/>
+            </div>
           </form>
+          <ul className="autocomplete-list list-unstyled">
+            {searchTracks.map((track, trackIndex) => {
+              var className = ClassNames({
+                'selected': trackIndex == selectedIndex
+              });
+              return <li
+                className={className}
+                onClick={this._onAutoCompleteItemClick}
+                onMouseEnter={this._onAutoCompleteItemMouseEnter}
+                data-index={trackIndex}
+              >{track.title}</li>;
+            })}
+          </ul>
         </div>
       );
       /* jshint ignore:end */

@@ -12,6 +12,16 @@ define(function(require) {
   var Constants = {};
   Constants.API = requireNode(APIConfigPath);
   Constants.GA = requireNode(GAConfigPath);
+  Constants.KEY_MAP = {
+    8: 'DELETE',
+    13: 'ENTER',
+    32: 'SPACE',
+    27: 'ESC',
+    37: 'ARROW_LEFT',
+    38: 'ARROW_UP',
+    39: 'ARROW_RIGHT',
+    40: 'ARROW_DOWN'
+  };
 
   // If users forget to change from *.sample.json to *.production.json,
   // requireNode will throw out error here, because if we don't have these

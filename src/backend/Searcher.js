@@ -28,13 +28,18 @@ define(function(require) {
   });
 
   Searcher.prototype.search = function(keyword, limit, toSave = false) {
-    return this._searcher.search(keyword, limit).then((results) => {
-      if (toSave) {
-        this._searchResults = results;
-        this.emit('search-results-updated', results);
-      }
-      return results;
-    });
+    if (!keyword) {
+      return Promise.resolve([]);
+    }
+    else {
+      return this._searcher.search(keyword, limit).then((results) => {
+        if (toSave) {
+          this._searchResults = results;
+          this.emit('search-results-updated', results);
+        }
+        return results;
+      });
+    }
   };
 
   // singleton

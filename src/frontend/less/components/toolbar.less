@@ -58,9 +58,49 @@
     right: 10px;
     top: 50%;
     transform: translateY(-50%);
+
+    // to make autocomplete ul/li can cover stuffs under it
+    z-index: 1;
+
+    .searchbar-user-input {
+      height: 26px;
+      width: 300px;
+      border-radius: 0;
+    }
+
+    .autocomplete-list {
+      position: absolute;
+      width: 100%;
+      border: 1px solid #ccc;
+      text-align: left;
+      border-radius: 0 0 5px 5px;
+      overflow: hidden;
+      border-top: 0;
+
+      li {
+        border-bottom: 1px solid #ccc;
+        background-color: white;
+        padding: 2px 12px;
+
+        // TODO
+        // extract this into mixin
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+
+      li:hover {
+        cursor: pointer;
+      }
+
+      li.selected {
+        background: #ccc;
+      }
+
+      li:last-child {
+        border: 0;
+      }
+    }
   }
 
-  .searchbar-user-input {
-    height: 26px;
-  }
 }
