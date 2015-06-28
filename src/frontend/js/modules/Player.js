@@ -64,6 +64,12 @@ define(function(require) {
     globalShortcut.register('CmdOrCtrl+Down', () => {
       this.setVolume('down');
     });
+
+    globalShortcut.register('Escape', () => {
+      this.ready().then(() => {
+        this._player.exitFullscreen();
+      });
+    });
   };
 
   Player.prototype._getDefaultVideoJSConfig = function() {
