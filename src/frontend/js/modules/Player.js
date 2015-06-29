@@ -65,11 +65,9 @@ define(function(require) {
       this.setVolume('down');
     });
 
-    globalShortcut.register('Escape', () => {
-      this.ready().then(() => {
-        this._player.exitFullscreen();
-      });
-    });
+    // Note
+    // we will register/unregister escape key only when fullscreen is
+    // triggerd, otherwise, users can't use this key in different applications.
   };
 
   Player.prototype._getDefaultVideoJSConfig = function() {
@@ -95,6 +93,17 @@ define(function(require) {
     this._player.on('ended', () => {
       this._updateAppHeader('ended');
       this.playNextTrack();
+    });
+
+    this._player.on('fullscreenchange', () => {
+      if (this._player.isFullscreen()) {
+        globalShortcut.register('Escape', () => {
+          this._player.exitFullscreen();
+        });
+      }
+      else {
+        globalShortcut.unregister('Escape');
+      }
     });
 
     this._player.on('error', (error) => {
