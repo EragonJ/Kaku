@@ -17,40 +17,53 @@
     top: 50%;
     left: 10px;
     margin-top: -10px;
+
+    .button {
+      display: inline-block;
+      font-size: 9px;
+      border-radius: 10px;
+      text-align: center;
+      margin-right: 5px;
+      width: 14px;
+      line-height: 14px;
+      cursor: pointer;
+      color: #333;
+      vertical-align: middle;
+
+      // mimic OSX's native behavior
+      i {
+        visibility: hidden;
+      }
+    }
+
+    .button:hover {
+      i {
+        visibility: visible;
+      }
+    }
   }
+
+  .shrink-button {
+    background-color: #fdbc40;
+  }
+
+  .enlarge-button {
+    background-color: #34c94a;
+  }
+
+  .close-button {
+    background-color: #fc625d;
+  }
+
+  .devtools-button {
+    background-color: #b3cdf7;
+  }
+
 
   .toolbar-song-information {
     height: 20px;
     color: #666666;
     text-align: center;
-  }
-
-  button {
-    outline: none;
-    border: 0;
-    border-radius: 10px;
-    font-size: 10px;
-    color: #666666;
-    margin: 0 3.5px;
-    padding: 0;
-    width: 16px;
-    height: 16px;
-  }
-
-  .toolbar-shrink-button {
-    background-color: #fdbc40;
-  }
-
-  .toolbar-enlarge-button {
-    background-color: #34c94a;
-  }
-
-  .toolbar-close-button {
-    background-color: #fc625d;
-  }
-
-  .toolbar-devtools-button {
-    background-color: #b3cdf7;
   }
 
   .searchbar-container {

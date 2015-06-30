@@ -172,10 +172,11 @@ Bootup.prototype = {
 
       // Create the browser window.
       mainWindow = new BrowserWindow({
-        width: 1060,
-        height: 600,
+        'width': 1060,
+        'height': 600,
         'min-width': 1060,
-        'min-height': 600
+        'min-height': 600,
+        'frame': false
       });
 
       // and load the index.html of the app.
