@@ -31,12 +31,12 @@ var Bootup = function() {
         },
         {
           label: 'Hide Kaku',
-          accelerator: 'Command+H',
+          accelerator: 'CmdOrCtrl+H',
           selector: 'hide:'
         },
         {
           label: 'Hide Others',
-          accelerator: 'Command+Shift+H',
+          accelerator: 'CmdOrCtrl+Shift+H',
           selector: 'hideOtherApplications:'
         },
         {
@@ -48,7 +48,7 @@ var Bootup = function() {
         },
         {
           label: 'Quit',
-          accelerator: 'Command+Q',
+          accelerator: 'CmdOrCtrl+Q',
           click: function() {
             App.quit();
           }
@@ -60,12 +60,12 @@ var Bootup = function() {
       submenu: [
         {
           label: 'Undo',
-          accelerator: 'Command+Z',
+          accelerator: 'CmdOrCtrl+Z',
           selector: 'undo:'
         },
         {
           label: 'Redo',
-          accelerator: 'Shift+Command+Z',
+          accelerator: 'Shift+CmdOrCtrl+Z',
           selector: 'redo:'
         },
         {
@@ -73,22 +73,22 @@ var Bootup = function() {
         },
         {
           label: 'Cut',
-          accelerator: 'Command+X',
+          accelerator: 'CmdOrCtrl+X',
           selector: 'cut:'
         },
         {
           label: 'Copy',
-          accelerator: 'Command+C',
+          accelerator: 'CmdOrCtrl+C',
           selector: 'copy:'
         },
         {
           label: 'Paste',
-          accelerator: 'Command+V',
+          accelerator: 'CmdOrCtrl+V',
           selector: 'paste:'
         },
         {
           label: 'Select All',
-          accelerator: 'Command+A',
+          accelerator: 'CmdOrCtrl+A',
           selector: 'selectAll:'
         },
       ]
@@ -98,14 +98,14 @@ var Bootup = function() {
       submenu: [
         {
           label: 'Reload',
-          accelerator: 'Command+R',
+          accelerator: 'CmdOrCtrl+R',
           click: function() {
             BrowserWindow.getFocusedWindow().reloadIgnoringCache();
           }
         },
         {
           label: 'Toggle DevTools',
-          accelerator: 'Alt+Command+I',
+          accelerator: 'Alt+CmdOrCtrl+I',
           click: function() {
             BrowserWindow.getFocusedWindow().toggleDevTools();
           }
@@ -117,12 +117,12 @@ var Bootup = function() {
       submenu: [
         {
           label: 'Minimize',
-          accelerator: 'Command+M',
+          accelerator: 'CmdOrCtrl+M',
           selector: 'performMiniaturize:'
         },
         {
           label: 'Close',
-          accelerator: 'Command+W',
+          accelerator: 'CmdOrCtrl+W',
           selector: 'performClose:'
         },
         {
