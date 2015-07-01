@@ -72,16 +72,6 @@ gulp.task('6to5:backend', function() {
     .pipe(gulp.dest(dest));
 });
 
-gulp.task('linter', function() {
-  return gulp
-    .src([
-      './src/frontend/js/**/*.js',
-      './src/backend/**/*.js'
-    ])
-    .pipe(jshint())
-    .pipe(jshint.reporter('jshint-stylish'));
-});
-
 gulp.task('copy:frontend', function() {
   var dest = './dist/frontend/';
   return gulp
@@ -206,6 +196,32 @@ gulp.task('package', function(done) {
   })).pipe(electron.zfsdest('build/app.zip'));
 });
 
+gulp.task('linter:src', function() {
+  return gulp
+    .src([
+      './src/frontend/js/**/*.js',
+      './src/backend/**/*.js'
+    ])
+    .pipe(jshint())
+    .pipe(jshint.reporter('jshint-stylish'));
+});
+
+gulp.task('linter:test', function() {
+  return gulp
+    .src([
+      './tests/backend/**/*.js',
+    ])
+    .pipe(jshint())
+    .pipe(jshint.reporter('jshint-stylish'));
+});
+
+gulp.task('linter:all', function(callback) {
+  sequence(
+    'linter:src',
+    'linter:test'
+  )(callback);
+});
+
 gulp.task('build', function(callback) {
   CURRENT_ENVIRONMENT = 'production';
   sequence(
@@ -213,7 +229,7 @@ gulp.task('build', function(callback) {
     'cleanup:build',
     '6to5:frontend',
     '6to5:backend',
-    'linter',
+    'linter:src',
     'copy:frontend',
     'copy:backend',
     'rjs',
@@ -228,7 +244,7 @@ gulp.task('default', function(callback) {
     '6to5:frontend',
     '6to5:backend',
     'less',
-    'linter',
+    'linter:src',
     'copy:frontend',
     'copy:backend',
     'override'
