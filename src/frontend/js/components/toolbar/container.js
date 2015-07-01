@@ -3,16 +3,38 @@ define(function(require) {
 
   var remote = requireNode('remote');
   var App = remote.require('app');
-  var React = require('react');
+
   var SearchbarContainer = require('components/searchbar/container');
+  var KakuCore = require('backend/KakuCore');
+  var React = require('react');
 
   var ToolbarContainer = React.createClass({
+    getInitialState: function() {
+      return {
+        title: ''
+      };
+    },
+
+    componentDidMount: function() {
+      this.setState({
+        title: KakuCore.title
+      });
+
+      KakuCore.on('titleUpdated', (title) => {
+        this.setState({
+          title: title
+        });
+      });
+    },
+
     _onCloseButtonClick: function() {
       App.quit();
     },
+
     _onShrinkButtonClick: function() {
       remote.getCurrentWindow().minimize();
     },
+
     _onEnlargeButtonClick: function() {
       var win = remote.getCurrentWindow();
       if (win.isMaximized()) {
@@ -22,7 +44,10 @@ define(function(require) {
         win.maximize();
       }
     },
+
     render: function() {
+      var title = this.state.title;
+
       /* jshint ignore:start */
       return (
         <div className="toolbar-container clearfix">
@@ -43,7 +68,9 @@ define(function(require) {
                 <i className="fa fa-plus"></i>
             </span>
           </div>
-          <span className="toolbar-song-information"></span>
+          <div className="toolbar-song-information">
+            {title}
+          </div>
           <div className="searchbar-slot">
             <SearchbarContainer/>
           </div>
