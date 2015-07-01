@@ -11,6 +11,7 @@ define(function(require) {
   var TrackInfoFetcher = require('backend/TrackInfoFetcher');
   var HistoryManager = require('backend/HistoryManager');
   var L10nManager = require('backend/L10nManager');
+  var KakuCore = require('backend/KakuCore');
   var Searcher = require('backend/Searcher');
   var Tracker = require('backend/Tracker');
 
@@ -248,12 +249,12 @@ define(function(require) {
       L10nManager.get('app_title_playing', {
         name: this._playingTrack.title
       }).then((translatedTitle) => {
-        document.title = translatedTitle;
+        KakuCore.title = translatedTitle;
       });
     }
     else if (state === 'ended') {
       L10nManager.get('app_title_normal').then((translatedTitle) => {
-        document.title = translatedTitle;
+        KakuCore.title = translatedTitle;
       });
     }
   };

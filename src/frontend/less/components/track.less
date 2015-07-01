@@ -5,9 +5,10 @@
   display: inline-block;
   position: relative;
   padding: @defaultTrackPadding;
-  border: @defaultTrackBorder solid #cccccc;
   margin: @defaultTrackMargin;
   background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+  overflow: hidden;
   cursor: pointer;
 
   &.active {
@@ -23,6 +24,7 @@
   img {
     width: @defaultTrackImageSize;
     height: @defaultTrackImageSize;
+    border-radius: 5px;
     object-fit: contain;
   }
 
@@ -33,12 +35,20 @@
     right: 0;
     background-color: rgba(0, 0, 0, 0.3);
     color: white;
-    padding-left: @defaultTrackPadding;
-    padding-right: @defaultTrackPadding;
+    padding: 0 8px @defaultTrackPadding;
+    border-radius: 0 0 10px 10px;
+  }
+
+  .track-name {
+    font-size: 16px;
+  }
+
+  .track-artist {
+    font-size: 14px;
   }
 
   .track-name,
-  .track-{
+  .track-artist {
     .kaku_add_ellipsis();
   }
 }
