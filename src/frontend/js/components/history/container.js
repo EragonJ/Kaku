@@ -26,9 +26,14 @@ define(function(require) {
       });
     },
 
+    _clickToCleanAll: function() {
+      HistoryManager.clean();
+    },
+
     render: function() {
       /* jshint ignore:start */
       var tracks = this.state.tracks;
+      var isCleanButtonDisabled = (tracks.length === 0);
       var noTracksDiv;
 
       if (tracks.length === 0) {
@@ -43,6 +48,13 @@ define(function(require) {
               <L10nSpan l10nId="history_header"/>
             </h1>
             <div className="control-buttons">
+              <button
+                className="clean-button"
+                onClick={this._clickToCleanAll}
+                disabled={isCleanButtonDisabled}>
+                  <i className="fa fa-fw fa-trash-o"></i>
+                  <L10nSpan l10nId="history_clean_all"/>
+              </button>
               <PlayAllButton data={tracks}/>
             </div>
           </div>

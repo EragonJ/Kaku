@@ -13,6 +13,16 @@ html,
   height: 100%;
 }
 
+button {
+  &:hover {
+    cursor: pointer;
+  }
+
+  &[disabled]:hover {
+    cursor: default;
+  }
+}
+
 .global-overlay {
   position: absolute;
   top: 0;
