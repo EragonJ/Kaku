@@ -39,7 +39,7 @@ define(function(require) {
 
   HistoryManager.prototype.clean = function() {
     this._tracks = [];
-    this.emit('history-updated');
+    this.emit('history-updated', this._tracks);
   };
 
   HistoryManager.prototype._hasTrack = function(track) {
