@@ -75,10 +75,24 @@
     // to make autocomplete ul/li can cover stuffs under it
     z-index: 1;
 
+    .loader {
+      display: none;
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .loader.show {
+      display: inline;
+    }
+
     .searchbar-user-input {
       height: 26px;
       width: 300px;
       border-radius: 0;
+      // leave some spaces for the loader
+      padding-right: 30px;
     }
 
     .autocomplete-list {
