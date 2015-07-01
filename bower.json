@@ -1,8 +1,8 @@
 {
-  "name": "kaku",
-  "main": "index.js",
+  "name": "Kaku",
+  "main": "bootup.js",
   "version": "0.0.1",
-  "homepage": "https://github.com/hax4/kaku",
+  "homepage": "https://github.com/EragonJ/Kaku",
   "authors": [
     "EragonJ <eragonj@eragonj.me>"
   ],
@@ -23,7 +23,6 @@
     "classnames": "~1.2.1",
     "remarkable-bootstrap-notify": "~3.0.2",
     "animate.css": "~3.2.6",
-    "bootbox": "~4.4.0",
-    "pouchdb": "~3.5.0"
+    "bootbox": "~4.4.0"
   }
 }
