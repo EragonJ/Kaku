@@ -17,7 +17,7 @@ We have a gitter chatting room and please feel free to join us and talk there :)
 
 # Latest Screenshot
 
-![Latest Screenshot](http://i.imgur.com/aPzU4ER.jpg)
+![Latest Screenshot](http://i.imgur.com/XcIcGv9.jpg)
 
 # Setup environment
 
