@@ -13,6 +13,7 @@ define(function(require) {
     getInitialState: function() {
       return {
         keyword: '',
+        isSearching: false,
         selectedIndex: -1,
         searchTracks: []
       };
@@ -32,6 +33,7 @@ define(function(require) {
 
       window.clearTimeout(this._searchTimer);
       this._searchTimer = window.setTimeout(() => {
+        this._showLoader(true);
         Searcher.search(keyword, 10, false).then((tracks) => {
           // we have to reset selectedIndex for each search
           this.setState({
@@ -40,6 +42,8 @@ define(function(require) {
           });
         }, (error) => {
           console.log(error);
+        }).then(() => {
+          this._showLoader(false);
         });
       }, SEARCH_TIMEOUT);
     },
@@ -66,6 +70,19 @@ define(function(require) {
         case 'ENTER':
           this._doSelctAutoCompleteItem();
           break;
+      }
+    },
+
+    _showLoader: function(show) {
+      if (show) {
+        this.setState({
+          isSearching: true
+        });
+      }
+      else {
+        this.setState({
+          isSearching: false
+        });
       }
     },
 
@@ -139,6 +156,12 @@ define(function(require) {
       var keyword = this.state.keyword;
       var selectedIndex = this.state.selectedIndex;
       var searchTracks = this.state.searchTracks;
+      var isSearching = this.state.isSearching;
+
+      var loaderClass = ClassNames({
+        'loader': true,
+        'show': isSearching
+      });
 
       /* jshint ignore:start */
       return (
@@ -147,6 +170,9 @@ define(function(require) {
             className="form-inline"
             onSubmit={this._onSubmit}>
             <div className="form-group">
+              <span className={loaderClass}>
+                <i className="fa fa-circle-o-notch fa-spin"></i>
+              </span>
               <input
                 tabIndex="1"
                 className="searchbar-user-input form-control"
