@@ -23,6 +23,7 @@ define(function(require) {
     EventEmitter.call(this);
 
     this._playingTrack = null;
+    this._playerRepeatMode = 'no';
     this._playerDOM = null;
     this._player = null;
 
@@ -36,6 +37,26 @@ define(function(require) {
 
   Player.prototype = Object.create(EventEmitter.prototype);
   Player.constructor = Player;
+
+  // Because we share on() for customized & vjs's event,
+  // we need to bind to the right place when using it.
+  Player.CUSTOMIZED_EVENTS = [
+    'repeatModeUpdated'
+  ];
+
+  Object.defineProperty(Player.prototype, 'repeatMode', {
+    enumerable: true,
+    configurable: true,
+    get: function() {
+      return this._playerRepeatMode;
+    },
+    set: function(mode) {
+      if (mode === 'no' || mode === 'one' || mode === 'all') {
+        this._playerRepeatMode = mode;
+        this.emit('repeatModeUpdated', mode);
+      }
+    }
+  });
 
   Object.defineProperty(Player.prototype, 'playingTrack', {
     enumerable: true,
@@ -177,13 +198,30 @@ define(function(require) {
   };
 
   Player.prototype.playNextTrack = function() {
-    if (this._pendingTrackIndex > this._pendingTracks.length - 1) {
-      // we are in the end
-      this._pendingTracks = [];
-      this.stop();
+    // By default, when hit end in this mode, we will stop the player.
+    if (this._playerRepeatMode === 'no') {
+      if (this._pendingTrackIndex > this._pendingTracks.length - 1) {
+        this._pendingTracks = [];
+        this.stop();
+      }
+      else {
+        this._pendingTrackIndex += 1;
+        this.play(this._pendingTracks[this._pendingTrackIndex]);
+      }
     }
-    else {
-      this._pendingTrackIndex += 1;
+    // Users want to keep listening the same track, so let's keep playing.
+    else if (this._playerRepeatMode === 'one') {
+      // No need to update the index
+      this.play(this._pendingTracks[this._pendingTrackIndex]);
+    }
+    // Loop all tracks
+    else if (this._playerRepeatMode === 'all') {
+      if (this._pendingTrackIndex > this._pendingTracks.length - 1) {
+        this._pendingTrackIndex = 0;
+      }
+      else {
+        this._pendingTrackIndex += 1;
+      }
       this.play(this._pendingTracks[this._pendingTrackIndex]);
     }
   };
@@ -202,9 +240,16 @@ define(function(require) {
 
   Player.prototype.on = function() {
     var args = arguments;
-    this.ready().then(() => {
-      this._player.on.apply(this._player, args);
-    });
+    var eventName = args[0];
+
+    if (Player.CUSTOMIZED_EVENTS.indexOf(eventName) !== -1) {
+      this.constructor.prototype.on.apply(this, args);
+    }
+    else {
+      this.ready().then(() => {
+        this._player.on.apply(this._player, args);
+      });
+    }
   };
 
   Player.prototype._prepareTrackData = function(rawTrack) {

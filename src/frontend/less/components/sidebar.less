@@ -75,6 +75,19 @@
       button:hover {
         color: lighten(#ccc, 10%);
       }
+
+      // We need to additionally align the mode word
+      button.repeat-button {
+        position: relative;
+
+        .mode {
+          position: absolute;
+          bottom: 0;
+          right: 8px;
+          font-size: 10px;
+          background-color: rgba(0, 0, 0, 0.7);
+        }
+      }
     }
 
     #player {
