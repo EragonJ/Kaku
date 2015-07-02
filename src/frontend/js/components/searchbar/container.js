@@ -7,7 +7,7 @@ define(function(require) {
   var TabManager = require('modules/TabManager');
   var React = require('react');
 
-  const SEARCH_TIMEOUT = 600;
+  const SEARCH_TIMEOUT = 400;
 
   var SearchbarContainer = React.createClass({
     getInitialState: function() {
@@ -62,9 +62,7 @@ define(function(require) {
           break;
 
         case 'ESC':
-          this.setState({
-            keyword: ''
-          });
+          this._closeAutoCompleteList();
           break;
 
         case 'ENTER':
@@ -101,16 +99,14 @@ define(function(require) {
         keyword = track.title;
       }
 
+      // show UI first
+      TabManager.setTab('search');
+      this._closeAutoCompleteList({
+        keyword: keyword
+      });
+
       // then search
-      Searcher.search(keyword, 30, true).then((tracks) => {
-        TabManager.setTab('search');
-        // refresh internal state
-        this.setState({
-          keyword: keyword,
-          searchTracks: [],
-          selectedIndex: -1
-        });
-      }, (error) => {
+      Searcher.search(keyword, 30, true).catch((error) => {
         console.log(error);
       });
     },
@@ -124,6 +120,15 @@ define(function(require) {
       var index = parseInt(item.dataset.index, 10);
       this.setState({
         selectedIndex: index
+      });
+    },
+
+    _closeAutoCompleteList: function(options = {}) {
+      var keyword = options.keyword || '';
+      this.setState({
+        keyword: keyword,
+        searchTracks: [],
+        selectedIndex: -1
       });
     },
 
@@ -191,8 +196,9 @@ define(function(require) {
                 className={className}
                 onClick={this._onAutoCompleteItemClick}
                 onMouseEnter={this._onAutoCompleteItemMouseEnter}
-                data-index={trackIndex}
-              >{track.title}</li>;
+                data-index={trackIndex}>
+                  {track.title}
+              </li>;
             })}
           </ul>
         </div>
