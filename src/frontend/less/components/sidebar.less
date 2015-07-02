@@ -12,11 +12,23 @@
 
     ul li {
       font-size: 16px;
-      border-bottom: 1px solid #cccccc;
       border-left: 5px solid #ffffff;
 
+      &.seperator {
+        border-bottom: 1px solid #cccccc;
+        margin: 5px 0;
+      }
+
+      &.add-playlist {
+        a {
+          color: #2195f7;
+        }
+      }
+
       &.active {
-        border-left-color: #cccccc;
+        border-left-color: #93c6f2;
+        background-color: #d9f8fa;
+        transition: background-color 0.2s ease-in-out;
       }
 
       &.playlist {

@@ -218,7 +218,9 @@ define(function(require) {
                   <span className="title"><L10nSpan l10nId="sidebar_settings"/></span>
               </a>
             </li>
-            <li>
+            <li className="seperator">
+            </li>
+            <li className="add-playlist">
               <a href="#" onClick={this._addPlaylist}>
                 <i className="icon fa fa-fw fa-lg fa-plus"></i>
                 <span className="title"><L10nSpan l10nId="sidebar_add_playlist"/></span>
