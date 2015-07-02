@@ -45,6 +45,9 @@ define(function(require) {
   });
 
   PlaylistManager.prototype.init = function() {
+    // FIXME
+    // not sure why mocha will treat `this` as undefined if we use
+    // arrow function inside then()
     return DB.get('playlists')
       .catch((error) => {
         if (error.status === 404) {
@@ -57,20 +60,21 @@ define(function(require) {
           throw error;
         }
       })
-      .then((doc) => {
+      .then(function(doc) {
         // Transform rawData into real objects
-        this._playlists = doc.playlists.map((rawPlaylist) => {
+        var playlists = doc.playlists || [];
+        this._playlists = playlists.map((rawPlaylist) => {
           return BasePlaylist.fromJSON(rawPlaylist);
         });
-      })
-      .then(() => {
+      }.bind(this))
+      .then(function() {
         // bind needed events for these playlists
         this._playlists.forEach((playlist) => {
           playlist.on('tracksUpdated', () => {
             this._storePlaylistsToDB();
           });
         });
-      })
+      }.bind(this))
       .catch((error) => {
         console.log(error);
       });
@@ -105,7 +109,6 @@ define(function(require) {
     });
   };
 
-
   PlaylistManager.prototype.addYoutubePlaylist = function(youtubeId, name) {
     return this._addPlaylist({
       type: 'youtube',
@@ -115,9 +118,12 @@ define(function(require) {
   };
 
   PlaylistManager.prototype._addPlaylist = function(options) {
+    // FIXME
+    // this is for testing, fix it later
+    var self = this;
     var promise = new Promise((resolve, reject) => {
       var name = options.name;
-      var sameNamePlaylist = this.findPlaylistByName(name);
+      var sameNamePlaylist = self.findPlaylistByName(name);
       if (sameNamePlaylist) {
         reject('You already one playlist with same name, ' +
           'please try another one');
@@ -130,15 +136,15 @@ define(function(require) {
         // we can import playlist from Youtube / Vimeo ... etc,
         // so we can create different one here
         var playlist = new BasePlaylist(options);
-        this._playlists.push(playlist);
+        self._playlists.push(playlist);
 
         playlist.on('tracksUpdated', () => {
-          this._storePlaylistsToDB();
+          self._storePlaylistsToDB();
         });
 
-        this._storePlaylistsToDB().then(() => {
-          this.emit('added', playlist);
-          resolve();
+        self._storePlaylistsToDB().then(() => {
+          self.emit('added', playlist);
+          resolve(playlist);
         });
       }
     });
@@ -161,18 +167,21 @@ define(function(require) {
   };
 
   PlaylistManager.prototype.removePlaylistById = function(id) {
+    // FIXME
+    // this is for testing, fix it later
+    var self = this;
     var promise = new Promise((resolve, reject) => {
-      var index = this.findPlaylistIndexById(id);
+      var index = self.findPlaylistIndexById(id);
       if (index === -1) {
         reject('Can\'t find the playlist');
       }
       else {
-        var removedPlaylist = this._playlists.splice(index, 1);
-        this._storePlaylistsToDB().then(() => {
+        var removedPlaylist = self._playlists.splice(index, 1);
+        self._storePlaylistsToDB().then(() => {
           // TODO
           // we can try to remove listeners from playlist here if needed
-          this.emit('removed', removedPlaylist);
-          resolve();
+          self.emit('removed', removedPlaylist);
+          resolve(removedPlaylist);
         });
       }
     });
@@ -208,6 +217,10 @@ define(function(require) {
   };
 
   PlaylistManager.prototype.renamePlaylistById = function(id, newName) {
+    // FIXME
+    // this is for testing, fix it later
+    var self = this;
+
     var index = this.findPlaylistIndexById(id);
     if (index < 0) {
       return Promise.reject('can\'t find playlist id - ', id);
@@ -220,7 +233,7 @@ define(function(require) {
       this._playlists[index] = playlist;
 
       return this._storePlaylistsToDB().then(() => {
-        this.emit('renamed', playlist);
+        self.emit('renamed', playlist);
       });
     }
   };

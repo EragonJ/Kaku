@@ -57,7 +57,8 @@ suite('HistoryManager', () => {
 
       historyManager.clean();
       assert.equal(historyManager.tracks.length, 0);
-      assert.ok(historyManager.emit.calledWith('history-updated'));
+        assert.ok(historyManager.emit.calledWith('history-updated',
+          historyManager.tracks));
     });
   });
 });
