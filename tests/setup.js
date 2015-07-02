@@ -8,21 +8,24 @@ var requirejs = require('requirejs');
 var rjsConfig = require('../config/rjs_config.json');
 
 var contextId = 0;
-var map = {};
 
 rjsConfig.baseUrl = './src/frontend';
 rjsConfig.context = contextId;
+rjsConfig.paths.mocks = '../../tests/mocks';
+rjsConfig.map = {};
+
 requirejs.config(rjsConfig);
 
 var testRequire = function(modules, mockMap, callback) {
   var ctx;
   if (arguments.length === 2) {
     callback = mockMap;
-    mockMap = null;
+    mockMap = {};
   }
 
   contextId ++;
-  map = mockMap || {};
+  rjsConfig.map = mockMap || {};
+
   ctx = requirejs.config(rjsConfig);
   ctx(modules, callback);
   return ctx;
