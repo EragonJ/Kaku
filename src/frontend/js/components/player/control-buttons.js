@@ -15,14 +15,24 @@ define(function(require) {
   var PlayerControlButtons = React.createClass({
     getInitialState: function() {
       return {
-        player: null,
-        isRepeating: false
+        playerRepeatMode: 'no',
+        player: null
       };
     },
 
     componentDidMount: function() {
+      Player.on('repeatModeUpdated', (mode) => {
+        this.setState({
+          playerRepeatMode: mode
+        });
+      });
+
       this._setupPlayer();
     },
+
+    _repeatModeIndex: 0,
+
+    _repeatModes: ['no', 'one', 'all'],
 
     _onPlayerPlay: function() {
       this._togglePlayIcon();
@@ -133,18 +143,35 @@ define(function(require) {
 
     _onRepeatButtonClick: function() {
       Player.ready().then((player) => {
-        // TODO
-        // change to different icon here
-        var repeatIconDOM = this.refs.repeatIcon.getDOMNode();
-        repeatIconDOM.classList.toggle('fa-repeat');
-        repeatIconDOM.classList.toggle('fa-times');
-
-        var isRepeating = this.state.isRepeating;
-        player.loop(!isRepeating);
+        this._repeatModeIndex =
+          (this._repeatModeIndex + 1) % this._repeatModes.length;
+        var selectedRepeatMode = this._repeatModes[this._repeatModeIndex];
+        Player.repeatMode = selectedRepeatMode;
       });
     },
 
     render: function() {
+      var playerRepeatMode = this.state.playerRepeatMode;
+      var playerRepeatWording = '';
+      var playerRepeatHint = '';
+
+      // TODO
+      // add a translation here later
+      switch (playerRepeatMode) {
+        case 'no':
+          playerRepeatWording = 'x';
+          playerRepeatHint = 'No Repeat';
+          break;
+        case 'one':
+          playerRepeatWording = '1';
+          playerRepeatHint = 'Repeat current track';
+          break;
+        case 'all':
+          playerRepeatWording = 'All';
+          playerRepeatHint = 'Repeat all tracks';
+          break;
+      }
+
       /* jshint ignore:start */
       return (
         <div className="control-buttons">
@@ -169,8 +196,9 @@ define(function(require) {
           <button
             className="repeat-button"
             onClick={this._onRepeatButtonClick}
-            title="Repeat this track">
-              <i className="fa fa-fw fa-repeat" ref="repeatIcon"></i>
+            title={playerRepeatHint}>
+              <i className="fa fa-fw fa-repeat"></i>
+              <span className="mode">{playerRepeatWording}</span>
           </button>
           <button
             className="download-button"
