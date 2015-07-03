@@ -71,6 +71,10 @@ define(function(require) {
       }
     },
 
+    _onBlur: function() {
+      this._closeAutoCompleteList();
+    },
+
     _showLoader: function(show) {
       if (show) {
         this.setState({
@@ -183,6 +187,7 @@ define(function(require) {
                 className="searchbar-user-input form-control"
                 onChange={this._onInputChange}
                 onKeyDown={this._onKeyDown}
+                onBlur={this._onBlur}
                 value={keyword}
                 placeholder="Find something ..."/>
             </div>

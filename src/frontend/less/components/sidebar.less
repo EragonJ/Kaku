@@ -66,6 +66,9 @@
         width: calc(100% / 7); // we have 7 buttons
         color: #ccc; // sync with videojs's style
         background-color: #000;
+        // there are some unconsistent styles on Windows,
+        // so we have to override it directly.
+        padding: 2px 6px 3px;
       }
 
       button:active {
