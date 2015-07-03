@@ -191,7 +191,7 @@ gulp.task('package', function(done) {
   // TODO
   // We have to fix more stuffs later after atomshell is updated
   return gulp.src(includedFiles).pipe(electron({
-    version: '0.27.0',
+    version: '0.28.3',
     platform: platform
   })).pipe(electron.zfsdest('build/app.zip'));
 });
