@@ -11,8 +11,15 @@ require('crash-reporter').start();
 var mainWindow = null;
 
 var Bootup = function() {
-  this._menusTemplate = [
-    {
+};
+
+Bootup.prototype = {
+  init: function() {
+    this._setupBrowserWindow();
+  },
+
+  _getMenuTemplateForAbout: function() {
+    return {
       label: 'Kaku',
       submenu: [
         {
@@ -54,8 +61,11 @@ var Bootup = function() {
           }
         }
       ]
-    },
-    {
+    };
+  },
+
+  _getMenuTemplateForEdit: function() {
+    return {
       label: 'Edit',
       submenu: [
         {
@@ -92,8 +102,11 @@ var Bootup = function() {
           selector: 'selectAll:'
         },
       ]
-    },
-    {
+    };
+  },
+
+  _getMenuTemplateForView: function() {
+    return {
       label: 'View',
       submenu: [
         {
@@ -111,8 +124,11 @@ var Bootup = function() {
           }
         },
       ]
-    },
-    {
+    };
+  },
+
+  _getMenuTemplateForWindow: function() {
+    return {
       label: 'Window',
       submenu: [
         {
@@ -133,21 +149,32 @@ var Bootup = function() {
           selector: 'arrangeInFront:'
         },
       ]
-    },
-    {
-      label: 'Help',
-      submenu: []
-    }
-  ];
-};
+    };
+  },
 
-Bootup.prototype = {
-  init: function() {
-    this._setupBrowserWindow();
+  _getMenusTemplateForCurrentPlatform: function() {
+    var templates = [];
+    var platform = process.platform;
+
+    switch (platform) {
+      case 'darwin':
+        templates.push(this._getMenuTemplateForAbout());
+        templates.push(this._getMenuTemplateForEdit());
+        templates.push(this._getMenuTemplateForView());
+        templates.push(this._getMenuTemplateForWindow());
+        break;
+
+      default:
+        templates.push(this._getMenuTemplateForView());
+        break;
+    }
+
+    return templates;
   },
 
   _setupApplicationMenus: function() {
-    var menus = Menu.buildFromTemplate(this._menusTemplate);
+    var templates = this._getMenusTemplateForCurrentPlatform();
+    var menus = Menu.buildFromTemplate(templates);
     Menu.setApplicationMenu(menus);
   },
 
