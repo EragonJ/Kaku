@@ -1,6 +1,24 @@
 # Kaku
 The next generation music client
 
+# Latest Screenshot
+
+![Latest Screenshot](http://i.imgur.com/IZ4y73A.jpg)
+
+# Supported Streaming Platform
+
++ YouTube
++ Vimeo
++ ... keep adding :)
+
+# Supported Languages
+
++ Traditional Chinese 繁體中文 (沒錯，這個程式 Made in Taiwan XD)
++ English
++ French
++ Spanish
++ ... keep adding :)
+
 # Build Status
 
 [![Build Status](https://travis-ci.org/EragonJ/Kaku.svg?branch=master)](https://travis-ci.org/EragonJ/kaku)
@@ -9,15 +27,11 @@ The next generation music client
 [![Dependency Status](https://david-dm.org/EragonJ/kaku.svg)](https://david-dm.org/EragonJ/kaku)
 [![devDependency Status](https://david-dm.org/EragonJ/kaku/dev-status.svg)](https://david-dm.org/EragonJ/kaku#info=devDependencies)
 
-# Let's talk !
+# Let's Talk !
 
 We have a gitter chatting room and please feel free to join us and talk there :)
 
 [![Join the chat at https://gitter.im/EragonJ/Kaku](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/EragonJ/Kaku?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
-# Latest Screenshot
-
-![Latest Screenshot](http://i.imgur.com/IZ4y73A.jpg)
 
 # Setup environment
 
@@ -35,7 +49,7 @@ In order to successfully make Kaku functional, you have to prepare all needed co
 
 Please take a look at `config/`, you will notice there are some files named like `*.sample.json`, remember to update them with correct config and rename them to `*.production.json`, then everything should work as perfect !
 
-## Make production build
+## Make Production Build
 
 We need to make sure all codes would be moved to the right place and generated the final entry point to reduce requests to load data, so you have to build first.
 
@@ -51,7 +65,7 @@ gulp build --platform=mac # =linux, =windows, =win, =mac, =darwin are all valid
 
 After that, you will get a solid application to run !
 
-## How to develop
+## How To Develop
 
 In order to speed up development pace, we won't do too much building tasks in this phase. All we do is to watch all folders and see what files are changed and trigger browser to reload.
 
@@ -73,7 +87,7 @@ then run Kaku :
 electron .
 ```
 
-## How to run tests / linter
+## How To Run Tests or Linter
 
 For unit tests :
 
@@ -91,9 +105,9 @@ gulp linter:all
 
 Moved all todos and issues to https://github.com/EragonJ/Kaku/issues, so if your are interested with them, please go check it there !
 
-# What tech we use ?
+# What Tech We Use ?
 
-## Still in use
+## Still In Use
 
 + [Gulp](http://gulpjs.com/) - To build up our environment
 + [Electron](http://electron.atom.io) - Let us use web technology to build native app

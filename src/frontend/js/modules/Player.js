@@ -12,7 +12,7 @@ define(function(require) {
   var HistoryManager = require('backend/HistoryManager');
   var L10nManager = require('backend/L10nManager');
   var KakuCore = require('backend/KakuCore');
-  var Searcher = require('backend/Searcher');
+  var Searcher = require('backend/modules/Searcher');
   var Tracker = require('backend/Tracker');
 
   videojs.options.flash.swf = 'dist/vendor/video.js/dist/video-js.swf';

@@ -1,7 +1,7 @@
 define(function(require) {
   'use strict';
 
-  var Searcher = require('backend/Searcher');
+  var Searcher = require('backend/modules/Searcher');
   var React = require('react');
 
   var L10nSpan = require('components/shared/l10n-span');
