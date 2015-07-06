@@ -5,11 +5,14 @@ window.requireNode = window.require;
 var remote = requireNode('remote');
 var gulp = requireNode('gulp');
 
-gulp.task('reload', function() {
-  remote.getCurrentWindow().reload();
-});
+// There is no gulp in production build
+if (gulp) {
+  gulp.task('reload', function() {
+    remote.getCurrentWindow().reload();
+  });
 
-gulp.watch([
-  'src/frontend/**/*.*',
-  'src/backend/**/*.*'
-], ['reload']);
+  gulp.watch([
+    'src/frontend/**/*.*',
+    'src/backend/**/*.*'
+  ], ['reload']);
+}

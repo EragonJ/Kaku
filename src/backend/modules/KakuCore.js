@@ -3,7 +3,6 @@ define(function(require) {
 
   var EventEmitter = requireNode('events').EventEmitter;
   var remote = requireNode('remote');
-  var gulp = requireNode('gulp');
 
   var L10nManager = require('backend/modules/L10nManager');
 
