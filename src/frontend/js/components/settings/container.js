@@ -2,10 +2,13 @@ define(function(require) {
   'use strict';
 
   var React = require('react');
-  var Searcher = require('backend/modules/Searcher');
   var PreferenceManager = require('backend/modules/PreferenceManager');
   var L10nManager = require('backend/modules/L10nManager');
+  var KakuCore = require('backend/modules/KakuCore');
+  var Searcher = require('backend/modules/Searcher');
+  var DB = require('backend/modules/Database');
 
+  var Dialog = require('modules/Dialog');
   var L10nSpan = require('components/shared/l10n-span');
 
   var SettingsContainer = React.createClass({
@@ -91,6 +94,24 @@ define(function(require) {
       Searcher.changeSearcher(searcherName);
     },
 
+    _onFormSubmit: function(event) {
+      event.preventDefault();
+    },
+
+    _onClickToResetDatabse: function() {
+      Promise.all([
+        L10nManager.get('settings_option_reset_database_confirm')
+      ]).then((translations) => {
+        Dialog.confirm(translations[0], (sure) => {
+          if (sure) {
+            DB.resetDatabase().then(() => {
+              KakuCore.reload();
+            });
+          }
+        });
+      });
+    },
+
     render: function() {
       var isDesktopNotificationEnabled =
         PreferenceManager.getPreference('desktop.notification.enabled');
@@ -105,7 +126,7 @@ define(function(require) {
             </h1>
           </div>
           <div className="settings-container">
-            <form className="form-horizontal">
+            <form className="form-horizontal" onSubmit={this._onFormSubmit}>
               <div className="form-group">
                 <label className="col-sm-3 control-label">
                   <L10nSpan l10nId="settings_option_desktop_notificaion_enabled"/>
@@ -143,6 +164,15 @@ define(function(require) {
                     className="form-control"
                     onChange={this._onSearcherChange}
                     ref="supportedSearcherSelect"></select>
+                </div>
+              </div>
+              <div className="form-group">
+                <div className="col-sm-offset-3 col-sm-3">
+                  <button
+                    className="btn btn-danger"
+                    onClick={this._onClickToResetDatabse}>
+                      <L10nSpan l10nId="settings_option_reset_database"/>
+                  </button>
                 </div>
               </div>
             </form>

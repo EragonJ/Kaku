@@ -2,6 +2,9 @@ define(function(require) {
   'use strict';
 
   var EventEmitter = requireNode('events').EventEmitter;
+  var remote = requireNode('remote');
+  var gulp = requireNode('gulp');
+
   var L10nManager = require('backend/modules/L10nManager');
 
   var KakuCore = function() {
@@ -29,6 +32,10 @@ define(function(require) {
     L10nManager.get('app_title_normal').then((translatedTitle) => {
       this.title = translatedTitle;
     });
+  };
+
+  KakuCore.prototype.reload = function() {
+    remote.getCurrentWindow().reload();
   };
 
   // singleton
