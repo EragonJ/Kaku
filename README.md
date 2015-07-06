@@ -1,4 +1,6 @@
 # Kaku
+![Kaku Icon](http://i.imgur.com/0c5pTtz.png)
+
 The next generation music client
 
 # Latest Screenshot
