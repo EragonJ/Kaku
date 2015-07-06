@@ -188,11 +188,17 @@ gulp.task('package', function(done) {
       break;
   }
 
+  // We will keep all stuffs in dist/ instead of src/ for production
+  var iconFolderPath =
+    path.join(__dirname, 'dist', 'frontend', 'images', 'icons');
+
   // TODO
   // We have to fix more stuffs later after atomshell is updated
   return gulp.src(includedFiles).pipe(electron({
     version: '0.28.3',
-    platform: platform
+    platform: platform,
+    darwinIcon: path.join(iconFolderPath, 'kaku.icns'),
+    winIcon: path.join(iconFolderPath, 'kaku.ico')
   })).pipe(electron.zfsdest('build/app.zip'));
 });
 
