@@ -2,7 +2,7 @@ define(function(require) {
   'use strict';
 
   var EventEmitter = requireNode('events').EventEmitter;
-  var L10nManager = require('backend/L10nManager');
+  var L10nManager = require('backend/modules/L10nManager');
 
   var KakuCore = function() {
     EventEmitter.call(this);

@@ -9,8 +9,8 @@ define(function(require) {
   var $ = require('jquery');
   var React = require('react');
 
-  var PlaylistManager = require('backend/PlaylistManager');
-  var L10nManager = require('backend/L10nManager');
+  var PlaylistManager = require('backend/modules/PlaylistManager');
+  var L10nManager = require('backend/modules/L10nManager');
   var TabManager = require('modules/TabManager');
   var Notifier = require('modules/Notifier');
   var Dialog = require('modules/Dialog');

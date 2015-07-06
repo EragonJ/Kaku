@@ -2,7 +2,7 @@ define(function(require) {
   'use strict';
 
   var React = require('react');
-  var HistoryManager = require('backend/HistoryManager');
+  var HistoryManager = require('backend/modules/HistoryManager');
   var PlayAllButton = require('components/shared/playall-button');
   var NoTrack = require('components/shared/no-track');
   var Track = require('components/shared/track');

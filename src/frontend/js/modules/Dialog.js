@@ -1,7 +1,7 @@
 define(function(require) {
   'use strict';
 
-  var L10nManager = require('backend/L10nManager');
+  var L10nManager = require('backend/modules/L10nManager');
   var Bootbox = require('bootbox');
 
   var Dialog = function() {

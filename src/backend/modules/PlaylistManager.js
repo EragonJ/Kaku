@@ -3,8 +3,8 @@ define(function(require) {
 
   var EventEmitter = requireNode('events').EventEmitter;
   var BasePlaylist = require('backend/models/playlist/BasePlaylist');
-  var Tracker = require('backend/Tracker');
-  var DB = require('backend/Database');
+  var Tracker = require('backend/modules/Tracker');
+  var DB = require('backend/modules/Database');
 
   var PlaylistManager = function() {
     EventEmitter.call(this);

@@ -2,7 +2,7 @@ define(function(require) {
   'use strict';
 
   var request = requireNode('request');
-  var BaseModule = require('backend/BaseModule');
+  var BaseModule = require('backend/modules/BaseModule');
   var BaseTrack = require('backend/models/track/BaseTrack');
 
   var TopRanking = BaseModule(function() {
