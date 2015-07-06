@@ -8,13 +8,13 @@ suite('PlaylistManager', () => {
 
   setup((done) => {
     testRequire([
-      'backend/PlaylistManager',
+      'backend/modules/PlaylistManager',
       'mocks/Database',
       'mocks/Tracker'
     ], {
       '*': {
-        'backend/Database': 'mocks/Database',
-        'backend/Tracker': 'mocks/Tracker'
+        'backend/modules/Database': 'mocks/Database',
+        'backend/modules/Tracker': 'mocks/Tracker'
       }
     }, (PlaylistManager, MockDB, MockTracker) => {
       playlistManager = PlaylistManager;

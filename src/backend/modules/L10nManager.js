@@ -1,7 +1,7 @@
 define(function(require) {
   'use strict';
 
-  var IniParser = require('backend/IniParser');
+  var IniParser = require('backend/modules/IniParser');
   var EventEmitter = requireNode('events').EventEmitter;
   var fs = requireNode('fs');
   var path = requireNode('path');
@@ -17,7 +17,7 @@ define(function(require) {
     this._cachedStrings = {};
     this._cachedMetadata = null;
 
-    this._l10nFolderPath = path.join(basePath, 'locales');
+    this._l10nFolderPath = path.join(basePath, '..', 'locales');
     this._metadataPath = path.join(this._l10nFolderPath, 'metadata.json');
     this._suffixForLanguageFile = '.ini';
 

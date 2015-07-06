@@ -2,8 +2,8 @@ define(function(require) {
   'use strict';
 
   var VimeoTrack = require('backend/models/track/VimeoTrack');
-  var Constants = require('backend/Constants');
-  var Tracker = require('backend/Tracker');
+  var Constants = require('backend/modules/Constants');
+  var Tracker = require('backend/modules/Tracker');
   var Vimeo = requireNode('vimeo').Vimeo;
 
   var VimeoSearcher = function() {

@@ -5,8 +5,8 @@ define(function(require) {
   var Menu = remote.require('menu');
   var MenuItem = remote.require('menu-item');
 
-  var L10nManager = require('backend/L10nManager');
-  var PlaylistManager = require('backend/PlaylistManager');
+  var L10nManager = require('backend/modules/L10nManager');
+  var PlaylistManager = require('backend/modules/PlaylistManager');
   var Notifier = require('modules/Notifier');
   var Player = require('modules/Player');
   var React = require('react');

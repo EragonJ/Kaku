@@ -3,8 +3,8 @@ define(function(require) {
 
   var React = require('react');
   var Searcher = require('backend/modules/Searcher');
-  var PreferenceManager = require('backend/PreferenceManager');
-  var L10nManager = require('backend/L10nManager');
+  var PreferenceManager = require('backend/modules/PreferenceManager');
+  var L10nManager = require('backend/modules/L10nManager');
 
   var L10nSpan = require('components/shared/l10n-span');
 

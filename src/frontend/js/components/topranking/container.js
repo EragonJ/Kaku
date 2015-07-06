@@ -2,11 +2,11 @@ define(function(require) {
   'use strict';
 
   var React = require('react');
-  var TrackInfoFetcher = require('backend/TrackInfoFetcher');
+  var TrackInfoFetcher = require('backend/modules/TrackInfoFetcher');
+  var TopRanking = require('backend/modules/TopRanking');
 
-  var L10nSpan = require('components/shared/l10n-span');
   var PlayAllButton = require('components/shared/playall-button');
-  var TopRanking = require('backend/TopRanking');
+  var L10nSpan = require('components/shared/l10n-span');
   var Track = require('components/shared/track');
 
   var TopRankingContainer = React.createClass({

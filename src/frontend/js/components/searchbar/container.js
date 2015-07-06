@@ -2,7 +2,7 @@ define(function(require) {
   'use strict';
 
   var ClassNames = require('classnames');
-  var Constants = require('backend/Constants');
+  var Constants = require('backend/modules/Constants');
   var Searcher = require('backend/modules/Searcher');
   var TabManager = require('modules/TabManager');
   var React = require('react');

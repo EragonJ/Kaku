@@ -2,8 +2,8 @@ define(function(require) {
   'use strict';
 
   var YoutubeTrack = require('backend/models/track/YoutubeTrack');
-  var Constants = require('backend/Constants');
-  var Tracker = require('backend/Tracker');
+  var Constants = require('backend/modules/Constants');
+  var Tracker = require('backend/modules/Tracker');
   var Youtube = requireNode('youtube-node');
 
   var YoutubeSearcher = function() {

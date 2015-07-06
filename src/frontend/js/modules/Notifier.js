@@ -1,7 +1,7 @@
 define(function(require) {
   'use strict';
 
-  var PreferenceManager = require('backend/PreferenceManager');
+  var PreferenceManager = require('backend/modules/PreferenceManager');
   var $ = require('jquery');
   var _ = require('notify');
 

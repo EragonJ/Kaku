@@ -4,10 +4,11 @@ suite('PreferenceManager', () => {
   var preferenceManager;
 
   setup((done) => {
-    testRequire(['backend/PreferenceManager'], {}, (PreferenceManager) => {
-      preferenceManager = PreferenceManager;
-      preferenceManager._preferenceStorage = {};
-      done();
+    testRequire(['backend/modules/PreferenceManager'], {},
+      (PreferenceManager) => {
+        preferenceManager = PreferenceManager;
+        preferenceManager._preferenceStorage = {};
+        done();
     });
   });
 

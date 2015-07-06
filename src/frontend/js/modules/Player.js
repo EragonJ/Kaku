@@ -8,12 +8,12 @@ define(function(require) {
   var Notifier = require('modules/Notifier');
   var videojs = require('videojs');
 
-  var TrackInfoFetcher = require('backend/TrackInfoFetcher');
-  var HistoryManager = require('backend/HistoryManager');
-  var L10nManager = require('backend/L10nManager');
-  var KakuCore = require('backend/KakuCore');
+  var TrackInfoFetcher = require('backend/modules/TrackInfoFetcher');
+  var HistoryManager = require('backend/modules/HistoryManager');
+  var L10nManager = require('backend/modules/L10nManager');
+  var KakuCore = require('backend/modules/KakuCore');
   var Searcher = require('backend/modules/Searcher');
-  var Tracker = require('backend/Tracker');
+  var Tracker = require('backend/modules/Tracker');
 
   videojs.options.flash.swf = 'dist/vendor/video.js/dist/video-js.swf';
 

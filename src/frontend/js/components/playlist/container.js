@@ -3,7 +3,7 @@ define(function(require) {
 
   var React = require('react');
   var PlayAllButton = require('components/shared/playall-button');
-  var PlaylistManager = require('backend/PlaylistManager');
+  var PlaylistManager = require('backend/modules/PlaylistManager');
   var NoTrack = require('components/shared/no-track');
   var Track = require('components/shared/track');
   var TabManager = require('modules/TabManager');

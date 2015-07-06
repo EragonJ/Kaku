@@ -5,7 +5,7 @@ define(function(require) {
   var App = remote.require('app');
 
   var SearchbarContainer = require('components/searchbar/container');
-  var KakuCore = require('backend/KakuCore');
+  var KakuCore = require('backend/modules/KakuCore');
   var React = require('react');
 
   var ToolbarContainer = React.createClass({

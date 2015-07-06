@@ -7,7 +7,7 @@ suite('HistoryManager', () => {
 
   setup((done) => {
     sandbox = sinon.sandbox.create();
-    testRequire(['backend/HistoryManager'], {}, (HistoryManager) => {
+    testRequire(['backend/modules/HistoryManager'], {}, (HistoryManager) => {
       fakeTrack = {};
       historyManager = HistoryManager;
       // beacuse this is singleton, we have to cleanup by ourselves
