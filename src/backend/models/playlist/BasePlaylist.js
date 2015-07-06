@@ -6,7 +6,8 @@ define(function(require) {
 
   var supportedTracks = {
     BaseTrack: require('backend/models/track/BaseTrack'),
-    YoutubeTrack: require('backend/models/track/YoutubeTrack')
+    YoutubeTrack: require('backend/models/track/YoutubeTrack'),
+    VimeoTrack: require('backend/models/track/VimeoTrack')
   };
 
   var BasePlaylist = function(options) {

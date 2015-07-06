@@ -2,6 +2,7 @@ define(function(require) {
   'use strict';
 
   var React = require('react');
+  var Searcher = require('backend/modules/Searcher');
   var PreferenceManager = require('backend/PreferenceManager');
   var L10nManager = require('backend/L10nManager');
 
@@ -21,6 +22,12 @@ define(function(require) {
         this._makeLanguageOptions(languages, defaultLanguage);
       });
 
+      Searcher.getSupportedSearchers().then((searchers) => {
+        var defaultSearcher =
+          PreferenceManager.getPreference('default.searcher');
+        this._makeSearcherOptions(searchers, defaultSearcher);
+      });
+
       PreferenceManager.on('preference-updated', (key, newPreference) => {
         var obj = {};
         obj[key] = newPreference;
@@ -30,15 +37,36 @@ define(function(require) {
       L10nManager.on('language-changed', (newLanguage) => {
         PreferenceManager.setPreference('default.language', newLanguage);
       });
+
+      Searcher.on('searcher-changed', (newSearcher) => {
+        PreferenceManager.setPreference('default.searcher', newSearcher);
+      });
     },
 
-    _makeLanguageOptions: function(languages = [], defaultLanguage = 'en') {
+    _makeLanguageOptions: function(languages, defaultLanguage) {
+      languages = languages || [];
+      defaultLanguage = defaultLanguage || 'en';
+
       var select = this.refs.supportedLanguagesSelect.getDOMNode();
       languages.forEach((language) => {
         var option = document.createElement('option');
         option.text = language.label;
         option.value = language.lang;
         option.selected = (language.lang === defaultLanguage);
+        select.add(option);
+      });
+    },
+
+    _makeSearcherOptions: function(searchers, defaultSearcher) {
+      searchers = searchers || [];
+      defaultSearcher = defaultSearcher || 'youtube';
+
+      var select = this.refs.supportedSearcherSelect.getDOMNode();
+      searchers.forEach((searcherName) => {
+        var option = document.createElement('option');
+        option.text = searcherName;
+        option.value = searcherName;
+        option.selected = (searcherName === defaultSearcher);
         select.add(option);
       });
     },
@@ -58,6 +86,11 @@ define(function(require) {
       L10nManager.changeLanguage(language);
     },
 
+    _onSearcherChange: function(event) {
+      var searcherName = event.target.value;
+      Searcher.changeSearcher(searcherName);
+    },
+
     render: function() {
       var isDesktopNotificationEnabled =
         PreferenceManager.getPreference('desktop.notification.enabled');
@@ -72,23 +105,47 @@ define(function(require) {
             </h1>
           </div>
           <div className="settings-container">
-            <ul className="list-unstyled">
-              <li>
-                <div className="checkbox">
-                  <label>
-                    <input
-                      type="checkbox"
-                      checked={isDesktopNotificationEnabled}
-                      data-key="desktop.notification.enabled"
-                      onChange={this._onCheckboxChange}/>
-                    <L10nSpan l10nId="settings_option_desktop_notificaion_enabled"/>
-                  </label>
+            <form className="form-horizontal">
+              <div className="form-group">
+                <label className="col-sm-3 control-label">
+                  <L10nSpan l10nId="settings_option_desktop_notificaion_enabled"/>
+                </label>
+                <div className="col-sm-3">
+                  <div className="checkbox">
+                    <label>
+                      <input
+                        type="checkbox"
+                        checked={isDesktopNotificationEnabled}
+                        data-key="desktop.notification.enabled"
+                        onChange={this._onCheckboxChange}/>
+                    </label>
+                  </div>
                 </div>
-              </li>
-              <li>
-                <select onChange={this._onLanguageChange} ref="supportedLanguagesSelect"></select>
-              </li>
-            </ul>
+              </div>
+              <div className="form-group">
+                <label className="col-sm-3 control-label">
+                  <L10nSpan l10nId="settings_option_default_language"/>
+                </label>
+                <div className="col-sm-3">
+                  <select
+                    className="form-control"
+                    onChange={this._onLanguageChange}
+                    ref="supportedLanguagesSelect">
+                  </select>
+                </div>
+              </div>
+              <div className="form-group">
+                <label className="col-sm-3 control-label">
+                  <L10nSpan l10nId="settings_option_default_searcher"/>
+                </label>
+                <div className="col-sm-3">
+                  <select
+                    className="form-control"
+                    onChange={this._onSearcherChange}
+                    ref="supportedSearcherSelect"></select>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       );

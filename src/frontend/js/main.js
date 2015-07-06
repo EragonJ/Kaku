@@ -31,6 +31,7 @@ fetchRjsConfig().then(function(rjsConfig) {
     'backend/PreferenceManager',
     'backend/PlaylistManager',
     'backend/L10nManager',
+    'backend/modules/Searcher',
     'backend/AutoUpdater',
     'backend/Tracker',
     'modules/TabManager',
@@ -51,6 +52,7 @@ fetchRjsConfig().then(function(rjsConfig) {
     PreferenceManager,
     PlaylistManager,
     L10nManager,
+    Searcher,
     AutoUpdater,
     Tracker,
     TabManager,
@@ -79,6 +81,7 @@ fetchRjsConfig().then(function(rjsConfig) {
       componentDidMount: function() {
         this._triggerAutoUpdater();
         this._initializeDefaultLanguage();
+        this._initializeDefaultSearcher();
         this._initializeKonamiCode();
 
         // Say hi :)
@@ -89,6 +92,12 @@ fetchRjsConfig().then(function(rjsConfig) {
         var defaultLanguage =
           PreferenceManager.getPreference('default.language');
         L10nManager.changeLanguage(defaultLanguage);
+      },
+
+      _initializeDefaultSearcher: function() {
+        var defaultSearcher =
+          PreferenceManager.getPreference('default.searcher');
+        Searcher.changeSearcher(defaultSearcher);
       },
 
       _initializeKonamiCode: function() {

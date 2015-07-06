@@ -3,7 +3,7 @@ define(function(require) {
 
   var ClassNames = require('classnames');
   var Constants = require('backend/Constants');
-  var Searcher = require('backend/Searcher');
+  var Searcher = require('backend/modules/Searcher');
   var TabManager = require('modules/TabManager');
   var React = require('react');
 
