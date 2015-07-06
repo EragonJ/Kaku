@@ -119,7 +119,7 @@ suite('BasePlaylist', () => {
       playlist = new BasePlaylist(); 
     });
 
-    test.skip('if the track doesn\'t exist, do add', (done) => {
+    test('if the track doesn\'t exist, do add', (done) => {
       // TODO
       // This may be ES6 + rjs problem, fix later.
       playlist.addTrack(fakeTrack).then(() => {
@@ -159,9 +159,7 @@ suite('BasePlaylist', () => {
       }).then(done, done);
     });
 
-    test.skip('if the track does exist, do remove', (done) => {
-      // TODO
-      // This may be ES6 + rjs problem, fix later.
+    test('if the track does exist, do remove', (done) => {
       playlist._tracks.push(fakeTrack);
       playlist.removeTrack(fakeTrack).then(() => {
         assert.equal(playlist.tracks.length, 0);

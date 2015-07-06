@@ -54,20 +54,18 @@ define(function(require) {
   };
 
   BasePlaylist.prototype.addTrack = function(track) {
-    // TODO
-    // track should already be an instance of BaseTrack,
-    // if not, we may have to do something here
+    var self = this;
     var promise = new Promise((resolve, reject) => {
       var title = track.title;
       var artist = track.artist;
-      var foundTrack = this.findTrackByArtistAndTitle(artist, title);
+      var foundTrack = self.findTrackByArtistAndTitle(artist, title);
       if (foundTrack) {
         reject('You already have a track with same name & artist, ' +
           'please try another one');
       }
       else {
-        this._tracks.push(track);
-        this.emit('tracksUpdated');
+        self._tracks.push(track);
+        self.emit('tracksUpdated');
         resolve();
       }
     });
@@ -75,16 +73,17 @@ define(function(require) {
   };
 
   BasePlaylist.prototype.removeTrack = function(track) {
+    var self = this;
     var promise = new Promise((resolve, reject) => {
-      var index = this.findTrackIndex(track);
+      var index = self.findTrackIndex(track);
       if (index === -1) {
         reject('Can\'t find the track');
       }
       else {
-        var removedTrack = this._tracks.splice(index, 1);
+        var removedTrack = self._tracks.splice(index, 1);
         console.log('Removed track - ', removedTrack);
 
-        this.emit('tracksUpdated');
+        self.emit('tracksUpdated');
         resolve();
       }
     });
