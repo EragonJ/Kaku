@@ -67,6 +67,10 @@ define(function(require) {
   });
 
   Player.prototype._bindGlobalShortcuts = function() {
+    // In order not to call pre-registered callbacks in released render view,
+    // we have to unregisterAll callbacks at first, then register again.
+    globalShortcut.unregisterAll();
+
     globalShortcut.register('MediaNextTrack', () => {
       this.playNextTrack();
     });
