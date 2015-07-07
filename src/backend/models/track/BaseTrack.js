@@ -13,7 +13,16 @@ define(function(require) {
     this.artist = options.artist || 'Unknown Artist';
     this.description = options.description || 'Unknown Description';
     this.platformId = options.platformId || '';
-    this.platformTrackRealUrl = options.platformTrackRealUrl || '';
+
+    // NOTE
+    // We can't store the real url here because some online streaming platform
+    // will use generated url for current session and when we are trying to
+    // access next time, the realUrl will be invalid.
+    //
+    // Maybe in the future, we can make offline access feature to fix this.
+    //
+    // this.platformTrackRealUrl = options.platformTrackRealUrl || '';
+    this.platformTrackRealUrl = '';
     this.covers = options.covers || {
       default: '',
       medium: '',
