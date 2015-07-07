@@ -45,7 +45,7 @@ define(function(require) {
       var isNewer = false;
 
       if (latestVersion) {
-        isNewer = semver(latestVersion, currentVersion);
+        isNewer = semver.gt(latestVersion, currentVersion);
       }
 
       return {
