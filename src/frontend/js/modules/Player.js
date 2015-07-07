@@ -298,6 +298,10 @@ define(function(require) {
       L10nManager.get('app_title_playing', {
         name: this._playingTrack.title
       }).then((translatedTitle) => {
+        var maxLength = 40;
+        if (translatedTitle.length > maxLength) {
+          translatedTitle = translatedTitle.substr(0, maxLength) + ' ...';
+        }
         KakuCore.title = translatedTitle;
       });
     }
