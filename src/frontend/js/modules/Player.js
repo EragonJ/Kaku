@@ -264,14 +264,18 @@ define(function(require) {
       var promise = new Promise((resolve) => {
         var keyword = rawTrack.artist + ' - ' + rawTrack.title;
         Searcher.search(keyword, 1).then(function(tracks) {
-          var trackInfo = tracks[0];
-
+          var trackInfo;
           // NOTE
-          // we have to keep its original title, artist and covers
-          // in order not to confuse users
-          trackInfo.artist = rawTrack.artist;
-          trackInfo.title = rawTrack.title;
-          trackInfo.covers = rawTrack.covers;
+          // We may not find any track when searching.
+          if (tracks.length > 0) {
+            trackInfo = tracks[0];
+            // NOTE
+            // we have to keep its original title, artist and covers
+            // in order not to confuse users
+            trackInfo.artist = rawTrack.artist;
+            trackInfo.title = rawTrack.title;
+            trackInfo.covers = rawTrack.covers;
+          }
           resolve(trackInfo);
         });
       });
@@ -375,24 +379,35 @@ define(function(require) {
       else {
         this._player.pause();
         this._toggleSpinner(true);
-        this._prepareTrackData(rawTrack)
-          .then(this._getRealTrack)
-          .then((realTrack) => {
-            Tracker.event('Player', 'play', realTrack.platformTrackUrl).send();
+        this._prepareTrackData(rawTrack).then((foundTrack) => {
+          // we did find a track from searcher
+          if (foundTrack) {
+            this._getRealTrack(foundTrack).then((realTrack) => {
+              Tracker.event('Player', 'play',
+                realTrack.platformTrackUrl).send();
 
-            this._playingTrack = realTrack;
-            this._player.src(realTrack.platformTrackRealUrl);
-            this._player.play();
-            this._toggleSpinner(false);
+              this._playingTrack = realTrack;
+              this._player.src(realTrack.platformTrackRealUrl);
+              this._player.play();
+              this._toggleSpinner(false);
 
-            // keep this track into history
-            HistoryManager.add(realTrack);
+              // keep this track into history
+              HistoryManager.add(realTrack);
 
-            // show notification on desktop if possible
-            Notifier.sendDesktopNotification({
-              title: realTrack.title,
-              body: realTrack.artist
+              // show notification on desktop if possible
+              Notifier.sendDesktopNotification({
+                title: realTrack.title,
+                body: realTrack.artist
+              });
             });
+          }
+          else {
+            // TODO
+            // need l10n here
+            Notifier.alert('Sorry, we can\'t find the track in current ' +
+              'searcher, please try again with another searcher !');
+            this._toggleSpinner(false);
+          }
         });
       }
     });
