@@ -167,15 +167,24 @@ gulp.task('package', function(done) {
 
   var platform = argv.platform || process.platform;
   platform = platform.toLowerCase();
+  var arch = 'ia32';
 
   switch (platform) {
     case 'mac':
     case 'darwin':
       platform = 'darwin';
+      arch = 'x64';
       break;
     case 'freebsd':
     case 'linux':
+    case 'linux-ia32':
+    case 'linux-x86':
       platform = 'linux';
+      break;
+    case 'linux-x64':
+    case 'linux-amd64':
+      platform = 'linux';
+      arch = 'x64';
       break;
     case 'win':
     case 'win32':
@@ -188,6 +197,8 @@ gulp.task('package', function(done) {
       break;
   }
 
+  console.log('Building kaku for ' + platform + '-' + arch);
+
   // We will keep all stuffs in dist/ instead of src/ for production
   var iconFolderPath =
     path.join(__dirname, 'dist', 'frontend', 'images', 'icons');
@@ -197,6 +208,7 @@ gulp.task('package', function(done) {
   return gulp.src(includedFiles).pipe(electron({
     version: '0.28.3',
     platform: platform,
+    arch: arch,
     darwinIcon: path.join(iconFolderPath, 'kaku.icns'),
     winIcon: path.join(iconFolderPath, 'kaku.ico')
   })).pipe(electron.zfsdest('build/app.zip'));
