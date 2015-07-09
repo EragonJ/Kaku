@@ -187,7 +187,9 @@ gulp.task('package', function(done) {
       process.exit(1);
       break;
   }
-
+  
+  console.log('Building kaku for ' + platform)
+  
   // We will keep all stuffs in dist/ instead of src/ for production
   var iconFolderPath =
     path.join(__dirname, 'dist', 'frontend', 'images', 'icons');
