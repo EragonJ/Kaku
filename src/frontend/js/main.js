@@ -137,10 +137,10 @@ fetchRjsConfig().then(function(rjsConfig) {
                 else if (platform.match(/linux/)) {
                   var arch = process.arch
                   if (arch.match(/ia32/)) {
-                    downloadLink = release.download.linux-ia32.link;
+                    downloadLink = release.download.linux_ia32.link;
                   }
                   else if (arch.match(/x64/)) {
-                    downloadLink = release.download.linux-x64.link;
+                    downloadLink = release.download.linux_x64.link;
                   }
                 }
 
