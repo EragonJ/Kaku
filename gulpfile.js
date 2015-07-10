@@ -167,7 +167,7 @@ gulp.task('package', function(done) {
 
   var platform = argv.platform || process.platform;
   platform = platform.toLowerCase();
-  var arch = 'ia32';
+  var arch = process.arch || 'ia32';
 
   switch (platform) {
     case 'mac':
@@ -177,10 +177,15 @@ gulp.task('package', function(done) {
       break;
     case 'freebsd':
     case 'linux':
+      platform = 'linux';
+      break;
+    case 'linux32':
     case 'linux-ia32':
     case 'linux-x86':
       platform = 'linux';
+      arch = 'ia32';
       break;
+    case 'linux64':
     case 'linux-x64':
     case 'linux-amd64':
       platform = 'linux';
@@ -190,6 +195,7 @@ gulp.task('package', function(done) {
     case 'win32':
     case 'windows':
       platform = 'win32';
+      arch = 'ia32';
       break;
     default:
       console.log('We don\'t support your platform ' + platform);
