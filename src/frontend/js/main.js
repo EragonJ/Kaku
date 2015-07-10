@@ -135,7 +135,13 @@ fetchRjsConfig().then(function(rjsConfig) {
                   downloadLink = release.download.mac.link;
                 }
                 else if (platform.match(/linux/)) {
-                  downloadLink = release.download.linux.link;
+                  var arch = process.arch
+                  if (arch.match(/ia32/)) {
+                    downloadLink = release.download.linux_ia32.link;
+                  }
+                  else if (arch.match(/x64/)) {
+                    downloadLink = release.download.linux_x64.link;
+                  }
                 }
 
                 if (downloadLink) {

@@ -76,8 +76,11 @@ define(function(require) {
       else if (assetName.match(/win/)) {
         download.win = asset;
       }
-      else if (assetName.match(/linux/)) {
-        download.linux = asset;
+      else if (assetName.match(/linux-ia32/)) {
+        download.linux_ia32 = asset;
+      }
+      else if (assetName.match(/linux-x64/)) {
+        download.linux_x64 = asset;
       }
     });
 
