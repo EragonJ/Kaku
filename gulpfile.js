@@ -177,11 +177,15 @@ gulp.task('package', function(done) {
       break;
     case 'freebsd':
     case 'linux':
+      platform = 'linux';
+      break;
+    case 'linux32':
     case 'linux-ia32':
     case 'linux-x86':
       platform = 'linux';
       arch = 'ia32';
       break;
+    case 'linux64':
     case 'linux-x64':
     case 'linux-amd64':
       platform = 'linux';
