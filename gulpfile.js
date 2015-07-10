@@ -165,9 +165,9 @@ gulp.task('package', function(done) {
     includedFiles.push('!./node_modules/' + key + '/**');
   });
 
+  var arch = process.arch || 'ia32';
   var platform = argv.platform || process.platform;
   platform = platform.toLowerCase();
-  var arch = 'ia32';
 
   switch (platform) {
     case 'mac':
@@ -177,12 +177,13 @@ gulp.task('package', function(done) {
       break;
     case 'freebsd':
     case 'linux':
-    case 'linux-ia32':
-    case 'linux-x86':
       platform = 'linux';
       break;
-    case 'linux-x64':
-    case 'linux-amd64':
+    case 'linux32':
+      platform = 'linux';
+      arch = 'ia32';
+      break;
+    case 'linux64':
       platform = 'linux';
       arch = 'x64';
       break;
@@ -190,6 +191,7 @@ gulp.task('package', function(done) {
     case 'win32':
     case 'windows':
       platform = 'win32';
+      arch = 'ia32';
       break;
     default:
       console.log('We don\'t support your platform ' + platform);
