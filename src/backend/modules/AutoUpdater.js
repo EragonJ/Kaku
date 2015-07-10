@@ -70,14 +70,20 @@ define(function(require) {
         name: assetName
       };
 
+      // Note
+      // we should release Kaku with the format like this :
+      // Kaku-mac.zip, Kaku-win.zip, Kaku-linux32.zip, Kaku-linux64.zip
       if (assetName.match(/mac/)) {
         download.mac = asset;
       }
       else if (assetName.match(/win/)) {
         download.win = asset;
       }
-      else if (assetName.match(/linux/)) {
-        download.linux = asset;
+      else if (assetName.match(/linux32/)) {
+        download.linux32 = asset;
+      }
+      else if (assetName.match(/linux64/)) {
+        download.linux64 = asset;
       }
     });
 

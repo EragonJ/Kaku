@@ -125,8 +125,9 @@ fetchRjsConfig().then(function(rjsConfig) {
             }, (response) => {
               // means ok
               if (response === 0) {
-                var platform = process.platform;
                 var downloadLink = '';
+                var platform = process.platform;
+                var arch = process.arch;
 
                 if (platform.match(/win32/)) {
                   downloadLink = release.download.win.link;
@@ -135,7 +136,12 @@ fetchRjsConfig().then(function(rjsConfig) {
                   downloadLink = release.download.mac.link;
                 }
                 else if (platform.match(/linux/)) {
-                  downloadLink = release.download.linux.link;
+                  if (arch === 'x64') {
+                    downloadLink = release.download.linux64.link;
+                  }
+                  else {
+                    downloadLink = release.download.linux32.link;
+                  }
                 }
 
                 if (downloadLink) {
@@ -144,6 +150,10 @@ fetchRjsConfig().then(function(rjsConfig) {
                   setTimeout(() => {
                     App.quit();
                   }, 1000);
+                }
+                else {
+                  console.log('Cant find download link for the user');
+                  console.log('platform - ' + platform + ', arch - ', arch);
                 }
               }
             });
