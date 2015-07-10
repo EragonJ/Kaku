@@ -218,6 +218,15 @@ define(function(require) {
                   <span className="title"><L10nSpan l10nId="sidebar_settings"/></span>
               </a>
             </li>
+            <li role="presentation">
+              <a
+                href="#tab-about"
+                role="tab"
+                ref="tab-about">
+                  <i className="icon fa fa-fw fa-lg fa-info"></i>
+                  <span className="title"><L10nSpan l10nId="sidebar_about"/></span>
+              </a>
+            </li>
             <li className="seperator">
             </li>
             <li className="add-playlist">

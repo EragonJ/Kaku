@@ -2,8 +2,8 @@ define(function(require) {
   'use strict';
 
   var path = requireNode('path');
-  var GithubAPI = requireNode('github');
   var semver = requireNode('semver');
+  var GithubAPI = requireNode('github');
   var packageJSON = requireNode(path.join(__dirname, 'package.json'));
 
   var AutoUpdater = function() {
