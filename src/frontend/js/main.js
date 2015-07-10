@@ -27,6 +27,7 @@ fetchRjsConfig().then(function(rjsConfig) {
     'components/history/container',
     'components/playlist/container',
     'components/settings/container',
+    'components/about/container',
     'components/connection-check/container',
     'backend/modules/PreferenceManager',
     'backend/modules/PlaylistManager',
@@ -48,6 +49,7 @@ fetchRjsConfig().then(function(rjsConfig) {
     HistoryContainer,
     PlaylistContainer,
     SettingsContainer,
+    AboutContainer,
     ConnectionCheckContainer,
     PreferenceManager,
     PlaylistManager,
@@ -192,6 +194,12 @@ fetchRjsConfig().then(function(rjsConfig) {
                     className="tab-pane"
                     id="tab-settings">
                       <SettingsContainer/>
+                  </div>
+                  <div
+                    role="tabpanel"
+                    className="tab-pane"
+                    id="tab-about">
+                      <AboutContainer/>
                   </div>
                   <div
                     role="tabpanel"
