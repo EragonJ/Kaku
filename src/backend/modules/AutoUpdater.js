@@ -77,10 +77,10 @@ define(function(require) {
         download.win = asset;
       }
       else if (assetName.match(/linux-ia32/)) {
-        download.linux-ia32 = asset;
+        download.linux_ia32 = asset;
       }
       else if (assetName.match(/linux-x64/)) {
-        download.linux-x64 = asset;
+        download.linux_x64 = asset;
       }
     });
 
