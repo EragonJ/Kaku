@@ -136,4 +136,4 @@ Moved all todos and issues to https://github.com/EragonJ/Kaku/issues, so if your
 
 # Special Thanks
 
-Kaku's logo is designed by Peko Chen, thanks for her support :)
+Kaku's logo is designed by [Peko Chen](https://www.facebook.com/peko.chen), thanks for her support :)
