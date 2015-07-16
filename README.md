@@ -1,5 +1,5 @@
 # Kaku
-![Kaku Icon](http://i.imgur.com/0c5pTtz.png)
+![Kaku Icon](http://i.imgur.com/aveaoN3.png)
 
 The next generation music client
 
@@ -133,3 +133,7 @@ Moved all todos and issues to https://github.com/EragonJ/Kaku/issues, so if your
 + [Compass / SASS](http://compass-style.org/) - To help us write CSS easily
 + [NW.js](http://nwjs.io/) - (Moved to Electron)
 + ... thanks for these old friends :)
+
+# Special Thanks
+
+Kaku's logo is designed by Peko Chen, thanks for her support :)
