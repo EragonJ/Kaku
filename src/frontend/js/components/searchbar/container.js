@@ -72,7 +72,12 @@ define(function(require) {
     },
 
     _onBlur: function() {
-      this._closeAutoCompleteList();
+      // TODO - need a better fix here
+      // We need a small timeout here to make sure when users click on the item,
+      // we will search tracks before cleaning up internal states
+      window.setTimeout(() => {
+        this._closeAutoCompleteList();
+      }, 100);
     },
 
     _showLoader: function(show) {
