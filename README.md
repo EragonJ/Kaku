@@ -1,5 +1,5 @@
 # Kaku
-![Kaku Icon](http://i.imgur.com/aveaoN3.png)
+![Kaku Icon](http://i.imgur.com/c3KKQ9t.png)
 
 The next generation music client
 
