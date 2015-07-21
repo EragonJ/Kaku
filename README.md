@@ -11,6 +11,7 @@ The next generation music client
 
 + YouTube
 + Vimeo
++ SoundCloud
 + ... keep adding :)
 
 # Supported Languages
