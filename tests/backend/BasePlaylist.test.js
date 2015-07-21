@@ -8,7 +8,11 @@ suite('BasePlaylist', () => {
     testRequire([
       'backend/models/playlist/BasePlaylist',
       'backend/models/track/BaseTrack'
-    ], {}, (BasePlaylistConstructor, BaseTrackConstructor) => {
+    ], {
+      '*': {
+        'backend/modules/KakuCore': 'mocks/KakuCore'
+      }
+    }, (BasePlaylistConstructor, BaseTrackConstructor) => {
       BasePlaylist = BasePlaylistConstructor;
       BaseTrack = BaseTrackConstructor;
       done();

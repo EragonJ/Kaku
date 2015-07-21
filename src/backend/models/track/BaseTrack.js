@@ -1,10 +1,16 @@
 define(function(require) {
   'use strict';
 
+  var path = requireNode('path');
   var crypto = requireNode('crypto');
+  var KakuCore = require('backend/modules/KakuCore');
 
   var BaseTrack = function(options) {
     options = options || {};
+
+    var appRootPath = KakuCore.getAppRootPath();
+    var placeholderImagePath =
+      path.join(appRootPath, 'frontend', 'images', 'track-placeholder.png');
 
     this._trackUrlPrefix = '';
     this.id = options.id || crypto.randomBytes(3).toString('hex');
@@ -24,9 +30,9 @@ define(function(require) {
     // this.platformTrackRealUrl = options.platformTrackRealUrl || '';
     this.platformTrackRealUrl = '';
     this.covers = options.covers || {
-      default: '',
-      medium: '',
-      large: ''
+      default: placeholderImagePath,
+      medium: placeholderImagePath,
+      large: placeholderImagePath
     };
   };
 

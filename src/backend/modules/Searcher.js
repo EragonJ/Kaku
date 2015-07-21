@@ -1,9 +1,11 @@
 define(function(require) {
   'use strict';
 
+  var EventEmitter = requireNode('events').EventEmitter;
   var YoutubeSearcher = require('backend/modules/searcher/YoutubeSearcher');
   var VimeoSearcher = require('backend/modules/searcher/VimeoSearcher');
-  var EventEmitter = requireNode('events').EventEmitter;
+  var SoundCloudSearcher =
+    require('backend/modules/searcher/SoundCloudSearcher');
 
   var Searcher = function() {
     EventEmitter.call(this);
@@ -14,7 +16,8 @@ define(function(require) {
     // supported searchers
     this._searchers = {
       'youtube': YoutubeSearcher,
-      'vimeo': VimeoSearcher
+      'vimeo': VimeoSearcher,
+      'soundcloud': SoundCloudSearcher
     };
 
     this._searchResults = [];

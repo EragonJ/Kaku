@@ -150,6 +150,13 @@ gulp.task('watch', function() {
   ], ['default']);
 });
 
+gulp.task('env', function(cb) {
+  var envInfo = {
+    env: CURRENT_ENVIRONMENT
+  };
+  fs.writeFile('env.json', JSON.stringify(envInfo), cb);
+});
+
 gulp.task('package', function(done) {
   var devDependencies = packageJSON.devDependencies;
   var devDependenciesKeys = Object.keys(devDependencies);
@@ -252,6 +259,7 @@ gulp.task('build', function(callback) {
     'linter:src',
     'copy:frontend',
     'copy:backend',
+    'env',
     'rjs',
     'override',
     'package'
@@ -267,6 +275,7 @@ gulp.task('default', function(callback) {
     'linter:src',
     'copy:frontend',
     'copy:backend',
+    'env',
     'override'
   )(callback);
 });

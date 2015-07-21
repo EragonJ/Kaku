@@ -2,14 +2,15 @@ define(function(require) {
   'use strict';
 
   var EventEmitter = requireNode('events').EventEmitter;
-  var remote = requireNode('remote');
 
-  var L10nManager = require('backend/modules/L10nManager');
+  var path = requireNode('path');
+  var rootPath = __dirname;
+  var envInfo = requireNode(path.join(rootPath, 'env.json'));
 
   var KakuCore = function() {
     EventEmitter.call(this);
+
     this._title = '';
-    this._init();
   };
 
   KakuCore.prototype = Object.create(EventEmitter.prototype);
@@ -27,14 +28,21 @@ define(function(require) {
     }
   });
 
-  KakuCore.prototype._init = function() {
-    L10nManager.get('app_title_normal').then((translatedTitle) => {
-      this.title = translatedTitle;
-    });
+  // This means 'KakuApp/'
+  KakuCore.prototype.getRootPath = function() {
+    return rootPath;
   };
 
-  KakuCore.prototype.reload = function() {
-    remote.getCurrentWindow().reload();
+  // This means 'KakuApp/dist/' or 'KakuApp/src/'
+  KakuCore.prototype.getAppRootPath = function() {
+    if (envInfo.env === 'production') {
+      return 'dist';
+    }
+    return 'src';
+  };
+
+  KakuCore.prototype.getEnvInfo = function() {
+    return envInfo;
   };
 
   // singleton

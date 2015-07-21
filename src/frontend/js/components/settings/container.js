@@ -1,10 +1,11 @@
 define(function(require) {
   'use strict';
 
+  var remote = requireNode('remote');
+
   var React = require('react');
   var PreferenceManager = require('backend/modules/PreferenceManager');
   var L10nManager = require('backend/modules/L10nManager');
-  var KakuCore = require('backend/modules/KakuCore');
   var Searcher = require('backend/modules/Searcher');
   var DB = require('backend/modules/Database');
 
@@ -105,7 +106,7 @@ define(function(require) {
         Dialog.confirm(translations[0], (sure) => {
           if (sure) {
             DB.resetDatabase().then(() => {
-              KakuCore.reload();
+              remote.getCurrentWindow().reload();
             });
           }
         });

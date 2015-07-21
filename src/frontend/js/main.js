@@ -32,6 +32,7 @@ fetchRjsConfig().then(function(rjsConfig) {
     'backend/modules/PreferenceManager',
     'backend/modules/PlaylistManager',
     'backend/modules/L10nManager',
+    'backend/modules/KakuCore',
     'backend/modules/Searcher',
     'backend/modules/AutoUpdater',
     'backend/modules/Tracker',
@@ -54,6 +55,7 @@ fetchRjsConfig().then(function(rjsConfig) {
     PreferenceManager,
     PlaylistManager,
     L10nManager,
+    KakuCore,
     Searcher,
     AutoUpdater,
     Tracker,
@@ -82,12 +84,19 @@ fetchRjsConfig().then(function(rjsConfig) {
 
       componentDidMount: function() {
         this._triggerAutoUpdater();
+        this._initializeAppTitle();
         this._initializeDefaultLanguage();
         this._initializeDefaultSearcher();
         this._initializeKonamiCode();
 
         // Say hi :)
         Tracker.pageview('/').send();
+      },
+
+      _initializeAppTitle: function() {
+        L10nManager.get('app_title_normal').then((translatedTitle) => {
+          KakuCore.title = translatedTitle;
+        });
       },
 
       _initializeDefaultLanguage: function() {
