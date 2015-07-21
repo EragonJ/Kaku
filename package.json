@@ -50,6 +50,7 @@
   "dependencies": {
     "electron-cookies": "^1.1.0",
     "github": "^0.2.4",
+    "node-soundcloud": "0.0.3",
     "pouchdb": "^3.6.0",
     "request": "^2.53.0",
     "requirejs": "^2.1.18",

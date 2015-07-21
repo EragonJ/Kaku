@@ -3,6 +3,7 @@ dist
 src/frontend/vendor
 src/frontend/css
 config/*.production.json
+env.json
 build
 node_modules
 index.html
