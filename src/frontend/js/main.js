@@ -102,7 +102,10 @@ fetchRjsConfig().then(function(rjsConfig) {
       _initializeDefaultLanguage: function() {
         var defaultLanguage =
           PreferenceManager.getPreference('default.language');
-        L10nManager.changeLanguage(defaultLanguage);
+        // For new users, there is no `defaultLanguage` in DB yet.
+        if (defaultLanguage) {
+          L10nManager.changeLanguage(defaultLanguage);
+        }
       },
 
       _initializeDefaultSearcher: function() {
