@@ -13,6 +13,7 @@ define(function(require) {
   };
 
   HistoryManager.prototype = Object.create(EventEmitter.prototype);
+  HistoryManager.constructor = HistoryManager;
 
   Object.defineProperty(HistoryManager.prototype, 'tracks', {
     enumerable: true,

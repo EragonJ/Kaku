@@ -68,6 +68,16 @@
     transform: translateX(-50%);
   }
 
+  .toolbar-progressbar {
+    width: 0; // default is zero, and it will be updated repeatedly
+    height: 2px;
+    background-color: #f27c7c;
+    position: absolute;
+    top: 0;
+    transition: width 1s ease-in-out;
+    box-shadow: 1px 1px 3px #cccccc;
+  }
+
   .searchbar-container {
     position: absolute;
     right: 10px;

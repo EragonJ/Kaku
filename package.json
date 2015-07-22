@@ -53,6 +53,7 @@
     "node-soundcloud": "0.0.3",
     "pouchdb": "^3.6.0",
     "request": "^2.53.0",
+    "request-progress": "^0.3.1",
     "requirejs": "^2.1.18",
     "semver": "EragonJ/node-semver",
     "universal-analytics": "EragonJ/universal-analytics",
