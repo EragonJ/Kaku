@@ -34,7 +34,7 @@ define(function(require) {
 
       DownloadManager.on('download-finish', () => {
         this._processDownloadProgress(0);
-      })
+      });
 
       DownloadManager.on('download-error', () => {
         this._processDownloadProgress(0);
