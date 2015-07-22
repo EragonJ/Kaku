@@ -5,12 +5,14 @@ define(function(require) {
   var App = remote.require('app');
 
   var SearchbarContainer = require('components/searchbar/container');
+  var DownloadManager = require('backend/modules/DownloadManager');
   var KakuCore = require('backend/modules/KakuCore');
   var React = require('react');
 
   var ToolbarContainer = React.createClass({
     getInitialState: function() {
       return {
+        downloadPercent: 0,
         title: ''
       };
     },
@@ -24,6 +26,18 @@ define(function(require) {
         this.setState({
           title: title
         });
+      });
+
+      DownloadManager.on('download-progress', (percent) => {
+        this._processDownloadProgress(percent);
+      });
+
+      DownloadManager.on('download-finish', () => {
+        this._processDownloadProgress(0);
+      })
+
+      DownloadManager.on('download-error', () => {
+        this._processDownloadProgress(0);
       });
     },
 
@@ -45,8 +59,19 @@ define(function(require) {
       }
     },
 
+    _processDownloadProgress: function(percent) {
+      this.setState({
+        downloadPercent: percent
+      });
+    },
+
     render: function() {
       var title = this.state.title;
+      var downloadPercent = this.state.downloadPercent;
+
+      var progressStyle = {
+        width: downloadPercent + '%'
+      };
 
       /* jshint ignore:start */
       return (
@@ -74,6 +99,7 @@ define(function(require) {
           <div className="searchbar-slot">
             <SearchbarContainer/>
           </div>
+          <div className="toolbar-progressbar" style={progressStyle}></div>
         </div>
       );
       /* jshint ignore:end */

@@ -5,12 +5,12 @@ define(function(require) {
   var dialog = remote.require('dialog');
 
   var shell = requireNode('shell');
-  var request = requireNode('request');
   var crypto = requireNode('crypto');
-  var fs = requireNode('fs');
-  var Notifier = require('modules/Notifier');
-  var Player = require('modules/Player');
+
   var React = require('react');
+  var Player = require('modules/Player');
+  var Notifier = require('modules/Notifier');
+  var DownloadManager = require('backend/modules/DownloadManager');
 
   var PlayerControlButtons = React.createClass({
     getInitialState: function() {
@@ -98,9 +98,6 @@ define(function(require) {
           return;
         }
 
-        // TODO
-        // we have to make a DownloadManager to control all downloads later
-
         // All needed info will be stored here
         var playingTrack = Player.playingTrack;
         var filename = playingTrack.title + '.' + playingTrack.ext;
@@ -111,21 +108,12 @@ define(function(require) {
         }, (path) => {
           if (path) {
             Notifier.alert('Start to download your track !');
-            // we got the path from fakeFile, so it's time to save
-            // the real streaming file to override it !
-            //
-            // I know this idea is smart :)
-            var downloadRequest = request.get(src).pipe(
-              fs.createWriteStream(path));
-
-            downloadRequest
-              .on('error', () => {
-                Notifier.alert('Sorry, something went wrong, please try again');
-                console.log('error when saving file from stream');
-              })
-              .on('finish', () => {
-                Notifier.alert('Download finished ! Go check your track :)');
-              });
+            var req = DownloadManager.download(src, path);
+            req.on('error', () => {
+              Notifier.alert('Sorry, something went wrong, please try again');
+            }).on('close', () => {
+              Notifier.alert('Download finished ! Go check your track :)');
+            });
           }
         });
       });
