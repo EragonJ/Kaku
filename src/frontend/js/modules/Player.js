@@ -290,8 +290,8 @@ define(function(require) {
     else {
       var trackUrl = track.platformTrackUrl;
       return TrackInfoFetcher.getInfo(trackUrl).then((fetchedInfo) => {
-        var trackRealUrl = fetchedInfo.url;
-        track.platformTrackRealUrl= trackRealUrl;
+        track.platformTrackRealUrl= fetchedInfo.url;
+        track.ext = fetchedInfo.ext;
         return Promise.resolve(track);
       });
     }
