@@ -98,17 +98,18 @@ define(function(require) {
           return;
         }
 
-        var filename =
-          'music-' + crypto.randomBytes(3).toString('hex') + '.mp4';
+        // TODO
+        // we have to make a DownloadManager to control all downloads later
+
+        // All needed info will be stored here
+        var playingTrack = Player.playingTrack;
+        var filename = playingTrack.title + '.' + playingTrack.ext;
 
         dialog.showSaveDialog({
           title: 'Where to download your track ?',
           defaultPath: filename
         }, (path) => {
-          if (!path) {
-            Notifier.alert('Please double check your filepath.');
-          }
-          else {
+          if (path) {
             Notifier.alert('Start to download your track !');
             // we got the path from fakeFile, so it's time to save
             // the real streaming file to override it !

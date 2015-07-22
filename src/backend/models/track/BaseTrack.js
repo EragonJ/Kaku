@@ -19,6 +19,7 @@ define(function(require) {
     this.artist = options.artist || 'Unknown Artist';
     this.description = options.description || 'Unknown Description';
     this.platformId = options.platformId || '';
+    this.ext = options.ext || '';
 
     // NOTE
     // We can't store the real url here because some online streaming platform
@@ -63,6 +64,7 @@ define(function(require) {
     toJSON: function() {
       return {
         id: this.id,
+        ext: this.ext,
         trackType: this.trackType,
         title: this.title,
         artist: this.artist,
