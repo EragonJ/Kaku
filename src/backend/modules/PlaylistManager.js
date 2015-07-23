@@ -45,9 +45,6 @@ define(function(require) {
   });
 
   PlaylistManager.prototype.init = function() {
-    // FIXME
-    // not sure why mocha will treat `this` as undefined if we use
-    // arrow function inside then()
     return DB.get('playlists')
       .catch((error) => {
         if (error.status === 404) {
@@ -118,8 +115,6 @@ define(function(require) {
   };
 
   PlaylistManager.prototype._addPlaylist = function(options) {
-    // FIXME
-    // this is for testing, fix it later
     var self = this;
     var promise = new Promise((resolve, reject) => {
       var name = options.name;
@@ -138,17 +133,38 @@ define(function(require) {
         var playlist = new BasePlaylist(options);
         self._playlists.push(playlist);
 
+        self.emit('added', playlist);
+
         playlist.on('tracksUpdated', () => {
           self._storePlaylistsToDB();
         });
 
         self._storePlaylistsToDB().then(() => {
-          self.emit('added', playlist);
           resolve(playlist);
         });
       }
     });
     return promise;
+  };
+
+  PlaylistManager.prototype._importPlaylist = function(options) {
+    var name = options.name;
+    var sameNamePlaylist = this.findPlaylistByName(name);
+    if (sameNamePlaylist) {
+      // This should not happen because we will cleanup db before importing,
+      // so in order to make the other importing process work as usual,
+      // the better way is to resolve it directly.
+    }
+    else {
+      var playlist = BasePlaylist.fromJSON(options);
+      this._playlists.push(playlist);
+
+      playlist.on('tracksUpdated', () => {
+        this._storePlaylistsToDB();
+      });
+
+      this.emit('added', playlist);
+    }
   };
 
   PlaylistManager.prototype._storePlaylistsToDB = function() {
@@ -167,8 +183,6 @@ define(function(require) {
   };
 
   PlaylistManager.prototype.removePlaylistById = function(id) {
-    // FIXME
-    // this is for testing, fix it later
     var self = this;
     var promise = new Promise((resolve, reject) => {
       var index = self.findPlaylistIndexById(id);
@@ -217,8 +231,6 @@ define(function(require) {
   };
 
   PlaylistManager.prototype.renamePlaylistById = function(id, newName) {
-    // FIXME
-    // this is for testing, fix it later
     var self = this;
 
     var index = this.findPlaylistIndexById(id);
@@ -236,6 +248,31 @@ define(function(require) {
         self.emit('renamed', playlist);
       });
     }
+  };
+
+  PlaylistManager.prototype.export = function() {
+    var result = this.playlists.map((playlist) => {
+      return playlist.toJSON();
+    });
+    return result;
+  };
+
+  PlaylistManager.prototype.cleanup = function() {
+    var promises = this.playlists.map((playlist) => {
+      return this.removePlaylistById(playlist.id);
+    });
+    return Promise.all(promises).then(() => {
+      this.emit('cleanup');
+    });
+  };
+
+  PlaylistManager.prototype.import = function(playlistObjects) {
+    playlistObjects.map((playlistObject) => {
+      return this._importPlaylist(playlistObject);
+    });
+    return this._storePlaylistsToDB().then(() => {
+      this.emit('imported');
+    });
   };
 
   // singleton

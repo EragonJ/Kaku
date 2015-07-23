@@ -16,6 +16,7 @@ define(function(require) {
     EventEmitter.call(this);
     this.id = options.id || crypto.randomBytes(3).toString('hex');
     this.name = options.name || 'playlist';
+    this.type = options.type || 'normal';
     this._tracks = options._tracks || [];
   };
 
@@ -126,6 +127,7 @@ define(function(require) {
     return {
       id: this.id,
       name: this.name,
+      type: this.type,
       _tracks: tracks
     };
   };
