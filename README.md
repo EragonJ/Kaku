@@ -5,7 +5,9 @@ The next generation music client
 
 # Latest Screenshot
 
-![Latest Screenshot](http://i.imgur.com/IZ4y73A.jpg)
+![Latest Screenshot](http://i.imgur.com/4QOhnIq.jpg)
+
+![Latest Screenshot](http://i.imgur.com/w8kSQ4L.png)
 
 # Supported Streaming Platform
 
