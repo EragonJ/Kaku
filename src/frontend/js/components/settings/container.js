@@ -1,16 +1,21 @@
 define(function(require) {
   'use strict';
 
+  var Url = requireNode('url');
   var remote = requireNode('remote');
+  var BrowserWindow = remote.require('browser-window');
 
-  var React = require('react');
   var PreferenceManager = require('backend/modules/PreferenceManager');
+  var PlaylistManager = require('backend/modules/PlaylistManager');
   var L10nManager = require('backend/modules/L10nManager');
   var Searcher = require('backend/modules/Searcher');
+  var Dropbox = require('backend/modules/Dropbox');
   var DB = require('backend/modules/Database');
+  var React = require('react');
 
-  var Dialog = require('modules/Dialog');
   var L10nSpan = require('components/shared/l10n-span');
+  var Notifier = require('modules/Notifier');
+  var Dialog = require('modules/Dialog');
 
   var SettingsContainer = React.createClass({
     getInitialState: function() {
@@ -99,6 +104,132 @@ define(function(require) {
       event.preventDefault();
     },
 
+    _onClickToBackupData: function() {
+      if (this._dropboxAccessToken) {
+        this._doBackupData();
+      }
+      else {
+        this._startOAuth().then(() => {
+          this._doBackupData();
+        });
+      }
+    },
+
+    _startOAuth: function() {
+      var promise = new Promise((resolve, reject) => {
+        Dropbox.auth().then((url) => {
+          var authWindow = new BrowserWindow({
+            width: 800,
+            height: 600,
+            'node-integration': false
+          });
+          authWindow.loadUrl(url);
+          authWindow.show();
+          authWindow.on('close', () => {
+            authWindow = null;
+          }, false);
+          authWindow.webContents.on('did-get-redirect-request',
+            (event, oldUrl, newUrl) => {
+              var parsedUrl = Url.parse(newUrl);
+              var hash = parsedUrl.hash;
+              var matches = hash.match(/#access_token=([^&]*)/);
+              var accessToken;
+
+              // close the window
+              authWindow.close();
+
+              if (matches && matches.length > 0) {
+                this._dropboxAccessToken = matches[1];
+                resolve();
+              }
+          });
+        });
+      });
+      return promise;
+    },
+
+    _doBackupData: function() {
+      if (this._dropboxAccessToken) {
+        var rootPath = 'playlists';
+        var dropboxAPI = Dropbox.api(this._dropboxAccessToken);
+
+        // TODO - add error handling ?
+        //
+        // create dir
+        dropboxAPI.createDir(rootPath, (error, res, body) => {
+          var playlists = PlaylistManager.export();
+
+          // create file
+          playlists.forEach((playlist) => {
+            var content = JSON.stringify(playlist);
+            var path = rootPath + '/' + playlist.id + '.txt';
+            dropboxAPI.createFile(path, content,
+              (error, res, body) => {
+                // TODO
+            });
+          });
+        });
+      }
+    },
+
+    _onClickToSyncDataBack: function() {
+      Promise.all([
+        L10nManager.get('settings_option_sync_data_confirm')
+      ]).then((translations) => {
+        Dialog.confirm(translations[0], (sure) => {
+          if (sure) {
+            if (this._dropboxAccessToken) {
+              this._doSyncDataBack();
+            }
+            else {
+              // make UX better
+              setTimeout(() => {
+                this._startOAuth().then(() => {
+                  this._doSyncDataBack();
+                });
+              }, 1000);
+            }
+          }
+        });
+      });
+    },
+
+    _doSyncDataBack: function() {
+      if (this._dropboxAccessToken) {
+        var rootPath = '/playlists';
+        var dropboxAPI = Dropbox.api(this._dropboxAccessToken);
+
+        // get files from metadata
+        dropboxAPI.getMetadata(rootPath, (error, res, metaBody) => {
+          var files = metaBody.contents;
+          // iterate each playlist
+          var promises = files.map((file) => {
+            var promise = new Promise((resolve, reject) => {
+              dropboxAPI.getFile(file.path, (error, res, fileBody) => {
+                if (!error) {
+                  resolve(fileBody);
+                }
+                else {
+                  reject();
+                }
+              });
+            });
+            return promise;
+          });
+
+          Promise.all(promises).then((playlists) => {
+            PlaylistManager.cleanup().then(() => {
+              PlaylistManager.import(playlists);
+            });
+          }).catch(() => {
+            // TODO
+            // add l10n support
+            Notifier.alert('Something went wrong, please try again');
+          });
+        });
+      }
+    },
+
     _onClickToResetDatabse: function() {
       Promise.all([
         L10nManager.get('settings_option_reset_database_confirm')
@@ -165,6 +296,25 @@ define(function(require) {
                     className="form-control"
                     onChange={this._onSearcherChange}
                     ref="supportedSearcherSelect"></select>
+                </div>
+              </div>
+              <div className="form-group">
+                <div className="col-sm-offset-3 col-sm-3">
+                  <button
+                    className="btn btn-primary"
+                    onClick={this._onClickToBackupData}>
+                      <L10nSpan l10nId="settings_option_backup_to_dropbox"/>
+                  </button>
+                </div>
+              </div>
+              <div className="form-group">
+                <div className="col-sm-offset-3 col-sm-3">
+                  <button
+                    className="btn btn-primary"
+                    onClick={this._onClickToSyncDataBack}>
+                      <L10nSpan
+                        l10nId="settings_option_sync_data_from_dropbox"/>
+                  </button>
                 </div>
               </div>
               <div className="form-group">

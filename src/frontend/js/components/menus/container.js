@@ -35,6 +35,14 @@ define(function(require) {
         this._updatePlaylistsStates();
       });
 
+      PlaylistManager.on('imported', () => {
+        this._updatePlaylistsStates();
+      });
+
+      PlaylistManager.on('cleanup', () => {
+        this._updatePlaylistsStates();
+      });
+
       this._bindTabChangeEvent();
     },
 
