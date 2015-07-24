@@ -44,7 +44,7 @@ Because we use bower & npm to maintain our third party libraries, you have to ma
 
 1. `bower install`
 2. `npm install`
-3. `npm install electron-prebuilt@0.28.3 -g` - Install **electron** command
+3. `npm install electron-prebuilt@0.30.0 -g` - Install **electron** command
 
 ## Prerequistiques
 

@@ -215,7 +215,7 @@ gulp.task('package', function(done) {
   // TODO
   // We have to fix more stuffs later after atomshell is updated
   return gulp.src(includedFiles).pipe(electron({
-    version: '0.28.3',
+    version: '0.30.0',
     platform: platform,
     arch: arch,
     darwinIcon: path.join(iconFolderPath, 'kaku.icns'),
