@@ -218,8 +218,12 @@ gulp.task('package', function(done) {
     version: '0.30.0',
     platform: platform,
     arch: arch,
+    // for Mac
     darwinIcon: path.join(iconFolderPath, 'kaku.icns'),
-    winIcon: path.join(iconFolderPath, 'kaku.ico')
+    // for windows
+    winIcon: path.join(iconFolderPath, 'kaku.ico'),
+    companyName: 'Kaku',
+    copyright: 'MIT'
   })).pipe(electron.zfsdest('build/app.zip'));
 });
 
