@@ -4,27 +4,26 @@ suite('PlaylistManager', () => {
   var playlistManager;
   var mockDB;
   var mockTracker;
+  var mockBasePlaylist;
   var sandbox;
 
   setup((done) => {
     testRequire([
       'backend/modules/PlaylistManager',
       'mocks/Database',
-      'mocks/Tracker'
+      'mocks/Tracker',
+      'mocks/BasePlaylist'
     ], {
       '*': {
         'backend/modules/Database': 'mocks/Database',
-        'backend/modules/Tracker': 'mocks/Tracker'
+        'backend/modules/Tracker': 'mocks/Tracker',
+        'backend/modules/BasePlaylist': 'mocks/BasePlaylist'
       }
-    }, (PlaylistManager, MockDB, MockTracker) => {
+    }, (PlaylistManager, MockDB, MockTracker, MockBasePlaylist) => {
       playlistManager = PlaylistManager;
-      playlistManager._activePlaylist = null;
-      playlistManager._isDisplaying = false;
-      // insert two fakeData
-      playlistManager._playlists = [
-        { id: 'id1', name: 'playlist1' },
-        { id: 'id2', nam1: 'playlist2' }
-      ];
+      mockDB = MockDB;
+      mockTracker = MockTracker;
+      mockBasePlaylist = MockBasePlaylist;
 
       // Let's stub all db related operations
       sandbox = sinon.sandbox.create();
@@ -33,9 +32,16 @@ suite('PlaylistManager', () => {
         return Promise.resolve();
       });
 
-      mockDB = MockDB;
-      mockTracker = MockTracker;
-      done();
+      playlistManager.ready().then(() => {
+        playlistManager._activePlaylist = null;
+        playlistManager._isDisplaying = false;
+        // insert two fakeData
+        playlistManager._playlists = [
+          { id: 'id1', name: 'playlist1' },
+          { id: 'id2', nam1: 'playlist2' }
+        ];
+        done();
+      });
     });
   });
 

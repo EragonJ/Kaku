@@ -6,7 +6,11 @@ suite('BaseTrack', () => {
   setup((done) => {
     testRequire([
       'backend/models/track/BaseTrack'
-    ], {}, (BaseTrackConstructor) => {
+    ], {
+      '*': {
+        'backend/modules/KakuCore': 'mocks/KakuCore'
+      }
+    }, (BaseTrackConstructor) => {
       BaseTrack = BaseTrackConstructor;
       done();
     });
