@@ -41,14 +41,15 @@ define(function(require) {
   };
 
   L10nManager.prototype._ready = function(language) {
+    var self = this;
     // it means that we already have related l10n strings
     if (this._cachedStrings[language]) {
       return Promise.resolve();
     }
     else {
       return this._fetchLanguageFile(language).then((result) => {
-        this._cachedStrings[language] = result;
-        this.emit('language-initialized');
+        self._cachedStrings[language] = result;
+        self.emit('language-initialized');
       });
     }
   };
@@ -71,6 +72,7 @@ define(function(require) {
   };
 
   L10nManager.prototype.changeLanguage = function(newLanguage) {
+    var self = this;
     if (this._currentLanguage === newLanguage) {
       return;
     }
@@ -79,7 +81,7 @@ define(function(require) {
       this._currentLanguage = newLanguage;
 
       return this._ready(newLanguage).then(() => {
-        this.emit('language-changed', newLanguage, oldLanguage);
+        self.emit('language-changed', newLanguage, oldLanguage);
       });
     }
   };
@@ -105,6 +107,7 @@ define(function(require) {
   };
 
   L10nManager.prototype.get = function(id, params, fallbackToEn) {
+    var self = this;
     var currentLanguage = this._currentLanguage;
 
     if (fallbackToEn) {
@@ -112,18 +115,18 @@ define(function(require) {
     }
 
     return this._ready(currentLanguage).then(() => {
-      var rawString = this._cachedStrings[currentLanguage][id];
-      var replacedString = this._getReplacedString(rawString, params);
+      var rawString = self._cachedStrings[currentLanguage][id];
+      var replacedString = self._getReplacedString(rawString, params);
 
       if (!replacedString) {
-        console.log('You are accessing a non-exist l10nId : ', id,
+        console.error('You are accessing a non-exist l10nId : ', id,
           ' in lang: ', currentLanguage);
         // If we still find nothing in `en`, we should exit directly.
         if (fallbackToEn) {
           return '';
         }
         else {
-          return this.get(id, params, true);
+          return self.get(id, params, true);
         }
       }
       else {
