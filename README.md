@@ -40,11 +40,10 @@ We have a gitter chatting room and please feel free to join us and talk there :)
 
 # Setup environment
 
-Because we use bower & npm to maintain our third party libraries, you have to make sure before doing anything, these needed stuffs are all installed already.
+Because we use npm to maintain our third party libraries, you have to make sure before doing anything, these needed stuffs are all installed already.
 
-1. `bower install`
-2. `npm install`
-3. `npm install electron-prebuilt@0.30.0 -g` - Install **electron** command
+1. `npm install`
+2. `npm install electron-prebuilt@0.30.0 -g` - Install **electron** command
 
 ## Prerequistiques
 
@@ -116,7 +115,6 @@ Moved all todos and issues to https://github.com/EragonJ/Kaku/issues, so if your
 
 + [Gulp](http://gulpjs.com/) - To build up our environment
 + [Electron](http://electron.atom.io) - Let us use web technology to build native app
-+ [Bower](http://bower.io/) - To help us manage frontend resources
 + [Require.js](http://requirejs.org/) - To help me make codes more structure
 + [Bootstrap](http://getbootstrap.com/) - To boostrap the whole project including grid system ... etc
 + [FontAwesome](http://fortawesome.github.io/Font-Awesome/) - To make Kaku look nice
@@ -133,6 +131,7 @@ Moved all todos and issues to https://github.com/EragonJ/Kaku/issues, so if your
 + ... still increasing :)
 
 ## Deprecated
++ [Bower](http://bower.io/) - To help us manage frontend resources
 + [Compass / SASS](http://compass-style.org/) - To help us write CSS easily
 + [NW.js](http://nwjs.io/) - (Moved to Electron)
 + ... thanks for these old friends :)
