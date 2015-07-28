@@ -1,6 +1,7 @@
 {
   "name": "main",
   "out": "main.js",
+  "baseUrl": "./dist/frontend",
   "shim": {
     "videojs": "videojs",
     "bootstrap": {
