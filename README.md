@@ -22,6 +22,7 @@ The next generation music client
 + English
 + French
 + Spanish
++ 日本語
 + ... keep adding :)
 
 # Build Status
