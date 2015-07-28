@@ -123,10 +123,6 @@ gulp.task('override', function() {
     .pipe(plumber())
     .pipe(gulpif(isProduction(), htmlreplace({
       css: [
-        'dist/frontend/vendor/bootstrap/dist/css/bootstrap.min.css',
-        'dist/frontend/vendor/components-font-awesome/css/font-awesome.min.css',
-        'dist/frontend/vendor/video.js/dist/video-js/video-js.min.css',
-        'dist/frontend/vendor/animate.css/animate.min.css',
         'dist/frontend/css/index.css'
       ],
       backend_js: [
@@ -134,7 +130,7 @@ gulp.task('override', function() {
       ],
       frontend_js: {
         src: 'dist/main',
-        tpl: '<script data-main="%s" src="dist/frontend/vendor/requirejs/require.js"></script>'
+        tpl: '<script data-main="%s" src="node_modules/requirejs/require.js"></script>'
       }
     })))
     .pipe(rename(INDEX_FILE))
