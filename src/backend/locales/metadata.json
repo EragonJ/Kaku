@@ -3,6 +3,7 @@
     { "label": "English", "lang": "en" },
     { "label": "Spanish", "lang": "es" },
     { "label": "Français", "lang": "fr" },
-    { "label": "繁體中文", "lang": "zh-TW" }
+    { "label": "繁體中文", "lang": "zh-TW" },
+    { "label": "日本語", "lang": "ja" }
   ]
 }
