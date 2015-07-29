@@ -201,6 +201,15 @@ define(function(require) {
             </li>
             <li role="presentation">
               <a
+                href="#tab-news"
+                role="tab"
+                ref="tab-news">
+                  <i className="icon fa fa-fw fa-lg fa-rss"></i>
+                  <span className="title"><L10nSpan l10nId="sidebar_news"/></span>
+              </a>
+            </li>
+            <li role="presentation">
+              <a
                 href="#tab-search"
                 role="tab"
                 ref="tab-search">
