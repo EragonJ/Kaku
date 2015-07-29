@@ -153,20 +153,35 @@ define(function(require) {
         var rootPath = 'playlists';
         var dropboxAPI = Dropbox.api(this._dropboxAccessToken);
 
-        // TODO - add error handling ?
-        //
         // create dir
         dropboxAPI.createDir(rootPath, (error, res, body) => {
           var playlists = PlaylistManager.export();
+          var promises = [];
 
           // create file
           playlists.forEach((playlist) => {
             var content = JSON.stringify(playlist);
             var path = rootPath + '/' + playlist.id + '.txt';
-            dropboxAPI.createFile(path, content,
-              (error, res, body) => {
-                // TODO
+            var promise = new Promise((resolve, reject) => {
+              dropboxAPI.createFile(path, content, (error, res, body) => {
+                if (error) {
+                  reject(error);
+                }
+                else {
+                  resolve();
+                }
+              });
             });
+            promises.push(promise);
+          });
+
+          Promise.all(promises)
+          .then(() => {
+            Notifier.alert('backup data successfully :)');
+          })
+          .catch((error) => {
+            Notifier.alert('Something went wrong, please try again');
+            console.log(error);
           });
         });
       }
@@ -217,14 +232,18 @@ define(function(require) {
             return promise;
           });
 
-          Promise.all(promises).then((playlists) => {
-            PlaylistManager.cleanup().then(() => {
-              PlaylistManager.import(playlists);
+          Promise.all(promises)
+          .then((playlists) => {
+            return PlaylistManager.cleanup().then(() => {
+              return PlaylistManager.import(playlists);
             });
-          }).catch(() => {
-            // TODO
-            // add l10n support
+          })
+          .then(() => {
+            Notifier.alert('Sync data successfully :)');
+          })
+          .catch((error) => {
             Notifier.alert('Something went wrong, please try again');
+            console.log(error);
           });
         });
       }
