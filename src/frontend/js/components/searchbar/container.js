@@ -8,6 +8,7 @@ define(function(require) {
   var React = require('react');
 
   const SEARCH_TIMEOUT = 400;
+  const BLUR_TIMEOUT = 100;
 
   var SearchbarContainer = React.createClass({
     getInitialState: function() {
@@ -72,12 +73,9 @@ define(function(require) {
     },
 
     _onBlur: function() {
-      // TODO - need a better fix here
-      // We need a small timeout here to make sure when users click on the item,
-      // we will search tracks before cleaning up internal states
       window.setTimeout(() => {
         this._closeAutoCompleteList();
-      }, 100);
+      }, BLUR_TIMEOUT);
     },
 
     _showLoader: function(show) {
@@ -96,6 +94,10 @@ define(function(require) {
     _doSelctAutoCompleteItem: function() {
       var keyword;
 
+      // TODO - we have to add a spinner in TabManager for this waiting
+      // show UI first
+      TabManager.setTab('search');
+
       // If users don't want to select options from AutoComplete list,
       // we will directly use the keyword from input and revoke the
       // search request
@@ -106,13 +108,12 @@ define(function(require) {
       else if (this.state.selectedIndex >= 0) {
         var track = this.state.searchTracks[this.state.selectedIndex];
         keyword = track.title;
+        this.setState({
+          keyword: keyword
+        });
       }
 
-      // show UI first
-      TabManager.setTab('search');
-      this._closeAutoCompleteList({
-        keyword: keyword
-      });
+      this._closeAutoCompleteList();
 
       // then search
       Searcher.search(keyword, 30, true).catch((error) => {
@@ -132,12 +133,16 @@ define(function(require) {
       });
     },
 
-    _closeAutoCompleteList: function(options = {}) {
-      var keyword = options.keyword || '';
+    _closeAutoCompleteList: function() {
       this.setState({
-        keyword: keyword,
         searchTracks: [],
         selectedIndex: -1
+      });
+    },
+
+    _cleanSearchbar: function() {
+      this.setState({
+        keyword: ''
       });
     },
 
@@ -150,14 +155,14 @@ define(function(require) {
       var index = this.state.selectedIndex;
       if (direction === 'up') {
         index --;
-        if (index < 0) {
+        if (index < -1) {
           index = searchTracks.length - 1;
         }
       }
       else {
         index ++;
         if (index > searchTracks.length - 1) {
-          index = 0;
+          index = -1;
         }
       }
 
