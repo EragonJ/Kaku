@@ -21,6 +21,7 @@ fetchRjsConfig().then(function(rjsConfig) {
     'react',
     'components/toolbar/container',
     'components/topranking/container',
+    'components/news/container',
     'components/alltracks/container',
     'components/player/container',
     'components/menus/container',
@@ -44,6 +45,7 @@ fetchRjsConfig().then(function(rjsConfig) {
     React,
     ToolbarContainer,
     TopRankingContainer,
+    NewsContainer,
     AllTracksContainer,
     PlayerContainer,
     MenusContainer,
@@ -204,6 +206,12 @@ fetchRjsConfig().then(function(rjsConfig) {
                     className="tab-pane active"
                     id="tab-home">
                       <TopRankingContainer/>
+                  </div>
+                  <div
+                    role="tabpanel"
+                    className="tab-pane"
+                    id="tab-news">
+                      <NewsContainer/>
                   </div>
                   <div
                     role="tabpanel"
