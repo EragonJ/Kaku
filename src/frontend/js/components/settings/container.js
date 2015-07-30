@@ -280,7 +280,7 @@ define(function(require) {
               var playlistPath = path.join(folderPath, playlistName);
               fs.readFile(playlistPath, (error, content) => {
                 if (error) {
-                  reject(error)
+                  reject(error);
                 }
                 else {
                   resolve(JSON.parse(content));
