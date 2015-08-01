@@ -10,9 +10,13 @@
     <link rel="stylesheet" href="src/frontend/css/index.css">
     <!-- endbuild -->
 
-    <!-- build:backend_js -->
-    <script src="src/backend/main.js"></script>
+    <!-- build:livereload -->
+    <script src="http://localhost:35729/livereload.js"></script>
     <!-- endbuild -->
+
+    <script type="text/javascript">
+      window.requireNode = window.require;
+    </script>
 
     <!-- build:frontend_js -->
     <script data-main="dist/frontend/main" src="node_modules/requirejs/require.js"></script>
