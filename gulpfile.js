@@ -15,6 +15,7 @@ var electron = require('gulp-atom-electron');
 var htmlreplace = require('gulp-html-replace');
 var sequence = require('gulp-sequence');
 var newer = require('gulp-newer');
+var livereload = require('gulp-livereload');
 
 var path = require('path');
 var packageJSON = require(path.join(__dirname, 'package.json'));
@@ -131,19 +132,25 @@ gulp.task('override', function() {
       frontend_js: {
         src: 'dist/main',
         tpl: '<script data-main="%s" src="node_modules/requirejs/require.js"></script>'
-      }
+      },
+      remove: []
     })))
     .pipe(rename(INDEX_FILE))
     .pipe(gulp.dest('./'));
 });
 
+gulp.task('reload', function() {
+  livereload.reload();
+});
+
 gulp.task('watch', function() {
-  gulp.watch(LESS_FILES, ['less']);
+  livereload.listen();
+  gulp.watch(LESS_FILES, ['less', 'reload']);
   gulp.watch([
     FRONTEND_JS_FILES,
     BACKEND_JS_FILES,
     INDEX_TEMPLATE_FILE
-  ], ['default']);
+  ], ['default', 'reload']);
 });
 
 gulp.task('env', function(cb) {
