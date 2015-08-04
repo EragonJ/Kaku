@@ -459,12 +459,14 @@ define(function(require) {
                             <L10nSpan l10nId="settings_option_backup_to_local"/>
                           </a>
                         </li>
+                        {/*
                         <li>
                           <a href="#" onClick={this._onClickToBackupDropboxData}>
                             <i className="fa fa-fw fa-dropbox"></i>
                             <L10nSpan l10nId="settings_option_backup_to_dropbox"/>
                           </a>
                         </li>
+                        */}
                         <li className="divider" role="separator"></li>
                         <li>
                           <a href="#" onClick={this._onClickToSyncLocalData}>
@@ -472,12 +474,14 @@ define(function(require) {
                             <L10nSpan l10nId="settings_option_sync_data_from_local"/>
                           </a>
                         </li>
+                        {/*
                         <li>
                           <a href="#" onClick={this._onClickToSyncDropboxData}>
                             <i className="fa fa-fw fa-dropbox"></i>
                             <L10nSpan l10nId="settings_option_sync_data_from_dropbox"/>
                           </a>
                         </li>
+                        */}
                       </ul>
                     </div>
                   </div>
