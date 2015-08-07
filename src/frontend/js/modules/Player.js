@@ -2,6 +2,8 @@ define(function(require) {
   'use strict';
 
   var remote = requireNode('remote');
+  var dialog = remote.require('dialog');
+
   var globalShortcut = remote.require('global-shortcut');
   var EventEmitter = requireNode('events').EventEmitter;
 
@@ -9,6 +11,7 @@ define(function(require) {
   var videojs = require('videojs');
 
   var TrackInfoFetcher = require('backend/modules/TrackInfoFetcher');
+  var DownloadManager = require('backend/modules/DownloadManager');
   var HistoryManager = require('backend/modules/HistoryManager');
   var L10nManager = require('backend/modules/L10nManager');
   var KakuCore = require('backend/modules/KakuCore');
@@ -89,6 +92,10 @@ define(function(require) {
 
     globalShortcut.register('CmdOrCtrl+Down', () => {
       this.setVolume('down');
+    });
+
+    globalShortcut.register('CmdOrCtrl+D', () => {
+      this.downloadCurrentTrack();
     });
 
     // Note
@@ -410,6 +417,34 @@ define(function(require) {
           }
         });
       }
+    });
+  };
+
+  Player.prototype.downloadCurrentTrack = function() {
+    this.ready().then((player) => {
+      var src = player.src();
+      if (!src) {
+        return;
+      }
+
+      // All needed info will be stored here
+      var playingTrack = this.playingTrack;
+      var filename = playingTrack.title + '.' + playingTrack.ext;
+
+      dialog.showSaveDialog({
+        title: 'Where to download your track ?',
+        defaultPath: filename
+      }, (path) => {
+        if (path) {
+          Notifier.alert('Start to download your track !');
+          var req = DownloadManager.download(src, path);
+          req.on('error', () => {
+            Notifier.alert('Sorry, something went wrong, please try again');
+          }).on('close', () => {
+            Notifier.alert('Download finished ! Go check your track :)');
+          });
+        }
+      });
     });
   };
 

@@ -1,16 +1,12 @@
 define(function(require) {
   'use strict';
 
-  var remote = requireNode('remote');
-  var dialog = remote.require('dialog');
-
   var shell = requireNode('shell');
   var crypto = requireNode('crypto');
 
   var React = require('react');
   var Player = require('modules/Player');
   var Notifier = require('modules/Notifier');
-  var DownloadManager = require('backend/modules/DownloadManager');
 
   var PlayerControlButtons = React.createClass({
     getInitialState: function() {
@@ -91,34 +87,6 @@ define(function(require) {
       });
     },
 
-    _onDownloadButtonClick: function() {
-      Player.ready().then(function(player) {
-        var src = player.src();
-        if (!src) {
-          return;
-        }
-
-        // All needed info will be stored here
-        var playingTrack = Player.playingTrack;
-        var filename = playingTrack.title + '.' + playingTrack.ext;
-
-        dialog.showSaveDialog({
-          title: 'Where to download your track ?',
-          defaultPath: filename
-        }, (path) => {
-          if (path) {
-            Notifier.alert('Start to download your track !');
-            var req = DownloadManager.download(src, path);
-            req.on('error', () => {
-              Notifier.alert('Sorry, something went wrong, please try again');
-            }).on('close', () => {
-              Notifier.alert('Download finished ! Go check your track :)');
-            });
-          }
-        });
-      });
-    },
-
     _onExternalButtonClick: function() {
       var track = Player.playingTrack;
       if (track) {
@@ -188,12 +156,6 @@ define(function(require) {
             title={playerRepeatHint}>
               <i className="fa fa-fw fa-repeat"></i>
               <span className="mode">{playerRepeatWording}</span>
-          </button>
-          <button
-            className="download-button"
-            onClick={this._onDownloadButtonClick}
-            title="Download this track">
-              <i className="fa fa-fw fa-cloud-download"></i>
           </button>
           <button
             className="external-button"
