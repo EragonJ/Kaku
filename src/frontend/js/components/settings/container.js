@@ -113,6 +113,8 @@ define(function(require) {
         title: 'Where to backup your track ?',
         properties: ['openDirectory']
       }, (folderPath) => {
+        Notifier.alert('Start to backup data !');
+
         var playlists = PlaylistManager.export();
         LocalBackuper.backup(playlists, {
           basePath: folderPath[0],
@@ -128,6 +130,8 @@ define(function(require) {
 
     _onClickToBackupDropboxData: function() {
       var playlists = PlaylistManager.export();
+      Notifier.alert('Start to backup data !');
+
       DropboxBackuper.backup(playlists, {
         folderName: 'playlists'
       }).then(() => {
@@ -150,6 +154,8 @@ define(function(require) {
               properties: ['openDirectory']
             }, (folderPath) => {
               if (folderPath) {
+                Notifier.alert('Start to sync data !');
+
                 LocalBackuper.syncDataBack({
                   folderPath: folderPath[0]
                 }).then((playlists) => {
@@ -175,6 +181,8 @@ define(function(require) {
       ]).then((translations) => {
         Dialog.confirm(translations[0], (sure) => {
           if (sure) {
+            Notifier.alert('Start to sync data !');
+
             // make UX better
             setTimeout(() => {
               // start to sync data from Dropbox

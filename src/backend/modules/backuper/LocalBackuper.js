@@ -17,10 +17,9 @@ define(function(require) {
     var folderName = options.folderName;
     var folderPath = path.join(basePath, folderName); 
 
-    return Promise.all([
-      this._createFolder(folderPath),
-      this._writeFiles(folderPath, datas)
-    ]);
+    return this._createFolder(folderPath).then(() => {
+      return this._writeFiles(folderPath, datas);
+    });
   };
 
   LocalBackuper.prototype.syncDataBack = function(options) {
@@ -36,11 +35,21 @@ define(function(require) {
     var promise = new Promise((resolve, reject) => {
       // check folder first
       fs.lstat(folderPath, (error, stats) => {
-        // if no, then create
+        // if no such folder, then create
         if (error) {
-          fs.mkdirSync(folderPath);
+          fs.mkdir(folderPath, (error) => {
+            // Maybe I/O is blocked, we can't do following works anymore.
+            if (error) {
+              reject(error);
+            }
+            else {
+              resolve();
+            }
+          });
         }
-        resolve();
+        else {
+          resolve();
+        }
       });
     });
     return promise;

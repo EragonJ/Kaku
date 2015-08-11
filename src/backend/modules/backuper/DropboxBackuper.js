@@ -1,6 +1,6 @@
 define(function(require) {
   'use strict';
-  
+
   var Url = requireNode('url');
   var path = requireNode('path');
 
@@ -22,20 +22,21 @@ define(function(require) {
 
     var folderName = options.folderName;
 
-    // TODO
-    // we may need to handle expriation problems
-    if (this._dropboxAccessToken) {
+    return this._isAccessTokenValid().then(() => {
       return this._createFolder(folderName).then(() => {
-        this._writeFiles(datas, folderName);
-      });
-    }
-    else {
-      return this._startOAuthToDropbox().then(() => {
-        return this._createFolder(folderName).then(() => {
-          return this._writeFiles(datas, folderName);
+        return this._writeFiles(datas, folderName).then((updatedFiles) => {
+          return this._removeOrphantFiles(updatedFiles, folderName);
         });
       });
-    }
+    }).catch(() => {
+      return this._startOAuthToDropbox().then(() => {
+        return this._createFolder(folderName).then(() => {
+          return this._writeFiles(datas, folderName).then((updatedFiles) => {
+            return this._removeOrphantFiles(updatedFiles, folderName);
+          });
+        });
+      });
+    });
   };
 
   DropboxBackuper.prototype.syncDataBack = function(options) {
@@ -45,15 +46,36 @@ define(function(require) {
 
     var folderPath = options.folderPath;
 
-    // TODO
-    // we may need to handle expriation problems
-    if (this._dropboxAccessToken) {
+    return this._isAccessTokenValid().then(() => {
       return this._readFiles(folderPath);
-    }
-    else {
+    }).catch(() => {
       return this._startOAuthToDropbox().then(() => {
         return this._readFiles(folderPath);
       });
+    });
+  };
+
+  DropboxBackuper.prototype._isAccessTokenValid = function() {
+    if (this._dropboxAccessToken === '' || this._dropbox === null) {
+      return Promise.reject();
+    }
+    else {
+      var promise = new Promise((resolve, reject) => {
+        this._dropbox.account((error, res, body) => {
+          // TODO
+          // error is always null because it uses Request ...
+          if (body.error) {
+            console.log(body.error);
+            reject();
+          }
+          else {
+            // If we can successfully get users' data, it means our token
+            // is still valid
+            resolve();
+          }
+        });
+      });
+      return promise;
     }
   };
 
@@ -63,6 +85,7 @@ define(function(require) {
         var authWindow = new BrowserWindow({
           width: 800,
           height: 600,
+          title: 'Kaku',
           'node-integration': false
         });
         authWindow.loadUrl(url);
@@ -115,19 +138,22 @@ define(function(require) {
         var fileName = data.id + '.txt';
         var filePath = path.join(folderName, fileName);
         var promise = new Promise((resolve, reject) => {
-          this._dropbox.createFile(filePath, content, (error) => {
+          this._dropbox.createFile(filePath, content, (error, res, body) => {
             // no matter success or not, we would still keep going.
             if (error) {
               console.log(error);
             }
-            resolve();
+
+            // TODO
+            // this is a bug in node_dropbox, need to give it a fix
+            resolve(JSON.parse(body));
           });
         });
         promises.push(promise);
       });
 
-      Promise.all(promises).then(() => {
-        resolve();
+      Promise.all(promises).then((updatedFiles) => {
+        resolve(updatedFiles);
       }).catch(() => {
         reject();
       });
@@ -138,15 +164,15 @@ define(function(require) {
 
   DropboxBackuper.prototype._readFiles = function(folderPath) {
     var promise = new Promise((resolve, reject) => {
-      this._dropbox.getMetadata(folderPath, (error, res, metaBody) => {
+      this._dropbox.getMetadata(folderPath, (error, res, body) => {
         // TODO
-        // we need to know what's the error here and show needed 
+        // we need to know what's the error here and show needed
         // hints to users.
         if (error) {
           reject(error);
         }
         else {
-          var files = metaBody.contents;
+          var files = body.contents;
           var promises = files.map((file) => {
             var promise = new Promise((resolve, reject) => {
               this._dropbox.getFile(file.path, (error, res, fileBody) => {
@@ -172,6 +198,46 @@ define(function(require) {
       });
     });
     return promise;
+  };
+
+  DropboxBackuper.prototype._removeOrphantFiles =
+    function(updatedFiles, folderName) {
+      var promise = new Promise((resolve, reject) => {
+        var folderPath = '/' + folderName;
+        this._dropbox.getMetadata(folderPath, (error, res, body) => {
+          var files = body.contents;
+          var orphantFiles = files.filter((eachFile) => {
+            // if the file is not inside the array of updatedFiles, then
+            // it means the file is the orphant.
+            return updatedFiles.every((eachUpdatedFile) => {
+              return eachFile.path !== eachUpdatedFile.path;
+            });
+          });
+
+          var promises = orphantFiles.map((file) => {
+            var promise = new Promise((resolve, reject) => {
+              this._dropbox.removeFile(file.path, (error, res, fileBody) => {
+                if (!error) {
+                  resolve(fileBody);
+                }
+                else {
+                  // TODO
+                  // know what's going on here
+                  reject(error);
+                }
+              });
+            });
+            return promise;
+          });
+
+          Promise.all(promises).then(() => {
+            resolve();
+          }).catch((error) => {
+            reject(error);
+          });
+        });
+      });
+      return promise;
   };
 
   return new DropboxBackuper();
