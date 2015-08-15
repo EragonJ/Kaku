@@ -5,7 +5,7 @@ define(function(require) {
   var youtubeDownloader = requireNode('youtube-dl');
 
   var TrackInfoFetcher = BaseModule(function() {
-    this._options = ['--no-check-certificate'];
+    this._options = ['--no-check-certificate', '--no-cache-dir'];
   });
 
   TrackInfoFetcher.prototype.getInfo = function(url) {
