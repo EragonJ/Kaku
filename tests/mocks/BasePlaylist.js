@@ -1,9 +1,5 @@
-define(function(require) {
-  'use strict';
-
-  return {
-    fromJSON: function() {
-      return {};
-    }
-  };
-});
+module.exports = {
+  fromJSON: function() {
+    return {};
+  }
+};

@@ -1,0 +1,32 @@
+.tab-content {
+  padding: 10px;
+  height: 100%;
+  overflow: auto;
+}
+.tab-content .header {
+  position: relative;
+  border-bottom: 1px solid #cccccc;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+.tab-content h1 {
+  float: left;
+  margin: 0;
+  width: 75%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.tab-content h1 i {
+  margin-right: 10px;
+}
+.tab-content .control-buttons {
+  float: right;
+  transform: translateY(25%);
+}
+.tab-content .control-buttons button {
+  margin-right: 5px;
+}
+.tab-content .control-buttons button:last-child {
+  margin-right: 0;
+}

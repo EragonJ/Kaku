@@ -1,0 +1,364 @@
+@font-face {
+  font-family: 'Arimo';
+  src: url(../fonts/Arimo/Arimo-Regular.ttf) format('woff2');
+}
+* {
+  -webkit-user-select: none;
+}
+body,
+html,
+.root,
+.content-page {
+  font-family: 'Arimo', sans-serif;
+  height: 100%;
+}
+button:hover {
+  cursor: pointer;
+}
+button[disabled]:hover {
+  cursor: default;
+}
+.global-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+.global-overlay h1 {
+  position: absolute;
+  font-size: 20px;
+  right: 10px;
+  bottom: 0;
+  color: white;
+}
+a {
+  color: initial;
+}
+a:hover,
+a:focus {
+  color: initial;
+  text-decoration: initial;
+}
+.row-no-padding {
+  margin-left: 0;
+  margin-right: 0;
+}
+.row-no-padding > [class*="col-"] {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+.top-row {
+  height: 40px;
+}
+.bottom-row {
+  height: calc(100% - 40px);
+}
+.bottom-row:before,
+.bottom-row:after {
+  content: " ";
+  display: table;
+}
+.bottom-row:after {
+  clear: both;
+}
+.bottom-row .left,
+.bottom-row .right {
+  height: 100%;
+  float: left;
+}
+.bottom-row .left {
+  width: 260px;
+}
+.bottom-row .right {
+  width: calc(100% - 260px);
+}
+.track {
+  display: inline-block;
+  position: relative;
+  padding: 5px;
+  margin: 5px;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+}
+.track.active {
+  background-color: lightskyblue;
+}
+.track:hover .info {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.track img {
+  width: 170px;
+  height: 170px;
+  border-radius: 5px;
+  object-fit: contain;
+}
+.track .info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+  padding: 0 8px 5px;
+  border-radius: 0 0 10px 10px;
+}
+.track .track-name {
+  font-size: 16px;
+}
+.track .track-artist {
+  font-size: 14px;
+}
+.track .track-name,
+.track .track-artist {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.toolbar-container {
+  -webkit-app-region: drag;
+  position: relative;
+  text-align: right;
+  background: #efefef;
+  height: 40px;
+  border-bottom: 1px solid #cccccc;
+}
+.toolbar-container * {
+  -webkit-app-region: no-drag;
+}
+.toolbar-container .toolbar-buttons {
+  position: absolute;
+  float: left;
+  top: 50%;
+  left: 10px;
+  margin-top: -10px;
+}
+.toolbar-container .toolbar-buttons .button {
+  display: inline-block;
+  font-size: 9px;
+  border-radius: 10px;
+  text-align: center;
+  margin-right: 5px;
+  width: 14px;
+  line-height: 14px;
+  cursor: pointer;
+  color: #333;
+  vertical-align: middle;
+}
+.toolbar-container .toolbar-buttons .button i {
+  visibility: hidden;
+}
+.toolbar-container .toolbar-buttons .button:hover i {
+  visibility: visible;
+}
+.toolbar-container .shrink-button {
+  background-color: #fdbc40;
+}
+.toolbar-container .enlarge-button {
+  background-color: #34c94a;
+}
+.toolbar-container .close-button {
+  background-color: #fc625d;
+}
+.toolbar-container .devtools-button {
+  background-color: #b3cdf7;
+}
+.toolbar-container .toolbar-song-information {
+  -webkit-user-select: initial;
+  position: absolute;
+  line-height: 40px;
+  color: #666666;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.toolbar-container .toolbar-progressbar {
+  width: 0;
+  height: 2px;
+  background-color: #f27c7c;
+  position: absolute;
+  top: 0;
+  transition: width 1s ease-in-out;
+  box-shadow: 1px 1px 3px #cccccc;
+}
+.toolbar-container .searchbar-container {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+.toolbar-container .searchbar-container .loader {
+  display: none;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.toolbar-container .searchbar-container .loader.show {
+  display: inline;
+}
+.toolbar-container .searchbar-container .searchbar-user-input {
+  height: 26px;
+  width: 300px;
+  border-radius: 0;
+  padding-right: 30px;
+}
+.toolbar-container .searchbar-container .autocomplete-list {
+  position: absolute;
+  width: 100%;
+  border: 1px solid #ccc;
+  text-align: left;
+  border-radius: 0 0 5px 5px;
+  overflow: hidden;
+  border-top: 0;
+}
+.toolbar-container .searchbar-container .autocomplete-list li {
+  border-bottom: 1px solid #ccc;
+  background-color: white;
+  padding: 2px 12px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.toolbar-container .searchbar-container .autocomplete-list li:hover {
+  cursor: pointer;
+}
+.toolbar-container .searchbar-container .autocomplete-list li.selected {
+  background: #ccc;
+}
+.toolbar-container .searchbar-container .autocomplete-list li:last-child {
+  border: 0;
+}
+.sidebar {
+  height: 100%;
+  border-right: 1px solid #cccccc;
+}
+.sidebar .menus {
+  height: calc(100% - 140px - 25px);
+  overflow: auto;
+}
+.sidebar .menus ul li {
+  font-size: 16px;
+  border-left: 5px solid #ffffff;
+}
+.sidebar .menus ul li.seperator {
+  border-bottom: 1px solid #cccccc;
+  margin: 5px 0;
+}
+.sidebar .menus ul li.add-playlist a {
+  color: #2195f7;
+}
+.sidebar .menus ul li.active {
+  border-left-color: #93c6f2;
+  background-color: #d9f8fa;
+  transition: background-color 0.2s ease-in-out;
+}
+.sidebar .menus ul li a {
+  display: block;
+  padding: 5px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.sidebar .menus ul li .icon {
+  margin-right: 5px;
+}
+.sidebar .player .track {
+  width: 200px;
+  height: 200px;
+  background-image: url(../images/track-placeholder.png);
+  background-color: #efefef;
+  background-size: 100%;
+}
+.sidebar .player .control-buttons button {
+  outline: none;
+  border: 0;
+  width: calc(16.66666667%);
+  color: #ccc;
+  background-color: #000;
+  padding: 2px 6px 3px;
+}
+.sidebar .player .control-buttons button:active {
+  background-color: #444;
+}
+.sidebar .player .control-buttons button:hover {
+  color: #e6e6e6;
+}
+.sidebar .player .control-buttons button.repeat-button {
+  position: relative;
+}
+.sidebar .player .control-buttons button.repeat-button .mode {
+  position: absolute;
+  bottom: 0;
+  right: 8px;
+  font-size: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+.sidebar .player #player {
+  position: relative;
+  height: 140px;
+}
+.tab-content {
+  padding: 10px;
+  height: 100%;
+  overflow: auto;
+}
+.tab-content .header {
+  position: relative;
+  border-bottom: 1px solid #cccccc;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+.tab-content h1 {
+  float: left;
+  margin: 0;
+  width: 75%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.tab-content h1 i {
+  margin-right: 10px;
+}
+.tab-content .control-buttons {
+  float: right;
+  transform: translateY(25%);
+}
+.tab-content .control-buttons button {
+  margin-right: 5px;
+}
+.tab-content .control-buttons button:last-child {
+  margin-right: 0;
+}
+.connection-check-container i {
+  margin-right: 5px;
+}
+.connection-check-container.is-online {
+  display: none;
+}
+.settings-container .dropdown-menu i {
+  margin-right: 5px;
+}
+.settings-container .dropdown-toggle .caret {
+  margin-left: 5px;
+}
+.about-container button i {
+  margin-right: 5px;
+}
+.about-container p.well {
+  font-size: 18px;
+}
+.about-container p.well:first-letter {
+  font-size: 30px;
+  line-height: initial;
+}
+.vjs-default-skin {
+  background-color: #000000;
+}
+.vjs-default-skin .vjs-volume-control {
+  right: 1em;
+}

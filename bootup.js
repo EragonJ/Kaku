@@ -11,6 +11,7 @@ require('crash-reporter').start();
 var mainWindow = null;
 
 var Bootup = function() {
+
 };
 
 Bootup.prototype = {

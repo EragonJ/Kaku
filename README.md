@@ -116,7 +116,6 @@ Moved all todos and issues to https://github.com/EragonJ/Kaku/issues, so if your
 
 + [Gulp](http://gulpjs.com/) - To build up our environment
 + [Electron](http://electron.atom.io) - Let us use web technology to build native app
-+ [Require.js](http://requirejs.org/) - To help me make codes more structure
 + [Bootstrap](http://getbootstrap.com/) - To boostrap the whole project including grid system ... etc
 + [FontAwesome](http://fortawesome.github.io/Font-Awesome/) - To make Kaku look nice
 + [jQuery](https://jquery.com/) - Bootstrap is based on jQuery
@@ -129,12 +128,14 @@ Moved all todos and issues to https://github.com/EragonJ/Kaku/issues, so if your
 + [Bootbox](http://bootboxjs.com) - To help us show dialogs based on Bootstrap
 + [Animate.css](https://daneden.github.io/animate.css/) - Animation matters
 + [Youtube-dl](https://github.com/rg3/youtube-dl/) - Download youtube tracks on the fly
++ [Webpack](http://webpack.github.io) - Module Bundler
 + ... still increasing :)
 
 ## Deprecated
 + [Bower](http://bower.io/) - To help us manage frontend resources
 + [Compass / SASS](http://compass-style.org/) - To help us write CSS easily
 + [NW.js](http://nwjs.io/) - (Moved to Electron)
++ [Require.js](http://requirejs.org/) - To help me make codes more structure
 + ... thanks for these old friends :)
 
 # Special Thanks

@@ -1,9 +1,11 @@
 *.swp
+build
 dist
-src/frontend/css
+src/public/css
 config/*.production.json
 env.json
-build
 node_modules
-index.html
 .module_cache
+kaku/
+kaku.bundled.js
+kaku.bundled.js.map

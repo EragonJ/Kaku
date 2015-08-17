@@ -1,15 +1,11 @@
-define(function(require) {
-  'use strict';
-
-  return {
-    getRootPath: function() {
-      return '';
-    },
-    getAppRootPath: function() {
-      return '';
-    },
-    getEnvInfo: function() {
-      return {};
-    }
-  };
-});
+module.exports = {
+  getRootPath: function() {
+    return '';
+  },
+  getAppRootPath: function() {
+    return '';
+  },
+  getEnvInfo: function() {
+    return {};
+  }
+};

@@ -1,11 +1,7 @@
-define(function(require) {
-  'use strict';
-
-  return {
-    event: function() {
-      return {
-        send: function() {}
-      };
-    }
-  };
-});
+module.exports = {
+  event: function() {
+    return {
+      send: function() {}
+    };
+  }
+};

@@ -1,0 +1,6 @@
+.connection-check-container i {
+  margin-right: 5px;
+}
+.connection-check-container.is-online {
+  display: none;
+}

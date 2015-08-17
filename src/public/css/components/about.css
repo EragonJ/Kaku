@@ -1,0 +1,10 @@
+.about-container button i {
+  margin-right: 5px;
+}
+.about-container p.well {
+  font-size: 18px;
+}
+.about-container p.well:first-letter {
+  font-size: 30px;
+  line-height: initial;
+}
