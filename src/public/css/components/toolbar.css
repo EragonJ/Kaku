@@ -1,0 +1,114 @@
+.toolbar-container {
+  -webkit-app-region: drag;
+  position: relative;
+  text-align: right;
+  background: #efefef;
+  height: 40px;
+  border-bottom: 1px solid #cccccc;
+}
+.toolbar-container * {
+  -webkit-app-region: no-drag;
+}
+.toolbar-container .toolbar-buttons {
+  position: absolute;
+  float: left;
+  top: 50%;
+  left: 10px;
+  margin-top: -10px;
+}
+.toolbar-container .toolbar-buttons .button {
+  display: inline-block;
+  font-size: 9px;
+  border-radius: 10px;
+  text-align: center;
+  margin-right: 5px;
+  width: 14px;
+  line-height: 14px;
+  cursor: pointer;
+  color: #333;
+  vertical-align: middle;
+}
+.toolbar-container .toolbar-buttons .button i {
+  visibility: hidden;
+}
+.toolbar-container .toolbar-buttons .button:hover i {
+  visibility: visible;
+}
+.toolbar-container .shrink-button {
+  background-color: #fdbc40;
+}
+.toolbar-container .enlarge-button {
+  background-color: #34c94a;
+}
+.toolbar-container .close-button {
+  background-color: #fc625d;
+}
+.toolbar-container .devtools-button {
+  background-color: #b3cdf7;
+}
+.toolbar-container .toolbar-song-information {
+  -webkit-user-select: initial;
+  position: absolute;
+  line-height: 40px;
+  color: #666666;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.toolbar-container .toolbar-progressbar {
+  width: 0;
+  height: 2px;
+  background-color: #f27c7c;
+  position: absolute;
+  top: 0;
+  transition: width 1s ease-in-out;
+  box-shadow: 1px 1px 3px #cccccc;
+}
+.toolbar-container .searchbar-container {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+.toolbar-container .searchbar-container .loader {
+  display: none;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.toolbar-container .searchbar-container .loader.show {
+  display: inline;
+}
+.toolbar-container .searchbar-container .searchbar-user-input {
+  height: 26px;
+  width: 300px;
+  border-radius: 0;
+  padding-right: 30px;
+}
+.toolbar-container .searchbar-container .autocomplete-list {
+  position: absolute;
+  width: 100%;
+  border: 1px solid #ccc;
+  text-align: left;
+  border-radius: 0 0 5px 5px;
+  overflow: hidden;
+  border-top: 0;
+}
+.toolbar-container .searchbar-container .autocomplete-list li {
+  border-bottom: 1px solid #ccc;
+  background-color: white;
+  padding: 2px 12px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.toolbar-container .searchbar-container .autocomplete-list li:hover {
+  cursor: pointer;
+}
+.toolbar-container .searchbar-container .autocomplete-list li.selected {
+  background: #ccc;
+}
+.toolbar-container .searchbar-container .autocomplete-list li:last-child {
+  border: 0;
+}

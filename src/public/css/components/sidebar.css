@@ -1,0 +1,69 @@
+.sidebar {
+  height: 100%;
+  border-right: 1px solid #cccccc;
+}
+.sidebar .menus {
+  height: calc(100% - 140px - 25px);
+  overflow: auto;
+}
+.sidebar .menus ul li {
+  font-size: 16px;
+  border-left: 5px solid #ffffff;
+}
+.sidebar .menus ul li.seperator {
+  border-bottom: 1px solid #cccccc;
+  margin: 5px 0;
+}
+.sidebar .menus ul li.add-playlist a {
+  color: #2195f7;
+}
+.sidebar .menus ul li.active {
+  border-left-color: #93c6f2;
+  background-color: #d9f8fa;
+  transition: background-color 0.2s ease-in-out;
+}
+.sidebar .menus ul li a {
+  display: block;
+  padding: 5px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.sidebar .menus ul li .icon {
+  margin-right: 5px;
+}
+.sidebar .player .track {
+  width: 200px;
+  height: 200px;
+  background-image: url(../images/track-placeholder.png);
+  background-color: #efefef;
+  background-size: 100%;
+}
+.sidebar .player .control-buttons button {
+  outline: none;
+  border: 0;
+  width: calc(16.66666667%);
+  color: #ccc;
+  background-color: #000;
+  padding: 2px 6px 3px;
+}
+.sidebar .player .control-buttons button:active {
+  background-color: #444;
+}
+.sidebar .player .control-buttons button:hover {
+  color: #e6e6e6;
+}
+.sidebar .player .control-buttons button.repeat-button {
+  position: relative;
+}
+.sidebar .player .control-buttons button.repeat-button .mode {
+  position: absolute;
+  bottom: 0;
+  right: 8px;
+  font-size: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+.sidebar .player #player {
+  position: relative;
+  height: 140px;
+}
