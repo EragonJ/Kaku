@@ -30,6 +30,19 @@
   padding: 0 8px 5px;
   border-radius: 0 0 10px 10px;
 }
+.track .ribbon {
+  position: absolute;
+  top: 5px;
+  right: -15px;
+  background: rgba(255, 255, 255, 0.5);
+  width: 60px;
+  transform: rotate(45deg);
+  text-align: center;
+  color: black;
+}
+.track .ribbon i {
+  transform: rotate(-45deg);
+}
 .track .track-name {
   font-size: 16px;
 }
