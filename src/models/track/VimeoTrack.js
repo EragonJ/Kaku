@@ -12,7 +12,7 @@ VimeoTrack.prototype = Object.create(BaseTrack.prototype);
 VimeoTrack.prototype.constructor = VimeoTrack;
 
 VimeoTrack.prototype.init = function(options) {
-  if (!options.link || !options.pictures) {
+  if (!options.link) {
     console.error('there is something wrong in passing object');
     console.error(options);
   }
@@ -20,24 +20,13 @@ VimeoTrack.prototype.init = function(options) {
     this.title = options.name;
     this.description = options.description;
     this.platformId = options.uri.match(/\d+$/)[0];
+    var covers = options.pictures && options.pictures.sizes || [];
 
-    // we will loop from backward to keep every needed picture
-    var covers = options.pictures.sizes;
-    for (var i = covers.length - 1; i >= 0; i--) {
-      var link = covers[i].link;
-
-      if (!this.covers.large) {
-        this.covers.large = link;
-      }
-      else if (!this.covers.medium) {
-        this.covers.medium = link;
-      }
-      else if (!this.covers.default) {
-        this.covers.default = link;
-      }
-      else {
-        break;
-      }
+    if (covers.length > 0) {
+      this.covers.large =
+        this.covers.medium =
+          this.covers.default =
+            covers[covers.length - 1].link;
     }
   }
 };
