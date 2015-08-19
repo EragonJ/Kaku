@@ -100,12 +100,37 @@ var Track = React.createClass({
   },
 
   render: function() {
+    var trackIcon;
     var track = this.props.data;
     var isActive = track.isSameTrackWith(this.state.playingTrack);
     var className = ClassNames({
       track: true,
       active: isActive
     });
+
+    var iconClassName;
+    var iconObject = {};
+    iconObject.fa = true;
+
+    switch (track.trackType) {
+      case 'YoutubeTrack':
+        iconObject['fa-youtube'] = true;
+        break;
+
+      case 'VimeoTrack':
+        iconObject['fa-vimeo'] = true;
+        break;
+
+      case 'SoundCloudTrack':
+        iconObject['fa-soundcloud'] = true;
+        break;
+
+      default:
+        iconObject['fa-music'] = true;
+        break;
+    }
+
+    iconClassName = ClassNames(iconObject);
 
     /* jshint ignore:start */
     return (
@@ -115,6 +140,9 @@ var Track = React.createClass({
         onContextMenu={this._clickToShowContextMenu}
         ref="trackBlock">
           <img src={track.covers.medium} title={track.title}/>
+          <div className="ribbon">
+            <i className={iconClassName}></i>
+          </div>
           <div className="info">
             <div className="track-name">{track.title}</div>
             <div className="track-artist">{track.artist}</div>
