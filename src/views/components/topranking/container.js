@@ -15,6 +15,14 @@ var TopRankingContainer = React.createClass({
   },
 
   componentDidMount: function() {
+    TopRanking.on('topRanking-changed', () => {
+      TopRanking.get().then((tracks) => {
+        this.setState({
+          tracks: tracks
+        });
+      });
+    });
+
     TopRanking.get().then((tracks) => {
       this.setState({
         tracks: tracks

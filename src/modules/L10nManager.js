@@ -1,7 +1,7 @@
-var IniParser = require('../modules/IniParser');
-var EventEmitter = require('events').EventEmitter;
 var fs = require('fs');
 var path = require('path');
+var EventEmitter = require('events').EventEmitter;
+var IniParser = require('../modules/IniParser');
 
 function L10nManager() {
   EventEmitter.call(this);
@@ -21,7 +21,6 @@ function L10nManager() {
   // Because might have a lot of L10nSpan, so we should de-limit the number
   // of listeners here
   this.setMaxListeners(0);
-
   this._init();
 }
 

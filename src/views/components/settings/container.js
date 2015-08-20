@@ -9,6 +9,7 @@ var PreferenceManager = require('../../../modules/PreferenceManager');
 var PlaylistManager = require('../../../modules/PlaylistManager');
 var DropboxBackuper = require('../../../modules/backuper/DropboxBackuper');
 var LocalBackuper = require('../../../modules/backuper/LocalBackuper');
+var TopRanking = require('../../../modules/TopRanking');
 
 var L10nManager = require('../../../modules/L10nManager');
 var Searcher = require('../../../modules/Searcher');
@@ -26,6 +27,11 @@ var SettingsContainer = React.createClass({
   },
 
   componentDidMount: function() {
+    var countryData = TopRanking.getCountryList();
+    var defaultCountryCode =
+      PreferenceManager.getPreference('default.topRanking.countryCode');
+    this._makeTopRankingOptions(countryData, defaultCountryCode);
+
     L10nManager.getSupportedLanguages().then((languages) => {
       var defaultLanguage =
         PreferenceManager.getPreference('default.language');
@@ -51,6 +57,11 @@ var SettingsContainer = React.createClass({
     Searcher.on('searcher-changed', (newSearcher) => {
       PreferenceManager.setPreference('default.searcher', newSearcher);
     });
+
+    TopRanking.on('topRanking-changed', (newCountryCode) => {
+      PreferenceManager.setPreference('default.topRanking.countryCode',
+        newCountryCode);
+    });
   },
 
   _makeLanguageOptions: function(languages, defaultLanguage) {
@@ -63,6 +74,17 @@ var SettingsContainer = React.createClass({
       option.text = language.label;
       option.value = language.lang;
       option.selected = (language.lang === defaultLanguage);
+      select.add(option);
+    });
+  },
+
+  _makeTopRankingOptions: function(countryData, defaultCountryCode) {
+    var select = this.refs.topRankingSelect.getDOMNode();
+    Object.keys(countryData).forEach((countryCode) => {
+      var option = document.createElement('option');
+      option.text = countryData[countryCode];
+      option.value = countryCode;
+      option.selected = (defaultCountryCode === countryCode);
       select.add(option);
     });
   },
@@ -81,7 +103,7 @@ var SettingsContainer = React.createClass({
     });
   },
 
-  _onCheckboxChange: function(event) {
+  _onDesktopNotificationChange: function(event) {
     var target = event.target;
     var enabled = target.checked;
     var key = target.dataset.key;
@@ -94,6 +116,11 @@ var SettingsContainer = React.createClass({
   _onLanguageChange: function(event) {
     var language = event.target.value;
     L10nManager.changeLanguage(language);
+  },
+
+  _onTopRankingChange: function(event) {
+    var countryCode = event.target.value;
+    TopRanking.changeCountry(countryCode);
   },
 
   _onSearcherChange: function(event) {
@@ -241,7 +268,7 @@ var SettingsContainer = React.createClass({
                       type="checkbox"
                       checked={isDesktopNotificationEnabled}
                       data-key="desktop.notification.enabled"
-                      onChange={this._onCheckboxChange}/>
+                      onChange={this._onDesktopNotificationChange}/>
                   </label>
                 </div>
               </div>
@@ -255,6 +282,18 @@ var SettingsContainer = React.createClass({
                   className="form-control"
                   onChange={this._onLanguageChange}
                   ref="supportedLanguagesSelect">
+                </select>
+              </div>
+            </div>
+            <div className="form-group">
+              <label className="col-sm-3 control-label">
+                <L10nSpan l10nId="settings_option_default_top_ranking_country"/>
+              </label>
+              <div className="col-sm-3">
+                <select
+                  className="form-control"
+                  onChange={this._onTopRankingChange}
+                  ref="topRankingSelect">
                 </select>
               </div>
             </div>

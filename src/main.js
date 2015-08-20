@@ -19,6 +19,7 @@ var ConnectionCheckContainer = require('./views/components/connection-check/cont
 var PreferenceManager = require('./modules/PreferenceManager');
 var PlaylistManager = require('./modules/PlaylistManager');
 var L10nManager = require('./modules/L10nManager');
+var TopRanking = require('./modules/TopRanking');
 var KakuCore = require('./modules/KakuCore');
 var Searcher = require('./modules/Searcher');
 var AutoUpdater = require('./modules/AutoUpdater');
@@ -32,6 +33,9 @@ var contentPageDOM = document.querySelector('.content-page');
 
 var KakuApp = React.createClass({
   componentWillMount: function() {
+    // this should be run first
+    this._initializeDefaultTopRanking();
+
     // TODO
     // Need to figure out why `Loading` showing up so slowly
     setTimeout(() => {
@@ -48,6 +52,14 @@ var KakuApp = React.createClass({
 
     // Say hi :)
     Tracker.pageview('/').send();
+  },
+
+  _initializeDefaultTopRanking: function() {
+    var defaultCountryCode =
+      PreferenceManager.getPreference('default.topRanking.countryCode');
+    if (defaultCountryCode) {
+      TopRanking.changeCountry(defaultCountryCode);
+    }
   },
 
   _initializeAppTitle: function() {
