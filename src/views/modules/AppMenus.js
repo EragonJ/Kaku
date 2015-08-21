@@ -1,6 +1,7 @@
 var remote = require('remote');
 var Menu = remote.require('menu');
 var MenuItem = remote.require('menu-item');
+var BrowserWindow = remote.require('browser-window');
 var App = remote.require('app');
 
 var Player = require('./Player');
