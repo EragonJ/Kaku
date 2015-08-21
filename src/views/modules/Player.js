@@ -80,22 +80,6 @@ Player.prototype._bindGlobalShortcuts = function() {
   globalShortcut.register('MediaPlayPause', () => {
     this.playOrPause();
   });
-
-  globalShortcut.register('CmdOrCtrl+Up', () => {
-    this.setVolume('up');
-  });
-
-  globalShortcut.register('CmdOrCtrl+Down', () => {
-    this.setVolume('down');
-  });
-
-  globalShortcut.register('CmdOrCtrl+D', () => {
-    this.downloadCurrentTrack();
-  });
-
-  // Note
-  // we will register/unregister escape key only when fullscreen is
-  // triggerd, otherwise, users can't use this key in different applications.
 };
 
 Player.prototype._getDefaultVideoJSConfig = function() {
@@ -124,6 +108,9 @@ Player.prototype._addPlayerEvents = function() {
   });
 
   this._player.on('fullscreenchange', () => {
+    // Note
+    // we will register/unregister escape key only when fullscreen is
+    // triggerd, otherwise, users can't use this key in different applications.
     if (this._player.isFullscreen()) {
       globalShortcut.register('Escape', () => {
         this._player.exitFullscreen();

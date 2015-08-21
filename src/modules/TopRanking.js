@@ -12,7 +12,9 @@ var TopRanking = function() {
   this._selectedCountry = 'us';
   this._sources = {
     itunes: {
-      url: 'https://itunes.apple.com/__country__/rss/topsongs/limit=100/explicit=true/json'
+      url:
+        'https://itunes.apple.com/__country__/rss/topsongs/' +
+        'limit=100/explicit=true/json'
     }
   };
 };
