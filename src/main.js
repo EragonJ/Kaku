@@ -1,10 +1,20 @@
 var React = require('react');
-
 var shell = require('shell');
 var remote = require('remote');
 var dialog = remote.require('dialog');
 var App = remote.require('app');
 
+// general modules
+var PreferenceManager = require('./modules/PreferenceManager');
+var PlaylistManager = require('./modules/PlaylistManager');
+var L10nManager = require('./modules/L10nManager');
+var TopRanking = require('./modules/TopRanking');
+var KakuCore = require('./modules/KakuCore');
+var Searcher = require('./modules/Searcher');
+var AutoUpdater = require('./modules/AutoUpdater');
+var Tracker = require('./modules/Tracker');
+
+// views > components
 var ToolbarContainer = require('./views/components/toolbar/container');
 var TopRankingContainer = require('./views/components/topranking/container');
 var NewsContainer = require('./views/components/news/container');
@@ -15,24 +25,22 @@ var HistoryContainer = require('./views/components/history/container');
 var PlaylistContainer = require('./views/components/playlist/container');
 var SettingsContainer = require('./views/components/settings/container');
 var AboutContainer = require('./views/components/about/container');
-var ConnectionCheckContainer = require('./views/components/connection-check/container');
-var PreferenceManager = require('./modules/PreferenceManager');
-var PlaylistManager = require('./modules/PlaylistManager');
-var L10nManager = require('./modules/L10nManager');
-var TopRanking = require('./modules/TopRanking');
-var KakuCore = require('./modules/KakuCore');
-var Searcher = require('./modules/Searcher');
-var AutoUpdater = require('./modules/AutoUpdater');
-var Tracker = require('./modules/Tracker');
+var ConnectionCheckContainer =
+  require('./views/components/connection-check/container');
+
+// views > modules
 var TabManager = require('./views/modules/TabManager');
 var KonamiCodeManager = require('./views/modules/KonamiCodeManager');
 var EasterEggs = require('./views/modules/EasterEggs');
+var AppMenus = require('./views/modules/AppMenus');
 
 var loadingPageDOM = document.querySelector('.loading-page');
 var contentPageDOM = document.querySelector('.content-page');
 
 var KakuApp = React.createClass({
   componentWillMount: function() {
+    AppMenus.build();
+
     // this should be run first
     this._initializeDefaultTopRanking();
 
