@@ -5,10 +5,13 @@ var BrowserWindow = remote.require('browser-window');
 var App = remote.require('app');
 
 var Player = require('./Player');
+var L10nManager = require('../../modules/L10nManager');
+var _ = L10nManager.get.bind(L10nManager);
 
 function AppMenus() {
-  // TODO
-  // add tranlation later
+  L10nManager.on('language-changed', () => {
+    this.build();
+  });
 }
 
 AppMenus.prototype = {
@@ -20,41 +23,41 @@ AppMenus.prototype = {
 
   _getMenuTemplateForAbout: function() {
     return {
-      label: 'Kaku',
+      label: _('app_menu_kaku'),
       submenu: [
         {
-          label: 'About Kaku',
+          label: _('app_menu_about_kaku'),
           selector: 'orderFrontStandardAboutPanel:'
         },
         {
           type: 'separator'
         },
         {
-          label: 'Services',
+          label: _('app_menu_sevices'),
           submenu: []
         },
         {
           type: 'separator'
         },
         {
-          label: 'Hide Kaku',
+          label: _('app_menu_hide_kaku'),
           accelerator: 'CmdOrCtrl+H',
           selector: 'hide:'
         },
         {
-          label: 'Hide Others',
+          label: _('app_menu_hide_others'),
           accelerator: 'CmdOrCtrl+Shift+H',
           selector: 'hideOtherApplications:'
         },
         {
-          label: 'Show All',
+          label: _('app_menu_show_all'),
           selector: 'unhideAllApplications:'
         },
         {
           type: 'separator'
         },
         {
-          label: 'Quit',
+          label: _('app_menu_quit'),
           accelerator: 'CmdOrCtrl+Q',
           click: function() {
             App.quit();
@@ -66,15 +69,15 @@ AppMenus.prototype = {
 
   _getMenuTemplateForEdit: function() {
     return {
-      label: 'Edit',
+      label: _('app_menu_edit'),
       submenu: [
         {
-          label: 'Undo',
+          label: _('app_menu_undo'),
           accelerator: 'CmdOrCtrl+Z',
           selector: 'undo:'
         },
         {
-          label: 'Redo',
+          label: _('app_menu_redo'),
           accelerator: 'Shift+CmdOrCtrl+Z',
           selector: 'redo:'
         },
@@ -82,22 +85,22 @@ AppMenus.prototype = {
           type: 'separator'
         },
         {
-          label: 'Cut',
+          label: _('app_menu_cut'),
           accelerator: 'CmdOrCtrl+X',
           selector: 'cut:'
         },
         {
-          label: 'Copy',
+          label: _('app_menu_copy'),
           accelerator: 'CmdOrCtrl+C',
           selector: 'copy:'
         },
         {
-          label: 'Paste',
+          label: _('app_menu_paste'),
           accelerator: 'CmdOrCtrl+V',
           selector: 'paste:'
         },
         {
-          label: 'Select All',
+          label: _('app_menu_select_all'),
           accelerator: 'CmdOrCtrl+A',
           selector: 'selectAll:'
         },
@@ -107,17 +110,17 @@ AppMenus.prototype = {
 
   _getMenuTemplateForView: function() {
     return {
-      label: 'View',
+      label: _('app_menu_view'),
       submenu: [
         {
-          label: 'Reload',
+          label: _('app_menu_reload'),
           accelerator: 'CmdOrCtrl+R',
           click: function() {
             BrowserWindow.getFocusedWindow().reloadIgnoringCache();
           }
         },
         {
-          label: 'Toggle DevTools',
+          label: _('app_menu_toggle_devtools'),
           accelerator: 'Alt+CmdOrCtrl+I',
           click: function() {
             BrowserWindow.getFocusedWindow().toggleDevTools();
@@ -129,24 +132,24 @@ AppMenus.prototype = {
 
   _getMenuTemplateForControl: function() {
     return {
-      label: 'Control',
+      label: _('app_menu_control'),
       submenu: [
         {
-          label: 'Play Previous Track',
+          label: _('app_menu_play_previous_track'),
           accelerator: 'CmdOrCtrl+Left',
           click: function() {
             Player.playPreviousTrack();
           }
         },
         {
-          label: 'Play / Pause',
+          label: _('app_menu_play_or_pause_track'),
           accelerator: 'CmdOrCtrl+P',
           click: function() {
             Player.playOrPause();
           }
         },
         {
-          label: 'Play Next Track',
+          label: _('app_menu_play_next_track'),
           accelerator: 'CmdOrCtrl+Right',
           click: function() {
             Player.playNextTrack();
@@ -156,14 +159,14 @@ AppMenus.prototype = {
           type: 'separator'
         },
         {
-          label: 'Increase Volume',
+          label: _('app_menu_increase_volume'),
           accelerator: 'CmdOrCtrl+Up',
           click: function() {
             Player.setVolume('up');
           }
         },
         {
-          label: 'Decrease Volume',
+          label: _('app_menu_decrease_volume'),
           accelerator: 'CmdOrCtrl+Down',
           click: function() {
             Player.setVolume('down');
@@ -173,7 +176,7 @@ AppMenus.prototype = {
           type: 'separator'
         },
         {
-          label: 'Download Track',
+          label: _('app_menu_download_track'),
           accelerator: 'CmdOrCtrl+D',
           click: function() {
             Player.downloadCurrentTrack();
@@ -185,15 +188,15 @@ AppMenus.prototype = {
 
   _getMenuTemplateForWindow: function() {
     return {
-      label: 'Window',
+      label: _('app_menu_window'),
       submenu: [
         {
-          label: 'Minimize',
+          label: _('app_menu_minimize'),
           accelerator: 'CmdOrCtrl+M',
           selector: 'performMiniaturize:'
         },
         {
-          label: 'Close',
+          label: _('app_menu_close'),
           accelerator: 'CmdOrCtrl+W',
           selector: 'performClose:'
         },
@@ -201,7 +204,7 @@ AppMenus.prototype = {
           type: 'separator'
         },
         {
-          label: 'Bring All to Front',
+          label: _('app_menu_bring_all_to_front'),
           selector: 'arrangeInFront:'
         },
       ]
