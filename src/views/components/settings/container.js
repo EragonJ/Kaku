@@ -32,11 +32,9 @@ var SettingsContainer = React.createClass({
       PreferenceManager.getPreference('default.topRanking.countryCode');
     this._makeTopRankingOptions(countryData, defaultCountryCode);
 
-    L10nManager.getSupportedLanguages().then((languages) => {
-      var defaultLanguage =
-        PreferenceManager.getPreference('default.language');
-      this._makeLanguageOptions(languages, defaultLanguage);
-    });
+    var languages = L10nManager.getSupportedLanguages();
+    var defaultLanguage = PreferenceManager.getPreference('default.language');
+    this._makeLanguageOptions(languages, defaultLanguage);
 
     Searcher.getSupportedSearchers().then((searchers) => {
       var defaultSearcher =
@@ -167,10 +165,9 @@ var SettingsContainer = React.createClass({
   },
 
   _onClickToSyncLocalData: function() {
-    Promise.all([
-      L10nManager.get('settings_option_sync_data_confirm')
-    ]).then((translations) => {
-      Dialog.confirm(translations[0], (sure) => {
+    Dialog.confirm(
+      L10nManager.get('settings_option_sync_data_confirm'),
+      (sure) => {
         // make UX better
         setTimeout(() => {
           AppDialog.showOpenDialog({
@@ -195,15 +192,13 @@ var SettingsContainer = React.createClass({
             }
           });
         }, 1000);
-      });
     });
   },
 
   _onClickToSyncDropboxData: function() {
-    Promise.all([
-      L10nManager.get('settings_option_sync_data_confirm')
-    ]).then((translations) => {
-      Dialog.confirm(translations[0], (sure) => {
+    Dialog.confirm(
+      L10nManager.get('settings_option_sync_data_confirm'),
+      (sure) => {
         if (sure) {
           Notifier.alert('Start to sync data !');
 
@@ -224,21 +219,18 @@ var SettingsContainer = React.createClass({
             });
           }, 1000);
         }
-      });
     });
   },
 
   _onClickToResetDatabse: function() {
-    Promise.all([
-      L10nManager.get('settings_option_reset_database_confirm')
-    ]).then((translations) => {
-      Dialog.confirm(translations[0], (sure) => {
+    Dialog.confirm(
+      L10nManager.get('settings_option_reset_database_confirm'),
+      (sure) => {
         if (sure) {
           DB.resetDatabase().then(() => {
             remote.getCurrentWindow().reload();
           });
         }
-      });
     });
   },
 

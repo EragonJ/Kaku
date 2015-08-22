@@ -93,31 +93,26 @@ var MenusContainer = React.createClass({
 
   _addPlaylist: function() {
     var randomSuffix = crypto.randomBytes(3).toString('hex');
-    Promise.all([
-      L10nManager.get('notifier_input_playlist_name'),
-      L10nManager.get('notifier_playlist')
-    ]).then((translations) => {
-      Dialog.prompt({
-        title: translations[0],
-        value: translations[1] + '-' + randomSuffix,
-        callback: (rawPlaylistName) => {
-          rawPlaylistName = rawPlaylistName || '';
-          var sanitizedPlaylistName = rawPlaylistName.trim();
-          if (!sanitizedPlaylistName) {
-            // do nothing
-          }
-          else {
-            PlaylistManager
-              .addNormalPlaylist(sanitizedPlaylistName)
-              .then(() => {
-                this._updatePlaylistsStates();
-              })
-              .catch((error) => {
-                Notifier.alert(error);
-              });
-          }
+    Dialog.prompt({
+      title: L10nManager.get('notifier_input_playlist_name'),
+      value: L10nManager.get('notifier_playlist') + '-' + randomSuffix,
+      callback: (rawPlaylistName) => {
+        rawPlaylistName = rawPlaylistName || '';
+        var sanitizedPlaylistName = rawPlaylistName.trim();
+        if (!sanitizedPlaylistName) {
+          // do nothing
         }
-      });
+        else {
+          PlaylistManager
+            .addNormalPlaylist(sanitizedPlaylistName)
+            .then(() => {
+              this._updatePlaylistsStates();
+            })
+            .catch((error) => {
+              Notifier.alert(error);
+            });
+        }
+      }
     });
   },
 

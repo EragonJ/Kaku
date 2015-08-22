@@ -6,7 +6,6 @@ var React = require('react');
 var ClassNames = require('classnames');
 
 var PlaylistManager = require('../../../modules/PlaylistManager');
-var L10nManager = require('../../../modules/L10nManager');
 var Notifier = require('../../modules/Notifier');
 var Player = require('../../modules/Player');
 

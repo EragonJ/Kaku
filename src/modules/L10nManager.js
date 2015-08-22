@@ -2,128 +2,74 @@ var fs = require('fs');
 var path = require('path');
 var EventEmitter = require('events').EventEmitter;
 var IniParser = require('../modules/IniParser');
+var l10nMetadata = require('../locales/metadata').languages;
 
 function L10nManager() {
   EventEmitter.call(this);
 
   this._cachedStrings = {};
-  this._cachedMetadata = null;
-
-  this._l10nFolderPath = path.join('src', 'locales');
-  this._metadataPath = path.join(this._l10nFolderPath, 'metadata.json');
-  this._suffixForLanguageFile = '.ini';
-
-  // Note
-  // we will reflect real value from PreferenceManager in frontend/main.js
   this._currentLanguage = 'en';
   this._reParam = /\{\{\s*(\w+)\s*\}\}/g;
 
   // Because might have a lot of L10nSpan, so we should de-limit the number
   // of listeners here
   this.setMaxListeners(0);
-  this._init();
+
+  // prepare all needed strings
+  l10nMetadata.forEach((language) => {
+    var fileName = language.lang + '.ini';
+    var languageFilePath = path.join('src', 'locales', fileName);
+    var rawIniData = fs.readFileSync(languageFilePath, 'utf-8');
+    this._cachedStrings[language.lang] = IniParser.parse(rawIniData);
+  }, this);
+
+  this.emit('language-initialized');
 }
 
 L10nManager.prototype = Object.create(EventEmitter.prototype);
 L10nManager.constructor = L10nManager;
 
-L10nManager.prototype._init = function() {
-  return this._ready(this._currentLanguage);
-};
-
-L10nManager.prototype._ready = function(language) {
-  var self = this;
-  // it means that we already have related l10n strings
-  if (this._cachedStrings[language]) {
-    return Promise.resolve();
-  }
-  else {
-    return this._fetchLanguageFile(language).then((result) => {
-      self._cachedStrings[language] = result;
-      self.emit('language-initialized');
-    });
-  }
-};
-
-L10nManager.prototype._fetchLanguageFile = function(language) {
-  var promise = new Promise((resolve, reject) => {
-    var fileName = language + this._suffixForLanguageFile;
-    var languageFilePath = path.join(this._l10nFolderPath, fileName);
-    fs.readFile(languageFilePath, 'utf-8', (error, rawIniData) => {
-      if (error) {
-        reject(error);
-      }
-      else {
-        var parsedInitData = IniParser.parse(rawIniData);
-        resolve(parsedInitData);
-      }
-    });
-  });
-  return promise;
-};
-
 L10nManager.prototype.changeLanguage = function(newLanguage) {
-  var self = this;
   if (this._currentLanguage === newLanguage) {
     return;
   }
   else {
     var oldLanguage = this._currentLanguage;
     this._currentLanguage = newLanguage;
-
-    return this._ready(newLanguage).then(() => {
-      self.emit('language-changed', newLanguage, oldLanguage);
-    });
-  }
-};
-
-L10nManager.prototype.getSupportedLanguages = function() {
-  if (this._cachedMetadata) {
-    return Promise.resolve(this._cachedMetadata);
-  }
-  else {
-    var promise = new Promise((resolve, reject) => {
-      fs.readFile(this._metadataPath, 'utf-8', (error, rawMetadata) => {
-        if (error) {
-          reject(error);
-        }
-        else {
-          this._cachedMetadata = JSON.parse(rawMetadata);
-          resolve(this._cachedMetadata.languages);
-        }
-      });
-    });
-    return promise;
+    this.emit('language-changed', newLanguage, oldLanguage);
   }
 };
 
 L10nManager.prototype.get = function(id, params, fallbackToEn) {
-  var self = this;
   var currentLanguage = this._currentLanguage;
 
   if (fallbackToEn) {
     currentLanguage = 'en';
   }
 
-  return this._ready(currentLanguage).then(() => {
-    var rawString = self._cachedStrings[currentLanguage][id];
-    var replacedString = self._getReplacedString(rawString, params);
+  var rawString = this._cachedStrings[currentLanguage][id];
+  var replacedString = this._getReplacedString(rawString, params);
 
-    if (!replacedString) {
-      console.error('You are accessing a non-exist l10nId : ', id,
-        ' in lang: ', currentLanguage);
-      // If we still find nothing in `en`, we should exit directly.
-      if (fallbackToEn) {
-        return '';
-      }
-      else {
-        return self.get(id, params, true);
-      }
+  if (!replacedString) {
+    console.error(
+      'You are accessing a non-exist l10nId : ', id,
+      ' in lang: ', currentLanguage);
+
+    // If we still find nothing in `en`, we should exit directly.
+    if (fallbackToEn) {
+      return '';
     }
     else {
-      return replacedString;
+      return this.get(id, params, true);
     }
-  });
+  }
+  else {
+    return replacedString;
+  }
+};
+
+L10nManager.prototype.getSupportedLanguages = function() {
+  return l10nMetadata;
 };
 
 L10nManager.prototype._getReplacedString = function(rawString, params) {

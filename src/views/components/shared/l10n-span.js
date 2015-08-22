@@ -33,13 +33,10 @@ var L10nSpan = React.createClass({
   },
 
   _updateL10nTranslation: function() {
-    L10nManager
-      .get(this.props.l10nId, this.props.l10nParams)
-      .then((translation) => {
-        this.setState({
-          translation: translation
-        });
-      });
+    var translation = L10nManager.get(this.props.l10nId, this.props.l10nParams);
+    this.setState({
+      translation: translation
+    });
   },
 
   render: function() {
