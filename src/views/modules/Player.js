@@ -288,20 +288,17 @@ Player.prototype._getRealTrack = function(track) {
 
 Player.prototype._updateAppHeader = function(state) {
   if (state === 'play') {
-    L10nManager.get('app_title_playing', {
+    var maxLength = 40;
+    var translatedTitle = L10nManager.get('app_title_playing', {
       name: this._playingTrack.title
-    }).then((translatedTitle) => {
-      var maxLength = 40;
-      if (translatedTitle.length > maxLength) {
-        translatedTitle = translatedTitle.substr(0, maxLength) + ' ...';
-      }
-      KakuCore.title = translatedTitle;
     });
+    if (translatedTitle.length > maxLength) {
+      translatedTitle = translatedTitle.substr(0, maxLength) + ' ...';
+    }
+    KakuCore.title = translatedTitle;
   }
   else if (state === 'ended') {
-    L10nManager.get('app_title_normal').then((translatedTitle) => {
-      KakuCore.title = translatedTitle;
-    });
+    KakuCore.title = L10nManager.get('app_title_normal');
   }
 };
 

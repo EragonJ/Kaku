@@ -34,12 +34,7 @@ L10nManager.on('language-changed', (newLanguage) => {
       break;
   }
 
-  // TODO
-  // not sure why when we use webpack, the translation will be weird for
-  // Traditional Chinese, so switch to `en` as temporary solution.
-  //
-  // dialog.setLocale(transformedLanguage);
-  dialog.setLocale('en');
+  dialog.setLocale(transformedLanguage);
 });
 
 module.exports = dialog;

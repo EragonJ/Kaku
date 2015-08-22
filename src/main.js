@@ -71,9 +71,7 @@ var KakuApp = React.createClass({
   },
 
   _initializeAppTitle: function() {
-    L10nManager.get('app_title_normal').then((translatedTitle) => {
-      KakuCore.title = translatedTitle;
-    });
+    KakuCore.title = L10nManager.get('app_title_normal');
   },
 
   _initializeDefaultLanguage: function() {
