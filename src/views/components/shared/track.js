@@ -134,6 +134,7 @@ var Track = React.createClass({
     /* jshint ignore:start */
     return (
       <div
+        data-tip={track.title}
         className={className}
         onClick={this._clickToPlay}
         onContextMenu={this._clickToShowContextMenu}

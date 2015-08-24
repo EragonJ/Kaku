@@ -4,6 +4,8 @@ var remote = require('remote');
 var dialog = remote.require('dialog');
 var App = remote.require('app');
 
+var ReactTooltip = require('react-tooltip');
+
 // general modules
 var PreferenceManager = require('./modules/PreferenceManager');
 var PlaylistManager = require('./modules/PlaylistManager');
@@ -219,6 +221,7 @@ var KakuApp = React.createClass({
             </div>
           </div>
         </div>
+        <ReactTooltip/>
       </div>
     );
     /* jshint ignore:end */
