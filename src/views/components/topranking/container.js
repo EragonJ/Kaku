@@ -30,6 +30,10 @@ var TopRankingContainer = React.createClass({
     });
   },
 
+  componentDidUpdate: function() {
+    window.dispatchEvent(new Event('rebind-tooltip'));
+  },
+
   render: function() {
     var tracks = this.state.tracks;
 

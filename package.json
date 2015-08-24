@@ -59,6 +59,7 @@
     "node-soundcloud": "0.0.3",
     "pouchdb": "^3.6.0",
     "react": "^0.13.3",
+    "react-tooltip": "eragonj/react-tooltip",
     "request": "^2.53.0",
     "request-progress": "^0.3.1",
     "semver": "^5.0.1",

@@ -23,6 +23,10 @@ var HistoryContainer = React.createClass({
     });
   },
 
+  componentDidUpdate: function() {
+    window.dispatchEvent(new Event('rebind-tooltip'));
+  },
+
   _clickToCleanAll: function() {
     HistoryManager.clean();
   },

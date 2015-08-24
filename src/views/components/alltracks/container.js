@@ -21,6 +21,10 @@ var AllTracksContainer = React.createClass({
     });
   },
 
+  componentDidUpdate: function() {
+    window.dispatchEvent(new Event('rebind-tooltip'));
+  },
+
   render: function() {
     /* jshint ignore:start */
     var tracks = this.state.tracks;

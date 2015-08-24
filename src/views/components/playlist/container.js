@@ -48,6 +48,10 @@ var PlaylistContainer = React.createClass({
     });
   },
 
+  componentDidUpdate: function() {
+    window.dispatchEvent(new Event('rebind-tooltip'));
+  },
+
   _updateInternalPlaylist: function(playlist) {
     this.setState({
       playlist: playlist
