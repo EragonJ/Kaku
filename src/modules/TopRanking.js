@@ -1,5 +1,5 @@
-var request = require('request');
-var iTunesRSSData = require('node-itunes-rss-data');
+var Request = require('request');
+var ItunesRSSData = require('node-itunes-rss-data');
 var BaseModule = require('../modules/BaseModule');
 var BaseTrack = require('../models/track/BaseTrack');
 var EventEmitter = require('events').EventEmitter;
@@ -37,11 +37,11 @@ TopRanking.prototype.getCountryList = function() {
       ...
      }
    */
-  return iTunesRSSData.countries;
+  return ItunesRSSData.countries;
 };
 
 TopRanking.prototype.changeCountry = function(countryCode) {
-  if (countryCode in iTunesRSSData.countries) {
+  if (countryCode in ItunesRSSData.countries) {
     this._selectedCountry = countryCode;
     this.emit('topRanking-changed', countryCode);
   }
@@ -49,7 +49,7 @@ TopRanking.prototype.changeCountry = function(countryCode) {
 
 TopRanking.prototype.get = function() {
   var promise = new Promise((resolve, reject) => {
-    request.get({
+    Request.get({
       url: this._getSourceURL(),
       json: true
     }, function(error, response, data) {

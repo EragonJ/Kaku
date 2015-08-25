@@ -1,7 +1,6 @@
 var $ = require('jquery');
 var Bootstrap = require('bootstrap');
 var Bootbox = require('bootbox');
-
 var L10nManager = require('../../modules/L10nManager');
 
 function Dialog() {}

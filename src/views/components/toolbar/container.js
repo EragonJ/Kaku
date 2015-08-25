@@ -1,5 +1,5 @@
-var remote = require('remote');
-var App = remote.require('app');
+var Remote = require('remote');
+var App = Remote.require('app');
 
 var React = require('react');
 
@@ -44,11 +44,11 @@ var ToolbarContainer = React.createClass({
   },
 
   _onShrinkButtonClick: function() {
-    remote.getCurrentWindow().minimize();
+    Remote.getCurrentWindow().minimize();
   },
 
   _onEnlargeButtonClick: function() {
-    var win = remote.getCurrentWindow();
+    var win = Remote.getCurrentWindow();
     if (win.isMaximized()) {
       win.unmaximize();
     }

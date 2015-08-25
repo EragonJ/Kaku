@@ -1,4 +1,4 @@
-var crypto = require('crypto');
+var Crypto = require('crypto');
 var EventEmitter = require('events').EventEmitter;
 var BaseTrack = require('../track/BaseTrack');
 var YoutubeTrack = require('../track/YoutubeTrack');
@@ -14,7 +14,7 @@ function BasePlaylist(options) {
   options = options || {};
 
   EventEmitter.call(this);
-  this.id = options.id || crypto.randomBytes(3).toString('hex');
+  this.id = options.id || Crypto.randomBytes(3).toString('hex');
   this.name = options.name || 'playlist';
   this.type = options.type || 'normal';
   this._tracks = options._tracks || [];

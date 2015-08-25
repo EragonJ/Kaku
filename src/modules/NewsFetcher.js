@@ -1,4 +1,4 @@
-var request = require('request');
+var Request = require('request');
 
 function NewsFetcher() {
   this._newsLink = 'http://kaku.rocks/news.json';
@@ -6,7 +6,7 @@ function NewsFetcher() {
 
 NewsFetcher.prototype.get = function() {
   var promise = new Promise((resolve, reject) => {
-    request.get(this._newsLink, (error, response, body) => {
+    Request.get(this._newsLink, (error, response, body) => {
       if (error) {
         reject(error);
         console.log(error);

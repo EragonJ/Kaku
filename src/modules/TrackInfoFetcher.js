@@ -1,4 +1,4 @@
-var youtubeDownloader = require('youtube-dl');
+var YoutubeDownloader = require('youtube-dl');
 var BaseModule = require('../modules/BaseModule');
 
 var TrackInfoFetcher = BaseModule(function() {
@@ -7,7 +7,7 @@ var TrackInfoFetcher = BaseModule(function() {
 
 TrackInfoFetcher.prototype.getInfo = function(url) {
   var promise = new Promise((resolve, reject) => {
-    youtubeDownloader.getInfo(url, this._options, (error, info) => {
+    YoutubeDownloader.getInfo(url, this._options, (error, info) => {
       if (error) {
         this.debug(error);
         reject();

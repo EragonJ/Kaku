@@ -1,10 +1,10 @@
 var Url = require('url');
-var path = require('path');
+var Path = require('path');
 
 // TODO
 // we need to move out BrowserWindow because this is related to UI
-var remote = require('remote');
-var BrowserWindow = remote.require('browser-window');
+var Remote = require('remote');
+var BrowserWindow = Remote.require('browser-window');
 var Dropbox = require('../Dropbox');
 
 function DropboxBackuper() {
@@ -133,7 +133,7 @@ DropboxBackuper.prototype._writeFiles = function(datas, folderName) {
     datas.forEach((data) => {
       var content = JSON.stringify(data);
       var fileName = data.id + '.txt';
-      var filePath = path.join(folderName, fileName);
+      var filePath = Path.join(folderName, fileName);
       var promise = new Promise((resolve, reject) => {
         this._dropbox.createFile(filePath, content, (error, res, body) => {
           // no matter success or not, we would still keep going.
