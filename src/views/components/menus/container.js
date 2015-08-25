@@ -1,7 +1,7 @@
-var crypto = require('crypto');
-var remote = require('remote');
-var Menu = remote.require('menu');
-var MenuItem = remote.require('menu-item');
+var Crypto = require('crypto');
+var Remote = require('remote');
+var Menu = Remote.require('menu');
+var MenuItem = Remote.require('menu-item');
 
 var $ = require('jquery');
 var React = require('react');
@@ -92,7 +92,7 @@ var MenusContainer = React.createClass({
   },
 
   _addPlaylist: function() {
-    var randomSuffix = crypto.randomBytes(3).toString('hex');
+    var randomSuffix = Crypto.randomBytes(3).toString('hex');
     Dialog.prompt({
       title: L10nManager.get('notifier_input_playlist_name'),
       value: L10nManager.get('notifier_playlist') + '-' + randomSuffix,
@@ -172,7 +172,7 @@ var MenusContainer = React.createClass({
   _clickToShowContextMenu: function(playlist, event) {
     event.preventDefault();
     var menu = this._createContextMenuForPlaylist(playlist);
-    menu.popup(remote.getCurrentWindow());
+    menu.popup(Remote.getCurrentWindow());
   },
 
   render: function() {

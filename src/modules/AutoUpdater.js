@@ -1,7 +1,6 @@
-var path = require('path');
-var semver = require('semver');
+var Semver = require('semver');
 var GithubAPI = require('github');
-var packageJSON = require('../../package.json');
+var PackageJSON = require('../../package.json');
 
 function AutoUpdater() {
   this._github = new GithubAPI({
@@ -38,11 +37,11 @@ AutoUpdater.prototype.checkUpdate = function() {
   })
   .then((release = {}) => {
     var latestVersion = release.version;
-    var currentVersion = packageJSON.version;
+    var currentVersion = PackageJSON.version;
     var isNewer = false;
 
     if (latestVersion) {
-      isNewer = semver.gt(latestVersion, currentVersion);
+      isNewer = Semver.gt(latestVersion, currentVersion);
     }
 
     return {

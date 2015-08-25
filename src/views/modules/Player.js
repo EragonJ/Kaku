@@ -1,6 +1,6 @@
-var remote = require('remote');
-var dialog = remote.require('dialog');
-var globalShortcut = remote.require('global-shortcut');
+var Remote = require('remote');
+var Dialog = Remote.require('dialog');
+var GlobalShortcut = Remote.require('global-shortcut');
 var EventEmitter = require('events').EventEmitter;
 var Notifier = require('./Notifier');
 var videojs = require('video.js');
@@ -67,17 +67,17 @@ Object.defineProperty(Player.prototype, 'playingTrack', {
 Player.prototype._bindGlobalShortcuts = function() {
   // In order not to call pre-registered callbacks in released render view,
   // we have to unregisterAll callbacks at first, then register again.
-  globalShortcut.unregisterAll();
+  GlobalShortcut.unregisterAll();
 
-  globalShortcut.register('MediaNextTrack', () => {
+  GlobalShortcut.register('MediaNextTrack', () => {
     this.playNextTrack();
   });
 
-  globalShortcut.register('MediaPreviousTrack', () => {
+  GlobalShortcut.register('MediaPreviousTrack', () => {
     this.playPreviousTrack();
   });
 
-  globalShortcut.register('MediaPlayPause', () => {
+  GlobalShortcut.register('MediaPlayPause', () => {
     this.playOrPause();
   });
 };
@@ -112,12 +112,12 @@ Player.prototype._addPlayerEvents = function() {
     // we will register/unregister escape key only when fullscreen is
     // triggerd, otherwise, users can't use this key in different applications.
     if (this._player.isFullscreen()) {
-      globalShortcut.register('Escape', () => {
+      GlobalShortcut.register('Escape', () => {
         this._player.exitFullscreen();
       });
     }
     else {
-      globalShortcut.unregister('Escape');
+      GlobalShortcut.unregister('Escape');
     }
   });
 
@@ -410,7 +410,7 @@ Player.prototype.downloadCurrentTrack = function() {
     var playingTrack = this.playingTrack;
     var filename = playingTrack.title + '.' + playingTrack.ext;
 
-    dialog.showSaveDialog({
+    Dialog.showSaveDialog({
       title: 'Where to download your track ?',
       defaultPath: filename
     }, (path) => {

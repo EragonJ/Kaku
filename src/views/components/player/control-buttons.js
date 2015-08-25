@@ -1,5 +1,4 @@
-var shell = require('shell');
-var crypto = require('crypto');
+var Shell = require('shell');
 
 var React = require('react');
 var Player = require('../../modules/Player');
@@ -87,7 +86,7 @@ var PlayerControlButtons = React.createClass({
   _onExternalButtonClick: function() {
     var track = Player.playingTrack;
     if (track) {
-      shell.openExternal(track.platformTrackUrl);
+      Shell.openExternal(track.platformTrackUrl);
     }
   },
 

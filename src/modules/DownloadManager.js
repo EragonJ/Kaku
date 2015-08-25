@@ -2,9 +2,9 @@
 // 1. handle multiple downloads
 // 2. support pause / canel downloads
 // ... etc
-var fs = require('fs');
-var request = require('request');
-var requestProgress = require('request-progress');
+var Fs = require('fs');
+var Request = require('request');
+var RequestProgress = require('request-progress');
 var EventEmitter = require('events').EventEmitter;
 
 function DownloadManager() {
@@ -17,7 +17,7 @@ DownloadManager.prototype = Object.create(EventEmitter.prototype);
 DownloadManager.constructor = DownloadManager;
 
 DownloadManager.prototype.download = function(src, path) {
-  var req = requestProgress(request.get(src), {
+  var req = RequestProgress(Request.get(src), {
     delay: 1000 // start to emit after 1000ms delay
   });
 
@@ -29,7 +29,7 @@ DownloadManager.prototype.download = function(src, path) {
     console.log(error);
     this.emit('download-error');
   })
-  .pipe(fs.createWriteStream(path))
+  .pipe(Fs.createWriteStream(path))
   .on('error', (error) => {
     console.log('error when saving file to path' + path);
     console.log(error);

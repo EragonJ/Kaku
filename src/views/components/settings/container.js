@@ -1,7 +1,6 @@
-var remote = require('remote');
-var path = require('path');
-var App = remote.require('app');
-var AppDialog = remote.require('dialog');
+var Remote = require('remote');
+var App = Remote.require('app');
+var AppDialog = Remote.require('dialog');
 
 var React = require('react');
 
@@ -228,7 +227,7 @@ var SettingsContainer = React.createClass({
       (sure) => {
         if (sure) {
           DB.resetDatabase().then(() => {
-            remote.getCurrentWindow().reload();
+            Remote.getCurrentWindow().reload();
           });
         }
     });

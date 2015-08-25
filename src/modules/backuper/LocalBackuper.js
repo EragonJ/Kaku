@@ -1,5 +1,5 @@
-var path = require('path');
-var fs = require('fs');
+var Path = require('path');
+var Fs = require('fs');
 
 var LocalBackuper = function() {
 
@@ -12,7 +12,7 @@ LocalBackuper.prototype.backup = function(datas, options) {
 
   var basePath = options.basePath;
   var folderName = options.folderName;
-  var folderPath = path.join(basePath, folderName); 
+  var folderPath = Path.join(basePath, folderName); 
 
   return this._createFolder(folderPath).then(() => {
     return this._writeFiles(folderPath, datas);
@@ -31,10 +31,10 @@ LocalBackuper.prototype.syncDataBack = function(options) {
 LocalBackuper.prototype._createFolder = function(folderPath) {
   var promise = new Promise((resolve, reject) => {
     // check folder first
-    fs.lstat(folderPath, (error, stats) => {
+    Fs.lstat(folderPath, (error, stats) => {
       // if no such folder, then create
       if (error) {
-        fs.mkdir(folderPath, (error) => {
+        Fs.mkdir(folderPath, (error) => {
           // Maybe I/O is blocked, we can't do following works anymore.
           if (error) {
             reject(error);
@@ -58,8 +58,8 @@ LocalBackuper.prototype._writeFiles = function(folderPath, datas) {
     var promise = new Promise((resolve, reject) => {
       var content = JSON.stringify(data);
       var fileName = data.id + '.txt';
-      var filePath = path.join(folderPath, fileName);
-      fs.writeFile(filePath, content, (error) => {
+      var filePath = Path.join(folderPath, fileName);
+      Fs.writeFile(filePath, content, (error) => {
         // no matter success or not, we would still keep going.
         if (error) {
           console.log(error);
@@ -74,7 +74,7 @@ LocalBackuper.prototype._writeFiles = function(folderPath, datas) {
 
 LocalBackuper.prototype._readFiles = function(folderPath) {
   var promise = new Promise((resolve, reject) => {
-    fs.readdir(folderPath, (error, files) => {
+    Fs.readdir(folderPath, (error, files) => {
       // TODO
       // need to know what the error is 
       if (error) {
@@ -88,8 +88,8 @@ LocalBackuper.prototype._readFiles = function(folderPath) {
         var promises = [];
         allowedFiles.forEach((fileName) => {
           var promise = new Promise((resolve, reject) => {
-            var filePath = path.join(folderPath, fileName);
-            fs.readFile(filePath, (error, content) => {
+            var filePath = Path.join(folderPath, fileName);
+            Fs.readFile(filePath, (error, content) => {
               if (error) {
                 reject(error);
               }

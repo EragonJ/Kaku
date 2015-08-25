@@ -1,4 +1,4 @@
-var shell = require('shell');
+var Shell = require('shell');
 var React = require('react');
 var L10nSpan = require('../shared/l10n-span');
 
@@ -8,7 +8,7 @@ var AboutContainer = React.createClass({
   },
 
   _onClickToOpenFacebook: function() {
-    shell.openExternal('http://facebook.com/kaku.rocks');
+    Shell.openExternal('http://facebook.com/kaku.rocks');
   },
 
   _onClickToOpenTwitter: function() {
@@ -16,19 +16,19 @@ var AboutContainer = React.createClass({
     link += 'https://twitter.com/intent/tweet?text=';
     link += 'I%20am%20listening%20music%20on%20Kaku%20!';
     link += '%20http%3A%2F%2Fkaku.rocks%20%23kaku_rocks%20';
-    shell.openExternal(link);
+    Shell.openExternal(link);
   },
 
   _onClickToOpenGithub: function() {
-    shell.openExternal('https://github.com/EragonJ/Kaku');
+    Shell.openExternal('https://github.com/EragonJ/Kaku');
   },
 
   _onClickToOpenGithubIssues: function() {
-    shell.openExternal('https://github.com/EragonJ/Kaku/issues');
+    Shell.openExternal('https://github.com/EragonJ/Kaku/issues');
   },
 
   _onClickToOpenGitter: function() {
-    shell.openExternal('https://gitter.im/EragonJ/Kaku');
+    Shell.openExternal('https://gitter.im/EragonJ/Kaku');
   },
 
   render: function() {

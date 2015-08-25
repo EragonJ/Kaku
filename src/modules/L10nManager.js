@@ -1,8 +1,8 @@
-var fs = require('fs');
-var path = require('path');
+var Fs = require('fs');
+var Path = require('path');
 var EventEmitter = require('events').EventEmitter;
 var IniParser = require('../modules/IniParser');
-var l10nMetadata = require('../locales/metadata').languages;
+var L10nMetadata = require('../locales/metadata').languages;
 
 function L10nManager() {
   EventEmitter.call(this);
@@ -16,10 +16,10 @@ function L10nManager() {
   this.setMaxListeners(0);
 
   // prepare all needed strings
-  l10nMetadata.forEach((language) => {
+  L10nMetadata.forEach((language) => {
     var fileName = language.lang + '.ini';
-    var languageFilePath = path.join('src', 'locales', fileName);
-    var rawIniData = fs.readFileSync(languageFilePath, 'utf-8');
+    var languageFilePath = Path.join('src', 'locales', fileName);
+    var rawIniData = Fs.readFileSync(languageFilePath, 'utf-8');
     this._cachedStrings[language.lang] = IniParser.parse(rawIniData);
   }, this);
 
@@ -69,7 +69,7 @@ L10nManager.prototype.get = function(id, params, fallbackToEn) {
 };
 
 L10nManager.prototype.getSupportedLanguages = function() {
-  return l10nMetadata;
+  return L10nMetadata;
 };
 
 L10nManager.prototype._getReplacedString = function(rawString, params) {
