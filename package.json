@@ -54,7 +54,7 @@
     "font-awesome": "^4.4.0",
     "github": "^0.2.4",
     "jquery": "^2.1.4",
-    "node-dropbox": "^0.1.7",
+    "node-dropbox": "eragonj/node-dropbox",
     "node-itunes-rss-data": "^1.1.1",
     "node-soundcloud": "0.0.3",
     "pouchdb": "^3.6.0",
