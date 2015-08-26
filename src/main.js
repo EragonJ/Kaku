@@ -8,6 +8,7 @@ var ReactTooltip = require('react-tooltip');
 
 // general modules
 var PreferenceManager = require('./modules/PreferenceManager');
+var TrackInfoFetcher = require('./modules/TrackInfoFetcher');
 var PlaylistManager = require('./modules/PlaylistManager');
 var L10nManager = require('./modules/L10nManager');
 var TopRanking = require('./modules/TopRanking');
@@ -58,6 +59,7 @@ var KakuApp = React.createClass({
     this._initializeAppTitle();
     this._initializeDefaultLanguage();
     this._initializeDefaultSearcher();
+    this._initializeDefaultTrackFormat();
     this._initializeKonamiCode();
 
     // Say hi :)
@@ -89,6 +91,12 @@ var KakuApp = React.createClass({
     var defaultSearcher =
       PreferenceManager.getPreference('default.searcher');
     Searcher.changeSearcher(defaultSearcher);
+  },
+
+  _initializeDefaultTrackFormat: function() {
+    var defaultFormat =
+      PreferenceManager.getPreference('default.track.format') || 'bestvideo';
+    TrackInfoFetcher.changeFormat(defaultFormat);
   },
 
   _initializeKonamiCode: function() {

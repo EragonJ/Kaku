@@ -5,6 +5,7 @@ var AppDialog = Remote.require('dialog');
 var React = require('react');
 
 var PreferenceManager = require('../../../modules/PreferenceManager');
+var TrackInfoFetcher = require('../../../modules/TrackInfoFetcher');
 var PlaylistManager = require('../../../modules/PlaylistManager');
 var DropboxBackuper = require('../../../modules/backuper/DropboxBackuper');
 var LocalBackuper = require('../../../modules/backuper/LocalBackuper');
@@ -13,6 +14,7 @@ var TopRanking = require('../../../modules/TopRanking');
 var L10nManager = require('../../../modules/L10nManager');
 var Searcher = require('../../../modules/Searcher');
 var DB = require('../../../modules/Database');
+var _ = L10nManager.get.bind(L10nManager);
 
 var L10nSpan = require('../shared/l10n-span');
 var Notifier = require('../../modules/Notifier');
@@ -26,21 +28,28 @@ var SettingsContainer = React.createClass({
   },
 
   componentDidMount: function() {
+    // Country
     var countryData = TopRanking.getCountryList();
     var defaultCountryCode =
       PreferenceManager.getPreference('default.topRanking.countryCode');
     this._makeTopRankingOptions(countryData, defaultCountryCode);
 
+    // Languages
     var languages = L10nManager.getSupportedLanguages();
     var defaultLanguage = PreferenceManager.getPreference('default.language');
     this._makeLanguageOptions(languages, defaultLanguage);
 
+    // Track Format
+    this._buildTrackFormatOptions();
+
+    // Searchers
     Searcher.getSupportedSearchers().then((searchers) => {
       var defaultSearcher =
         PreferenceManager.getPreference('default.searcher');
       this._makeSearcherOptions(searchers, defaultSearcher);
     });
 
+    // Events
     PreferenceManager.on('preference-updated', (key, newPreference) => {
       var obj = {};
       obj[key] = newPreference;
@@ -49,6 +58,9 @@ var SettingsContainer = React.createClass({
 
     L10nManager.on('language-changed', (newLanguage) => {
       PreferenceManager.setPreference('default.language', newLanguage);
+
+      // We need to rebuild options when language is changed
+      this._buildTrackFormatOptions();
     });
 
     Searcher.on('searcher-changed', (newSearcher) => {
@@ -58,6 +70,10 @@ var SettingsContainer = React.createClass({
     TopRanking.on('topRanking-changed', (newCountryCode) => {
       PreferenceManager.setPreference('default.topRanking.countryCode',
         newCountryCode);
+    });
+
+    TrackInfoFetcher.on('format-changed', (newFormat) => {
+      PreferenceManager.setPreference('default.track.format', newFormat);
     });
   },
 
@@ -100,6 +116,27 @@ var SettingsContainer = React.createClass({
     });
   },
 
+  _buildTrackFormatOptions: function() {
+    var trackFormats = TrackInfoFetcher.getSupportedFormats();
+    var defaultFormat =
+      PreferenceManager.getPreference('default.track.format') || 'bestvideo';
+    var select = this.refs.trackFormatSelect.getDOMNode();
+
+    // remove childrens first
+    while (select.lastChild) {
+      select.removeChild(select.lastChild);
+    }
+
+    // then build
+    trackFormats.forEach((format) => {
+      var option = document.createElement('option');
+      option.text = _(format.l10nId);
+      option.value = format.value;
+      option.selected = (format.value === defaultFormat);
+      select.add(option);
+    });
+  },
+
   _onDesktopNotificationChange: function(event) {
     var target = event.target;
     var enabled = target.checked;
@@ -123,6 +160,11 @@ var SettingsContainer = React.createClass({
   _onSearcherChange: function(event) {
     var searcherName = event.target.value;
     Searcher.changeSearcher(searcherName);
+  },
+
+  _onTrackFormatChange: function(event) {
+    var trackFormat = event.target.value;
+    TrackInfoFetcher.changeFormat(trackFormat);
   },
 
   _onFormSubmit: function(event) {
@@ -165,7 +207,7 @@ var SettingsContainer = React.createClass({
 
   _onClickToSyncLocalData: function() {
     Dialog.confirm(
-      L10nManager.get('settings_option_sync_data_confirm'),
+      _('settings_option_sync_data_confirm'),
       (sure) => {
         // make UX better
         setTimeout(() => {
@@ -196,7 +238,7 @@ var SettingsContainer = React.createClass({
 
   _onClickToSyncDropboxData: function() {
     Dialog.confirm(
-      L10nManager.get('settings_option_sync_data_confirm'),
+      _('settings_option_sync_data_confirm'),
       (sure) => {
         if (sure) {
           Notifier.alert('Start to sync data !');
@@ -223,7 +265,7 @@ var SettingsContainer = React.createClass({
 
   _onClickToResetDatabse: function() {
     Dialog.confirm(
-      L10nManager.get('settings_option_reset_database_confirm'),
+      _('settings_option_reset_database_confirm'),
       (sure) => {
         if (sure) {
           DB.resetDatabase().then(() => {
@@ -297,6 +339,17 @@ var SettingsContainer = React.createClass({
                   className="form-control"
                   onChange={this._onSearcherChange}
                   ref="supportedSearcherSelect"></select>
+              </div>
+            </div>
+            <div className="form-group">
+              <label className="col-sm-3 control-label">
+                <L10nSpan l10nId="settings_option_default_track_format"/>
+              </label>
+              <div className="col-sm-3">
+                <select
+                  className="form-control"
+                  onChange={this._onTrackFormatChange}
+                  ref="trackFormatSelect"></select>
               </div>
             </div>
             <div className="form-group">
