@@ -1,12 +1,15 @@
 suite('L10nManager', () => {
   'use strict';
-  
-  var l10nManager;
+
   var sandbox;
+  var l10nManager;
+  var mockRemote;
 
   setup(() => {
-    sandbox = sinon.sandbox.create();
-    l10nManager = require('../src/modules/L10nManager');
+    mockRemote = require('./mocks/Remote');
+    l10nManager = proxyquire('../src/modules/L10nManager', {
+      remote: mockRemote
+    });
     l10nManager._cachedStrings = {
       'en': {
         'fake_1': 'fake 1',
@@ -16,6 +19,7 @@ suite('L10nManager', () => {
         'fake_1': '假的 1'
       },
     };
+    sandbox = sinon.sandbox.create();
     sandbox.stub(console, 'error');
     sandbox.stub(l10nManager, 'emit');
   });

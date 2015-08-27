@@ -1,5 +1,7 @@
 var Fs = require('fs');
 var Path = require('path');
+var Remote = require('remote');
+var App = Remote.require('app');
 var EventEmitter = require('events').EventEmitter;
 var IniParser = require('../modules/IniParser');
 var L10nMetadata = require('../locales/metadata').languages;
@@ -18,7 +20,8 @@ function L10nManager() {
   // prepare all needed strings
   L10nMetadata.forEach((language) => {
     var fileName = language.lang + '.ini';
-    var languageFilePath = Path.join('src', 'locales', fileName);
+    var languageFilePath = Path.join(
+      App.getAppPath(), 'src', 'locales', fileName);
     var rawIniData = Fs.readFileSync(languageFilePath, 'utf-8');
     this._cachedStrings[language.lang] = IniParser.parse(rawIniData);
   }, this);
