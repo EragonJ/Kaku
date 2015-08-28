@@ -41,7 +41,7 @@
     "merge-stream": "^0.1.7",
     "mocha": "^2.2.5",
     "mock-browser": "^0.90.33",
-    "proxyquire": "^1.6.0",
+    "proxyquire": "^1.7.1",
     "sinon": "^1.14.1"
   },
   "dependencies": {
