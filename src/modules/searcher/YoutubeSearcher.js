@@ -1,16 +1,18 @@
-var Youtube = require('youtube-node');
+var Youtube = require('../Youtube');
 var YoutubeTrack = require('../../models/track/YoutubeTrack');
-var Constants = require('../../modules/Constants');
 var Tracker = require('../../modules/Tracker');
 
 var YoutubeSearcher = function() {
-  this._youtube = new Youtube();
-  this._youtube.setKey(Constants.API.YOUTUBE_API_KEY);
+
 };
 
 YoutubeSearcher.prototype.search = function(keyword, limit) {
   var promise = new Promise((resolve, reject) => {
-    this._youtube.search(keyword, limit, (error, result) => {
+    Youtube.search.list({
+      part: 'snippet',
+      maxResults: limit,
+      q: keyword
+    }, (error, result) => {
       if (error) {
         console.error(error.error.message);
         reject();
