@@ -111,7 +111,7 @@ a:focus {
   position: absolute;
   top: 5px;
   right: -15px;
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.8);
   width: 60px;
   transform: rotate(45deg);
   text-align: center;
@@ -287,24 +287,28 @@ a:focus {
   background-color: #efefef;
   background-size: 100%;
 }
-.sidebar .player .control-buttons button {
+.sidebar .player .control-buttons .btn {
   outline: none;
   border: 0;
   width: calc(16.66666667%);
   color: #ccc;
   background-color: #000;
   padding: 2px 6px 3px;
+  border-radius: 0;
 }
-.sidebar .player .control-buttons button:active {
+.sidebar .player .control-buttons .btn[disabled] {
+  opacity: 1;
+}
+.sidebar .player .control-buttons .btn:active {
   background-color: #444;
 }
-.sidebar .player .control-buttons button:hover {
+.sidebar .player .control-buttons .btn:hover {
   color: #e6e6e6;
 }
-.sidebar .player .control-buttons button.repeat-button {
+.sidebar .player .control-buttons .btn.repeat-button {
   position: relative;
 }
-.sidebar .player .control-buttons button.repeat-button .mode {
+.sidebar .player .control-buttons .btn.repeat-button .mode {
   position: absolute;
   bottom: 0;
   right: 8px;

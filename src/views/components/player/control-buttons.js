@@ -1,8 +1,10 @@
 var Shell = require('shell');
-
 var React = require('react');
-var Player = require('../../modules/Player');
+
+var L10nSpan = require('../shared/l10n-span');
+
 var Notifier = require('../../modules/Notifier');
+var Player = require('../../modules/Player');
 
 var PlayerControlButtons = React.createClass({
   getInitialState: function() {
@@ -105,67 +107,70 @@ var PlayerControlButtons = React.createClass({
 
   render: function() {
     var playerRepeatMode = this.state.playerRepeatMode;
+    var l10nIdForRepeat = 'player_repeat_' + playerRepeatMode;
     var playerRepeatWording = '';
-    var playerRepeatHint = '';
 
     // TODO
     // add a translation here later
     switch (playerRepeatMode) {
       case 'no':
         playerRepeatWording = 'x';
-        playerRepeatHint = 'No Repeat';
         break;
       case 'one':
         playerRepeatWording = '1';
-        playerRepeatHint = 'Repeat current track';
         break;
       case 'all':
         playerRepeatWording = 'All';
-        playerRepeatHint = 'Repeat all tracks';
         break;
     }
 
     /* jshint ignore:start */
     return (
       <div className="control-buttons">
-        <button
-          className="backward-button"
+        <L10nSpan
+          l10nId="player_play_previous_track"
+          className="backward-button btn"
           onClick={this._onBackwardButtonClick}
-          title="Play Previuos Track">
+          where="title">
             <i className="fa fa-fw fa-step-backward"></i>
-        </button>
-        <button
-          className="resume-button"
+        </L10nSpan>
+        <L10nSpan
+          l10nId="player_play_or_pause_track"
+          className="resume-button btn"
           onClick={this._onResumeButtonClick}
-          title="Play / Pause">
+          where="title">
             <i className="fa fa-fw fa-play" ref="resumeIcon"></i>
-        </button>
-        <button
-          className="forward-button"
+        </L10nSpan>
+        <L10nSpan
+          l10nId="player_play_next_track"
+          className="forward-button btn"
           onClick={this._onForwardButtonClick}
-          title="Play Next Track">
+          where="title">
             <i className="fa fa-fw fa-step-forward"></i>
-        </button>
-        <button
-          className="repeat-button"
+        </L10nSpan>
+        <L10nSpan
+          l10nId={l10nIdForRepeat}
+          className="repeat-button btn"
           onClick={this._onRepeatButtonClick}
-          title={playerRepeatHint}>
+          where="title">
             <i className="fa fa-fw fa-repeat"></i>
             <span className="mode">{playerRepeatWording}</span>
-        </button>
-        <button
-          className="external-button"
+        </L10nSpan>
+        <L10nSpan
+          l10nId="player_open_in_browser"
+          className="external-button btn"
           onClick={this._onExternalButtonClick}
-          title="Open in browser">
+          where="title">
             <i className="fa fa-fw fa-external-link"></i>
-        </button>
-        <button
-          className="lyric-button"
+        </L10nSpan>
+        <L10nSpan
+          l10nId="player_show_lyrics"
+          className="lyric-button btn"
           onClick={this._onLyricButtonClick}
-          title="Show Lyrics"
+          where="title"
           disabled>
             <i className="fa fa-fw fa-font"></i>
-        </button>
+        </L10nSpan>
       </div>
     );
     /* jshint ignore:end */
