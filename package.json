@@ -42,7 +42,8 @@
     "mocha": "^2.2.5",
     "mock-browser": "^0.90.33",
     "proxyquire": "^1.7.1",
-    "sinon": "^1.14.1"
+    "sinon": "^1.14.1",
+    "webpack": "^1.12.0"
   },
   "dependencies": {
     "animate.css": "^3.2.5",

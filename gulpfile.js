@@ -71,17 +71,21 @@ gulp.task('env', function(cb) {
 });
 
 gulp.task('package', function(done) {
-  var devDependencies = packageJSON.devDependencies;
-  var devDependenciesKeys = Object.keys(devDependencies);
+  var dependencies = packageJSON.dependencies;
+  var dependenciesKeys = Object.keys(dependencies);
   var includedFiles = [
-    '**/*',
-    '!./build/**',
-    '!./tests/**'
+    'config/**',
+    'src/**',
+    'bootup.js',
+    'index.html',
+    'kaku.bundled.js',
+    'LICENSE',
+    'package.json',
+    'README.md'
   ];
 
-  // Let's ignore files listed inside devDependencies
-  devDependenciesKeys.forEach(function(key) {
-    includedFiles.push('!./node_modules/' + key + '/**');
+  dependenciesKeys.forEach(function(key) {
+    includedFiles.push('node_modules/' + key + '/**');
   });
 
   var arch = process.arch || 'ia32';
@@ -125,7 +129,9 @@ gulp.task('package', function(done) {
 
   // TODO
   // We have to fix more stuffs later after atomshell is updated
-  return gulp.src(includedFiles).pipe(electron({
+  return gulp.src(includedFiles, {
+    base: './'
+  }).pipe(electron({
     version: '0.30.0',
     platform: platform,
     arch: arch,
