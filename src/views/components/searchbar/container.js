@@ -5,6 +5,8 @@ var Searcher = require('../../../modules/Searcher');
 var TabManager = require('../../modules/TabManager');
 
 const SEARCH_TIMEOUT = 400;
+const SEARCH_LIMIT_FOR_AUTO_COMPLETE = 10;
+const SEARCH_LIMIT_FOR_ALL = 50;
 const BLUR_TIMEOUT = 100;
 
 var SearchbarContainer = React.createClass({
@@ -32,17 +34,18 @@ var SearchbarContainer = React.createClass({
     window.clearTimeout(this._searchTimer);
     this._searchTimer = window.setTimeout(() => {
       this._showLoader(true);
-      Searcher.search(keyword, 10, false).then((tracks) => {
-        // we have to reset selectedIndex for each search
-        this.setState({
-          searchTracks: tracks,
-          selectedIndex: -1
+      Searcher.search(keyword, SEARCH_LIMIT_FOR_AUTO_COMPLETE, false)
+        .then((tracks) => {
+          // we have to reset selectedIndex for each search
+          this.setState({
+            searchTracks: tracks,
+            selectedIndex: -1
+          });
+        }, (error) => {
+          console.log(error);
+        }).then(() => {
+          this._showLoader(false);
         });
-      }, (error) => {
-        console.log(error);
-      }).then(() => {
-        this._showLoader(false);
-      });
     }, SEARCH_TIMEOUT);
   },
 
@@ -113,7 +116,7 @@ var SearchbarContainer = React.createClass({
     this._closeAutoCompleteList();
 
     // then search
-    Searcher.search(keyword, 30, true).catch((error) => {
+    Searcher.search(keyword, SEARCH_LIMIT_FOR_ALL, true).catch((error) => {
       console.log(error);
     });
   },
