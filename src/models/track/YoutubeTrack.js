@@ -20,6 +20,10 @@ YoutubeTrack.prototype.initYoutubeResult = function(options) {
     this.description = options.snippet.description;
     this.platformId = options.id.videoId;
 
+    if (options.snippet.channelTitle) {
+      this.artist = options.snippet.channelTitle;
+    }
+
     if (options.snippet.thumbnails) {
       this.covers.default =
         options.snippet.thumbnails &&

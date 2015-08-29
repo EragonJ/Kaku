@@ -40,7 +40,7 @@ SoundCloudTrack.prototype.init = function(options) {
     }
 
     if (options.user && options.user.username) {
-      this.artist = options.user && options.user.username;
+      this.artist = options.user.username;
     }
 
     if (options.artwork_url) {

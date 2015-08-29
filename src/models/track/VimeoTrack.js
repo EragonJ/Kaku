@@ -20,6 +20,11 @@ VimeoTrack.prototype.init = function(options) {
     this.title = options.name;
     this.description = options.description;
     this.platformId = options.uri.match(/\d+$/)[0];
+
+    if (options.user && options.user.name) {
+      this.artist = options.user.name;
+    }
+
     var covers = options.pictures && options.pictures.sizes || [];
 
     if (covers.length > 0) {
