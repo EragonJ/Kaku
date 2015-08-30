@@ -113,6 +113,18 @@ AppMenus.prototype = {
       label: _('app_menu_view'),
       submenu: [
         {
+          label: _('app_menu_search_track'),
+          accelerator: 'CmdOrCtrl+F',
+          click: function() {
+            // TODO
+            // need to move this out to its own module
+            document.querySelector('.searchbar-user-input').focus();
+          }
+        },
+        {
+          type: 'separator'
+        },
+        {
           label: _('app_menu_reload'),
           accelerator: 'CmdOrCtrl+R',
           click: function() {
@@ -125,7 +137,7 @@ AppMenus.prototype = {
           click: function() {
             BrowserWindow.getFocusedWindow().toggleDevTools();
           }
-        },
+        }
       ]
     };
   },
