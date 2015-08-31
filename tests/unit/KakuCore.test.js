@@ -5,7 +5,7 @@ suite('KakuCore', () => {
   var sandbox;
   
   setup(() => {
-    kakuCore = require('../src/modules/KakuCore');
+    kakuCore = require('../../src/modules/KakuCore');
     sandbox = sinon.sandbox.create();
     sandbox.stub(kakuCore, 'emit');
   });

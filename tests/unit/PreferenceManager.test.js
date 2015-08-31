@@ -4,7 +4,7 @@ suite('PreferenceManager', () => {
   var preferenceManager;
 
   setup(() => {
-    preferenceManager = require('../src/modules/PreferenceManager');
+    preferenceManager = require('../../src/modules/PreferenceManager');
     preferenceManager._preferenceStorage = {};
   });
 

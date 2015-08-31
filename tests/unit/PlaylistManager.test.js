@@ -5,7 +5,7 @@ suite('PlaylistManager', () => {
   var sandbox;
 
   setup((done) => {
-    playlistManager = require('../src/modules/PlaylistManager');
+    playlistManager = require('../../src/modules/PlaylistManager');
 
     // Let's stub all db related operations
     sandbox = sinon.sandbox.create();

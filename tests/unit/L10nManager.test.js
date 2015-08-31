@@ -7,7 +7,7 @@ suite('L10nManager', () => {
 
   setup(() => {
     mockRemote = require('./mocks/Remote');
-    l10nManager = proxyquire('../src/modules/L10nManager', {
+    l10nManager = proxyquire('../../src/modules/L10nManager', {
       remote: mockRemote
     });
     l10nManager._cachedStrings = {

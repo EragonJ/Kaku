@@ -8,7 +8,7 @@ suite('HistoryManager', () => {
   setup(() => {
     sandbox = sinon.sandbox.create();
     fakeTrack = {};
-    historyManager = require('../src/modules/HistoryManager');
+    historyManager = require('../../src/modules/HistoryManager');
     // beacuse this is singleton, we have to cleanup by ourselves
     historyManager.clean();
     sandbox.stub(historyManager, 'emit');

@@ -4,7 +4,7 @@ suite('IniParser', () => {
   var iniParser;
 
   setup(() => {
-    iniParser = require('../src/modules/IniParser');
+    iniParser = require('../../src/modules/IniParser');
   });
 
   suite('parse() >', () => {

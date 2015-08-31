@@ -4,7 +4,7 @@ suite('BaseTrack', () => {
   var BaseTrack;
   
   setup(() => {
-    BaseTrack = require('../src/models/track/BaseTrack');
+    BaseTrack = require('../../src/models/track/BaseTrack');
   });
 
   suite('isSameTrackWith() >', () => {
