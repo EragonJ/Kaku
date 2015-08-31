@@ -3,12 +3,15 @@ var argv = require('yargs').argv;
 var gulp = require('gulp');
 var less = require('gulp-less');
 var gulpif = require('gulp-if');
+var rename = require('gulp-rename');
 var clean = require('gulp-clean');
 var jshint = require('gulp-jshint');
 var electron = require('gulp-atom-electron');
 var sequence = require('gulp-sequence');
+var shell = require('shelljs');
+var useref = require('gulp-useref');
+var kakuApp = require('electron-connect').server.create();
 var newer = require('gulp-newer');
-
 var webpack = require('webpack');
 
 var path = require('path');
@@ -20,6 +23,18 @@ var CURRENT_ENVIRONMENT = 'development';
 function isProduction() {
   return CURRENT_ENVIRONMENT === 'production';
 }
+
+gulp.task('html', function() {
+  var assets = useref.assets();
+
+  return gulp
+    .src('./_index.html')
+    .pipe(assets)
+    .pipe(assets.restore())
+    .pipe(useref())
+    .pipe(rename('index.html'))
+    .pipe(gulp.dest('./'));
+});
 
 gulp.task('cleanup:build', function() {
   return gulp
@@ -68,6 +83,27 @@ gulp.task('env', function(cb) {
     env: CURRENT_ENVIRONMENT
   };
   fs.writeFile('env.json', JSON.stringify(envInfo), cb);
+});
+
+gulp.task('watch', function() {
+  kakuApp.start();
+
+  // create a child process for webpack --watch
+  shell.exec('webpack --watch', {
+    async: true
+  });
+
+  // reload when files are changed
+  gulp.watch([
+    './kaku.bundled.js',
+    './index.html',
+    './src/public/css/**'
+  ], kakuApp.reload);
+
+  // reload when styles are changed
+  gulp.watch([
+    './src/public/less/**'
+  ], ['less']);
 });
 
 gulp.task('package', function(done) {
@@ -176,6 +212,8 @@ gulp.task('production', function(callback) {
   sequence(
     'cleanup:build',
     'linter:src',
+    'less',
+    'html',
     'env',
     'webpack'
   )(callback);
@@ -184,8 +222,9 @@ gulp.task('production', function(callback) {
 gulp.task('default', function(callback) {
   CURRENT_ENVIRONMENT = 'development';
   sequence(
-    'less',
     'linter:src',
+    'less',
+    'html',
     'env',
     'webpack'
   )(callback);
