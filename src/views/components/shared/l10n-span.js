@@ -1,5 +1,6 @@
 var React = require('react');
 var L10nManager = require('../../../modules/L10nManager');
+var _ = L10nManager.get.bind(L10nManager);
 
 var L10nSpan = React.createClass({
   propTypes: {
@@ -41,7 +42,7 @@ var L10nSpan = React.createClass({
 
   _updateL10nTranslation: function(nextProps) {
     var props = nextProps || this.props;
-    var translation = L10nManager.get(props.l10nId, props.l10nParams);
+    var translation = _(props.l10nId, props.l10nParams);
     this.setState({
       translation: translation
     });

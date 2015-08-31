@@ -12,6 +12,7 @@ var L10nManager = require('../../modules/L10nManager');
 var KakuCore = require('../../modules/KakuCore');
 var Searcher = require('../../modules/Searcher');
 var Tracker = require('../../modules/Tracker');
+var _ = L10nManager.get.bind(L10nManager);
 
 videojs.options.flash.swf = 'dist/vendor/video.js/dist/video-js.swf';
 
@@ -289,7 +290,7 @@ Player.prototype._getRealTrack = function(track) {
 Player.prototype._updateAppHeader = function(state) {
   if (state === 'play') {
     var maxLength = 40;
-    var translatedTitle = L10nManager.get('app_title_playing', {
+    var translatedTitle = _('app_title_playing', {
       name: this._playingTrack.title
     });
     if (translatedTitle.length > maxLength) {
@@ -298,7 +299,7 @@ Player.prototype._updateAppHeader = function(state) {
     KakuCore.title = translatedTitle;
   }
   else if (state === 'ended') {
-    KakuCore.title = L10nManager.get('app_title_normal');
+    KakuCore.title = _('app_title_normal');
   }
 };
 

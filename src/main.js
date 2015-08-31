@@ -16,6 +16,7 @@ var KakuCore = require('./modules/KakuCore');
 var Searcher = require('./modules/Searcher');
 var AutoUpdater = require('./modules/AutoUpdater');
 var Tracker = require('./modules/Tracker');
+var _ = L10nManager.get.bind(L10nManager);
 
 // views > components
 var ToolbarContainer = require('./views/components/toolbar/container');
@@ -75,7 +76,7 @@ var KakuApp = React.createClass({
   },
 
   _initializeAppTitle: function() {
-    KakuCore.title = L10nManager.get('app_title_normal');
+    KakuCore.title = _('app_title_normal');
   },
 
   _initializeDefaultLanguage: function() {

@@ -11,6 +11,7 @@ var L10nManager = require('../../../modules/L10nManager');
 var TabManager = require('../../modules/TabManager');
 var Notifier = require('../../modules/Notifier');
 var Dialog = require('../../modules/Dialog');
+var _ = L10nManager.get.bind(L10nManager);
 
 var L10nSpan = require('../shared/l10n-span');
 
@@ -94,8 +95,8 @@ var MenusContainer = React.createClass({
   _addPlaylist: function() {
     var randomSuffix = Crypto.randomBytes(3).toString('hex');
     Dialog.prompt({
-      title: L10nManager.get('notifier_input_playlist_name'),
-      value: L10nManager.get('notifier_playlist') + '-' + randomSuffix,
+      title: _('notifier_input_playlist_name'),
+      value: _('notifier_playlist') + '-' + randomSuffix,
       callback: (rawPlaylistName) => {
         rawPlaylistName = rawPlaylistName || '';
         var sanitizedPlaylistName = rawPlaylistName.trim();
