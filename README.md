@@ -72,24 +72,23 @@ After that, you will get a solid application to run !
 
 ## How To Develop
 
-In order to speed up development pace, we won't do too much building tasks in this phase. All we do is to watch all folders and see what files are changed and trigger browser to reload.
+### For testers who want to build kaku and give it a try
 
-But no matter how, please remember to run following command first to make sure we create all needed temporary files first.
+This is for one-time tester, you can just directly build the clean Kaku and directly run
+the code and see how it works.
 
 ```bash
-gulp
+gulp && electron .
 ```
 
-After that, you need to open a terminal session and watch changes in files :
+### For developers who need to test your patches
+
+You can use the command to create a daemon that would keep watching changes and rebuild
+Kaku by webpack. After building, Kaku will be automatically reloaded and the changes would
+be reflected on UI directly.
 
 ```bash
 gulp watch
-```
-
-then run Kaku :
-
-```bash
-electron .
 ```
 
 ## How To Run Tests or Linter
