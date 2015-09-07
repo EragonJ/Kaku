@@ -18,7 +18,15 @@ YoutubeTrack.prototype.initYoutubeResult = function(options) {
   } else {
     this.title = options.snippet.title;
     this.description = options.snippet.description;
-    this.platformId = options.id.videoId;
+
+    // from Youtube > Search
+    if (options.id && options.id.videoId) {
+      this.platformId = options.id.videoId;
+    }
+    // from Youtube > playlistItem
+    else if (options.snippet.resourceId && options.snippet.resourceId.videoId) {
+      this.platformId = options.snippet.resourceId.videoId;
+    }
 
     if (options.snippet.channelTitle) {
       this.artist = options.snippet.channelTitle;

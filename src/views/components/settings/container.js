@@ -7,6 +7,7 @@ var React = require('react');
 var PreferenceManager = require('../../../modules/PreferenceManager');
 var TrackInfoFetcher = require('../../../modules/TrackInfoFetcher');
 var PlaylistManager = require('../../../modules/PlaylistManager');
+var YoutubeImporter = require('../../../modules/importer/YoutubeImporter');
 var DropboxBackuper = require('../../../modules/backuper/DropboxBackuper');
 var LocalBackuper = require('../../../modules/backuper/LocalBackuper');
 var TopRanking = require('../../../modules/TopRanking');
@@ -165,6 +166,21 @@ var SettingsContainer = React.createClass({
   _onTrackFormatChange: function(event) {
     var trackFormat = event.target.value;
     TrackInfoFetcher.changeFormat(trackFormat);
+  },
+
+  _onClickToImportYoutubePlaylist: function() {
+    Dialog.prompt({
+      title: _('settings_option_enter_playlist_url_prompt'),
+      value: '',
+      callback: (url) => {
+        YoutubeImporter.import(url).then((playlist) => {
+          Notifier.alert(playlist.name + ' is created !');
+        }).catch((error) => {
+          Notifier.alert(error);
+          console.log(error);
+        });
+      }
+    });
   },
 
   _onFormSubmit: function(event) {
@@ -350,6 +366,33 @@ var SettingsContainer = React.createClass({
                   className="form-control"
                   onChange={this._onTrackFormatChange}
                   ref="trackFormatSelect"></select>
+              </div>
+            </div>
+            <div className="form-group">
+              <label className="col-sm-3 control-label">
+                <L10nSpan l10nId="settings_option_import_playlist"/>
+              </label>
+              <div className="col-sm-6">
+                <div className="btn-group" role="group">
+                  <div className="btn-group" role="group">
+                    <button
+                      className="btn btn-default dropdown-toggle"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false">
+                        <L10nSpan l10nId="settings_option_choose_import_playlist_method"/>
+                        <span className="caret"></span>
+                    </button>
+                    <ul className="dropdown-menu">
+                      <li>
+                        <a href="#" onClick={this._onClickToImportYoutubePlaylist}>
+                          <i className="fa fa-fw fa-youtube"></i>
+                          <L10nSpan l10nId="settings_option_import_youtube_playlist"/>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="form-group">

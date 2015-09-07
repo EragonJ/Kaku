@@ -33,6 +33,14 @@ var MenusContainer = React.createClass({
       this._updatePlaylistsStates();
     });
 
+    PlaylistManager.on('added', () => {
+      this._updatePlaylistsStates();
+    });
+
+    PlaylistManager.on('removed', () => {
+      this._updatePlaylistsStates();
+    });
+
     PlaylistManager.on('imported', () => {
       this._updatePlaylistsStates();
     });
@@ -107,7 +115,7 @@ var MenusContainer = React.createClass({
           PlaylistManager
             .addNormalPlaylist(sanitizedPlaylistName)
             .then(() => {
-              this._updatePlaylistsStates();
+              // playlist UI will be re-created by event
             })
             .catch((error) => {
               Notifier.alert(error);
@@ -126,7 +134,8 @@ var MenusContainer = React.createClass({
         PlaylistManager
           .removePlaylistById(playlist.id)
           .then(() => {
-            this._updatePlaylistsStates();
+            // playlist UI will be re-created by event
+            //
             // [Note]
             // Redirect users back to default home page, otherwise they
             // will still see deleted page on the screen.

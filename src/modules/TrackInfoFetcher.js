@@ -70,8 +70,8 @@ TrackInfoFetcher.prototype.getInfo = function(url) {
   let promise = new Promise((resolve, reject) => {
     YoutubeDownloader.getInfo(url, this.getOptions(), (error, info) => {
       if (error) {
-        this.debug(error);
-        reject();
+        console.log(error);
+        reject(error);
       } else {
         resolve(info);
       }

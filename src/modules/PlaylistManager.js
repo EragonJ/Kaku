@@ -103,11 +103,11 @@ PlaylistManager.prototype.addNormalPlaylist = function(name) {
   });
 };
 
-PlaylistManager.prototype.addYoutubePlaylist = function(youtubeId, name) {
+PlaylistManager.prototype.addYoutubePlaylist = function(name, youtubeId) {
   return this._addPlaylist({
     type: 'youtube',
     name: name,
-    id: youtubeId
+    platformid: youtubeId
   });
 };
 
@@ -117,8 +117,8 @@ PlaylistManager.prototype._addPlaylist = function(options) {
     var name = options.name;
     var sameNamePlaylist = self.findPlaylistByName(name);
     if (sameNamePlaylist) {
-      reject('You already one playlist with same name, ' +
-        'please try another one');
+      reject('You already had one playlist with the same name - ' + name +
+        ', so please try another one !');
     }
     else {
       Tracker.event('PlaylistManager', 'add playlist', name).send();
@@ -272,4 +272,4 @@ PlaylistManager.prototype.import = function(playlistObjects) {
   });
 };
 
-module.exports = new PlaylistManager();
+module.exports = window.xxx = new PlaylistManager();

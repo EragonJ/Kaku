@@ -15,6 +15,7 @@ function BasePlaylist(options) {
 
   EventEmitter.call(this);
   this.id = options.id || Crypto.randomBytes(3).toString('hex');
+  this.platformId = options.id || '';
   this.name = options.name || 'playlist';
   this.type = options.type || 'normal';
   this._tracks = options._tracks || [];
@@ -49,12 +50,14 @@ BasePlaylist.fromJSON = function(json) {
   // we may need to support different playlist here
   return new BasePlaylist({
     id: json.id,
+    platformId: json.platformId,
     name: json.name,
     _tracks: tracks
   });
 };
 
-BasePlaylist.prototype.addTrack = function(track) {
+BasePlaylist.prototype.addTrack = function(track, options) {
+  options = options || {};
   var self = this;
   var promise = new Promise((resolve, reject) => {
     var title = track.title;
@@ -66,11 +69,31 @@ BasePlaylist.prototype.addTrack = function(track) {
     }
     else {
       self._tracks.push(track);
-      self.emit('tracksUpdated');
+      if (options.doEmitEvent) {
+        self.emit('tracksUpdated');
+      }
       resolve();
     }
   });
   return promise;
+};
+
+BasePlaylist.prototype.addTracks = function(tracks) {
+  if (tracks.length <= 0) {
+    return Promise.resolve();
+  }
+  else {
+    var promises = tracks.map((track) => {
+      return this.addTrack(track, {
+        doEmitEvent: false
+      });
+    });
+    // We need to trigger update event in the end to make sure we won't
+    // make db conflicted.
+    return Promise.all(promises).then(() => {
+      this.emit('tracksUpdated');
+    });
+  }
 };
 
 BasePlaylist.prototype.removeTrack = function(track) {
@@ -126,6 +149,7 @@ BasePlaylist.prototype.toJSON = function() {
 
   return {
     id: this.id,
+    platformId: this.platformId,
     name: this.name,
     type: this.type,
     _tracks: tracks

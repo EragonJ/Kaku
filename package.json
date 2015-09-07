@@ -79,7 +79,7 @@
     "video.js": "^4.12.12",
     "vimeo": "^1.1.4",
     "yargs": "^3.12.0",
-    "youtube-dl": "EragonJ/node-youtube-dl",
-    "youtube-node": "^1.2.0"
+    "youtube-api": "^1.1.0",
+    "youtube-dl": "EragonJ/node-youtube-dl"
   }
 }
