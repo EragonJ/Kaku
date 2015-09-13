@@ -173,12 +173,14 @@ var SettingsContainer = React.createClass({
       title: _('settings_option_enter_playlist_url_prompt'),
       value: '',
       callback: (url) => {
-        YoutubeImporter.import(url).then((playlist) => {
-          Notifier.alert(playlist.name + ' is created !');
-        }).catch((error) => {
-          Notifier.alert(error);
-          console.log(error);
-        });
+        if (url) {
+          YoutubeImporter.import(url).then((playlist) => {
+            Notifier.alert(playlist.name + ' is created !');
+          }).catch((error) => {
+            Notifier.alert(error);
+            console.log(error);
+          });
+        }
       }
     });
   },
