@@ -8,11 +8,7 @@ var YoutubeSearcher = function() {
 
 YoutubeSearcher.prototype.search = function(keyword, limit) {
   var promise = new Promise((resolve, reject) => {
-    Youtube.search.list({
-      part: 'snippet',
-      maxResults: limit,
-      q: keyword
-    }, (error, result) => {
+    Youtube.search(keyword, limit, function(error, result) {
       if (error) {
         console.error(error.error.message);
         reject();

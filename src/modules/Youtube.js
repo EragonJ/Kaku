@@ -1,10 +1,7 @@
-var Google = require('googleapis');
 var Constants = require('./Constants');
+var Youtube = require('youtube-node');
 
-Google.options({
-  auth: Constants.API.YOUTUBE_API_KEY
-});
+var youtube = new Youtube();
+youtube.setKey(Constants.API.YOUTUBE_API_KEY);
 
-var Youtube = Google.youtube('v3');
-
-module.exports = Youtube;
+module.exports = youtube;

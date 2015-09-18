@@ -11,10 +11,7 @@ function YoutubeImporter() {
 
 YoutubeImporter.prototype._getPlaylistTitle = function(id) {
   let promise = new Promise((resolve, reject) => {
-    Youtube.playlists.list({
-      part: 'snippet',
-      id: id
-    }, (error, result) => {
+    Youtube.getPlayListsById(id, function(error, result) {
       if (error) {
         reject(error);
       }
@@ -44,11 +41,7 @@ YoutubeImporter.prototype.import = function(url) {
     let promise = new Promise((resolve, reject) => {
       // TODO
       // support paging to make sure we can fetch all items back
-      Youtube.playlistItems.list({
-        part: 'snippet',
-        playlistId: id,
-        maxResults: 50
-      }, (error, result) => {
+      Youtube.getPlayListsItemsById(id, 50, function(error, result) {
         if (error) {
           reject(error);
         }
