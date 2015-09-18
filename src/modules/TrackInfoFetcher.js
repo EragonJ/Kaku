@@ -13,7 +13,7 @@ let TrackInfoFetcher = function() {
   this._supportedTrackFormats = [
     {
       l10nId: 'settings_option_best_video_format',
-      value: 'bestvideo'
+      value: 'best'
     },
     {
       l10nId: 'settings_option_best_audio_format',
@@ -32,6 +32,7 @@ TrackInfoFetcher.constructor = TrackInfoFetcher;
  * })
  */
 TrackInfoFetcher.prototype.setOptions = function(options) {
+  this._userOptions = {};
   for (let key in options) {
     this._userOptions[key] = options[key];
   }
@@ -68,7 +69,8 @@ TrackInfoFetcher.prototype.getSupportedFormats = function() {
 
 TrackInfoFetcher.prototype.getInfo = function(url) {
   let promise = new Promise((resolve, reject) => {
-    YoutubeDownloader.getInfo(url, this.getOptions(), (error, info) => {
+    let options = this.getOptions();
+    YoutubeDownloader.getInfo(url, options, (error, info) => {
       if (error) {
         console.log(error);
         reject(error);

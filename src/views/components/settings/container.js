@@ -120,7 +120,7 @@ var SettingsContainer = React.createClass({
   _buildTrackFormatOptions: function() {
     var trackFormats = TrackInfoFetcher.getSupportedFormats();
     var defaultFormat =
-      PreferenceManager.getPreference('default.track.format') || 'bestvideo';
+      PreferenceManager.getPreference('default.track.format') || 'best';
     var select = this.refs.trackFormatSelect.getDOMNode();
 
     // remove childrens first
