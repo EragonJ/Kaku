@@ -6,8 +6,9 @@ var gulpif = require('gulp-if');
 var rename = require('gulp-rename');
 var clean = require('gulp-clean');
 var jshint = require('gulp-jshint');
-var electron = require('gulp-atom-electron');
 var sequence = require('gulp-sequence');
+var pathLength = require('gulp-path-length');
+var electron = require('gulp-atom-electron');
 var shell = require('shelljs');
 var useref = require('gulp-useref');
 var kakuApp = require('electron-connect').server.create();
@@ -23,6 +24,17 @@ var CURRENT_ENVIRONMENT = 'development';
 function isProduction() {
   return CURRENT_ENVIRONMENT === 'production';
 }
+
+
+// We need to check pathLength when building Kaku for Windows users.
+// Ref: http://engineroom.teamwork.com/dealing-with-long-paths/
+gulp.task('checkPathLength', function() {
+  return gulp
+    .src('./**', {
+       read: false
+    })
+    .pipe(pathLength());
+});
 
 gulp.task('html', function() {
   var assets = useref.assets();
@@ -210,6 +222,7 @@ gulp.task('linter:all', function(callback) {
 gulp.task('production', function(callback) {
   CURRENT_ENVIRONMENT = 'production';
   sequence(
+    'checkPathLength',
     'cleanup:build',
     'linter:src',
     'less',
