@@ -96,7 +96,7 @@ var KakuApp = React.createClass({
 
   _initializeDefaultTrackFormat: function() {
     var defaultFormat =
-      PreferenceManager.getPreference('default.track.format') || 'bestvideo';
+      PreferenceManager.getPreference('default.track.format') || 'best';
     TrackInfoFetcher.changeFormat(defaultFormat);
   },
 
