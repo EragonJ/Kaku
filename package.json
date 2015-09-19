@@ -1,6 +1,6 @@
 {
   "name": "Kaku",
-  "version": "1.1.0",
+  "version": "1.5.0",
   "description": "The next generation music client",
   "main": "bootup.js",
   "repository": {
