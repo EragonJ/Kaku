@@ -222,7 +222,6 @@ gulp.task('linter:all', function(callback) {
 gulp.task('production', function(callback) {
   CURRENT_ENVIRONMENT = 'production';
   sequence(
-    'checkPathLength',
     'cleanup:build',
     'linter:src',
     'less',
