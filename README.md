@@ -5,9 +5,9 @@ The next generation music client
 
 # Latest Screenshot
 
-![Latest Screenshot](http://i.imgur.com/4QOhnIq.jpg)
+![Latest Screenshot](http://i.imgur.com/WiIg6tY.jpg)
 
-![Latest Screenshot](http://i.imgur.com/w8kSQ4L.png)
+![Latest Screenshot](http://i.imgur.com/uanIMJO.png)
 
 # Supported Streaming Platform
 
@@ -19,10 +19,12 @@ The next generation music client
 # Supported Languages
 
 + Traditional Chinese 繁體中文 (沒錯，這個程式 Made in Taiwan XD)
++ 日本語
++ Portuguese
 + English
 + French
 + Spanish
-+ 日本語
++ Русский
 + ... keep adding :)
 
 # Build Status
