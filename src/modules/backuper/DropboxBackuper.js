@@ -5,7 +5,7 @@ var Path = require('path');
 // we need to move out BrowserWindow because this is related to UI
 var Remote = require('remote');
 var BrowserWindow = Remote.require('browser-window');
-var Dropbox = require('../Dropbox');
+var Dropbox = require('../wrapper/Dropbox');
 
 function DropboxBackuper() {
   this._dropboxAccessToken = '';
