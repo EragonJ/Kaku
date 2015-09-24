@@ -1,8 +1,8 @@
 var React = require('react');
 var shell = require('shell');
-var remote = require('remote');
-var dialog = remote.require('dialog');
-var App = remote.require('app');
+var Remote = require('remote');
+var Dialog = Remote.require('dialog');
+var App = Remote.require('app');
 
 var ReactTooltip = require('react-tooltip');
 
@@ -58,6 +58,7 @@ var KakuApp = React.createClass({
   componentDidMount: function() {
     this._triggerAutoUpdater();
     this._initializeAppTitle();
+    this._initializeDefaultAlwaysOnTop();
     this._initializeDefaultLanguage();
     this._initializeDefaultSearcher();
     this._initializeDefaultTrackFormat();
@@ -77,6 +78,14 @@ var KakuApp = React.createClass({
 
   _initializeAppTitle: function() {
     KakuCore.title = _('app_title_normal');
+  },
+
+  _initializeDefaultAlwaysOnTop: function() {
+    var defaultAlwaysOnTop =
+      PreferenceManager.getPreference('default.alwaysOnTop.enabled');
+    if (defaultAlwaysOnTop) {
+      Remote.getCurrentWindow().setAlwaysOnTop(defaultAlwaysOnTop);
+    }
   },
 
   _initializeDefaultLanguage: function() {
@@ -112,7 +121,7 @@ var KakuApp = React.createClass({
         var release = result.release;
         // TODO
         // Need l10n here
-        dialog.showMessageBox({
+        Dialog.showMessageBox({
           type: 'info',
           title: 'New release',
           message:

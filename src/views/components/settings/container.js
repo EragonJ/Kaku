@@ -76,6 +76,12 @@ var SettingsContainer = React.createClass({
     TrackInfoFetcher.on('format-changed', (newFormat) => {
       PreferenceManager.setPreference('default.track.format', newFormat);
     });
+
+    PreferenceManager.on('preference-updated', (key, newPreference) => {
+      if (key === 'default.alwaysOnTop.enabled') {
+        Remote.getCurrentWindow().setAlwaysOnTop(newPreference);
+      }
+    });
   },
 
   _makeLanguageOptions: function(languages, defaultLanguage) {
@@ -138,7 +144,7 @@ var SettingsContainer = React.createClass({
     });
   },
 
-  _onDesktopNotificationChange: function(event) {
+  _onChangeToSetPreference: function(event) {
     var target = event.target;
     var enabled = target.checked;
     var key = target.dataset.key;
@@ -297,6 +303,9 @@ var SettingsContainer = React.createClass({
     var isDesktopNotificationEnabled =
       PreferenceManager.getPreference('desktop.notification.enabled');
 
+    var isAlwaysOnTopEnabled =
+      PreferenceManager.getPreference('default.alwaysOnTop.enabled');
+
     /* jshint ignore:start */
     return (
       <div className="settings-slot">
@@ -319,7 +328,23 @@ var SettingsContainer = React.createClass({
                       type="checkbox"
                       checked={isDesktopNotificationEnabled}
                       data-key="desktop.notification.enabled"
-                      onChange={this._onDesktopNotificationChange}/>
+                      onChange={this._onChangeToSetPreference}/>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div className="form-group">
+              <label className="col-sm-3 control-label">
+                <L10nSpan l10nId="settings_option_always_on_top_enabled"/>
+              </label>
+              <div className="col-sm-3">
+                <div className="checkbox">
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={isAlwaysOnTopEnabled}
+                      data-key="default.alwaysOnTop.enabled"
+                      onChange={this._onChangeToSetPreference}/>
                   </label>
                 </div>
               </div>
