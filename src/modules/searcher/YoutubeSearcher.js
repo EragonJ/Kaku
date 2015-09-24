@@ -1,4 +1,4 @@
-var Youtube = require('../Youtube');
+var Youtube = require('../wrapper/Youtube');
 var YoutubeTrack = require('../../models/track/YoutubeTrack');
 var Tracker = require('../../modules/Tracker');
 

@@ -1,4 +1,4 @@
-var Constants = require('./Constants');
+var Constants = require('../Constants');
 var Youtube = require('youtube-node');
 
 var youtube = new Youtube();

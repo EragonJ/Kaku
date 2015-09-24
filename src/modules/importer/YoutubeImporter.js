@@ -1,5 +1,5 @@
 var Crypto = require('crypto');
-var Youtube = require('../Youtube');
+var Youtube = require('../wrapper/Youtube');
 var PlaylistManager = require('../../modules/PlaylistManager');
 var YoutubeTrack = require('../../models/track/YoutubeTrack');
 

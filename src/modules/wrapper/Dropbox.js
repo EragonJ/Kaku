@@ -1,4 +1,4 @@
-var Constants = require('../modules/Constants');
+var Constants = require('../Constants');
 var Dropbox = require('node-dropbox');
 
 Dropbox.auth = function() {
