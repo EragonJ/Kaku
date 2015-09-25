@@ -69,7 +69,7 @@ BasePlaylist.prototype.addTrack = function(track, options) {
     }
     else {
       self._tracks.push(track);
-      if (options.doEmitEvent) {
+      if (!options.dontEmitEvent) {
         self.emit('tracksUpdated');
       }
       resolve();
@@ -83,15 +83,16 @@ BasePlaylist.prototype.addTracks = function(tracks) {
     return Promise.resolve();
   }
   else {
+    var self = this;
     var promises = tracks.map((track) => {
-      return this.addTrack(track, {
-        doEmitEvent: false
+      return self.addTrack(track, {
+        dontEmitEvent: true
       });
     });
     // We need to trigger update event in the end to make sure we won't
     // make db conflicted.
     return Promise.all(promises).then(() => {
-      this.emit('tracksUpdated');
+      self.emit('tracksUpdated');
     });
   }
 };

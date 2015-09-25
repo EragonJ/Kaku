@@ -98,14 +98,20 @@ suite('BasePlaylist', () => {
   });
 
   suite('addTrack() >', () => {
+    var sandbox = sinon.sandbox.create();
     var playlist;
     var fakeTrack = {
       artist: '周杰倫',
-      title: '我要夏天' 
+      title: '我要夏天'
     };
 
     setup(() => {
-      playlist = new BasePlaylist(); 
+      playlist = new BasePlaylist();
+      sandbox.spy(playlist, 'emit');
+    });
+
+    teardown(() => {
+      sandbox.restore();
     });
 
     test('if the track doesn\'t exist, do add', (done) => {
@@ -114,6 +120,7 @@ suite('BasePlaylist', () => {
       playlist.addTrack(fakeTrack).then(() => {
         var addedTrack = playlist.tracks[0];
         assert.deepEqual(addedTrack, fakeTrack);
+        assert.isTrue(playlist.emit.calledWith('tracksUpdated'));
       }).then(done, done);
     });
 
@@ -128,15 +135,53 @@ suite('BasePlaylist', () => {
     });
   });
 
+  suite('addTracks() >', () => {
+    var sandbox = sinon.sandbox.create();
+    var playlist;
+    var fakeTracks = [
+      {
+        artist: '林俊傑',
+        title: '江南'
+      },
+      {
+        artist: 'Michael Jackson',
+        title: 'Beat it'
+      },
+      {
+        artist: '柯有倫',
+        title: '零'
+      }
+    ]
+
+    setup(() => {
+      playlist = new BasePlaylist();
+      sandbox.spy(playlist, 'emit');
+    });
+
+    teardown(() => {
+      sandbox.restore();
+    });
+
+    test('if we have many tracks, event will be sent only once', (done) => {
+      playlist.addTracks(fakeTracks).then(() => {
+        playlist.tracks.forEach((track, index) => {
+          assert.deepEqual(track, fakeTracks[index]);
+        });
+        assert.isTrue(playlist.emit.calledOnce);
+        assert.isTrue(playlist.emit.calledWith('tracksUpdated'));
+      }).then(done, done);
+    });
+  });
+
   suite('removeTrack() >', () => {
     var playlist;
     var fakeTrack = {
       artist: '周杰倫',
-      title: '我要夏天' 
+      title: '我要夏天'
     };
 
     setup(() => {
-      playlist = new BasePlaylist(); 
+      playlist = new BasePlaylist();
     });
 
     test('if the track doesn\'t exist, do not remove', (done) => {
@@ -172,12 +217,11 @@ suite('BasePlaylist', () => {
 
       var originalPlaylist = new BasePlaylist(playlistInfo);
       var exportedPlaylist = BasePlaylist.fromJSON(originalPlaylist.toJSON());
-      
+
       assert.equal(exportedPlaylist.id, playlistInfo.id);
       assert.equal(exportedPlaylist.name, playlistInfo.name);
       assert.equal(exportedPlaylist._tracks.length,
         playlistInfo._tracks.length);
     });
   });
-
 });
