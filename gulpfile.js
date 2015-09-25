@@ -10,7 +10,7 @@ var sequence = require('gulp-sequence');
 var pathLength = require('gulp-path-length');
 var electron = require('gulp-atom-electron');
 var shell = require('shelljs');
-// var useref = require('gulp-useref');
+var useref = require('gulp-useref');
 var kakuApp = require('electron-connect').server.create();
 var newer = require('gulp-newer');
 var webpack = require('webpack');
@@ -37,13 +37,13 @@ gulp.task('checkPathLength', function() {
 });
 
 gulp.task('html', function() {
-  //var assets = useref.assets();
+  var assets = useref.assets();
 
   return gulp
     .src('./_index.html')
-    // .pipe(assets)
-    // .pipe(assets.restore())
-    // .pipe(useref())
+    .pipe(gulpif(isProduction(), assets))
+    .pipe(gulpif(isProduction(), assets.restore()))
+    .pipe(gulpif(isProduction(), useref()))
     .pipe(rename('index.html'))
     .pipe(gulp.dest('./'));
 });
