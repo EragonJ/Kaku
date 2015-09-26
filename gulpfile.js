@@ -8,7 +8,7 @@ var clean = require('gulp-clean');
 var jshint = require('gulp-jshint');
 var sequence = require('gulp-sequence');
 var pathLength = require('gulp-path-length');
-var electron = require('gulp-atom-electron');
+var packager = require('electron-packager');
 var shell = require('shelljs');
 var useref = require('gulp-useref');
 var kakuApp = require('electron-connect').server.create();
@@ -119,21 +119,16 @@ gulp.task('watch', function() {
 });
 
 gulp.task('package', function(done) {
-  var dependencies = packageJSON.dependencies;
-  var dependenciesKeys = Object.keys(dependencies);
-  var includedFiles = [
-    'config/**',
-    'src/**',
-    'bootup.js',
-    'index.html',
-    'kaku.bundled.js',
-    'LICENSE',
-    'package.json',
-    'README.md'
+  var devDependencies = packageJSON.devDependencies;
+  var devDependenciesKeys = Object.keys(devDependencies);
+  var ignoreFiles = [
+    './build',
+    './tests',
+    './kaku'
   ];
 
-  dependenciesKeys.forEach(function(key) {
-    includedFiles.push('node_modules/' + key + '/**');
+  devDependenciesKeys.forEach(function(key) {
+    ignoreFiles.push('node_modules/' + key);
   });
 
   var arch = process.arch || 'ia32';
@@ -170,26 +165,49 @@ gulp.task('package', function(done) {
       break;
   }
 
-  console.log('Building kaku for ' + platform + '-' + arch);
-
   // We will keep all stuffs in dist/ instead of src/ for production
   var iconFolderPath = './src/public/images/icons';
+  var iconPath;
 
-  // TODO
-  // We have to fix more stuffs later after atomshell is updated
-  return gulp.src(includedFiles, {
-    base: './'
-  }).pipe(electron({
-    version: '0.30.0',
-    platform: platform,
-    arch: arch,
-    // for Mac
-    darwinIcon: path.join(iconFolderPath, 'kaku.icns'),
-    // for windows
-    winIcon: path.join(iconFolderPath, 'kaku.ico'),
-    companyName: 'Kaku',
-    copyright: 'MIT'
-  })).pipe(electron.zfsdest('build/app.zip'));
+  if (platform === 'darwin') {
+    iconPath = path.join(iconFolderPath, 'kaku.icns');
+  }
+  else {
+    iconPath = path.join(iconFolderPath, 'kaku.ico');
+  }
+
+  var ignorePath = ignoreFiles.join('|');
+  var ignoreRegexp = new RegExp(ignorePath, 'ig');
+
+  packager({
+    'dir': './',
+    'name': 'Kaku',
+    'platform': platform,
+    'arch': arch,
+    'version': '0.30.0',
+    'out': './build',
+    'icon': iconPath,
+    'app-bundle-id': 'kaku',
+    'app-version': packageJSON.version,
+    'build-version': packageJSON.version,
+    'helper-bundle-id': 'kaku',
+    'ignore': ignoreRegexp,
+    'overwrite': true,
+    'version-string': {
+      'CompanyName': 'Kaku',
+      'LegalCopyright': 'MIT',
+      'FileDescription': 'Kaku is a cross platform music player',
+      'FileVersion': packageJSON.version,
+      'ProductVersion': packageJSON.version,
+      'ProductName': 'Kaku',
+      'InternalName': 'Kaku'
+    }
+  }, function(error, appPath) {
+    if (error) {
+      console.log(error);
+    }
+    done();
+  });
 });
 
 gulp.task('linter:src', function() {
