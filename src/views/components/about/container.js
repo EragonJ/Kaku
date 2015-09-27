@@ -7,6 +7,22 @@ var AboutContainer = React.createClass({
     event.preventDefault();
   },
 
+  _onClickToOpenFlattr: function() {
+    var description = '';
+    description += 'Kaku is an online music player which supports many ';
+    description += 'differnt platform Like YouTube, Vimeo ... etc. With ';
+    description += 'Kaku, you can easily listen to all kinds of music with ';
+    description += 'just few simple clicks and dont need to leave this ';
+    description += 'desktop application.';
+
+    var link = '';
+    link += 'https://flattr.com/submit/auto';
+    link += '?user_id=EragonJ&url=http%3A%2F%2Fkaku.rocks';
+    link += '&title=Kaku&category=software';
+    link += '&description=' + encodeURIComponent(description);
+    Shell.openExternal(link);
+  },
+
   _onClickToOpenFacebook: function() {
     Shell.openExternal('http://facebook.com/kaku.rocks');
   },
@@ -46,6 +62,19 @@ var AboutContainer = React.createClass({
             <L10nSpan l10nId="about_intro"/>
           </p>
           <form className="form-horizontal" onSubmit={this._onFormSubmit}>
+            <div className="form-group">
+              <label className="col-sm-3 control-label">
+                <L10nSpan l10nId="about_option_support_intro"/>
+              </label>
+              <div className="col-sm-3">
+                <button
+                  className="btn btn-danger"
+                  onClick={this._onClickToOpenFlattr}>
+                    <i className="fa fa-credit-card"></i>
+                    <L10nSpan l10nId="about_option_support_button_wording"/>
+                </button>
+              </div>
+            </div>
             <div className="form-group">
               <label className="col-sm-3 control-label">
                 <L10nSpan l10nId="about_option_facebook_intro"/>
