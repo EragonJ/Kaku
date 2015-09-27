@@ -1,7 +1,20 @@
 # Kaku
+
 ![Kaku Icon](http://i.imgur.com/c3KKQ9t.png)
 
-The next generation music client
+Kaku is an online music player which supports many differnt platform Like YouTube, Vimeo ... etc. With Kaku, you can easily listen to all kinds of music with just few simple clicks and don't need to leave this desktop application.
+
+# Support This Project
+
+Hi all, if you think this open source project does help you, please do support me if you can. With your help, I'll keep updating this project and adding more features as my dedicated side project :)
+
+[![Flattr this git repo](http://button.flattr.com/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=EragonJ&url=http%3A%2F%2Fkaku.rocks)
+
+# Download Links
+
+We do support Windows, Mac OS X, Linux 32 and Linux 64, so please go check it :
+
+https://github.com/EragonJ/Kaku/releases
 
 # Latest Screenshot
 
@@ -41,7 +54,7 @@ We have a gitter chatting room and please feel free to join us and talk there :)
 
 [![Join the chat at https://gitter.im/EragonJ/Kaku](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/EragonJ/Kaku?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-# Setup environment
+# Setup Environment
 
 Because we use npm to maintain our third party libraries, you have to make sure before doing anything, these needed stuffs are all installed already.
 
@@ -74,7 +87,7 @@ After that, you will get a solid application to run !
 
 ## How To Develop
 
-### For testers who want to build kaku and give it a try
+### For Testers Who Want To Build Kaku And Give It A Try
 
 This is for one-time tester, you can just directly build the clean Kaku and directly run
 the code and see how it works.
@@ -83,7 +96,7 @@ the code and see how it works.
 gulp && electron .
 ```
 
-### For developers who need to test your patches
+### For Developers Who Need To Test Your Patches
 
 You can use the command to create a daemon that would keep watching changes and rebuild
 Kaku by webpack. After building, Kaku will be automatically reloaded and the changes would
