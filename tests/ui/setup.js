@@ -13,7 +13,7 @@ var kakuPath;
 // we only support Mac & linux platform for uitest for now.
 switch (process.platform) {
   case 'darwin':
-    kakuPath = './build/app/Kaku.app/Contents/MacOS/Electron';
+    kakuPath = './build/Kaku-darwin-x64/Kaku.app/Contents/MacOS/Electron';
     break;
 
   default:

@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactTooltip = require('react-tooltip');
 var Searcher = require('../../../modules/Searcher');
 
 var L10nSpan = require('../shared/l10n-span');
@@ -22,7 +23,7 @@ var AllTracksContainer = React.createClass({
   },
 
   componentDidUpdate: function() {
-    window.dispatchEvent(new Event('rebind-tooltip'));
+    ReactTooltip.rebuild();
   },
 
   render: function() {

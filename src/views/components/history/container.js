@@ -1,4 +1,6 @@
 var React = require('react');
+var ReactTooltip = require('react-tooltip');
+
 var HistoryManager = require('../../../modules/HistoryManager');
 var PlayAllButton = require('../shared/playall-button');
 var NoTrack = require('../shared/no-track');
@@ -24,7 +26,7 @@ var HistoryContainer = React.createClass({
   },
 
   componentDidUpdate: function() {
-    window.dispatchEvent(new Event('rebind-tooltip'));
+    ReactTooltip.rebuild();
   },
 
   _clickToCleanAll: function() {

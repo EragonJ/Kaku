@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactTooltip = require('react-tooltip');
 
 var TrackInfoFetcher = require('../../../modules/TrackInfoFetcher');
 var TopRanking = require('../../../modules/TopRanking');
@@ -31,7 +32,7 @@ var TopRankingContainer = React.createClass({
   },
 
   componentDidUpdate: function() {
-    window.dispatchEvent(new Event('rebind-tooltip'));
+    ReactTooltip.rebuild();
   },
 
   render: function() {
