@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactTooltip = require('react-tooltip');
 var PlaylistManager = require('../../../modules/PlaylistManager');
 var TabManager = require('../../modules/TabManager');
 
@@ -49,7 +50,7 @@ var PlaylistContainer = React.createClass({
   },
 
   componentDidUpdate: function() {
-    window.dispatchEvent(new Event('rebind-tooltip'));
+    ReactTooltip.rebuild();
   },
 
   _updateInternalPlaylist: function(playlist) {
