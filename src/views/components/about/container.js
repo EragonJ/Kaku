@@ -47,6 +47,10 @@ var AboutContainer = React.createClass({
     Shell.openExternal('https://gitter.im/EragonJ/Kaku');
   },
 
+  _onClickToOpenFacebookDM: function() {
+    Shell.openExternal('https://www.facebook.com/messages/kaku.rocks');
+  },
+
   render: function() {
     /* jshint ignore:start */
     return (
@@ -137,6 +141,19 @@ var AboutContainer = React.createClass({
                   onClick={this._onClickToOpenGitter}>
                     <i className="fa fa-comments-o"></i>
                     <L10nSpan l10nId="about_option_comment_button_wording"/>
+                </button>
+              </div>
+            </div>
+            <div className="form-group">
+              <label className="col-sm-3 control-label">
+                <L10nSpan l10nId="about_option_facebook_dm_intro"/>
+              </label>
+              <div className="col-sm-3">
+                <button
+                  className="btn btn-default"
+                  onClick={this._onClickToOpenFacebookDM}>
+                    <i className="fa fa-comments-o"></i>
+                    <L10nSpan l10nId="about_option_facebook_dm_button_wording"/>
                 </button>
               </div>
             </div>
