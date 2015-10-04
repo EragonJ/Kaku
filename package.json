@@ -32,6 +32,7 @@
     "chromedriver": "^2.18.0",
     "electron-connect": "^0.3.2",
     "electron-packager": "^5.1.0",
+    "electron-prebuilt": "^0.30.0",
     "gulp": "^3.8.11",
     "gulp-clean": "^0.3.1",
     "gulp-if": "^1.2.5",
