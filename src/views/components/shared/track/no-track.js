@@ -1,5 +1,5 @@
 var React = require('react');
-var L10nSpan = require('../shared/l10n-span');
+var L10nSpan = require('../l10n-span');
 
 var NoTrack = React.createClass({
   render: function() {

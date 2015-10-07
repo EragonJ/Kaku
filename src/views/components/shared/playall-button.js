@@ -1,6 +1,6 @@
 var React = require('react');
 var Player = require('../../modules/Player');
-var L10nSpan = require('../shared/l10n-span');
+var L10nSpan = require('./l10n-span');
 
 var PlayAllButton = React.createClass({
   propTypes: {
@@ -14,9 +14,10 @@ var PlayAllButton = React.createClass({
   render: function() {
     /* jshint ignore:start */
     var isDiabled = (this.props.data.length === 0);
+
     return (
       <button
-        className="playall-button"
+        className="playall-button btn btn-default"
         onClick={this._clickToPlayAll}
         disabled={isDiabled}>
           <i className="fa fa-fw fa-play-circle"></i>

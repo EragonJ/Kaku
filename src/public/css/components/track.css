@@ -1,26 +1,28 @@
 .track {
-  display: inline-block;
   position: relative;
-  padding: 5px;
-  margin: 5px;
   background-color: rgba(0, 0, 0, 0.8);
   border-radius: 10px;
   overflow: hidden;
   cursor: pointer;
 }
-.track.active {
+.track-square {
+  display: inline-block;
+  padding: 5px;
+  margin: 5px;
+}
+.track-square.active {
   background-color: lightskyblue;
 }
-.track:hover .info {
+.track-square:hover .info {
   background-color: rgba(0, 0, 0, 0.5);
 }
-.track img {
+.track-square img {
   width: 170px;
   height: 170px;
   border-radius: 5px;
   object-fit: contain;
 }
-.track .info {
+.track-square .info {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -30,7 +32,7 @@
   padding: 0 8px 5px;
   border-radius: 0 0 10px 10px;
 }
-.track .ribbon {
+.track-square .ribbon {
   position: absolute;
   top: 5px;
   right: -15px;
@@ -40,17 +42,58 @@
   text-align: center;
   color: black;
 }
-.track .ribbon i {
+.track-square .ribbon i {
   transform: rotate(-45deg);
 }
-.track .track-name {
+.track-square .track-name {
   font-size: 16px;
 }
-.track .track-artist {
+.track-square .track-artist {
   font-size: 14px;
 }
-.track .track-name,
-.track .track-artist {
+.track-square .track-name,
+.track-square .track-artist {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.track-list {
+  display: block;
+  height: 30px;
+  margin-bottom: 5px;
+  color: white;
+}
+.track-list.active {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.track-list i {
+  margin: 0 10px;
+  vertical-align: top;
+  line-height: 30px;
+}
+.track-list img {
+  width: 30px;
+  height: 100%;
+  vertical-align: top;
+  object-fit: contain;
+}
+.track-list .icon-wrapper {
+  display: inline-block;
+  width: 32px;
+}
+.track-list .track-name {
+  width: calc(100% - 25% - 32px - 30px);
+  text-align: left;
+}
+.track-list .track-artist {
+  width: 25%;
+  text-align: right;
+}
+.track-list .track-name,
+.track-list .track-artist {
+  display: inline-block;
+  line-height: 30px;
+  padding: 0 10px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

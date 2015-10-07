@@ -12,7 +12,7 @@
 .tab-content h1 {
   float: left;
   margin: 0;
-  width: 75%;
+  width: 60%;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -24,9 +24,18 @@
   float: right;
   transform: translateY(25%);
 }
+.tab-content .control-buttons i {
+  pointer-events: none;
+}
 .tab-content .control-buttons button {
   margin-right: 5px;
 }
 .tab-content .control-buttons button:last-child {
   margin-right: 0;
+}
+.tab-content .control-buttons .btn-group button {
+  margin-right: 0;
+}
+.tab-content .control-buttons .btn-group button:last-child {
+  margin-right: 5px;
 }

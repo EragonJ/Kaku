@@ -1,17 +1,28 @@
-var remote = require('remote');
-var Menu = remote.require('menu');
-var MenuItem = remote.require('menu-item');
+let remote = require('remote');
+let Menu = remote.require('menu');
+let MenuItem = remote.require('menu-item');
 
-var React = require('react');
-var ClassNames = require('classnames');
+let React = require('react');
+let ClassNames = require('classnames');
 
-var PlaylistManager = require('../../../modules/PlaylistManager');
-var Notifier = require('../../modules/Notifier');
-var Player = require('../../modules/Player');
+let PlaylistManager = require('../../../../modules/PlaylistManager');
+let Notifier = require('../../../modules/Notifier');
+let Player = require('../../../modules/Player');
 
-var Track = React.createClass({
+let TrackList = require('./track-list');
+let TrackSquare = require('./track-square');
+
+let Track = React.createClass({
   propTypes: {
-    data: React.PropTypes.object.isRequired
+    data: React.PropTypes.object.isRequired,
+    mode: React.PropTypes.string
+  },
+
+  getDefaultProps: function() {
+    return {
+      data: {},
+      mode: 'square'
+    };
   },
 
   getInitialState: function() {
@@ -28,38 +39,38 @@ var Track = React.createClass({
     });
   },
 
-  _clickToPlay: function() {
-    Player.play(this.props.data);
+  _clickToPlay: function(track) {
+    Player.play(track);
   },
 
-  _clickToShowContextMenu: function(event) {
+  _clickToShowContextMenu: function(track, event) {
     // TODO
     // if we are under playlist section already,
     // we should not shown this context menu
     event.preventDefault();
-    var menu = this._createContextMenu();
+    let menu = this._createContextMenu(track);
     menu.popup(remote.getCurrentWindow());
   },
 
-  _createContextMenu: function() {
-    var menu = new Menu();
-    var playlists = PlaylistManager.playlists;
+  _createContextMenu: function(track) {
+    let menu = new Menu();
+    let playlists = PlaylistManager.playlists;
 
     playlists.forEach((playlist) => {
-      var clickToAddTrack = ((playlist) => {
+      let clickToAddTrack = ((playlist) => {
         return () => {
           playlist
-            .addTrack(this.props.data)
+            .addTrack(track)
             .catch((error) => {
               Notifier.alert(error);
             });
         };
       }(playlist));
 
-      var clickToRemoveTrack = ((playlist) => {
+      let clickToRemoveTrack = ((playlist) => {
         return () => {
           playlist
-            .removeTrack(this.props.data)
+            .removeTrack(track)
             .catch((error) => {
               Notifier.alert(error);
             });
@@ -68,12 +79,12 @@ var Track = React.createClass({
 
       // TODO
       // add l10n support here
-      var menuItemToAddTrack = new MenuItem({
+      let menuItemToAddTrack = new MenuItem({
         label: 'Add to ' + playlist.name,
         click: clickToAddTrack
       });
 
-      var menuItemToRemoveTrack = new MenuItem({
+      let menuItemToRemoveTrack = new MenuItem({
         label: 'Remove from ' + playlist.name,
         click: clickToRemoveTrack
       });
@@ -99,16 +110,16 @@ var Track = React.createClass({
   },
 
   render: function() {
-    var trackIcon;
-    var track = this.props.data;
-    var isActive = track.isSameTrackWith(this.state.playingTrack);
-    var className = ClassNames({
+    let mode = this.props.mode;
+    let track = this.props.data;
+    let trackClassName = ClassNames({
       track: true,
-      active: isActive
+      'track-square': (mode === 'square'),
+      'track-list': (mode === 'list'),
+      active: track.isSameTrackWith(this.state.playingTrack)
     });
 
-    var iconClassName;
-    var iconObject = {};
+    let iconObject = {};
     iconObject.fa = true;
 
     switch (track.trackType) {
@@ -129,26 +140,26 @@ var Track = React.createClass({
         break;
     }
 
-    iconClassName = ClassNames(iconObject);
+    let iconClassName = ClassNames(iconObject);
+    let trackUI;
+    let trackProps = {
+      track: track,
+      onClick: this._clickToPlay.bind(this, track),
+      onContextMenu: this._clickToShowContextMenu.bind(this, track),
+      iconClassName: iconClassName,
+      trackClassName: trackClassName
+    };
 
     /* jshint ignore:start */
-    return (
-      <div
-        data-tip={track.title}
-        className={className}
-        onClick={this._clickToPlay}
-        onContextMenu={this._clickToShowContextMenu}
-        ref="trackBlock">
-          <img src={track.covers.medium} title={track.title}/>
-          <div className="ribbon">
-            <i className={iconClassName}></i>
-          </div>
-          <div className="info">
-            <div className="track-name">{track.title}</div>
-            <div className="track-artist">{track.artist}</div>
-          </div>
-      </div>
-    );
+    // We will dispatch do different views here based on incoming mode
+    if (mode === 'square') {
+      trackUI = <TrackSquare {...trackProps} />;
+    }
+    else if (mode === 'list') {
+      trackUI = <TrackList {...trackProps} />;
+    }
+
+    return trackUI;
     /* jshint ignore:end */
   }
 });

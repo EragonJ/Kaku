@@ -1,11 +1,7 @@
 var React = require('react');
 var ReactTooltip = require('react-tooltip');
 var Searcher = require('../../../modules/Searcher');
-
-var L10nSpan = require('../shared/l10n-span');
-var PlayAllButton = require('../shared/playall-button');
-var NoTrack = require('../shared/no-track');
-var Track = require('../shared/track');
+var TracksContainer = require('../shared/tracks-container');
 
 var AllTracksContainer = React.createClass({
   getInitialState: function() {
@@ -27,32 +23,21 @@ var AllTracksContainer = React.createClass({
   },
 
   render: function() {
+    let tracks = this.state.tracks;
+    let controls = {
+      trackModeButton: true,
+      playAllButton: true,
+      deleteAllButton: false
+    };
+
     /* jshint ignore:start */
-    var tracks = this.state.tracks;
-    var noTracksDiv;
-
-    if (tracks.length === 0) {
-      noTracksDiv = <NoTrack/>;
-    }
-
     return (
-      <div className="alltracks-slot">
-        <div className="header clearfix">
-          <h1>
-            <i className="fa fa-fw fa-search"></i>
-            <L10nSpan l10nId="search_header"/>
-          </h1>
-          <div className="control-buttons">
-            <PlayAllButton data={tracks}/>
-          </div>
-        </div>
-        <div className="alltracks-container">
-          {noTracksDiv}
-          {tracks.map(function(track) {
-            return <Track data={track}/>;
-          })}
-        </div>
-      </div>
+      <TracksContainer
+        headerL10nId="search_header"
+        headerIconClass="fa fa-fw fa-search"
+        controls={controls}
+        tracks={tracks}
+      />
     );
     /* jshint ignore:end */
   }

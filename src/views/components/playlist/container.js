@@ -1,12 +1,8 @@
 var React = require('react');
-var ReactTooltip = require('react-tooltip');
-var PlaylistManager = require('../../../modules/PlaylistManager');
 var TabManager = require('../../modules/TabManager');
+var PlaylistManager = require('../../../modules/PlaylistManager');
 
-var PlayAllButton = require('../shared/playall-button');
-var NoTrack = require('../shared/no-track');
-var Track = require('../shared/track');
-
+var TracksContainer = require('../shared/tracks-container');
 var PlaylistContainer = React.createClass({
   getInitialState: function() {
     return {
@@ -49,10 +45,6 @@ var PlaylistContainer = React.createClass({
     });
   },
 
-  componentDidUpdate: function() {
-    ReactTooltip.rebuild();
-  },
-
   _updateInternalPlaylist: function(playlist) {
     this.setState({
       playlist: playlist
@@ -60,30 +52,22 @@ var PlaylistContainer = React.createClass({
   },
 
   render: function() {
+    let playlistName = this.state.playlist.name || '';
+    let tracks = this.state.tracks;
+    let controls = {
+      trackModeButton: true,
+      playAllButton: true,
+      deleteAllButton: false
+    };
+
     /* jshint ignore:start */
-    var playlistName = this.state.playlist.name || '';
-    var tracks = this.state.tracks;
-    var noTracksDiv;
-
-    if (tracks.length === 0) {
-      noTracksDiv = <NoTrack/>;
-    }
-
     return (
-      <div className="playlist-slot">
-        <div className="header clearfix">
-          <h1><i className="fa fa-fw fa-music"></i>{playlistName}</h1>
-          <div className="control-buttons">
-            <PlayAllButton data={tracks}/>
-          </div>
-        </div>
-        <div className="playlist-container">
-          {noTracksDiv}
-          {tracks.map(function(track) {
-            return <Track data={track}/>;
-          })}
-        </div>
-      </div>
+      <TracksContainer
+        headerWording={playlistName}
+        headerIconClass="fa fa-fw fa-music"
+        controls={controls}
+        tracks={tracks}
+      />
     );
     /* jshint ignore:end */
   }
