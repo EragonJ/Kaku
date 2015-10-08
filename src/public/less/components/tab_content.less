@@ -13,7 +13,7 @@
   h1 {
     float: left;
     margin: 0;
-    width: 75%;
+    width: 60%;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -27,12 +27,26 @@
     float: right;
     transform: translateY(25%);
 
+    i {
+      pointer-events: none;
+    }
+
     button {
       margin-right: 5px;
     }
 
     button:last-child {
       margin-right: 0;
+    }
+
+    .btn-group {
+      button {
+        margin-right: 0;
+      }
+
+      button:last-child {
+        margin-right: 5px;
+      }
     }
   }
 }
