@@ -31,8 +31,8 @@ var NewsContainer = React.createClass({
           </h1>
         </div>
         <div className="news-container">
-          {news.map(function(eachNews) {
-            return <NewsTag data={eachNews}/>
+          {news.map(function(eachNews, index) {
+            return <NewsTag key={index} data={eachNews}/>
           })}
         </div>
       </div>

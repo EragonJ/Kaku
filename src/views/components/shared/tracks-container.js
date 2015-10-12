@@ -99,8 +99,8 @@ class TracksContainer extends React.Component {
         </div>
         <div className="tracks-container">
           {noTracksDiv}
-          {tracks.map(function(track) {
-            return <Track data={track} mode={trackMode}/>;
+          {tracks.map(function(track, index) {
+            return <Track key={index} data={track} mode={trackMode}/>;
           })}
         </div>
       </div>
