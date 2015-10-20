@@ -32,7 +32,16 @@ function BaseTrack(options) {
 
 // static method
 BaseTrack.fromJSON = function(json) {
-  return new BaseTrack(json);
+  var trackType = json.trackType || 'BaseTrack';
+  var supportedTracks = {
+    'BaseTrack': BaseTrack,
+    'YoutubeTrack': require('./YoutubeTrack'),
+    'SoundCloudTrack': require('./SoundCloudTrack'),
+    'VimeoTrack': require('./VimeoTrack')
+  };
+
+  var trackConstructor = supportedTracks[trackType];
+  return new trackConstructor(json);
 };
 
 BaseTrack.prototype = {

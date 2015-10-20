@@ -239,6 +239,15 @@ var MenusContainer = React.createClass({
           </li>
           <li role="presentation">
             <a
+              href="#tab-online-dj"
+              role="tab"
+              ref="tab-online-dj">
+                <i className="icon fa fa-fw fa-lg fa-hand-peace-o"></i>
+                <span className="title"><L10nSpan l10nId="sidebar_online_dj"/></span>
+            </a>
+          </li>
+          <li role="presentation">
+            <a
               href="#tab-about"
               role="tab"
               ref="tab-about">

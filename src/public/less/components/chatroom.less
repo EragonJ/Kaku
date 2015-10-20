@@ -1,0 +1,144 @@
+.chatroom {
+  position: absolute;
+  bottom: 0;
+  right: 100px;
+  background-color: white;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  z-index: 5;
+  max-width: 300px;
+  border: 1px solid #cccccc;
+  border-bottom: 0;
+
+  &.shown {
+    .comment-container { 
+      display: inline-block;
+    }
+  }
+
+  &.online {
+    .header:after {
+      background-color: #5cb85c;
+    }
+  }
+
+  &.offline {
+    .header:after {
+      background-color: #777777;
+    }
+  }
+
+  &.error {
+    .header:after {
+      background-color: #d9534f;
+    }
+  }
+
+  .header {
+    position: relative;
+    font-size: 16px;
+    margin: 0;
+    padding: 5px 25px 5px 10px;
+    background-color: #efefef;
+    cursor: pointer;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    border-bottom: 1px solid #cccccc;
+
+    i {
+      margin-right: 2px;
+    }
+
+    &:after {
+      content: ' ';
+      display: inline-block;
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      width: 8px;
+      height: 8px;
+      margin-top: -4px;
+      border-radius: 8px;
+    }
+  }
+
+  .comment-container {
+    // hide by default
+    display: none;
+
+    .comment-author {
+      font-size: 16px;
+      margin-right: 5px;
+      font-weight: bold;
+    }
+
+    .comment-no-data {
+      margin: 30px 0;
+      text-align: center;
+    }
+
+    .comment-text {
+      position: relative;
+      word-break: break-word;
+      background-color: #efefef;
+      border-radius: 5px;
+      border: 1px solid #aaaaaa;
+      padding: 2px 5px;
+      margin: 5px 0;
+      max-width: 70%;
+
+      &:before {
+        content: ' ';
+        display: inline-block;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        margin-top: -5px;
+        margin-left: -5px;
+        width: 0;
+        height: 0;
+        border-right: 5px solid #aaaaaa;
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+      }
+
+      &:after {
+        content: ' ';
+        display: inline-block;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        margin-top: -4px;
+        margin-left: -4px;
+        width: 0;
+        height: 0;
+        border-right: 4px solid #efefef;
+        border-top: 4px solid transparent;
+        border-bottom: 4px solid transparent;
+      }
+    }
+
+    .comment {
+      margin: 10px;
+
+      &:last-child {
+        border-bottom: 0;
+      }
+    }
+
+    .comment-list {
+      max-height: 150px;
+      overflow: auto;
+    }
+
+    .comment-form {
+      padding: 10px;
+      border-top: 1px solid #cccccc;
+
+      button[type="submit"] {
+        margin-left: 5px;
+      }
+    }
+  }
+}

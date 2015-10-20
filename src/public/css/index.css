@@ -5,6 +5,9 @@
 * {
   -webkit-user-select: none;
 }
+input {
+  -webkit-user-select: text;
+}
 body,
 html,
 .root,
@@ -362,18 +365,18 @@ a:focus {
   position: relative;
   height: 140px;
 }
-.tab-content {
+.right > .tab-content {
   padding: 10px;
   height: 100%;
   overflow: auto;
 }
-.tab-content .header {
+.right > .tab-content .header {
   position: relative;
   border-bottom: 1px solid #cccccc;
   padding-bottom: 10px;
   margin-bottom: 15px;
 }
-.tab-content h1 {
+.right > .tab-content h1 {
   float: left;
   margin: 0;
   width: 60%;
@@ -381,26 +384,26 @@ a:focus {
   text-overflow: ellipsis;
   overflow: hidden;
 }
-.tab-content h1 i {
+.right > .tab-content h1 i {
   margin-right: 10px;
 }
-.tab-content .control-buttons {
+.right > .tab-content .control-buttons {
   float: right;
   transform: translateY(25%);
 }
-.tab-content .control-buttons i {
+.right > .tab-content .control-buttons i {
   pointer-events: none;
 }
-.tab-content .control-buttons button {
+.right > .tab-content .control-buttons button {
   margin-right: 5px;
 }
-.tab-content .control-buttons button:last-child {
+.right > .tab-content .control-buttons button:last-child {
   margin-right: 0;
 }
-.tab-content .control-buttons .btn-group button {
+.right > .tab-content .control-buttons .btn-group button {
   margin-right: 0;
 }
-.tab-content .control-buttons .btn-group button:last-child {
+.right > .tab-content .control-buttons .btn-group button:last-child {
   margin-right: 5px;
 }
 .connection-check-container i {
@@ -424,6 +427,147 @@ a:focus {
 .about-container p.well:first-letter {
   font-size: 30px;
   line-height: initial;
+}
+.online-dj-slot .choose-role-page,
+.online-dj-slot .dashboard-page {
+  display: none;
+}
+.online-dj-slot[data-page="0"] .choose-role-page {
+  display: block;
+}
+.online-dj-slot[data-page="1"] .dashboard-page {
+  display: block;
+}
+.online-dj-slot .tab-content {
+  margin: 10px 0;
+}
+.online-dj-slot .dashboard-page .form-inline {
+  text-align: right;
+  margin: 0 0 15px 0;
+}
+.online-dj-slot .dashboard-page .form-inline label {
+  margin: 0 5px 0 0;
+}
+.online-dj-slot .dashboard-page .form-inline .form-group,
+.online-dj-slot .dashboard-page .form-inline button {
+  margin: 0 0 0 5px;
+}
+.chatroom {
+  position: absolute;
+  bottom: 0;
+  right: 100px;
+  background-color: white;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  z-index: 5;
+  max-width: 300px;
+  border: 1px solid #cccccc;
+  border-bottom: 0;
+}
+.chatroom.shown .comment-container {
+  display: inline-block;
+}
+.chatroom.online .header:after {
+  background-color: #5cb85c;
+}
+.chatroom.offline .header:after {
+  background-color: #777777;
+}
+.chatroom.error .header:after {
+  background-color: #d9534f;
+}
+.chatroom .header {
+  position: relative;
+  font-size: 16px;
+  margin: 0;
+  padding: 5px 25px 5px 10px;
+  background-color: #efefef;
+  cursor: pointer;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  border-bottom: 1px solid #cccccc;
+}
+.chatroom .header i {
+  margin-right: 2px;
+}
+.chatroom .header:after {
+  content: ' ';
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  width: 8px;
+  height: 8px;
+  margin-top: -4px;
+  border-radius: 8px;
+}
+.chatroom .comment-container {
+  display: none;
+}
+.chatroom .comment-container .comment-author {
+  font-size: 16px;
+  margin-right: 5px;
+  font-weight: bold;
+}
+.chatroom .comment-container .comment-no-data {
+  margin: 30px 0;
+  text-align: center;
+}
+.chatroom .comment-container .comment-text {
+  position: relative;
+  word-break: break-word;
+  background-color: #efefef;
+  border-radius: 5px;
+  border: 1px solid #aaaaaa;
+  padding: 2px 5px;
+  margin: 5px 0;
+  max-width: 70%;
+}
+.chatroom .comment-container .comment-text:before {
+  content: ' ';
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  margin-top: -5px;
+  margin-left: -5px;
+  width: 0;
+  height: 0;
+  border-right: 5px solid #aaaaaa;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+}
+.chatroom .comment-container .comment-text:after {
+  content: ' ';
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  margin-top: -4px;
+  margin-left: -4px;
+  width: 0;
+  height: 0;
+  border-right: 4px solid #efefef;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+}
+.chatroom .comment-container .comment {
+  margin: 10px;
+}
+.chatroom .comment-container .comment:last-child {
+  border-bottom: 0;
+}
+.chatroom .comment-container .comment-list {
+  max-height: 150px;
+  overflow: auto;
+}
+.chatroom .comment-container .comment-form {
+  padding: 10px;
+  border-top: 1px solid #cccccc;
+}
+.chatroom .comment-container .comment-form button[type="submit"] {
+  margin-left: 5px;
 }
 .vjs-default-skin {
   background-color: #000000;

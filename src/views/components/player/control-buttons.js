@@ -9,8 +9,7 @@ var Player = require('../../modules/Player');
 var PlayerControlButtons = React.createClass({
   getInitialState: function() {
     return {
-      playerRepeatMode: 'no',
-      player: null
+      playerRepeatMode: 'no'
     };
   },
 
@@ -21,20 +20,18 @@ var PlayerControlButtons = React.createClass({
       });
     });
 
-    this._setupPlayer();
+    Player.on('play', () => {
+      this._updatePlayIconState('play');
+    });
+
+    Player.on('pause', () => {
+      this._updatePlayIconState('pause');
+    });
   },
 
   _repeatModeIndex: 0,
 
   _repeatModes: ['no', 'one', 'all'],
-
-  _onPlayerPlay: function() {
-    this._togglePlayIcon();
-  },
-
-  _onPlayerPause: function() {
-    this._togglePlayIcon();
-  },
 
   _updatePlayIconState: function(state) {
     var resumeIconDOM = this.refs.resumeIcon.getDOMNode();
@@ -50,22 +47,6 @@ var PlayerControlButtons = React.createClass({
     }
   },
 
-  _setupPlayer: function() {
-    Player.ready().then((player) => {
-      player.on('play', () => {
-        this._updatePlayIconState('play');
-      });
-
-      player.on('pause', () => {
-        this._updatePlayIconState('pause');
-      });
-
-      this.setState({
-        player: player
-      });
-    });
-  },
-
   _onBackwardButtonClick: function() {
     Player.playPreviousTrack();
   },
@@ -75,12 +56,12 @@ var PlayerControlButtons = React.createClass({
   },
 
   _onResumeButtonClick: function() {
-    Player.ready().then(() => {
-      if (this.state.player.paused()) {
-        this.state.player.play();
+    Player.ready().then((internalPlayer) => {
+      if (internalPlayer.paused()) {
+        Player.play();
       }
       else {
-        this.state.player.pause();
+        Player.pause();
       }
     });
   },
@@ -93,7 +74,9 @@ var PlayerControlButtons = React.createClass({
   },
 
   _onLyricButtonClick: function() {
-
+    // TODO
+    // this feature will be implemented only when we got a chance
+    // to get lyric from current track !
   },
 
   _onRepeatButtonClick: function() {

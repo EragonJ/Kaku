@@ -1,6 +1,9 @@
 * {
   -webkit-user-select: none;
 }
+input {
+  -webkit-user-select: text;
+}
 body,
 html,
 .root,
