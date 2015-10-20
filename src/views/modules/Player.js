@@ -164,6 +164,12 @@ Player.prototype.ready = function() {
       ).ready(function() {
         self._player = this;
         self._addPlayerEvents();
+
+        // At this timing, self._player has stored the videojs instance already.
+        // So, it would be okay to call any operation which is wrapped inside
+        // Player.prototype.ready()
+        self.setVolume('default');
+
         // return real videojs-ed player out
         resolve(self._player);
       });
@@ -309,6 +315,10 @@ Player.prototype.setVolume = function(operation) {
   this.ready().then(() => {
     var currentVolume = this._player.volume();
     switch (operation) {
+      case 'default':
+        this._player.volume(0.5);
+        break;
+
       case 'mute':
         this._player.volume(0);
         break;
