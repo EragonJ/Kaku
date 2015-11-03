@@ -1,14 +1,6 @@
 var Crypto = require('crypto');
 var EventEmitter = require('events').EventEmitter;
 var BaseTrack = require('../track/BaseTrack');
-var YoutubeTrack = require('../track/YoutubeTrack');
-var VimeoTrack = require('../track/VimeoTrack');
-
-var supportedTracks = {
-  BaseTrack: BaseTrack,
-  YoutubeTrack: YoutubeTrack,
-  VimeoTrack: VimeoTrack
-};
 
 function BasePlaylist(options) {
   options = options || {};
@@ -35,15 +27,7 @@ Object.defineProperty(BasePlaylist.prototype, 'tracks', {
 // static method
 BasePlaylist.fromJSON = function(json) {
   var tracks = json._tracks.map((rawTrackInfo) => {
-    var trackType = rawTrackInfo.trackType;
-    var trackConstructor = supportedTracks[trackType];
-    if (!trackConstructor) {
-      console.error('This track may lose some data, let\'s just drop it');
-      return;
-    }
-    else {
-      return new trackConstructor(rawTrackInfo);
-    }
+    return BaseTrack.fromJSON(rawTrackInfo);
   });
 
   // TODO

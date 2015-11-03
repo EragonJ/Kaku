@@ -5,7 +5,7 @@ import L10nSpan from './l10n-span';
 class ActionButton extends React.Component {
   constructor(props) {
     super(props);
-  } 
+  }
 
   render() {
     /* jshint ignore:start */
@@ -20,6 +20,7 @@ class ActionButton extends React.Component {
 
     return (
       <button
+        type={this.props.type}
         className={this.props.buttonClass}
         onClick={this.props.onClick}
         disabled={this.props.isDisabled}>
@@ -32,6 +33,7 @@ class ActionButton extends React.Component {
 }
 
 ActionButton.propTypes = {
+  type: React.PropTypes.string,
   wording: React.PropTypes.string,
   l10nId: React.PropTypes.string,
   buttonClass: React.PropTypes.string,
@@ -41,6 +43,7 @@ ActionButton.propTypes = {
 };
 
 ActionButton.defaultProps = {
+  type: 'button',
   wording: '',
   l10nId: '',
   buttonClass: '',

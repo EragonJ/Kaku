@@ -1,0 +1,38 @@
+.online-dj-slot {
+  .choose-role-page,
+  .dashboard-page {
+    display: none;
+  }
+
+  &[data-page="0"] {
+    .choose-role-page {
+      display: block;
+    }
+  }
+
+  &[data-page="1"] {
+    .dashboard-page {
+      display: block;
+    }
+  }
+
+  .tab-content {
+    margin: 10px 0;
+  }
+
+  .dashboard-page {
+    .form-inline {
+      text-align: right;
+      margin: 0 0 15px 0;
+
+      label {
+        margin: 0 5px 0 0;
+      }
+
+      .form-group,
+      button {
+        margin: 0 0 0 5px;
+      }
+    }
+  }
+}

@@ -22,9 +22,12 @@ function Player() {
   EventEmitter.call(this);
 
   this._playingTrack = null;
+  this._playingTrackTime = 0;
   this._playerRepeatMode = 'no';
   this._playerDOM = null;
   this._player = null;
+
+  this._role = 'default';
 
   // TODO
   // If users click on track, we have to update this index ?
@@ -50,6 +53,10 @@ Object.defineProperty(Player.prototype, 'repeatMode', {
     return this._playerRepeatMode;
   },
   set: function(mode) {
+    if (this.isRoleGuest()) {
+      return;
+    }
+
     if (mode === 'no' || mode === 'one' || mode === 'all') {
       this._playerRepeatMode = mode;
       this.emit('repeatModeUpdated', mode);
@@ -62,6 +69,14 @@ Object.defineProperty(Player.prototype, 'playingTrack', {
   configurable: false,
   get: function() {
     return this._playingTrack;
+  }
+});
+
+Object.defineProperty(Player.prototype, 'playingTrackTime', {
+  enumerable: true,
+  configurable: false,
+  get: function() {
+    return this._playingTrackTime;
   }
 });
 
@@ -101,6 +116,11 @@ Player.prototype._getDefaultVideoJSConfig = function() {
 Player.prototype._addPlayerEvents = function() {
   this._player.on('play', () => {
     this._updateAppHeader('play');
+  });
+
+  this._player.on('timeupdate', () => {
+    let time = this._player.currentTime();
+    this._playingTrackTime = time || 0;
   });
 
   this._player.on('ended', () => {
@@ -179,6 +199,10 @@ Player.prototype.ready = function() {
 };
 
 Player.prototype.playAll = function(tracks) {
+  if (this.isRoleGuest()) {
+    return;
+  }
+
   // let's override tracks at first
   this._pendingTracks = tracks;
   this._pendingTrackIndex = 0;
@@ -188,6 +212,10 @@ Player.prototype.playAll = function(tracks) {
 };
 
 Player.prototype.playPreviousTrack = function() {
+  if (this.isRoleGuest()) {
+    return;
+  }
+
   if (this._pendingTrackIndex <= 0) {
     this._pendingTrackIndex = 0;
   }
@@ -198,6 +226,10 @@ Player.prototype.playPreviousTrack = function() {
 };
 
 Player.prototype.playNextTrack = function() {
+  if (this.isRoleGuest()) {
+    return;
+  }
+
   // By default, when hit end in this mode, we will stop the player.
   if (this._playerRepeatMode === 'no') {
     if (this._pendingTrackIndex > this._pendingTracks.length - 1) {
@@ -252,6 +284,20 @@ Player.prototype.on = function() {
   }
 };
 
+Player.prototype.off = function() {
+  var args = arguments;
+  var eventName = args[0];
+
+  if (Player.CUSTOMIZED_EVENTS.indexOf(eventName) !== -1) {
+    this.constructor.prototype.removeEventListener.apply(this, args);
+  }
+  else {
+    this.ready().then(() => {
+      this._player.off.apply(this._player, args);
+    });
+  }
+};
+
 Player.prototype._prepareTrackData = function(rawTrack) {
   if (rawTrack.platformTrackUrl) {
     return Promise.resolve(rawTrack);
@@ -294,7 +340,7 @@ Player.prototype._getRealTrack = function(track) {
 };
 
 Player.prototype._updateAppHeader = function(state) {
-  if (state === 'play') {
+  if (state === 'play' && this._playingTrack && this._playingTrack.title) {
     var maxLength = 40;
     var translatedTitle = _('app_title_playing', {
       name: this._playingTrack.title
@@ -339,14 +385,22 @@ Player.prototype.setVolume = function(operation) {
   });
 };
 
-Player.prototype.stop = function() {
+Player.prototype.stop = function(fromDJ) {
+  if (this.isRoleGuest() && !fromDJ) {
+    return;
+  }
+
   this.ready().then(() => {
     this._player.pause();
     this._player.currentTime(0);
   });
 };
 
-Player.prototype.playOrPause = function() {
+Player.prototype.playOrPause = function(fromDJ) {
+  if (this.isRoleGuest() && !fromDJ) {
+    return;
+  }
+
   this.ready().then(() => {
     if (this._player.paused()) {
       this.play();
@@ -357,13 +411,27 @@ Player.prototype.playOrPause = function() {
   });
 };
 
-Player.prototype.pause = function() {
+Player.prototype.pause = function(fromDJ) {
+  if (this.isRoleGuest() && !fromDJ) {
+    return;
+  }
+
   this.ready().then(() => {
     this._player.pause();
   });
 };
 
-Player.prototype.play = function(rawTrack) {
+Player.prototype.play = function(rawTrack, time, fromDJ) {
+  // This may be coming from Online DJ
+  let currentTime = time || 0;
+
+  // If the role is guest and the "play" request is not coming from DJ,
+  // then it means the user is trying to control the player by himself and
+  // this should be forbidden.
+  if (this.isRoleGuest() && !fromDJ) {
+    return;
+  }
+
   this.ready().then(() => {
     // If we already have playingTrack in internal variable,
     // when this.play() is called, we will directly play the same track
@@ -385,6 +453,7 @@ Player.prototype.play = function(rawTrack) {
 
             this._playingTrack = realTrack;
             this._player.src(realTrack.platformTrackRealUrl);
+            this._player.currentTime(currentTime);
             this._player.play();
             this._toggleSpinner(false);
 
@@ -436,6 +505,34 @@ Player.prototype.downloadCurrentTrack = function() {
       }
     });
   });
+};
+
+Player.prototype.changeRole = function(role) {
+  if (role === 'guest') {
+    this._role = 'guest';
+  }
+  else if (role === 'dj') {
+    this._role = 'dj';
+  }
+  else {
+    this._role = 'default';
+  }
+};
+
+Player.prototype.isRoleDJ = function() {
+  return this.getRole() === 'dj';
+};
+
+Player.prototype.isRoleGuest = function() {
+  return this.getRole() === 'guest';
+};
+
+Player.prototype.isRoleDefault = function() {
+  return this.getRole() === 'default';
+};
+
+Player.prototype.getRole = function() {
+  return this._role;
 };
 
 module.exports = new Player();

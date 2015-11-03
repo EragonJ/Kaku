@@ -143,6 +143,7 @@ Moved all todos and issues to https://github.com/EragonJ/Kaku/issues, so if your
 + [Animate.css](https://daneden.github.io/animate.css/) - Animation matters
 + [Youtube-dl](https://github.com/rg3/youtube-dl/) - Download youtube tracks on the fly
 + [Webpack](http://webpack.github.io) - Module Bundler
++ [Firebase](https://www.firebase.com) - Make our app real-time !
 + ... still increasing :)
 
 ## Deprecated

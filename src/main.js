@@ -28,12 +28,15 @@ var MenusContainer = require('./views/components/menus/container');
 var HistoryContainer = require('./views/components/history/container');
 var PlaylistContainer = require('./views/components/playlist/container');
 var SettingsContainer = require('./views/components/settings/container');
+var OnlineDJContainer = require('./views/components/online-dj/container');
 var AboutContainer = require('./views/components/about/container');
+var ChatroomContainer = require('./views/components/chatroom/container');
 var ConnectionCheckContainer =
   require('./views/components/connection-check/container');
 
 // views > modules
 var TabManager = require('./views/modules/TabManager');
+var RemotePlayer = require('./views/modules/RemotePlayer');
 var KonamiCodeManager = require('./views/modules/KonamiCodeManager');
 var EasterEggs = require('./views/modules/EasterEggs');
 var AppMenus = require('./views/modules/AppMenus');
@@ -178,6 +181,7 @@ var KakuApp = React.createClass({
     return (
       <div className="root">
         <ConnectionCheckContainer/>
+        <ChatroomContainer/>
         <div className="row row-no-padding top-row">
           <div className="col-md-12">
             <div className="toolbar-slot">
@@ -217,6 +221,12 @@ var KakuApp = React.createClass({
                 className="tab-pane"
                 id="tab-settings">
                   <SettingsContainer/>
+              </div>
+              <div
+                role="tabpanel"
+                className="tab-pane"
+                id="tab-online-dj">
+                  <OnlineDJContainer/>
               </div>
               <div
                 role="tabpanel"

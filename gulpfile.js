@@ -1,4 +1,4 @@
-var fs = require('fs');
+var fs = require('fs-extra');
 var argv = require('yargs').argv;
 var gulp = require('gulp');
 var less = require('gulp-less');
@@ -20,6 +20,7 @@ var packageJSON = require('./package.json');
 var webpackConfig = require('./webpack.config');
 
 var CURRENT_ENVIRONMENT = 'development';
+var finalAppPaths = [];
 
 function isProduction() {
   return CURRENT_ENVIRONMENT === 'production';
@@ -202,11 +203,44 @@ gulp.task('package', function(done) {
       'ProductName': 'Kaku',
       'InternalName': 'Kaku'
     }
-  }, function(error, appPath) {
+  }, function(error, appPaths) {
     if (error) {
       console.log(error);
+      process.exit(1);
     }
+    else {
+      // TODO
+      // we should support to build all platforms at once later !
+      // something like [ 'build/Kaku-darwin-x64' ]
+      finalAppPaths = appPaths;
+      done();
+    }
+  });
+});
+
+gulp.task('post-package', function(done) {
+  var currentLicenseFile = path.join(__dirname, 'LICENSE');
+
+  var promises = finalAppPaths.map(function(appPath) {
+    var targetLicenseFile = path.join(appPath, 'LICENSE');
+    var promise = new Promise(function(resolve, reject) {
+      fs.copy(currentLicenseFile, targetLicenseFile, function(error) {
+        if (error) {
+          reject(error);
+        }
+        else {
+          resolve();
+        }
+      });
+    });
+    return promise;
+  });
+
+  Promise.all(promises).then(function() {
     done();
+  }).catch(function(error) {
+    console.log(error)
+    process.exit(1);
   });
 });
 
@@ -263,6 +297,7 @@ gulp.task('default', function(callback) {
 gulp.task('build', function(callback) {
   sequence(
     'production',
-    'package'
+    'package',
+    'post-package'
   )(callback);
 });

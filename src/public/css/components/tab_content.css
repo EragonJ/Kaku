@@ -1,15 +1,15 @@
-.tab-content {
+.right > .tab-content {
   padding: 10px;
   height: 100%;
   overflow: auto;
 }
-.tab-content .header {
+.right > .tab-content .header {
   position: relative;
   border-bottom: 1px solid #cccccc;
   padding-bottom: 10px;
   margin-bottom: 15px;
 }
-.tab-content h1 {
+.right > .tab-content h1 {
   float: left;
   margin: 0;
   width: 60%;
@@ -17,25 +17,25 @@
   text-overflow: ellipsis;
   overflow: hidden;
 }
-.tab-content h1 i {
+.right > .tab-content h1 i {
   margin-right: 10px;
 }
-.tab-content .control-buttons {
+.right > .tab-content .control-buttons {
   float: right;
   transform: translateY(25%);
 }
-.tab-content .control-buttons i {
+.right > .tab-content .control-buttons i {
   pointer-events: none;
 }
-.tab-content .control-buttons button {
+.right > .tab-content .control-buttons button {
   margin-right: 5px;
 }
-.tab-content .control-buttons button:last-child {
+.right > .tab-content .control-buttons button:last-child {
   margin-right: 0;
 }
-.tab-content .control-buttons .btn-group button {
+.right > .tab-content .control-buttons .btn-group button {
   margin-right: 0;
 }
-.tab-content .control-buttons .btn-group button:last-child {
+.right > .tab-content .control-buttons .btn-group button:last-child {
   margin-right: 5px;
 }
