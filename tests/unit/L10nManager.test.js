@@ -39,7 +39,7 @@ suite('L10nManager', () => {
     });
 
     test('if we want to change to different language, do change', () => {
-      l10nManager.changeLanguage('en')
+      l10nManager.changeLanguage('en');
       assert.isTrue(
         l10nManager.emit.calledWith('language-changed', 'en', 'zh-TW'));
     });
@@ -56,7 +56,7 @@ suite('L10nManager', () => {
     });
 
     test('if no language is matched, we will fall back to en', () => {
-      var t = l10nManager.get('fake_2', {})
+      var t = l10nManager.get('fake_2', {});
       assert.isTrue(console.error.called);
       assert.equal(t, 'fake 2');
     });

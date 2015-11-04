@@ -260,7 +260,10 @@ gulp.task('linter:test', function() {
     .src([
       './tests/**/*.js',
     ])
-    .pipe(jshint())
+    .pipe(jshint({
+      'node': true,
+      'mocha': true
+    }))
     .pipe(jshint.reporter('jshint-stylish'));
 });
 

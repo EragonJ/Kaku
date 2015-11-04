@@ -151,7 +151,7 @@ suite('BasePlaylist', () => {
         artist: '柯有倫',
         title: '零'
       }
-    ]
+    ];
 
     setup(() => {
       playlist = new BasePlaylist();
