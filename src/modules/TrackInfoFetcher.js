@@ -46,7 +46,7 @@ TrackInfoFetcher.prototype.changeFormat = function(format) {
 };
 
 TrackInfoFetcher.prototype.getOptions = function() {
-  let options = this._defaultOptions;
+  let options = this._defaultOptions.slice();
 
   for (let key in this._userOptions) {
     // we can't override default options
