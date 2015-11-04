@@ -65,9 +65,9 @@ Because we use npm to maintain our third party libraries, you have to make sure 
 
 **This is IMPORTANT, please read this**
 
-In order to successfully make Kaku functional, you have to prepare all needed configs first. (Take Youtube API for example, in latest 3.0 API, you need your own API KEY to execute their API)  No matter you are in production or development environment, this is important and please make sure you already did this before building. [Follow the instruction to here to register your API key.](https://developers.google.com/youtube/v3/getting-started)
+Please take a look at `config/`, you will notice there are some files named like `api_config.*.json`, remember to update them with correct config and rename them to `api_config.production.json`, then everything should work as perfect !
 
-Please take a look at `config/`, you will notice there are some files named like `*.sample.json`, remember to update them with correct config and rename them to `*.production.json`, then everything should work as perfect !
+In order to make sure others can join the development without worrying too much about this config, I just added `api_config.development.json` for you guys ! If you don't want to register these services by yourself and want to jump to develop directly, please just copy the file and rename to `api_config.production.json` then you are done !
 
 ## Make Production Build
 
