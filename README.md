@@ -31,18 +31,19 @@ https://github.com/EragonJ/Kaku/releases
 
 # Supported Languages
 
-+ Traditional Chinese 繁體中文 (沒錯，這個程式 Made in Taiwan XD)
++ 繁體中文 (沒錯，這個程式 Made in Taiwan XD)
 + 日本語
 + Portuguese
 + English
-+ French
++ Français
 + Spanish
 + Русский
++ Türkçe
 + ... keep adding :)
 
 # Build Status
 
-[![Build Status](https://travis-ci.org/EragonJ/Kaku.svg?branch=master)](https://travis-ci.org/EragonJ/kaku)
+[![Build Status](https://travis-ci.org/EragonJ/Kaku.svg?branch=master)](https://travis-ci.org/EragonJ/Kaku)
 [![GitHub version](https://badge.fury.io/gh/EragonJ%2Fkaku.svg)](https://github.com/EragonJ/Kaku/releases)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/EragonJ/Kaku/blob/master/LICENSE)
 [![Dependency Status](https://david-dm.org/EragonJ/kaku.svg)](https://david-dm.org/EragonJ/kaku)
