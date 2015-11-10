@@ -205,10 +205,10 @@ Player.prototype.playAll = function(tracks) {
 
   // let's override tracks at first
   this._pendingTracks = tracks;
-  this._pendingTrackIndex = 0;
+  this._pendingTrackIndex = -1;
 
   // then play the first one !
-  this.play(this._pendingTracks[this._pendingTrackIndex]);
+  this.playNextTrack();
 };
 
 Player.prototype.playPreviousTrack = function() {
@@ -248,12 +248,11 @@ Player.prototype.playNextTrack = function() {
   }
   // Loop all tracks
   else if (this._playerRepeatMode === 'all') {
+    this._pendingTrackIndex += 1;
     if (this._pendingTrackIndex > this._pendingTracks.length - 1) {
       this._pendingTrackIndex = 0;
     }
-    else {
-      this._pendingTrackIndex += 1;
-    }
+
     this.play(this._pendingTracks[this._pendingTrackIndex]);
   }
 };
