@@ -4,7 +4,6 @@
   right: 100px;
   background-color: white;
   border-radius: 5px 5px 0 0;
-  overflow: hidden;
   z-index: 5;
   max-width: 300px;
   border: 1px solid #cccccc;
@@ -34,17 +33,26 @@
     }
   }
 
+  .unread-count {
+    position: absolute;
+    z-index: 1;
+    right: 0;
+    top: 0;
+    transform: translate(50%, -50%);
+  }
+
   .header {
     position: relative;
     font-size: 16px;
     margin: 0;
-    padding: 5px 25px 5px 10px;
+    padding: 5px 10px 5px 25px;
     background-color: #efefef;
     cursor: pointer;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
     border-bottom: 1px solid #cccccc;
+    border-radius: 5px 5px 0 0;
 
     i {
       margin-right: 2px;
@@ -55,7 +63,7 @@
       display: inline-block;
       position: absolute;
       top: 50%;
-      right: 10px;
+      left: 10px;
       width: 8px;
       height: 8px;
       margin-top: -4px;

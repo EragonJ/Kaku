@@ -13,6 +13,7 @@ let ChatroomContainer = React.createClass({
   getInitialState: function() {
     return {
       shown: false,
+      unreadMessageCount: 0,
       isRoomConnected: false,
       roomName: '',
       onlineUsers: [],
@@ -33,6 +34,18 @@ let ChatroomContainer = React.createClass({
       // we can join to specifc room
       let commentsRef = Firebase.joinCommentsRoom();
       this.bindAsArray(commentsRef, 'comments');
+
+      // if there is any comment coming when the chatroom is hidden,
+      // we should show some UI for users about this
+      commentsRef.on('value', (snapshot) => {
+        // it will be triggered when initialized, so we need to check
+        // there is indeed any value coming before keep the count.
+        if (snapshot.val() && !this.state.shown) {
+          this.setState({
+            unreadMessageCount: this.state.unreadMessageCount + 1
+          });
+        }
+      });
 
       let onlineUsersRef = Firebase.joinOnlineUsersRoom();
       this.bindAsArray(onlineUsersRef, 'onlineUsers');
@@ -78,9 +91,17 @@ let ChatroomContainer = React.createClass({
   },
 
   _onHeaderClick: function() {
-    this.setState({
-      shown: !this.state.shown
-    });
+    let isShown = this.state.shown;
+    let option = {};
+    option.shown = !isShown;
+
+    // before clicking, it is hidden, so it means user is going to
+    // open the chatroom, then we have to reset the unreadMessageCount
+    if (!isShown) {
+      option.unreadMessageCount = 0;
+    }
+
+    this.setState(option);
   },
 
   _onCommentSubmit: function(comment) {
@@ -106,16 +127,22 @@ let ChatroomContainer = React.createClass({
   render: function() {
     /* jshint ignore:start */
     let headerSpan;
+    let unreadCountSpan;
     let roomName = this.state.roomName;
     let comments = this.state.comments;
     let shown = this.state.shown;
     let isRoomConnected = this.state.isRoomConnected;
+    let unreadMessageCount = this.state.unreadMessageCount;
     let onlineUsersCount = this._getOnlineUsersCount();
 
     if (roomName) {
       headerSpan = <span>{roomName}</span>;
     } else {
       headerSpan = <L10nSpan l10nId="chatroom_header"/>;
+    }
+
+    if (unreadMessageCount > 0) {
+      unreadCountSpan = <span className="unread-count label label-danger">{unreadMessageCount}</span>;
     }
 
     let chatroomClass = ClassNames({
@@ -128,8 +155,8 @@ let ChatroomContainer = React.createClass({
 
     return (
       <div className={chatroomClass}>
+        {unreadCountSpan}
         <h1 className="header" onClick={this._onHeaderClick}>
-          <i className="fa fa-fw fa-commenting-o"></i>
           {headerSpan} - ({onlineUsersCount})
         </h1>
         <div className="comment-container">
