@@ -185,7 +185,6 @@ gulp.task('package', function(done) {
     'name': 'Kaku',
     'platform': platform,
     'arch': arch,
-    'asar': true,
     'version': '0.30.0',
     'out': './build',
     'icon': iconPath,
