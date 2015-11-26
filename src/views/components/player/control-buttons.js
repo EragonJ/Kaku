@@ -7,9 +7,19 @@ var Notifier = require('../../modules/Notifier');
 var Player = require('../../modules/Player');
 
 var PlayerControlButtons = React.createClass({
+  propTypes: {
+    onToggleTVMode: React.PropTypes.func
+  },
+
   getInitialState: function() {
     return {
       playerRepeatMode: 'no'
+    };
+  },
+
+  getDefaultProps: function() {
+    return {
+      onToggleTVMode: function() {}
     };
   },
 
@@ -73,10 +83,8 @@ var PlayerControlButtons = React.createClass({
     }
   },
 
-  _onLyricButtonClick: function() {
-    // TODO
-    // this feature will be implemented only when we got a chance
-    // to get lyric from current track !
+  _onTVButtonClick: function() {
+    this.props.onToggleTVMode();
   },
 
   _onRepeatButtonClick: function() {
@@ -147,12 +155,11 @@ var PlayerControlButtons = React.createClass({
             <i className="fa fa-fw fa-external-link"></i>
         </L10nSpan>
         <L10nSpan
-          l10nId="player_show_lyrics"
-          className="lyric-button btn"
-          onClick={this._onLyricButtonClick}
-          where="title"
-          disabled>
-            <i className="fa fa-fw fa-font"></i>
+          l10nId="player_toggle_tv_mode"
+          className="tv-button btn"
+          onClick={this._onTVButtonClick}
+          where="title">
+            <i className="fa fa-fw fa-television"></i>
         </L10nSpan>
       </div>
     );

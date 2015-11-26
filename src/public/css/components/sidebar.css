@@ -32,6 +32,29 @@
 .sidebar .menus ul li .icon {
   margin-right: 5px;
 }
+.sidebar .player.tv-mode #player {
+  position: absolute;
+  top: 40px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: auto;
+  z-index: 5;
+}
+.sidebar .player.tv-mode .control-buttons {
+  position: absolute;
+  top: 45px;
+  right: 5px;
+}
+.sidebar .player.tv-mode .control-buttons .btn {
+  display: none;
+}
+.sidebar .player.tv-mode .control-buttons .tv-button {
+  display: inline;
+  position: relative;
+  background: transparent;
+  z-index: 6;
+}
 .sidebar .player .track {
   width: 200px;
   height: 200px;
