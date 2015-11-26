@@ -1,6 +1,7 @@
 .sidebar {
   @videoHeight: 140px;
   @controlsHeight: 25px;
+  @toolbarHeight: 40px;
 
   height: 100%;
   border-right: 1px solid #cccccc;
@@ -46,6 +47,38 @@
   }
 
   .player {
+
+    // so many hacks here ...
+    &.tv-mode {
+      #player {
+        position: absolute;
+        top: @toolbarHeight;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: auto;
+        z-index: 5;
+      }
+
+      .control-buttons {
+        @offset: 5px;
+
+        position: absolute;
+        top: @toolbarHeight + @offset;
+        right: @offset;
+
+        .btn {
+          display: none;
+        }
+
+        .tv-button {
+          display: inline;
+          position: relative;
+          background: transparent;
+          z-index: 6;
+        }
+      }
+    }
 
     .track {
       width: 200px;
