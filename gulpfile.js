@@ -184,6 +184,8 @@ gulp.task('package', function(done) {
     'dir': './',
     'name': 'Kaku',
     'platform': platform,
+    'asar': true,
+    'asar-unpack-dir': 'node_modules/youtube-dl',
     'arch': arch,
     'version': '0.30.0',
     'out': './build',
