@@ -1,5 +1,4 @@
 .right > .tab-content {
-  padding: 10px;
   height: 100%;
   overflow: auto;
 }
@@ -38,4 +37,7 @@
 }
 .right > .tab-content .control-buttons .btn-group button:last-child {
   margin-right: 5px;
+}
+.right > .tab-content .tab-pane {
+  padding: 10px;
 }

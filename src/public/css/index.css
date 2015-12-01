@@ -389,7 +389,6 @@ a:focus {
   height: 140px;
 }
 .right > .tab-content {
-  padding: 10px;
   height: 100%;
   overflow: auto;
 }
@@ -428,6 +427,9 @@ a:focus {
 }
 .right > .tab-content .control-buttons .btn-group button:last-child {
   margin-right: 5px;
+}
+.right > .tab-content .tab-pane {
+  padding: 10px;
 }
 .connection-check-container i {
   margin-right: 5px;
