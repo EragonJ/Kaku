@@ -1,6 +1,6 @@
 var Semver = require('semver');
 var GithubAPI = require('github');
-var PackageJSON = require('../../package.json');
+var KakuCore = require('./KakuCore');
 
 function AutoUpdater() {
   this._github = new GithubAPI({
@@ -37,7 +37,7 @@ AutoUpdater.prototype.checkUpdate = function() {
   })
   .then((release = {}) => {
     var latestVersion = release.version;
-    var currentVersion = PackageJSON.version;
+    var currentVersion = KakuCore.getPackageInfo().version;
     var isNewer = false;
 
     if (latestVersion) {

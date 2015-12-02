@@ -1,11 +1,11 @@
 var EventEmitter = require('events').EventEmitter;
-// var path = require('path');
-// var rootPath = path.join('..', '..');
-// var envInfo = require('../../env.json');
+var Path = require('path');
+var Remote = require('remote');
+var Fs = require('fs');
+var App = Remote.require('app');
 
 var KakuCore = function() {
   EventEmitter.call(this);
-
   this._title = '';
 };
 
@@ -24,21 +24,16 @@ Object.defineProperty(KakuCore.prototype, 'title', {
   }
 });
 
-// This means 'KakuApp/'
-// KakuCore.prototype.getRootPath = function() {
-//   return rootPath;
-// };
+KakuCore.prototype.getEnvInfo = function() {
+  var envFilePath = Path.join(App.getAppPath(), 'env.json');
+  var envInfo = Fs.readFileSync(envFilePath, 'utf8');
+  return JSON.parse(envInfo);
+};
 
-// This means 'KakuApp/dist/' or 'KakuApp/src/'
-// KakuCore.prototype.getAppRootPath = function() {
-//   if (envInfo.env === 'production') {
-//     return 'dist';
-//   }
-//   return 'src';
-// };
-
-// KakuCore.prototype.getEnvInfo = function() {
-//   return envInfo;
-// };
+KakuCore.prototype.getPackageInfo = function() {
+  var packageFilePath = Path.join(App.getAppPath(), 'package.json');
+  var packageInfo = Fs.readFileSync(packageFilePath, 'utf8');
+  return JSON.parse(packageInfo);
+};
 
 module.exports = new KakuCore();
