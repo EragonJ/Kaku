@@ -18,9 +18,9 @@ https://github.com/EragonJ/Kaku/releases
 
 # Latest Screenshot
 
-![Latest Screenshot](http://i.imgur.com/WiIg6tY.jpg)
+![Latest Screenshot](http://i.imgur.com/RjSGvse.png)
 
-![Latest Screenshot](http://i.imgur.com/uanIMJO.png)
+![Latest Screenshot](http://i.imgur.com/9nrYuB9.jpg)
 
 # Supported Streaming Platform
 
