@@ -1,8 +1,16 @@
 var Shell = require('shell');
 var React = require('react');
 var L10nSpan = require('../shared/l10n-span');
+var Dialog = require('../../modules/Dialog');
+var KakuCore = require('../../../modules/KakuCore');
 
 var AboutContainer = React.createClass({
+  getInitialState: function() {
+    return {
+      thanksMessage: ''
+    };
+  },
+
   _onFormSubmit: function(event) {
     event.preventDefault();
   },
@@ -49,6 +57,44 @@ var AboutContainer = React.createClass({
 
   _onClickToOpenFacebookDM: function() {
     Shell.openExternal('https://www.facebook.com/messages/kaku.rocks');
+  },
+
+  _onClickToShowSpecialThanks: function() {
+    let thanksMessage = this._getThanksMessage();
+    let title = '<i class="fa fa-gift"></i> Thanks <i class="fa fa-gift"></i>';
+
+    Dialog.alert({
+      title: title,
+      message: thanksMessage,
+      className: 'special-thanks-modal'
+    });
+  },
+
+  _getThanksMessage: function() {
+    let thanksMessage = this.state.thanksMessage;
+
+    if (thanksMessage !== '') {
+      return thanksMessage;
+    }
+    else {
+      let thanksInfo = KakuCore.getInfoFromDataFolder('thanks.json');
+      let people = thanksInfo.people;
+
+      thanksMessage += '<ul>';
+      people.forEach((name) =>{
+        thanksMessage += [
+          '<li>',
+            name,
+          '</li>'
+        ].join('');
+      });
+      thanksMessage += '</ul>';
+      // save that into state
+      this.setState({
+        thanksMessage: thanksMessage
+      });
+    }
+    return thanksMessage;
   },
 
   render: function() {
@@ -128,6 +174,19 @@ var AboutContainer = React.createClass({
                   onClick={this._onClickToOpenGithubIssues}>
                     <i className="fa fa-bug"></i>
                     <L10nSpan l10nId="about_option_bug_button_wording"/>
+                </button>
+              </div>
+            </div>
+            <div className="form-group">
+              <label className="col-sm-3 control-label">
+                <L10nSpan l10nId="about_option_special_thanks_intro"/>
+              </label>
+              <div className="col-sm-3">
+                <button
+                  className="btn btn-default"
+                  onClick={this._onClickToShowSpecialThanks}>
+                    <i className="fa fa-gift"></i>
+                    <L10nSpan l10nId="about_option_special_thanks_button_wording"/>
                 </button>
               </div>
             </div>

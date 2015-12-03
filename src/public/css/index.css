@@ -453,6 +453,9 @@ a:focus {
   font-size: 30px;
   line-height: initial;
 }
+.special-thanks-modal .modal-header {
+  text-align: center;
+}
 .online-dj-slot .choose-role-page,
 .online-dj-slot .dashboard-page {
   display: none;

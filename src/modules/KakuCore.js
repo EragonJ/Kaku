@@ -36,4 +36,10 @@ KakuCore.prototype.getPackageInfo = function() {
   return JSON.parse(packageInfo);
 };
 
+KakuCore.prototype.getInfoFromDataFolder = function(filename) {
+  var filePath = Path.join(App.getAppPath(), 'data', filename);
+  var fileInfo = Fs.readFileSync(filePath, 'utf8');
+  return JSON.parse(fileInfo);
+};
+
 module.exports = new KakuCore();
