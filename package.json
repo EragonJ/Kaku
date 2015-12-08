@@ -31,7 +31,7 @@
     "chai-as-promised": "^5.1.0",
     "chromedriver": "^2.18.0",
     "electron-connect": "^0.3.2",
-    "electron-packager": "^5.1.0",
+    "electron-packager": "maxogden/electron-packager",
     "electron-prebuilt": "^0.30.0",
     "fs-extra": "^0.26.0",
     "gulp": "^3.8.11",
