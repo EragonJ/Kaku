@@ -4,11 +4,11 @@
 
 Kaku is an online music player which supports many differnt platform Like YouTube, Vimeo ... etc. With Kaku, you can easily listen to all kinds of music with just few simple clicks and don't need to leave this desktop application.
 
-# Support This Project
+# Nice works !
 
-Hi all, if you think this open source project does help you, please do support me if you can. With your help, I'll keep updating this project and adding more features as my dedicated side project :)
+Hi all, if you think this open source project does help you, please do support me if you can. With your help, I'll keep updating this project and adding more features as my dedicated side project :) :beers: :beers:
 
-[![Flattr this git repo](http://button.flattr.com/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=EragonJ&url=http%3A%2F%2Fkaku.rocks)
+My bitcoin wallet : **1KtpFtaLW52tCe2VhWxCMHmRt8Mrxqj4WB**
 
 # Download Links
 
