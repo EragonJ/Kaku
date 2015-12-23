@@ -1,6 +1,10 @@
+var Remote = require('remote');
+var App = Remote.require('app');
+var Path = require('path');
 var Semver = require('semver');
 var GithubAPI = require('github');
 var KakuCore = require('./KakuCore');
+var YoutubeDlDownloader = require('youtube-dl/lib/downloader');
 
 function AutoUpdater() {
   this._github = new GithubAPI({
@@ -89,6 +93,28 @@ AutoUpdater.prototype._getWrappedReleaseObject = function(result) {
     note: result.body,
     download: download
   };
+};
+
+AutoUpdater.prototype.updateYoutubeDl = function() {
+  let ytdlBinPath = App.getAppPath();
+  let appPath;
+
+  if (KakuCore.isProduction()) {
+    ytdlBinPath = Path.join(ytdlBinPath, '..', 'app.asar.unpacked');
+  }
+
+  ytdlBinPath = Path.join(ytdlBinPath, 'node_modules', 'youtube-dl', 'bin');
+
+  YoutubeDlDownloader((error) => {
+    if (error) {
+      console.log(error);
+    }
+    else {
+      console.log('Done');
+    }
+  }, {
+    binDir: ytdlBinPath
+  });
 };
 
 module.exports = new AutoUpdater();
