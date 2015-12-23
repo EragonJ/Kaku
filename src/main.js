@@ -119,6 +119,10 @@ var KakuApp = React.createClass({
   },
 
   _triggerAutoUpdater: function() {
+    // 1. automatically update youtube-dl
+    AutoUpdater.updateYoutubeDl();
+
+    // 2. check application update
     AutoUpdater.checkUpdate().then((result) => {
       if (result.isNewer) {
         var release = result.release;
