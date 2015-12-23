@@ -10,6 +10,7 @@ var PlaylistManager = require('../../../modules/PlaylistManager');
 var YoutubeImporter = require('../../../modules/importer/YoutubeImporter');
 var DropboxBackuper = require('../../../modules/backuper/DropboxBackuper');
 var LocalBackuper = require('../../../modules/backuper/LocalBackuper');
+var AutoUpdater = require('../../../modules/AutoUpdater');
 var TopRanking = require('../../../modules/TopRanking');
 
 var L10nManager = require('../../../modules/L10nManager');
@@ -287,6 +288,17 @@ var SettingsContainer = React.createClass({
     });
   },
 
+  _onClickToUpdatePlayer: function() {
+    Notifier.alert('Start to update player');
+
+    AutoUpdater.updateYoutubeDl().then(() => {
+      Notifier.alert('Success :) Please restart the app !');
+    }).catch((error) => {
+      Notifier.alert('Something went wrong, please try again');
+      console.log(error);
+    });
+  },
+
   _onClickToResetDatabse: function() {
     Dialog.confirm(
       _('settings_option_reset_database_confirm'),
@@ -466,6 +478,15 @@ var SettingsContainer = React.createClass({
                     </ul>
                   </div>
                 </div>
+              </div>
+            </div>
+            <div className="form-group">
+              <div className="col-sm-offset-3 col-sm-3">
+                <button
+                  className="btn btn-primary"
+                  onClick={this._onClickToUpdatePlayer}>
+                    <L10nSpan l10nId="settings_option_update_player"/>
+                </button>
               </div>
             </div>
             <div className="form-group">
