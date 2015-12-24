@@ -26,6 +26,67 @@ function isProduction() {
   return CURRENT_ENVIRONMENT === 'production';
 }
 
+function getNormalizedPlatformInfo() {
+  var arch = process.arch || 'ia32';
+  var platform = argv.platform || process.platform;
+  platform = platform.toLowerCase();
+
+  switch (platform) {
+    case 'mac':
+    case 'darwin':
+      platform = 'darwin';
+      arch = 'x64';
+      break;
+    case 'freebsd':
+    case 'linux':
+      platform = 'linux';
+      break;
+    case 'linux32':
+      platform = 'linux';
+      arch = 'ia32';
+      break;
+    case 'linux64':
+      platform = 'linux';
+      arch = 'x64';
+      break;
+    case 'win':
+    case 'win32':
+    case 'windows':
+      platform = 'win32';
+      arch = 'ia32';
+      break;
+    default:
+      console.log('We don\'t support your platform ' + platform);
+      process.exit(1);
+      break;
+  }
+
+  return {
+    arch: arch,
+    platform: platform
+  };
+}
+
+function getNormalizedZipName() {
+  var info = getNormalizedPlatformInfo();
+  var platform = info.platform;
+  var arch = info.arch;
+
+  if (platform === 'darwin') {
+    return 'Kaku-mac.zip';
+  }
+  else if (platform === 'win32') {
+    return 'Kaku-win.zip';
+  }
+  else {
+    if (arch === 'ia32') {
+      return 'Kaku-linux32.zip';
+    }
+    else {
+      return 'Kaku-linux64.zip';
+    }
+  }
+}
 
 // We need to check pathLength when building Kaku for Windows users.
 // Ref: http://engineroom.teamwork.com/dealing-with-long-paths/
@@ -132,39 +193,9 @@ gulp.task('package', function(done) {
     ignoreFiles.push('node_modules/' + key);
   });
 
-  var arch = process.arch || 'ia32';
-  var platform = argv.platform || process.platform;
-  platform = platform.toLowerCase();
-
-  switch (platform) {
-    case 'mac':
-    case 'darwin':
-      platform = 'darwin';
-      arch = 'x64';
-      break;
-    case 'freebsd':
-    case 'linux':
-      platform = 'linux';
-      break;
-    case 'linux32':
-      platform = 'linux';
-      arch = 'ia32';
-      break;
-    case 'linux64':
-      platform = 'linux';
-      arch = 'x64';
-      break;
-    case 'win':
-    case 'win32':
-    case 'windows':
-      platform = 'win32';
-      arch = 'ia32';
-      break;
-    default:
-      console.log('We don\'t support your platform ' + platform);
-      process.exit(1);
-      break;
-  }
+  var platformInfo = getNormalizedPlatformInfo();
+  var platform = platformInfo.platform;
+  var arch = platformInfo.arch;
 
   // We will keep all stuffs in dist/ instead of src/ for production
   var iconFolderPath = './src/public/images/icons';
@@ -244,6 +275,35 @@ gulp.task('post-package', function(done) {
     console.log(error)
     process.exit(1);
   });
+});
+
+gulp.task('zip', function(done) {
+  var buildFolderPath = path.join('.', 'build');
+  var nodes = fs.readdirSync(buildFolderPath);
+
+  if (process.platform === 'win32') {
+    done();
+  }
+  else {
+    var platformInfo = getNormalizedPlatformInfo();
+    var platform = platformInfo.platform;
+    var arch = platformInfo.arch;
+
+    nodes.forEach(function(eachNode) {
+      var nodePath = path.join(buildFolderPath, eachNode);
+      var stats = fs.statSync(nodePath);
+      // only zip found folder !
+      if (stats.isDirectory()) {
+        var zipName = getNormalizedZipName();
+        var zipPath = path.join(buildFolderPath, zipName);
+        shell.exec('ditto -ck --sequesterRsrc ' + nodePath + ' ' + zipPath, {
+          async: true
+        }, function() {
+          done();
+        });
+      }
+    });
+  }
 });
 
 gulp.task('linter:src', function() {
