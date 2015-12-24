@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/EragonJ/Kaku",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha -u tdd -t 5000 --reporter dot --require ./tests/unit/setup.js --harmony_arrow_functions tests/unit/*.test.js",
+    "test": "./node_modules/mocha/bin/mocha -u tdd -t 5000 --reporter dot --require ./tests/unit/setup.js --harmony_arrow_functions 'tests/unit/*.test.js'",
     "uitest-all": "npm run-script prepare-build && npm run-script uitest",
     "uitest": "./node_modules/mocha/bin/mocha -u tdd -t 15000 --reporter dot --harmony_arrow_functions tests/ui/*.test.js",
     "prepare-build": "gulp build"
