@@ -10,7 +10,7 @@ YoutubeSearcher.prototype.search = function(keyword, limit) {
   var promise = new Promise((resolve, reject) => {
     Youtube.search(keyword, limit, function(error, result) {
       if (error) {
-        console.error(error.error.message);
+        console.error(error);
         reject();
       }
       else {
