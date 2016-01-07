@@ -2,16 +2,24 @@ import $ from 'jquery';
 import React from 'react';
 import Uuid from 'node-uuid';
 import Validator from 'validator';
-import ActionButton from '../shared/action-button';
 import L10nSpan from '../shared/l10n-span';
+import ActionButton from '../shared/action-button';
+import OnlineRooms from './online-rooms/container';
 
-class ChooseRolePage extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+let ChooseRolePage = React.createClass({
+  propTypes: {
+    onRoleChoose: React.PropTypes.func.isRequired
+  },
+
+  getDefaultProps: function() {
+    return {
+      onRoleChoose: function() {}
+    };
+  },
 
   _onSubmit(role, e) {
     e.preventDefault();
+
     // TODO
     // move to formsy-react later
     let errors = [];
@@ -23,6 +31,7 @@ class ChooseRolePage extends React.Component {
     if (role === 'dj') {
       userInfo.userName = $form.find('.user-name').val();
       userInfo.roomName = $form.find('.room-name').val();
+      userInfo.isPrivate = $form.find('.room-privacy').prop('checked');
       userInfo.roomKey = Uuid.v4();
 
       if (!userInfo.roomName) {
@@ -56,7 +65,7 @@ class ChooseRolePage extends React.Component {
         }
       });
     }
-  }
+  },
 
   render() {
     let onDJSubmit = this._onSubmit.bind(this, 'dj');
@@ -65,6 +74,7 @@ class ChooseRolePage extends React.Component {
     /* jshint ignore:start */
     return (
       <div className="choose-role-page">
+        <OnlineRooms/>
         <ul className="nav nav-pills" role="tablist">
           <li className="active" role="presentation">
             <a href="#choose-dj-role-dj" aria-controls="profile" role="tab" data-toggle="tab">
@@ -101,6 +111,19 @@ class ChooseRolePage extends React.Component {
                   <input
                     type="text"
                     className="form-control room-name"></input>
+                </div>
+              </div>
+              <div className="form-group">
+                <div className="col-sm-offset-3 col-sm-3">
+                  <div className="checkbox">
+                    <label>
+                      <input
+                        type="checkbox"
+                        className="room-privacy">
+                          <L10nSpan l10nId="online_dj_role_is_dj_private_room"/>
+                        </input>
+                    </label>
+                  </div>
                 </div>
               </div>
               <div className="form-group">
@@ -155,14 +178,6 @@ class ChooseRolePage extends React.Component {
     );
     /* jshint ignore:end */
   }
-}
+});
 
-ChooseRolePage.propTypes = {
-  onRoleChoose: React.PropTypes.func.isRequired
-};
-
-ChooseRolePage.defaultProps = {
-  onRoleChoose: function() { }
-};
-
-export default ChooseRolePage;
+module.exports = ChooseRolePage;
