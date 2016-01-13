@@ -272,4 +272,4 @@ PlaylistManager.prototype.import = function(playlistObjects) {
   });
 };
 
-module.exports = window.xxx = new PlaylistManager();
+module.exports = new PlaylistManager();
