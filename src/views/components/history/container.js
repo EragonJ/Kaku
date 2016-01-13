@@ -9,10 +9,15 @@ var HistoryContainer = React.createClass({
     };
   },
 
+  componentWillMount: function() {
+    HistoryManager.ready().then(() => {
+      this.setState({
+        tracks: HistoryManager.tracks
+      });
+    });
+  },
+
   componentDidMount: function() {
-    // TODO
-    // With DB support, we should make sure stored tracks can be
-    // reflected here
     HistoryManager.on('history-updated', (tracks) => {
       this.setState({
         tracks: tracks
