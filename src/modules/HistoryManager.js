@@ -45,13 +45,13 @@ HistoryManager.prototype.init = function() {
       this._tracks = tracks.map((rawTrack) => {
         return BaseTrack.fromJSON(rawTrack);
       });
-    }.bind(this))
+    })
     .then(function() {
       // bind needed events for these playlists
       this.on('history-updated', () => {
         this._storeTracksToDB();
       });
-    }.bind(this))
+    })
     .catch((error) => {
       console.log(error);
     });
