@@ -58,6 +58,7 @@ var MenusContainer = React.createClass({
   },
 
   _bindTabChangeEvent: function() {
+    var self = this;
     var menusDOM = this.refs.menus.getDOMNode();
     var links = menusDOM.querySelectorAll('a[role="tab"]');
 

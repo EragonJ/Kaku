@@ -60,7 +60,7 @@ PlaylistManager.prototype.init = function() {
       this._playlists = playlists.map((rawPlaylist) => {
         return BasePlaylist.fromJSON(rawPlaylist);
       });
-    })
+    }.bind(this))
     .then(function() {
       // bind needed events for these playlists
       this._playlists.forEach((playlist) => {
@@ -68,7 +68,7 @@ PlaylistManager.prototype.init = function() {
           this._storePlaylistsToDB();
         });
       });
-    })
+    }.bind(this))
     .catch((error) => {
       console.log(error);
     });
@@ -112,9 +112,10 @@ PlaylistManager.prototype.addYoutubePlaylist = function(name, youtubeId) {
 };
 
 PlaylistManager.prototype._addPlaylist = function(options) {
+  var self = this;
   var promise = new Promise((resolve, reject) => {
     var name = options.name;
-    var sameNamePlaylist = this.findPlaylistByName(name);
+    var sameNamePlaylist = self.findPlaylistByName(name);
     if (sameNamePlaylist) {
       reject('You already had one playlist with the same name - ' + name +
         ', so please try another one !');
@@ -127,15 +128,15 @@ PlaylistManager.prototype._addPlaylist = function(options) {
       // we can import playlist from Youtube / Vimeo ... etc,
       // so we can create different one here
       var playlist = new BasePlaylist(options);
-      this._playlists.push(playlist);
+      self._playlists.push(playlist);
 
-      this.emit('added', playlist);
+      self.emit('added', playlist);
 
       playlist.on('tracksUpdated', () => {
-        this._storePlaylistsToDB();
+        self._storePlaylistsToDB();
       });
 
-      this._storePlaylistsToDB().then(() => {
+      self._storePlaylistsToDB().then(() => {
         resolve(playlist);
       });
     }
@@ -179,17 +180,18 @@ PlaylistManager.prototype._storePlaylistsToDB = function() {
 };
 
 PlaylistManager.prototype.removePlaylistById = function(id) {
+  var self = this;
   var promise = new Promise((resolve, reject) => {
-    var index = this.findPlaylistIndexById(id);
+    var index = self.findPlaylistIndexById(id);
     if (index === -1) {
       reject('Can\'t find the playlist');
     }
     else {
-      var removedPlaylist = this._playlists.splice(index, 1);
-      this._storePlaylistsToDB().then(() => {
+      var removedPlaylist = self._playlists.splice(index, 1);
+      self._storePlaylistsToDB().then(() => {
         // TODO
         // we can try to remove listeners from playlist here if needed
-        this.emit('removed', removedPlaylist);
+        self.emit('removed', removedPlaylist);
         resolve(removedPlaylist);
       });
     }
@@ -226,6 +228,8 @@ PlaylistManager.prototype.findPlaylistByName = function(name) {
 };
 
 PlaylistManager.prototype.renamePlaylistById = function(id, newName) {
+  var self = this;
+
   var index = this.findPlaylistIndexById(id);
   if (index < 0) {
     return Promise.reject('can\'t find playlist id - ', id);
@@ -238,7 +242,7 @@ PlaylistManager.prototype.renamePlaylistById = function(id, newName) {
     this._playlists[index] = playlist;
 
     return this._storePlaylistsToDB().then(() => {
-      this.emit('renamed', playlist);
+      self.emit('renamed', playlist);
     });
   }
 };
