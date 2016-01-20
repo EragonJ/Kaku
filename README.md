@@ -60,7 +60,7 @@ We have a gitter chatting room and please feel free to join us and talk there :)
 Because we use npm to maintain our third party libraries, you have to make sure before doing anything, these needed stuffs are all installed already.
 
 1. `npm install`
-2. `npm install electron-prebuilt@0.30.0 -g` - Install **electron** command
+2. `npm install electron-prebuilt@0.36.0 -g` - Install **electron** command
 
 ## Prerequistiques
 

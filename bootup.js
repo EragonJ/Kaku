@@ -1,12 +1,15 @@
-var App = require('app');
-var BrowserWindow = require('browser-window');
+var Electron = require('electron');
+var ShortcutManager = require('electron-localshortcut');
+var App = Electron.app;
+var BrowserWindow = Electron.BrowserWindow;
 
 // Report crashes to our server.
-require('crash-reporter').start();
+Electron.crashReporter.start();
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the javascript object is GCed.
 var mainWindow = null;
+var isWindowLoaded = false;
 
 var Bootup = function() {
 
@@ -41,7 +44,7 @@ Bootup.prototype = {
       });
 
       // and load the index.html of the app.
-      mainWindow.loadUrl('file://' + __dirname + '/index.html');
+      mainWindow.loadURL('file://' + __dirname + '/index.html');
 
       // Emitted when the window is closed.
       mainWindow.on('closed', function() {
@@ -50,7 +53,35 @@ Bootup.prototype = {
         // when you should delete the corresponding element.
         mainWindow = null;
       });
+
+      mainWindow.webContents.on('did-finish-load', function() {
+        isWindowLoaded = true;
+      });
+
+      self._bindShortcuts();
     });
+  },
+
+  _bindShortcuts: function() {
+    var self = this;
+    var shortcuts = [
+      'MediaNextTrack',
+      'MediaPreviousTrack',
+      'MediaPlayPause',
+      'Escape'
+    ];
+
+    shortcuts.forEach(function(shortcut) {
+      ShortcutManager.register(shortcut, function() {
+        self._emitShortcutEvent(mainWindow, isWindowLoaded, shortcut);
+      });
+    });
+  },
+
+  _emitShortcutEvent: function(win, isLoaded, shortcut) {
+    if (isLoaded) {
+      win.webContents.send('key-' + shortcut);
+    }
   }
 };
 

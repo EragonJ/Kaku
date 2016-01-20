@@ -1,8 +1,9 @@
-var EventEmitter = require('events').EventEmitter;
-var Path = require('path');
-var Remote = require('remote');
 var Fs = require('fs');
-var App = Remote.require('app');
+var Path = require('path');
+var Electron = require('electron');
+var Remote = Electron.remote;
+var App = Remote.app;
+var EventEmitter = require('events').EventEmitter;
 
 var KakuCore = function() {
   EventEmitter.call(this);

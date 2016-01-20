@@ -3,12 +3,10 @@ suite('KakuCore', () => {
 
   var kakuCore;
   var sandbox;
-  var mockRemote;
   
   setup(() => {
-    mockRemote = require('./mocks/Remote');
     kakuCore = proxyquire('../../src/modules/KakuCore', {
-      remote: mockRemote
+      electron: require('./mocks/Electron')
     });
     sandbox = sinon.sandbox.create();
     sandbox.stub(kakuCore, 'emit');

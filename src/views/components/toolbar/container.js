@@ -1,5 +1,6 @@
-var Remote = require('remote');
-var App = Remote.require('app');
+var Electron = require('electron');
+var Remote = Electron.remote;
+var App = Remote.app;
 
 var React = require('react');
 

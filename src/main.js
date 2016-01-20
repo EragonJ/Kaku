@@ -1,8 +1,9 @@
 var React = require('react');
-var shell = require('shell');
-var Remote = require('remote');
-var Dialog = Remote.require('dialog');
-var App = Remote.require('app');
+var Shell = require('shell');
+var Electron = require('electron');
+var Remote = Electron.remote;
+var Dialog = Remote.dialog;
+var App = Remote.app;
 
 var ReactTooltip = require('react-tooltip');
 
@@ -155,7 +156,7 @@ var KakuApp = React.createClass({
             }
 
             if (downloadLink) {
-              shell.openExternal(downloadLink);
+              Shell.openExternal(downloadLink);
               // a little delay to quit application
               setTimeout(() => {
                 App.quit();

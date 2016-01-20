@@ -3,8 +3,9 @@ var Path = require('path');
 
 // TODO
 // we need to move out BrowserWindow because this is related to UI
-var Remote = require('remote');
-var BrowserWindow = Remote.require('browser-window');
+var Electron = require('electron');
+var Remote = Electron.remote;
+var BrowserWindow = Remote.BrowserWindow;
 var Dropbox = require('../wrapper/Dropbox');
 
 function DropboxBackuper() {

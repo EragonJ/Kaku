@@ -1,6 +1,7 @@
-var webpack = require("webpack");
-var path = require('path');
 var fs = require('fs');
+var path = require('path');
+var webpack = require("webpack");
+var webpackTargetElectronRenderer = require('webpack-target-electron-renderer');
 
 var nodeModules = {};
 fs.readdirSync('node_modules')
@@ -17,13 +18,12 @@ fs.readdirSync('node_modules')
     nodeModules[mod] = 'commonjs ' + mod;
   });
 
-module.exports = {
+var config = {
   entry: './src/main.js',
   output: {
     path: __dirname,
     filename: 'kaku.bundled.js'
   },
-  target: 'atom',
   externals: nodeModules,
   module: {
     loaders: [
@@ -50,3 +50,6 @@ module.exports = {
     })
   ]
 };
+
+config.target = webpackTargetElectronRenderer(config);
+module.exports = config;

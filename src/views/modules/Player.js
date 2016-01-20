@@ -1,6 +1,7 @@
-var Remote = require('remote');
-var Dialog = Remote.require('dialog');
-var GlobalShortcut = Remote.require('global-shortcut');
+var Electron = require('electron');
+var Remote = Electron.remote;
+var IpcRenderer = Electron.ipcRenderer;
+var Dialog = Remote.dialog;
 var EventEmitter = require('events').EventEmitter;
 var Notifier = require('./Notifier');
 var videojs = require('video.js');
@@ -34,7 +35,7 @@ function Player() {
   this._pendingTrackIndex = 0;
   this._pendingTracks = [];
 
-  this._bindGlobalShortcuts();
+  this._bindShortcuts();
 }
 
 Player.prototype = Object.create(EventEmitter.prototype);
@@ -80,21 +81,23 @@ Object.defineProperty(Player.prototype, 'playingTrackTime', {
   }
 });
 
-Player.prototype._bindGlobalShortcuts = function() {
-  // In order not to call pre-registered callbacks in released render view,
-  // we have to unregisterAll callbacks at first, then register again.
-  GlobalShortcut.unregisterAll();
-
-  GlobalShortcut.register('MediaNextTrack', () => {
+Player.prototype._bindShortcuts = function() {
+  IpcRenderer.on('key-MediaNextTrack', () => {
     this.playNextTrack();
   });
 
-  GlobalShortcut.register('MediaPreviousTrack', () => {
+  IpcRenderer.on('key-MediaPreviousTrack', () => {
     this.playPreviousTrack();
   });
 
-  GlobalShortcut.register('MediaPlayPause', () => {
+  IpcRenderer.on('key-MediaPlayPause', () => {
     this.playOrPause();
+  });
+
+  IpcRenderer.on('key-Escape', () => {
+    if (this._player.isFullscreen()) {
+      this._player.exitFullscreen();
+    }
   });
 };
 
@@ -126,20 +129,6 @@ Player.prototype._addPlayerEvents = function() {
   this._player.on('ended', () => {
     this._updateAppHeader('ended');
     this.playNextTrack();
-  });
-
-  this._player.on('fullscreenchange', () => {
-    // Note
-    // we will register/unregister escape key only when fullscreen is
-    // triggerd, otherwise, users can't use this key in different applications.
-    if (this._player.isFullscreen()) {
-      GlobalShortcut.register('Escape', () => {
-        this._player.exitFullscreen();
-      });
-    }
-    else {
-      GlobalShortcut.unregister('Escape');
-    }
   });
 
   this._player.on('error', (error) => {
