@@ -48,11 +48,11 @@ EasterEggs.prototype.show = function() {
   // and make sure everything is new.
   this._cleanup();
   this._sentences.forEach((eachSentence, index) => {
-    var id = setTimeout((eachSentence) => {
+    var id = setTimeout(((eachSentence) => {
       return () => {
         Notifier.alert(decodeURI(eachSentence));
       };
-    }(eachSentence), this._ALERT_TIMEOUT * index + this._ALERT_EXTRA_WAITING);
+    })(eachSentence), this._ALERT_TIMEOUT * index + this._ALERT_EXTRA_WAITING);
     this._timerIds.push(id);
   });
 };

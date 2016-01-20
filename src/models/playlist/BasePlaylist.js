@@ -42,19 +42,18 @@ BasePlaylist.fromJSON = function(json) {
 
 BasePlaylist.prototype.addTrack = function(track, options) {
   options = options || {};
-  var self = this;
   var promise = new Promise((resolve, reject) => {
     var title = track.title;
     var artist = track.artist;
-    var foundTrack = self.findTrackByArtistAndTitle(artist, title);
+    var foundTrack = this.findTrackByArtistAndTitle(artist, title);
     if (foundTrack) {
       reject('You already have a track with same name & artist, ' +
         'please try another one');
     }
     else {
-      self._tracks.push(track);
+      this._tracks.push(track);
       if (!options.dontEmitEvent) {
-        self.emit('tracksUpdated');
+        this.emit('tracksUpdated');
       }
       resolve();
     }
@@ -67,32 +66,30 @@ BasePlaylist.prototype.addTracks = function(tracks) {
     return Promise.resolve();
   }
   else {
-    var self = this;
     var promises = tracks.map((track) => {
-      return self.addTrack(track, {
+      return this.addTrack(track, {
         dontEmitEvent: true
       });
     });
     // We need to trigger update event in the end to make sure we won't
     // make db conflicted.
     return Promise.all(promises).then(() => {
-      self.emit('tracksUpdated');
+      this.emit('tracksUpdated');
     });
   }
 };
 
 BasePlaylist.prototype.removeTrack = function(track) {
-  var self = this;
   var promise = new Promise((resolve, reject) => {
-    var index = self.findTrackIndex(track);
+    var index = this.findTrackIndex(track);
     if (index === -1) {
       reject('Can\'t find the track');
     }
     else {
-      var removedTrack = self._tracks.splice(index, 1);
+      var removedTrack = this._tracks.splice(index, 1);
       console.log('Removed track - ', removedTrack);
 
-      self.emit('tracksUpdated');
+      this.emit('tracksUpdated');
       resolve();
     }
   });

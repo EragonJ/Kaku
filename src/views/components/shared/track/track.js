@@ -65,7 +65,7 @@ let Track = React.createClass({
               Notifier.alert(error);
             });
         };
-      }(playlist));
+      })(playlist);
 
       let clickToRemoveTrack = ((playlist) => {
         return () => {
@@ -75,7 +75,7 @@ let Track = React.createClass({
               Notifier.alert(error);
             });
         };
-      }(playlist));
+      })(playlist);
 
       // TODO
       // add l10n support here
