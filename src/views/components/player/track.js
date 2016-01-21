@@ -1,7 +1,7 @@
-var Player = require('../../modules/Player');
-var React = require('react');
+let Player = require('../../modules/Player');
+let React = require('react');
 
-var PlayerTrack = React.createClass({
+let PlayerTrack = React.createClass({
   componentDidMount: function() {
     this._setupPlayer();
   },

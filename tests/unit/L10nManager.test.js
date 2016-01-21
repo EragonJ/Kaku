@@ -3,12 +3,10 @@ suite('L10nManager', () => {
 
   var sandbox;
   var l10nManager;
-  var mockRemote;
 
   setup(() => {
-    mockRemote = require('./mocks/Remote');
     l10nManager = proxyquire('../../src/modules/L10nManager', {
-      remote: mockRemote
+      electron: require('./mocks/Electron')
     });
     l10nManager._cachedStrings = {
       'en': {

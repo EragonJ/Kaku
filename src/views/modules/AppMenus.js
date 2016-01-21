@@ -1,8 +1,9 @@
-var Remote = require('remote');
-var App = Remote.require('app');
-var Menu = Remote.require('menu');
-var MenuItem = Remote.require('menu-item');
-var BrowserWindow = Remote.require('browser-window');
+var Electron = require('electron');
+var Remote = Electron.remote;
+var App = Remote.app;
+var Menu = Remote.Menu;
+var MenuItem = Remote.MenuItem;
+var BrowserWindow = Remote.BrowserWindow;
 
 var Player = require('./Player');
 var L10nManager = require('../../modules/L10nManager');

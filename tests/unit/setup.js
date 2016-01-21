@@ -4,7 +4,7 @@ var assert = require('assert');
 var chai = require('chai');
 var sinon = require('sinon');
 var jsdom = require('jsdom').jsdom;
-var proxyquire = require('proxyquire');
+var proxyquire = require('proxyquire').noCallThru();
 
 // We have to fake window object in node.js environment
 var document = jsdom('_');

@@ -1,10 +1,8 @@
 var Shell = require('shell');
 var React = require('react');
-
-var L10nSpan = require('../shared/l10n-span');
-
-var Notifier = require('../../modules/Notifier');
 var Player = require('../../modules/Player');
+var L10nSpan = require('../shared/l10n-span');
+var Notifier = require('../../modules/Notifier');
 
 var PlayerControlButtons = React.createClass({
   propTypes: {

@@ -1,7 +1,8 @@
 var Crypto = require('crypto');
-var Remote = require('remote');
-var Menu = Remote.require('menu');
-var MenuItem = Remote.require('menu-item');
+var Electron = require('electron');
+var Remote = Electron.remote;
+var Menu = Remote.Menu;
+var MenuItem = Remote.MenuItem;
 
 var $ = require('jquery');
 var React = require('react');

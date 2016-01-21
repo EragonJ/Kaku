@@ -1,8 +1,11 @@
 let React = require('react');
+let Electron = require('electron');
+let Remote = Electron.remote;
+let IpcRender = Electron.ipcRenderer;
 let ClassNames = require('classnames');
-let PlayerControlButtons = require('../player/control-buttons');
 let PlayerTrack = require('../player/track');
 let Player = require('../../modules/Player');
+let PlayerControlButtons = require('../player/control-buttons');
 
 let PlayerContainer = React.createClass({
   getInitialState: function() {
@@ -19,6 +22,14 @@ let PlayerContainer = React.createClass({
   },
 
   componentDidMount: function() {
+    IpcRender.on('key-Escape', () => {
+      if (this.state.tvMode) {
+        this.setState({
+          tvMode: false
+        });
+      }
+    });
+
     // This is important because we use some CSS hack in TV mode and this
     // will influence the control bar in fullscreen, so we need to change
     // it back to normal mode to make sure the UI looks good !
