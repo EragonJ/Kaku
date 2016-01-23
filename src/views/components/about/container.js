@@ -1,8 +1,13 @@
+var Electron = require('electron');
+var Clipboard = Electron.clipboard;
 var Shell = require('shell');
 var React = require('react');
 var L10nSpan = require('../shared/l10n-span');
 var Dialog = require('../../modules/Dialog');
+var Notifier = require('../../modules/Notifier');
 var KakuCore = require('../../../modules/KakuCore');
+var L10nManager = require('../../../modules/L10nManager');
+var _ = L10nManager.get.bind(L10nManager);
 
 var AboutContainer = React.createClass({
   getInitialState: function() {
@@ -15,20 +20,26 @@ var AboutContainer = React.createClass({
     event.preventDefault();
   },
 
-  _onClickToOpenFlattr: function() {
-    var description = '';
-    description += 'Kaku is an online music player which supports many ';
-    description += 'differnt platform Like YouTube, Vimeo ... etc. With ';
-    description += 'Kaku, you can easily listen to all kinds of music with ';
-    description += 'just few simple clicks and dont need to leave this ';
-    description += 'desktop application.';
+  _onClickToSuppportUs: function() {
+    let title = _('about_option_support_wallet_address');
+    let walletAddress = '1KtpFtaLW52tCe2VhWxCMHmRt8Mrxqj4WB';
 
-    var link = '';
-    link += 'https://flattr.com/submit/auto';
-    link += '?user_id=EragonJ&url=http%3A%2F%2Fkaku.rocks';
-    link += '&title=Kaku&category=software';
-    link += '&description=' + encodeURIComponent(description);
-    Shell.openExternal(link);
+    Dialog.confirm({
+      title: title,
+      message: walletAddress,
+      callback: (result) => {
+        if (result) {
+          Clipboard.writeText(walletAddress);
+          Notifier.alert(
+            _('about_option_support_click_to_copy_wallet_address_alert'));
+        }
+      },
+      buttons: {
+        confirm: {
+          label: _('about_option_support_copy_wallet_address')
+        }
+      }
+    });
   },
 
   _onClickToOpenFacebook: function() {
@@ -119,7 +130,7 @@ var AboutContainer = React.createClass({
               <div className="col-sm-3">
                 <button
                   className="btn btn-danger"
-                  onClick={this._onClickToOpenFlattr}>
+                  onClick={this._onClickToSuppportUs}>
                     <i className="fa fa-credit-card"></i>
                     <L10nSpan l10nId="about_option_support_button_wording"/>
                 </button>
