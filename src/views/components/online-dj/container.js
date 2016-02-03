@@ -1,4 +1,5 @@
 import React from 'react';
+import Moment from 'moment';
 import L10nSpan from '../shared/l10n-span';
 import ChooseRolePage from './choose-role-page';
 import DashboardPage from './dashboard-page';
@@ -10,7 +11,8 @@ let OnlineDJContainer = React.createClass({
   getInitialState: function() {
     return {
       page: 0,
-      userInfo: {}
+      userInfo: {},
+      roomInOnlineRoomsRef: null
     };
   },
 
@@ -30,16 +32,34 @@ let OnlineDJContainer = React.createClass({
     //   role: 'xxx',
     //   userName: 'xxx',
     //   roomName: 'yyy',
-    //   roomKey: 'zzz'
+    //   roomKey: 'zzz',
+    //   isPrivate: true
     // }
     Firebase.setup(userInfo.roomKey, userInfo);
 
     let ref = Firebase.joinMetadataRoom();
+
     if (userInfo.role === 'dj') {
       let metadata = {
         roomName: userInfo.roomName,
-        roomKey: userInfo.roomKey
+        roomKey: userInfo.roomKey,
+        isPrivate: userInfo.isPrivate,
+        createdAt: Moment.utc().format()
       };
+
+      // If the room is not private, then we'll store it in our onlineRooms list
+      // to let everyone access
+      if (!userInfo.isPrivate) {
+        let onlineRoomsRef = Firebase.joinOnlineRoomsRoom();
+        let roomInOnlineRoomsRef = onlineRoomsRef.push();
+        roomInOnlineRoomsRef.set(metadata);
+
+        // keep that for leaveAll use
+        this.setState({
+          roomInOnlineRoomsRef: roomInOnlineRoomsRef
+        });
+      }
+
       Firebase.setMetadata(metadata);
       ref.set(metadata);
     }
@@ -53,6 +73,11 @@ let OnlineDJContainer = React.createClass({
 
   _onLeft: function() {
     Firebase.leaveAll();
+
+    if (this.state.roomInOnlineRoomsRef) {
+      this.state.roomInOnlineRoomsRef.remove();
+    }
+
     this._changeToPage(0);
   },
 

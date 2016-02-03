@@ -74,6 +74,7 @@
     "font-awesome": "^4.4.0",
     "github": "^0.2.4",
     "jquery": "^2.1.4",
+    "moment": "^2.11.0",
     "node-dropbox": "eragonj/node-dropbox",
     "node-itunes-rss-data": "^1.1.1",
     "node-soundcloud": "0.0.3",

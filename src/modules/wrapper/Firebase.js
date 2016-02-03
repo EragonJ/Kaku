@@ -7,6 +7,7 @@ let events = new EventEmitter();
 
 const ROOMS = {
   METADATA: 'metadata',
+  ONLINE_ROOMS: 'onlineRooms',
   ONLINE_USERS: 'onlineUsers',
   PLAYED_TRACKS: 'playedTracks',
   COMMENTS: 'comments',
@@ -58,6 +59,16 @@ Firebase.joinConnectedRoom = function() {
   return ref;
 };
 
+Firebase.joinOnlineRoomsRoom = function() {
+  let url = Constants.API.FIREBASE_URL;
+  let ref = new Firebase(url + '/' + ROOMS.ONLINE_ROOMS);
+  events.emit('room-joined', 'onlineRooms', ref);
+
+  // keep the reference for later use
+  Firebase.rooms.onlineRooms = ref;
+  return ref;
+};
+
 Firebase.joinOnlineUsersRoom = function() {
   let ref = Firebase.join(ROOMS.ONLINE_USERS);
   return ref;
@@ -84,7 +95,15 @@ Firebase.joinPlayedTracksRoom = function() {
 };
 
 Firebase.leaveAll = function() {
-  Object.keys(Firebase.rooms).forEach((roomName) => {
+  let dontLeaveRooms = [
+    ROOMS.ONLINE_ROOMS
+  ];
+
+  let rooms = Object.keys(Firebase.rooms).filter((roomName) => {
+    return dontLeaveRooms.indexOf(roomName) === -1;
+  });
+
+  rooms.forEach((roomName) => {
     Firebase.leave(roomName);
   });
 
