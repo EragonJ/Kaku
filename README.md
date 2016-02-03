@@ -10,6 +10,10 @@ Hi all, if you think this open source project does help you, please do support m
 
 My bitcoin wallet : **1KtpFtaLW52tCe2VhWxCMHmRt8Mrxqj4WB**
 
+# NEED TRANSLATORS !
+
+If you are keen to help Kaku, you can first try to help translating it with your native language ! For more details, please check [this post](https://github.com/EragonJ/Kaku/issues/377) ! Can't wait to see you in our community :)
+
 # Download Links
 
 We do support Windows, Mac OS X, Linux 32 and Linux 64, so please go check it :
