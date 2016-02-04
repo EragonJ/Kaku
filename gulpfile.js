@@ -4,7 +4,7 @@ var gulp = require('gulp');
 var less = require('gulp-less');
 var gulpif = require('gulp-if');
 var rename = require('gulp-rename');
-var clean = require('gulp-clean');
+var clean = require('gulp-rimraf');
 var jshint = require('gulp-jshint');
 var sequence = require('gulp-sequence');
 var pathLength = require('gulp-path-length');
@@ -99,12 +99,8 @@ gulp.task('checkPathLength', function() {
 });
 
 gulp.task('html', function() {
-  var assets = useref.assets();
-
   return gulp
     .src('./_index.html')
-    .pipe(gulpif(isProduction(), assets))
-    .pipe(gulpif(isProduction(), assets.restore()))
     .pipe(gulpif(isProduction(), useref()))
     .pipe(rename('index.html'))
     .pipe(gulp.dest('./'));
