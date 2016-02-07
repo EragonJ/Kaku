@@ -38,6 +38,7 @@ var ConnectionCheckContainer =
 // views > modules
 var TabManager = require('./views/modules/TabManager');
 var RemotePlayer = require('./views/modules/RemotePlayer');
+var CastingManager = require('./views/modules/CastingManager');
 var KonamiCodeManager = require('./views/modules/KonamiCodeManager');
 var EasterEggs = require('./views/modules/EasterEggs');
 var AppMenus = require('./views/modules/AppMenus');
@@ -67,6 +68,10 @@ var KakuApp = React.createClass({
     this._initializeDefaultSearcher();
     this._initializeDefaultTrackFormat();
     this._initializeKonamiCode();
+
+    // Initialize these after Player.js has been setup
+    CastingManager.init();
+    RemotePlayer.init();
 
     // Say hi :)
     Tracker.pageview('/').send();

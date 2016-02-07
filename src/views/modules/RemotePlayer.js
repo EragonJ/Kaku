@@ -1,12 +1,21 @@
-let Player = require('./Player');
-let BaseTrack = require('../../models/track/BaseTrack');
-let Firebase = require('../../modules/wrapper/Firebase');
+import Player from './Player';
+import BaseTrack from '../../models/track/BaseTrack';
+import Firebase from '../../modules/wrapper/Firebase';
 
 class RemotePlayer {
   constructor() {
+    this._initialized = false;
+
     this._onPlayerPlay = this._onPlayerPlay.bind(this);
     this._onPlayerPause = this._onPlayerPause.bind(this);
     this._onPlayerStop = this._onPlayerStop.bind(this);
+  }
+
+  init() {
+    if (this._initialized) {
+      return;
+    }
+    this._initialized = true;
 
     Firebase.on('setup', (userInfo) => {
       // keep this in internal variable
@@ -88,6 +97,4 @@ class RemotePlayer {
   }
 }
 
-let remotePlayer = new RemotePlayer();
-
-export default remotePlayer;
+module.exports = new RemotePlayer();

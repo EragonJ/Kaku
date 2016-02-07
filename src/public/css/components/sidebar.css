@@ -65,7 +65,7 @@
 .sidebar .player .control-buttons .btn {
   outline: none;
   border: 0;
-  width: calc(16.66666667%);
+  width: calc(14.28571429%);
   color: #ccc;
   background-color: #000;
   padding: 2px 6px 3px;
@@ -89,6 +89,31 @@
   right: 8px;
   font-size: 10px;
   background-color: rgba(0, 0, 0, 0.7);
+}
+.sidebar .player .control-buttons .btn.external-button i {
+  vertical-align: middle;
+}
+.sidebar .player .control-buttons .btn.cast-button img {
+  width: 15px;
+  height: 12px;
+  margin-top: -2px;
+  object-fit: none;
+  object-position: 0 0;
+}
+.sidebar .player .control-buttons .btn.cast-button:hover img {
+  object-position: -15px 0;
+}
+.sidebar .player .control-buttons .btn.cast-button.is-connecting img {
+  object-position: 0 -12px;
+}
+.sidebar .player .control-buttons .btn.cast-button.is-connecting:hover img {
+  object-position: -15px -12px;
+}
+.sidebar .player .control-buttons .btn.cast-button.is-casting img {
+  object-position: 0 -24px;
+}
+.sidebar .player .control-buttons .btn.cast-button.is-casting:hover img {
+  object-position: -15px -24px;
 }
 .sidebar .player #player {
   position: relative;
