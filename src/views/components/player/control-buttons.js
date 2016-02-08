@@ -3,6 +3,11 @@ var React = require('react');
 var Player = require('../../modules/Player');
 var L10nSpan = require('../shared/l10n-span');
 var Notifier = require('../../modules/Notifier');
+var Dialog = require('../../modules/Dialog');
+var CastingManager = require('../../modules/CastingManager');
+var L10nManager = require('../../../modules/L10nManager');
+var ClassNames = require('classnames');
+var _ = L10nManager.get.bind(L10nManager);
 
 var PlayerControlButtons = React.createClass({
   propTypes: {
@@ -11,7 +16,9 @@ var PlayerControlButtons = React.createClass({
 
   getInitialState: function() {
     return {
-      playerRepeatMode: 'no'
+      playerRepeatMode: 'no',
+      isCasting: false,
+      isConnecting: false
     };
   },
 
@@ -34,6 +41,27 @@ var PlayerControlButtons = React.createClass({
 
     Player.on('pause', () => {
       this._updatePlayIconState('pause');
+    });
+
+    CastingManager.on('error', (error) => {
+      this.setState({
+        isCasting: false,
+        isConnecting: false
+      });
+    });
+
+    CastingManager.on('connected', () => {
+      this.setState({
+        isCasting: true,
+        isConnecting: false
+      });
+    });
+
+    CastingManager.on('connecting', () => {
+      this.setState({
+        isConnecting: true,
+        isCasting: false
+      });
     });
   },
 
@@ -81,6 +109,28 @@ var PlayerControlButtons = React.createClass({
     }
   },
 
+  _onCastToDeviceButtonClick: function() {
+    if (!this.state.isCasting) {
+      let services = CastingManager.services.values();
+      let topService = services.next().value;
+      if (topService) {
+        Dialog.confirm(_('player_to_cast_prompt', {
+          name: topService.name
+        }), (sure) => {
+          if (sure) {
+            CastingManager.connect(topService.address);
+          }
+        });
+      }
+      else {
+        Notifier.alert(_('player_no_device_found_alert'));
+      }
+    }
+    else {
+      CastingManager.close();
+    }
+  },
+
   _onTVButtonClick: function() {
     this.props.onToggleTVMode();
   },
@@ -112,6 +162,13 @@ var PlayerControlButtons = React.createClass({
         playerRepeatWording = 'All';
         break;
     }
+
+    var castButtonClass = ClassNames({
+      'cast-button': true,
+      'btn': true,
+      'is-casting': this.state.isCasting,
+      'is-connecting': this.state.isConnecting
+    });
 
     /* jshint ignore:start */
     return (
@@ -151,6 +208,13 @@ var PlayerControlButtons = React.createClass({
           onClick={this._onExternalButtonClick}
           where="title">
             <i className="fa fa-fw fa-external-link"></i>
+        </L10nSpan>
+        <L10nSpan
+          l10nId="player_cast_to_device"
+          className={castButtonClass}
+          onClick={this._onCastToDeviceButtonClick}
+          where="title">
+            <img src="src/public/images/others/cast.png"/>
         </L10nSpan>
         <L10nSpan
           l10nId="player_toggle_tv_mode"

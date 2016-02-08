@@ -92,7 +92,7 @@
       .btn {
         outline: none;
         border: 0;
-        width: calc(100% / 6); // we have 6 buttons
+        width: calc(100% / 7); // we have 7 buttons
         color: #ccc; // sync with videojs's style
         background-color: #000;
         // there are some unconsistent styles on Windows,
@@ -123,6 +123,42 @@
           right: 8px;
           font-size: 10px;
           background-color: rgba(0, 0, 0, 0.7);
+        }
+      }
+
+      .btn.external-button {
+        i {
+          vertical-align: middle;
+        }
+      }
+
+      .btn.cast-button {
+        img {
+          width: 15px;
+          height: 12px;
+          margin-top: -2px;
+          object-fit: none;
+          object-position: 0 0;
+        }
+
+        &:hover img {
+          object-position: -15px 0;
+        }
+
+        &.is-connecting img {
+          object-position: 0 -12px;
+        }
+
+        &.is-connecting:hover img {
+          object-position: -15px -12px;
+        }
+
+        &.is-casting img {
+          object-position: 0 -24px;
+        }
+
+        &.is-casting:hover img {
+          object-position: -15px -24px;
         }
       }
     }
