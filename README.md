@@ -43,6 +43,7 @@ https://github.com/EragonJ/Kaku/releases
 + Spanish
 + Русский
 + Türkçe
++ Deutsche
 + ... keep adding :)
 
 # Build Status
@@ -124,6 +125,16 @@ For linter :
 
 ```bash
 gulp linter:all
+```
+
+## How To Update Translations
+
+Because we use [Transifex](https://www.transifex.com/kaku/desktop-app/) to provide a cleaner and easy to use interface for translators, you need to install the command tool called [tx](http://docs.transifex.com/client/setup/) to update translations.
+
+After installing, you don't need to setup anything else because they are all set up already under `.tx/config` ! You just need to use the command below to update translations !
+
+```bash
+tx pull -a --minimum-perc=90 # we only need any translation which has been translated > 90%
 ```
 
 # TODO / Issues

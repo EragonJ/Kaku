@@ -1,0 +1,10 @@
+[main]
+host = https://www.transifex.com/kaku
+lang_map = zh: zh-TW, de_DE: de
+
+[desktop-app.enini]
+file_filter = src/locales/<lang>.ini
+host = https://www.transifex.com
+source_lang = en
+source_file = src/locales/en.ini
+type = PHP_INI
