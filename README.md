@@ -4,15 +4,15 @@
 
 Kaku is an online music player which supports many differnt platform Like YouTube, Vimeo ... etc. With Kaku, you can easily listen to all kinds of music with just few simple clicks and don't need to leave this desktop application.
 
-# Nice works !
+# NEED TRANSLATORS !
+
+If you are keen to help Kaku, you can first try to help translating it with your native language ! For more details, please check [this post](https://github.com/EragonJ/Kaku/issues/377) ! Can't wait to see you in our community :)
+
+# Support 
 
 Hi all, if you think this open source project does help you, please do support me if you can. With your help, I'll keep updating this project and adding more features as my dedicated side project :) :beers: :beers:
 
 My bitcoin wallet : **1KtpFtaLW52tCe2VhWxCMHmRt8Mrxqj4WB**
-
-# NEED TRANSLATORS !
-
-If you are keen to help Kaku, you can first try to help translating it with your native language ! For more details, please check [this post](https://github.com/EragonJ/Kaku/issues/377) ! Can't wait to see you in our community :)
 
 # Download Links
 
@@ -63,8 +63,9 @@ We have a gitter chatting room and please feel free to join us and talk there :)
 
 Because we use npm to maintain our third party libraries, you have to make sure before doing anything, these needed stuffs are all installed already.
 
-1. `npm install`
-2. `npm install electron-prebuilt@0.36.0 -g` - Install **electron** command
+1. Use node 5.1.1
+2. `npm install`
+3. `npm install electron-prebuilt@0.36.0 -g` - Install **electron** command
 
 ## Prerequistiques
 

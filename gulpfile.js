@@ -180,13 +180,13 @@ gulp.task('package', function(done) {
   var devDependencies = packageJSON.devDependencies;
   var devDependenciesKeys = Object.keys(devDependencies);
   var ignoreFiles = [
-    './build',
-    './tests',
-    './kaku'
+    '^/build/',
+    '^/tests/',
+    '^/kaku/'
   ];
 
   devDependenciesKeys.forEach(function(key) {
-    ignoreFiles.push('node_modules/' + key);
+    ignoreFiles.push('^/node_modules/' + key);
   });
 
   var platformInfo = getNormalizedPlatformInfo();
