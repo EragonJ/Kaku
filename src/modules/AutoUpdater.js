@@ -107,15 +107,13 @@ AutoUpdater.prototype.updateYoutubeDl = function() {
   ytdlBinPath = Path.join(ytdlBinPath, 'node_modules', 'youtube-dl', 'bin');
 
   let promise = new Promise((resolve, reject) => {
-    YoutubeDlDownloader((error) => {
+    YoutubeDlDownloader(ytdlBinPath, (error) => {
       if (error) {
         reject(error);
       }
       else {
         resolve();
       }
-    }, {
-      binDir: ytdlBinPath
     });
   });
 
