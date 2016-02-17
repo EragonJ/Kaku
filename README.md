@@ -143,10 +143,6 @@ After installing, you don't need to setup anything else because they are all set
 tx pull -a --minimum-perc=90 # we only need any translation which has been translated > 90%
 ```
 
-# TODO / Issues
-
-Moved all todos and issues to https://github.com/EragonJ/Kaku/issues, so if your are interested with them, please go check it there !
-
 # What Tech We Use ?
 
 ## Still In Use
