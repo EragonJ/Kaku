@@ -1,6 +1,5 @@
 var Request = require('request');
 var ItunesRSSData = require('node-itunes-rss-data');
-var BaseModule = require('../modules/BaseModule');
 var BaseTrack = require('../models/track/BaseTrack');
 var EventEmitter = require('events').EventEmitter;
 
