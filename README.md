@@ -16,9 +16,9 @@ My bitcoin wallet : **1KtpFtaLW52tCe2VhWxCMHmRt8Mrxqj4WB**
 
 # Download Links
 
-We do support Windows, Mac OS X, Linux 32 and Linux 64, so please go check it :
+We do support desktop application for Windows, Mac OS X, Linux 32 and Linux 64, so please go check it [here](https://github.com/EragonJ/Kaku/releases)
 
-https://github.com/EragonJ/Kaku/releases
+If you are interested in mobile app, there is also another [app repo](https://github.com/EragonJ/Kaku-app) which is under active development and please go check it !
 
 # Latest Screenshot
 
