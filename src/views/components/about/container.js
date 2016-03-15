@@ -70,6 +70,10 @@ var AboutContainer = React.createClass({
     Shell.openExternal('https://www.facebook.com/messages/kaku.rocks');
   },
 
+  _onClickToOpenQA: function() {
+    Shell.openExternal('http://kaku.rocks/docs/');
+  },
+
   _onClickToShowSpecialThanks: function() {
     let thanksMessage = this._getThanksMessage();
     let title = '<i class="fa fa-gift"></i> Thanks <i class="fa fa-gift"></i>';
@@ -224,6 +228,19 @@ var AboutContainer = React.createClass({
                   onClick={this._onClickToOpenFacebookDM}>
                     <i className="fa fa-comments-o"></i>
                     <L10nSpan l10nId="about_option_facebook_dm_button_wording"/>
+                </button>
+              </div>
+            </div>
+            <div className="form-group">
+              <label className="col-sm-3 control-label">
+                <L10nSpan l10nId="about_option_qa_intro"/>
+              </label>
+              <div className="col-sm-3">
+                <button
+                  className="btn btn-default"
+                  onClick={this._onClickToOpenQA}>
+                    <i className="fa fa-info-circle"></i>
+                    <L10nSpan l10nId="about_option_qa_button_wording"/>
                 </button>
               </div>
             </div>
