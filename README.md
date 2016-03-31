@@ -67,7 +67,6 @@ Because we use npm to maintain our third party libraries, you have to make sure 
 1. Use node 5.1.1
 2. `npm i`
 3. `npm i electron-prebuilt@0.36.0 -g` - Install **electron** command
-4. On Linux you need to install `libavahi-compat-libdnssd-dev`
 
 **IMPORTANT NOTE :** If you are going to build Kaku for **Windows** build, you need to use the following command instead because some dependent modules need the flag to do some platform specific things.
 

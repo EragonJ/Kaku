@@ -4,8 +4,6 @@ script:
   - gulp linter:all
 
 before_install:
-  - sudo apt-get -qq update
-  - sudo apt-get install -y libavahi-compat-libdnssd-dev
   - npm install -g npm@2
 
 env:

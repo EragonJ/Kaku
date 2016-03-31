@@ -1,4 +1,4 @@
-import Mdns from 'mdns';
+import Mdns from 'mdns-js';
 import Player from './Player';
 import { EventEmitter } from 'events';
 import { Client, DefaultMediaReceiver } from 'castv2-client';
@@ -22,22 +22,17 @@ class CastingManager extends EventEmitter {
     }
     this._initialized = true;
 
-    Browser.on('serviceUp', (service) => {
+    Browser.on('ready', () => {
+      Browser.discover();
+    });
+
+    Browser.on('update', (service) => {
       let address = service.addresses[0];
       this.services.set(address, {
-        name: service.name || 'Unknown',
+        name: service.fullname || 'Unknown',
         address: address,
         port: service.port
       });
-    });
-
-    Browser.on('serviceDown', (service) => {
-      let address = service.addresses[0];
-      this.services.delete(address);
-    });
-
-    Browser.on('error', (error) => {
-      this.emit('error', error);
     });
 
     Player.on('seeked', () => {
@@ -55,9 +50,6 @@ class CastingManager extends EventEmitter {
     Player.on('stop', () => {
       this.stop();
     });
-
-    // It means that Kaku will keep searching for casting from the start
-    Browser.start();
   }
 
   close() {
