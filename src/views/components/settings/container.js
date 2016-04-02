@@ -290,12 +290,12 @@ var SettingsContainer = React.createClass({
   },
 
   _onClickToUpdatePlayer: function() {
-    Notifier.alert('Start to update player');
+    Notifier.alert('Start to update, please don\'t play music when updating');
 
     AutoUpdater.updateYoutubeDl().then(() => {
-      Notifier.alert('Success :) Please restart the app !');
+      Notifier.alert('Success ! You are good to go now :)');
     }).catch((error) => {
-      Notifier.alert('Something went wrong, please try again');
+      Notifier.alert('Something went wrong when updating');
       console.log(error);
     });
   },

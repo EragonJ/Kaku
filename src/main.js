@@ -174,6 +174,10 @@ var KakuApp = React.createClass({
           }
         });
       }
+      else {
+        // Silently update the core modules for users when bootup everytime !
+        AutoUpdater.updateYoutubeDl();
+      }
     });
   },
 
