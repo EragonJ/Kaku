@@ -90,7 +90,7 @@ var SettingsContainer = React.createClass({
     languages = languages || [];
     defaultLanguage = defaultLanguage || 'en';
 
-    var select = this.refs.supportedLanguagesSelect.getDOMNode();
+    var select = this.refs.supportedLanguagesSelect;
     languages.forEach((language) => {
       var option = document.createElement('option');
       option.text = language.label;
@@ -101,7 +101,7 @@ var SettingsContainer = React.createClass({
   },
 
   _makeTopRankingOptions: function(countryData, defaultCountryCode) {
-    var select = this.refs.topRankingSelect.getDOMNode();
+    var select = this.refs.topRankingSelect;
     Object.keys(countryData).forEach((countryCode) => {
       var option = document.createElement('option');
       option.text = countryData[countryCode];
@@ -115,7 +115,7 @@ var SettingsContainer = React.createClass({
     searchers = searchers || [];
     defaultSearcher = defaultSearcher || 'youtube';
 
-    var select = this.refs.supportedSearcherSelect.getDOMNode();
+    var select = this.refs.supportedSearcherSelect;
     searchers.forEach((searcherName) => {
       var option = document.createElement('option');
       option.text = searcherName;
@@ -129,7 +129,7 @@ var SettingsContainer = React.createClass({
     var trackFormats = TrackInfoFetcher.getSupportedFormats();
     var defaultFormat =
       PreferenceManager.getPreference('default.track.format') || 'best';
-    var select = this.refs.trackFormatSelect.getDOMNode();
+    var select = this.refs.trackFormatSelect;
 
     // remove childrens first
     while (select.lastChild) {

@@ -70,7 +70,7 @@ var PlayerControlButtons = React.createClass({
   _repeatModes: ['no', 'one', 'all'],
 
   _updatePlayIconState: function(state) {
-    var resumeIconDOM = this.refs.resumeIcon.getDOMNode();
+    var resumeIconDOM = this.refs.resumeIcon;
     if (state === 'play') {
       // show pause button
       resumeIconDOM.classList.remove('fa-play');

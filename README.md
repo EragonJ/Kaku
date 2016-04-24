@@ -8,7 +8,7 @@ Kaku is an online music player which supports many differnt platform Like YouTub
 
 If you are keen to help Kaku, you can first try to help translating it with your native language ! For more details, please check [this post](https://github.com/EragonJ/Kaku/issues/377) ! Can't wait to see you in our community :)
 
-# Support 
+# Support
 
 Hi all, if you think this open source project does help you, please do support me if you can. With your help, I'll keep updating this project and adding more features as my dedicated side project :) :beers: :beers:
 
@@ -106,7 +106,7 @@ This is for one-time tester, you can just directly build the clean Kaku and dire
 the code and see how it works.
 
 ```bash
-gulp && electron .
+npm run start:dev
 ```
 
 ### For Developers Who Need To Test Your Patches

@@ -8,21 +8,21 @@ class CommentForm extends React.Component {
 
   _onSubmit(e) {
     e.preventDefault();
-    var text = this.refs.text.getDOMNode().value.trim();
-    this.refs.text.getDOMNode().value = '';
+    var text = this.refs.text.value.trim();
+    this.refs.text.value = '';
 
     // let its parent know which comment is sent
     this.props.onSubmit(text);
   }
-  
+
   componentDidUpdate() {
     let isShown = this.props.shown;
 
     if (isShown) {
-      this.refs.text.getDOMNode().focus();
+      this.refs.text.focus();
     }
     else {
-      this.refs.text.getDOMNode().blur();
+      this.refs.text.blur();
     }
   }
 

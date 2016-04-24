@@ -15,7 +15,7 @@ let PlayerTrack = React.createClass({
   },
 
   _onPlayerProgress: function() {
-    
+
   },
 
   _setupPlayer: function() {
@@ -23,7 +23,7 @@ let PlayerTrack = React.createClass({
     playerDOM.id = 'player';
     playerDOM.classList.add('video-js');
     playerDOM.classList.add('vjs-default-skin');
-    this.refs.playerContainer.getDOMNode().appendChild(playerDOM);
+    this.refs.playerContainer.appendChild(playerDOM);
 
     Player.setPlayer(playerDOM);
     Player.on('play', this._onPlayerPlay);

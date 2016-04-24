@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 var Shell = require('shell');
 var Electron = require('electron');
 var Remote = Electron.remote;
@@ -267,5 +268,5 @@ var KakuApp = React.createClass({
 });
 
 /* jshint ignore:start */
-React.render(<KakuApp/>, contentPageDOM);
+ReactDOM.render(<KakuApp/>, contentPageDOM);
 /* jshint ignore:end */
