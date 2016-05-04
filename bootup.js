@@ -38,8 +38,8 @@ Bootup.prototype = {
       mainWindow = new BrowserWindow({
         'width': 1060,
         'height': 600,
-        'min-width': 1060,
-        'min-height': 600,
+        'minWidth': 1060,
+        'minHeight': 600,
         'frame': false
       });
 
