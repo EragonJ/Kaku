@@ -6,6 +6,7 @@
     { "label": "Русский", "lang": "ru" },
     { "label": "繁體中文", "lang": "zh-TW" },
     { "label": "日本語", "lang": "ja" },
+    { "label": "한국어", "lang": "ko" },
     { "label": "Portuguese", "lang": "pt" },
     { "label": "Türkçe", "lang": "tr" },
     { "label": "Deutsch", "lang": "de" }
