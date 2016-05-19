@@ -59,7 +59,7 @@ var MenusContainer = React.createClass({
   },
 
   _bindTabChangeEvent: function() {
-    var menusDOM = this.refs.menus.getDOMNode();
+    var menusDOM = this.refs.menus;
     var links = menusDOM.querySelectorAll('a[role="tab"]');
 
     // NOTE
@@ -74,7 +74,7 @@ var MenusContainer = React.createClass({
   },
 
   _unbindTabChangeEvent: function() {
-    var menusDOM = this.refs.menus.getDOMNode();
+    var menusDOM = this.refs.menus;
     var links = menusDOM.querySelectorAll('a[role="tab"]');
     $(links).off('click');
   },
@@ -90,7 +90,7 @@ var MenusContainer = React.createClass({
     }
 
     if (linkToTabRef) {
-      $(linkToTabRef.getDOMNode()).tab('show');
+      $(linkToTabRef).tab('show');
     }
   },
 

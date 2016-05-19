@@ -47,7 +47,7 @@ class ChooseRolePage extends React.Component {
     }
     else {
       Object.keys(this.refs).forEach((refName) => {
-        let node = this.refs[refName].getDOMNode();
+        let node = this.refs[refName];
         if (errors.indexOf(refName) >= 0) {
           node.classList.add('has-error');
         }

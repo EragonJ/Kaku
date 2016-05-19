@@ -8,7 +8,7 @@ class CommentList extends React.Component {
   }
 
   componentDidUpdate() {
-    let commentListNode = this.refs.commentList.getDOMNode();
+    let commentListNode = this.refs.commentList;
     let scrollHeight = commentListNode.scrollHeight;
     $(commentListNode).scrollTop(scrollHeight);
   }
@@ -21,7 +21,7 @@ class CommentList extends React.Component {
     });
 
     if (commentNodes.length !== 0) {
-      renderedElement = commentNodes; 
+      renderedElement = commentNodes;
     }
     else {
       renderedElement = <CommentNoData></CommentNoData>;

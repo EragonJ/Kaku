@@ -45,7 +45,7 @@ let DashboardPage = React.createClass({
   },
 
   _onClickToCopy: function() {
-    let node = this.refs['room-key'].getDOMNode();
+    let node = this.refs['room-key'];
     let key = node.value;
     Clipboard.writeText(key);
     Notifier.alert(L10nManager.get('online_dj_dashboard_click_to_copy_key'));
