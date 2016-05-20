@@ -42,6 +42,7 @@ var CastingManager = require('./views/modules/CastingManager');
 var KonamiCodeManager = require('./views/modules/KonamiCodeManager');
 var EasterEggs = require('./views/modules/EasterEggs');
 var AppMenus = require('./views/modules/AppMenus');
+var Player = require('./views/modules/Player');
 
 var loadingPageDOM = document.querySelector('.loading-page');
 var contentPageDOM = document.querySelector('.content-page');
@@ -67,6 +68,7 @@ var KakuApp = React.createClass({
     this._initializeDefaultLanguage();
     this._initializeDefaultSearcher();
     this._initializeDefaultTrackFormat();
+    this._initializeDefaultVolume();
     this._initializeKonamiCode();
 
     // Initialize these after Player.js has been setup
@@ -109,13 +111,21 @@ var KakuApp = React.createClass({
   _initializeDefaultSearcher: function() {
     var defaultSearcher =
       PreferenceManager.getPreference('default.searcher');
-    Searcher.changeSearcher(defaultSearcher);
+    if (defaultSearcher) {
+      Searcher.changeSearcher(defaultSearcher);
+    }
   },
 
   _initializeDefaultTrackFormat: function() {
     var defaultFormat =
       PreferenceManager.getPreference('default.track.format') || 'best';
     TrackInfoFetcher.changeFormat(defaultFormat);
+  },
+
+  _initializeDefaultVolume: function() {
+    var defaultVolume =
+      PreferenceManager.getPreference('default.volume') || 'default';
+    Player.setVolume(defaultVolume);
   },
 
   _initializeKonamiCode: function() {
