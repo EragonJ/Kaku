@@ -6,6 +6,7 @@ var EventEmitter = require('events').EventEmitter;
 var Notifier = require('./Notifier');
 var videojs = require('video.js');
 
+var PreferenceManager = require('../../modules/PreferenceManager');
 var TrackInfoFetcher = require('../../modules/TrackInfoFetcher');
 var DownloadManager = require('../../modules/DownloadManager');
 var HistoryManager = require('../../modules/HistoryManager');
@@ -13,6 +14,7 @@ var L10nManager = require('../../modules/L10nManager');
 var KakuCore = require('../../modules/KakuCore');
 var Searcher = require('../../modules/Searcher');
 var Tracker = require('../../modules/Tracker');
+var Defer = require('../../modules/Defer');
 var _ = L10nManager.get.bind(L10nManager);
 
 videojs.options.flash.swf = 'dist/vendor/video.js/dist/video-js.swf';
@@ -35,6 +37,7 @@ function Player() {
   this._pendingTrackIndex = 0;
   this._pendingTracks = [];
 
+  this._pendingDefers = [];
   this._bindShortcuts();
 }
 
@@ -131,6 +134,11 @@ Player.prototype._addPlayerEvents = function() {
     this.playNextTrack();
   });
 
+  this._player.on('volumechange', () => {
+    console.log(this._player.volume())
+    PreferenceManager.setPreference('default.volume', this._player.volume());
+  });
+
   this._player.on('error', (error) => {
     Notifier.alert('Unknown errors, please try again');
 
@@ -153,13 +161,22 @@ Player.prototype._toggleSpinner = function(show) {
   }
 };
 
+Player.prototype._executePendingDefers = function() {
+  this._pendingDefers.forEach((defer) => {
+    defer.resolve(this._player);
+  });
+  this._pendingDefers = [];
+};
+
 Player.prototype.setPlayer = function(playerDOM) {
   this._playerDOM = playerDOM;
 };
 
 Player.prototype.ready = function() {
   if (!this._playerDOM) {
-    return Promise.reject('playerDOM is not ready');
+    let defer = Defer();
+    this._pendingReadyDefers.push(defer);
+    return defer.promise;
   }
   else if (this._player) {
     return Promise.resolve(this._player);
@@ -173,11 +190,7 @@ Player.prototype.ready = function() {
       ).ready(function() {
         self._player = this;
         self._addPlayerEvents();
-
-        // At this timing, self._player has stored the videojs instance already.
-        // So, it would be okay to call any operation which is wrapped inside
-        // Player.prototype.ready()
-        self.setVolume('default');
+        self._executePendingDefers();
 
         // return real videojs-ed player out
         resolve(self._player);
@@ -366,7 +379,10 @@ Player.prototype.setVolume = function(operation) {
         break;
 
       default:
-        // nothing
+        let volume = parseFloat(operation, 10);
+        if (!isNaN(volume)) {
+          this._player.volume(volume);
+        }
         break;
     }
     Tracker.event('Player', 'set volume', this._player.volume()).send();
