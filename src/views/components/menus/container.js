@@ -263,12 +263,12 @@ var MenusContainer = React.createClass({
               <span className="title"><L10nSpan l10nId="sidebar_add_playlist"/></span>
             </a>
           </li>
-          {playlists.map((playlist) => {
+          {playlists.map((playlist, index) => {
             var ref= 'tab-playlist' + playlist.id;
             var clickToShowContextMenu =
               this._clickToShowContextMenu.bind(this, playlist);
             return (
-              <li role="presentation" className="playlist">
+              <li role="presentation" className="playlist" key={index}>
                 <a
                   href="#tab-playlist"
                   role="tab"

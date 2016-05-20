@@ -135,7 +135,6 @@ Player.prototype._addPlayerEvents = function() {
   });
 
   this._player.on('volumechange', () => {
-    console.log(this._player.volume())
     PreferenceManager.setPreference('default.volume', this._player.volume());
   });
 
