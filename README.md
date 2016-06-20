@@ -147,6 +147,7 @@ tx pull -a --minimum-perc=90 # we only need any translation which has been trans
 
 ## Still In Use
 
++ [Kaku-Core](https://github.com/EragonJ/Kaku-core) - This repo keeps all shared scripts that will be used in different clients
 + [Gulp](http://gulpjs.com/) - To build up our environment
 + [Electron](http://electron.atom.io) - Let us use web technology to build native app
 + [Bootstrap](http://getbootstrap.com/) - To boostrap the whole project including grid system ... etc
@@ -172,6 +173,14 @@ tx pull -a --minimum-perc=90 # we only need any translation which has been trans
 + [Require.js](http://requirejs.org/) - To help me make codes more structure
 + ... thanks for these old friends :)
 
+# Author
+
+Chia-Lung, Chen (EragonJ)
+
 # Special Thanks
 
 Kaku's logo is designed by [Peko Chen](https://www.facebook.com/peko.chen), thanks for her support :)
+
+# License
+
+MIT
