@@ -1,7 +1,7 @@
 var Crypto = require('crypto');
 var Youtube = require('../wrapper/Youtube');
 var PlaylistManager = require('../../modules/PlaylistManager');
-var YoutubeTrack = require('../../models/track/YoutubeTrack');
+var YoutubeTrack = require('kaku-core/models/track/YoutubeTrack');
 
 function YoutubeImporter() {
   // TODO

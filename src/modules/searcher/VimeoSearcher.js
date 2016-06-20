@@ -1,5 +1,5 @@
 var Vimeo = require('vimeo').Vimeo;
-var VimeoTrack = require('../../models/track/VimeoTrack');
+var VimeoTrack = require('kaku-core/models/track/VimeoTrack');
 var Constants = require('../../modules/Constants');
 var Tracker = require('../../modules/Tracker');
 

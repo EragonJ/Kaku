@@ -1,5 +1,5 @@
 var EventEmitter = require('events').EventEmitter;
-var BasePlaylist = require('../models/playlist/BasePlaylist');
+var BasePlaylist = require('kaku-core/models/playlist/BasePlaylist');
 var Tracker = require('./Tracker');
 var DB = require('./Database');
 

@@ -81,6 +81,7 @@
     "font-awesome": "^4.4.0",
     "github": "^0.2.4",
     "jquery": "^2.2.0",
+    "kaku-core": "0.0.1",
     "mdns-js": "^0.5.0",
     "node-dropbox": "eragonj/node-dropbox",
     "node-itunes-rss-data": "^1.1.1",

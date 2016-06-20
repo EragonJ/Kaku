@@ -1,5 +1,5 @@
 import Player from './Player';
-import BaseTrack from '../../models/track/BaseTrack';
+import BaseTrack from 'kaku-core/models/track/BaseTrack';
 import Firebase from '../../modules/wrapper/Firebase';
 
 class RemotePlayer {

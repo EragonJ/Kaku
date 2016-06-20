@@ -306,7 +306,6 @@ gulp.task('linter:src', function() {
   return gulp
     .src([
       './src/modules/**/*.js',
-      './src/models/**/*.js',
       './src/views/**/*.js'
     ])
     .pipe(jshint())

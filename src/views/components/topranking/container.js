@@ -1,5 +1,5 @@
 var React = require('react');
-var TopRanking = require('../../../modules/TopRanking');
+var TopRanking = require('kaku-core/modules/TopRanking');
 var TracksContainer = require('../shared/tracks-container');
 
 var TopRankingContainer = React.createClass({

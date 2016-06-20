@@ -1,5 +1,5 @@
 var Youtube = require('../wrapper/Youtube');
-var YoutubeTrack = require('../../models/track/YoutubeTrack');
+var YoutubeTrack = require('kaku-core/models/track/YoutubeTrack');
 var Tracker = require('../../modules/Tracker');
 
 var YoutubeSearcher = function() {

@@ -1,8 +1,8 @@
 suite('BasePlaylist', () => {
   'use strict';
 
-  var BasePlaylist = require('../../src/models/playlist/BasePlaylist');
-  var BaseTrack = require('../../src/models/track/BaseTrack');
+  var BasePlaylist = require('kaku-core/models/playlist/BasePlaylist');
+  var BaseTrack = require('kaku-core/models/track/BaseTrack');
 
   suite('findTracksByArtist() >', () => {
     test('can find out needed track', () => {

@@ -7,7 +7,7 @@ var Notifier = require('./Notifier');
 var videojs = require('video.js');
 
 var PreferenceManager = require('../../modules/PreferenceManager');
-var TrackInfoFetcher = require('../../modules/TrackInfoFetcher');
+var TrackInfoFetcher = require('kaku-core/modules/TrackInfoFetcher');
 var DownloadManager = require('../../modules/DownloadManager');
 var HistoryManager = require('../../modules/HistoryManager');
 var L10nManager = require('../../modules/L10nManager');

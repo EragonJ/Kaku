@@ -1,6 +1,6 @@
 import DB from './Database';
 import { EventEmitter } from 'events';
-import BaseTrack from '../models/track/BaseTrack';
+import BaseTrack from 'kaku-core/models/track/BaseTrack';
 
 var HistoryManager = function() {
   EventEmitter.call(this);

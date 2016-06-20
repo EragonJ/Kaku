@@ -10,10 +10,10 @@ var ReactTooltip = require('react-tooltip');
 
 // general modules
 var PreferenceManager = require('./modules/PreferenceManager');
-var TrackInfoFetcher = require('./modules/TrackInfoFetcher');
+var TrackInfoFetcher = require('kaku-core/modules/TrackInfoFetcher');
 var PlaylistManager = require('./modules/PlaylistManager');
 var L10nManager = require('./modules/L10nManager');
-var TopRanking = require('./modules/TopRanking');
+var TopRanking = require('kaku-core/modules/TopRanking');
 var KakuCore = require('./modules/KakuCore');
 var Searcher = require('./modules/Searcher');
 var AutoUpdater = require('./modules/AutoUpdater');

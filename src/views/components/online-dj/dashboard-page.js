@@ -8,7 +8,7 @@ import Notifier from '../../modules/Notifier';
 import ActionButton from '../shared/action-button';
 import Constants from '../../../modules/Constants';
 import L10nManager from '../../../modules/L10nManager';
-import BaseTrack from '../../../models/track/BaseTrack';
+import BaseTrack from 'kaku-core/models/track/BaseTrack';
 
 let DashboardPage = React.createClass({
   mixins: [ReactFireMixin],

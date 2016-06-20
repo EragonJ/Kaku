@@ -1,5 +1,5 @@
 var SoundCloud = require('node-soundcloud');
-var SoundCloudTrack = require('../../models/track/SoundCloudTrack');
+var SoundCloudTrack = require('kaku-core/models/track/SoundCloudTrack');
 var Constants = require('../../modules/Constants');
 var Tracker = require('../../modules/Tracker');
 

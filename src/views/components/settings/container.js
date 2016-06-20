@@ -6,13 +6,13 @@ var AppDialog = Remote.Dialog;
 var React = require('react');
 
 var PreferenceManager = require('../../../modules/PreferenceManager');
-var TrackInfoFetcher = require('../../../modules/TrackInfoFetcher');
+var TrackInfoFetcher = require('kaku-core/modules/TrackInfoFetcher');
 var PlaylistManager = require('../../../modules/PlaylistManager');
 var YoutubeImporter = require('../../../modules/importer/YoutubeImporter');
 var DropboxBackuper = require('../../../modules/backuper/DropboxBackuper');
 var LocalBackuper = require('../../../modules/backuper/LocalBackuper');
 var AutoUpdater = require('../../../modules/AutoUpdater');
-var TopRanking = require('../../../modules/TopRanking');
+var TopRanking = require('kaku-core/modules/TopRanking');
 
 var L10nManager = require('../../../modules/L10nManager');
 var Searcher = require('../../../modules/Searcher');
