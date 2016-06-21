@@ -8,6 +8,7 @@ class CommentForm extends React.Component {
     this.state = { text: '', showSelector: false };
     this._handleEmoji = this._handleEmoji.bind(this);
     this._selectEmoji = this._selectEmoji.bind(this);
+    this._handleInputChange = this._handleInputChange.bind(this);
   }
 
   _onSubmit(e) {
@@ -30,7 +31,10 @@ class CommentForm extends React.Component {
 
   _handleEmoji(emojiText) {
     const inpuText = this.state.text;
-    this.setState({ text: `${inpuText}:${emojiText}:` });
+    this.setState({
+      text: `${inpuText}:${emojiText}:`,
+      showSelector: !this.state.showSelector,
+    });
   }
 
   componentDidUpdate() {
@@ -57,7 +61,7 @@ class CommentForm extends React.Component {
             type="text"
             ref="text"
             value={this.state.text}
-            onChange={(e) => this._handleInputChange(e)}
+            onChange={this._handleInputChange}
           />
         </div>
         <ActionButton
@@ -68,8 +72,8 @@ class CommentForm extends React.Component {
         />
         <EmojiPicker
           show={this.state.showSelector}
-          selector={() => this._selectEmoji()}
-          handleEmoji={(e) => this._handleEmoji(e)}
+          selector={this._selectEmoji}
+          handleEmoji={this._handleEmoji}
         />
       </form>
     );
