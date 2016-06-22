@@ -14,7 +14,7 @@ var L10nManager = require('../../modules/L10nManager');
 var KakuCore = require('../../modules/KakuCore');
 var Searcher = require('../../modules/Searcher');
 var Tracker = require('../../modules/Tracker');
-var Defer = require('../../modules/Defer');
+var Defer = require('kaku-core/modules/Defer');
 var _ = L10nManager.get.bind(L10nManager);
 
 videojs.options.flash.swf = 'dist/vendor/video.js/dist/video-js.swf';

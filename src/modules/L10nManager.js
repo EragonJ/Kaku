@@ -4,7 +4,7 @@ var Electron = require('electron');
 var Remote = Electron.remote;
 var App = Remote.app;
 var EventEmitter = require('events').EventEmitter;
-var IniParser = require('../modules/IniParser');
+var IniParser = require('kaku-core/modules/IniParser');
 var L10nMetadata = require('../locales/metadata').languages;
 
 function L10nManager() {
