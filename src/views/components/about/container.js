@@ -5,7 +5,7 @@ var React = require('react');
 var L10nSpan = require('../shared/l10n-span');
 var Dialog = require('../../modules/Dialog');
 var Notifier = require('../../modules/Notifier');
-var KakuCore = require('../../../modules/KakuCore');
+var AppCore = require('../../../modules/AppCore');
 var L10nManager = require('../../../modules/L10nManager');
 var _ = L10nManager.get.bind(L10nManager);
 
@@ -92,7 +92,7 @@ var AboutContainer = React.createClass({
       return thanksMessage;
     }
     else {
-      let thanksInfo = KakuCore.getInfoFromDataFolder('thanks.json');
+      let thanksInfo = AppCore.getInfoFromDataFolder('thanks.json');
       let people = thanksInfo.people;
 
       thanksMessage += '<ul>';

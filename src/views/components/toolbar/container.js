@@ -6,7 +6,7 @@ var React = require('react');
 
 var SearchbarContainer = require('../searchbar/container');
 var DownloadManager = require('../../../modules/DownloadManager');
-var KakuCore = require('../../../modules/KakuCore');
+var AppCore = require('../../../modules/AppCore');
 
 var ToolbarContainer = React.createClass({
   getInitialState: function() {
@@ -18,10 +18,10 @@ var ToolbarContainer = React.createClass({
 
   componentDidMount: function() {
     this.setState({
-      title: KakuCore.title
+      title: AppCore.title
     });
 
-    KakuCore.on('titleUpdated', (title) => {
+    AppCore.on('titleUpdated', (title) => {
       this.setState({
         title: title
       });

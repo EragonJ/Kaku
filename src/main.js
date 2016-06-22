@@ -14,7 +14,7 @@ var TrackInfoFetcher = require('kaku-core/modules/TrackInfoFetcher');
 var PlaylistManager = require('./modules/PlaylistManager');
 var L10nManager = require('./modules/L10nManager');
 var TopRanking = require('kaku-core/modules/TopRanking');
-var KakuCore = require('./modules/KakuCore');
+var AppCore = require('./modules/AppCore');
 var Searcher = require('./modules/Searcher');
 var AutoUpdater = require('./modules/AutoUpdater');
 var Tracker = require('./modules/Tracker');
@@ -89,7 +89,7 @@ var KakuApp = React.createClass({
   },
 
   _initializeAppTitle: function() {
-    KakuCore.title = _('app_title_normal');
+    AppCore.title = _('app_title_normal');
   },
 
   _initializeDefaultAlwaysOnTop: function() {

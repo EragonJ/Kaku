@@ -1,15 +1,15 @@
-suite('KakuCore', () => {
+suite('AppCore', () => {
   'use strict';
 
-  var kakuCore;
+  var AppCore;
   var sandbox;
   
   setup(() => {
-    kakuCore = proxyquire('../../src/modules/KakuCore', {
+    AppCore = proxyquire('../../src/modules/AppCore', {
       electron: require('./mocks/Electron')
     });
     sandbox = sinon.sandbox.create();
-    sandbox.stub(kakuCore, 'emit');
+    sandbox.stub(AppCore, 'emit');
   });
 
   teardown(() => {
@@ -18,12 +18,12 @@ suite('KakuCore', () => {
 
   suite('.title >', () => {
     setup(() => {
-      kakuCore.title = 'test';
+      AppCore.title = 'test';
     });
     
     test('title will be updated and also emit needed event', () => {
-      assert.equal(kakuCore._title, 'test');
-      assert.isTrue(kakuCore.emit.calledWith('titleUpdated', 'test'));
+      assert.equal(AppCore._title, 'test');
+      assert.isTrue(AppCore.emit.calledWith('titleUpdated', 'test'));
     });
   });
 });

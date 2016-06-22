@@ -4,7 +4,7 @@ var App = Remote.app;
 var Path = require('path');
 var Semver = require('semver');
 var GithubAPI = require('github');
-var KakuCore = require('./KakuCore');
+var AppCore = require('./AppCore');
 var YoutubeDlDownloader = require('youtube-dl/lib/downloader');
 
 function AutoUpdater() {
@@ -42,7 +42,7 @@ AutoUpdater.prototype.checkUpdate = function() {
   })
   .then((release = {}) => {
     var latestVersion = release.version;
-    var currentVersion = KakuCore.getPackageInfo().version;
+    var currentVersion = AppCore.getPackageInfo().version;
     var isNewer = false;
 
     if (latestVersion) {
@@ -100,7 +100,7 @@ AutoUpdater.prototype.updateYoutubeDl = function() {
   let ytdlBinPath = App.getAppPath();
   let appPath;
 
-  if (KakuCore.isProduction()) {
+  if (AppCore.isProduction()) {
     ytdlBinPath = Path.join(ytdlBinPath, '..', 'app.asar.unpacked');
   }
 

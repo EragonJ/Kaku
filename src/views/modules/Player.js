@@ -11,7 +11,7 @@ var TrackInfoFetcher = require('kaku-core/modules/TrackInfoFetcher');
 var DownloadManager = require('../../modules/DownloadManager');
 var HistoryManager = require('../../modules/HistoryManager');
 var L10nManager = require('../../modules/L10nManager');
-var KakuCore = require('../../modules/KakuCore');
+var AppCore = require('../../modules/AppCore');
 var Searcher = require('../../modules/Searcher');
 var Tracker = require('../../modules/Tracker');
 var Defer = require('kaku-core/modules/Defer');
@@ -348,10 +348,10 @@ Player.prototype._updateAppHeader = function(state) {
     if (translatedTitle.length > maxLength) {
       translatedTitle = translatedTitle.substr(0, maxLength) + ' ...';
     }
-    KakuCore.title = translatedTitle;
+    AppCore.title = translatedTitle;
   }
   else if (state === 'ended') {
-    KakuCore.title = _('app_title_normal');
+    AppCore.title = _('app_title_normal');
   }
 };
 
