@@ -6,7 +6,7 @@ import Firebase from '../../../modules/wrapper/Firebase';
 
 const MAX_PAGE_COUNT = 2;
 
-let OnlineDJContainer = React.createClass({
+let OnlineDJComponent = React.createClass({
   getInitialState: function() {
     return {
       page: 0,
@@ -88,4 +88,4 @@ let OnlineDJContainer = React.createClass({
   }
 });
 
-module.exports = OnlineDJContainer;
+module.exports = OnlineDJComponent;

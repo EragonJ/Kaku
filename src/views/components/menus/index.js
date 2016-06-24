@@ -16,7 +16,7 @@ var _ = L10nManager.get.bind(L10nManager);
 
 var L10nSpan = require('../shared/l10n-span');
 
-var MenusContainer = React.createClass({
+var MenusComponent = React.createClass({
   getInitialState: function() {
     return {
       playlists: []
@@ -288,4 +288,4 @@ var MenusContainer = React.createClass({
   }
 });
 
-module.exports = MenusContainer;
+module.exports = MenusComponent;

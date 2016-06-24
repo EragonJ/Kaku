@@ -7,7 +7,7 @@ import ActionButton from './action-button';
 import TrackModeButton from './track-mode-button';
 import PlayAllButton from './playall-button';
 
-var TracksContainer = React.createClass({
+var TracksComponent = React.createClass({
   propTypes: {
     headerL10nId: React.PropTypes.string,
     headerWording: React.PropTypes.string,
@@ -120,7 +120,7 @@ var TracksContainer = React.createClass({
             {playAllButton}
           </div>
         </div>
-        <div className="tracks-container">
+        <div className="tracks-component">
           {noTracksDiv}
           {tracks.map(function(track, index) {
             return <Track key={index} data={track} mode={trackMode}/>;
@@ -132,4 +132,4 @@ var TracksContainer = React.createClass({
   }
 });
 
-module.exports = TracksContainer;
+module.exports = TracksComponent;

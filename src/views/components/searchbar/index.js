@@ -9,7 +9,7 @@ const SEARCH_LIMIT_FOR_AUTO_COMPLETE = 10;
 const SEARCH_LIMIT_FOR_ALL = 50;
 const BLUR_TIMEOUT = 100;
 
-var SearchbarContainer = React.createClass({
+var SearchbarComponent = React.createClass({
   getInitialState: function() {
     return {
       keyword: '',
@@ -184,7 +184,7 @@ var SearchbarContainer = React.createClass({
 
     /* jshint ignore:start */
     return (
-      <div className="searchbar-container">
+      <div className="searchbar-component">
         <form
           className="form-inline"
           onSubmit={this._onSubmit}>
@@ -222,4 +222,4 @@ var SearchbarContainer = React.createClass({
   }
 });
 
-module.exports = SearchbarContainer;
+module.exports = SearchbarComponent;

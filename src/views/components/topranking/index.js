@@ -1,8 +1,8 @@
 var React = require('react');
 var TopRanking = require('kaku-core/modules/TopRanking');
-var TracksContainer = require('../shared/tracks-container');
+var TracksComponent = require('../shared/tracks');
 
-var TopRankingContainer = React.createClass({
+var TopRankingComponent = React.createClass({
   getInitialState: function() {
     return {
       tracks: []
@@ -35,7 +35,7 @@ var TopRankingContainer = React.createClass({
 
     /* jshint ignore:start */
     return (
-      <TracksContainer
+      <TracksComponent
         headerL10nId="topranking_header"
         headerIconClass="fa fa-fw fa-line-chart"
         controls={controls}
@@ -46,4 +46,4 @@ var TopRankingContainer = React.createClass({
   }
 });
 
-module.exports = TopRankingContainer;
+module.exports = TopRankingComponent;

@@ -7,7 +7,7 @@ import CommentList from './comment/comment-list';
 import Constants from '../../../modules/Constants';
 import Firebase from '../../../modules/wrapper/Firebase';
 
-let ChatroomContainer = React.createClass({
+let ChatroomComponent = React.createClass({
   mixins: [ReactFireMixin],
 
   getInitialState: function() {
@@ -159,7 +159,7 @@ let ChatroomContainer = React.createClass({
         <h1 className="header" onClick={this._onHeaderClick}>
           {headerSpan} - ({onlineUsersCount})
         </h1>
-        <div className="comment-container">
+        <div className="comment-component">
           <CommentList comments={comments}></CommentList>
           <CommentForm
             onSubmit={this._onCommentSubmit}
@@ -172,4 +172,4 @@ let ChatroomContainer = React.createClass({
   }
 });
 
-module.exports = ChatroomContainer;
+module.exports = ChatroomComponent;

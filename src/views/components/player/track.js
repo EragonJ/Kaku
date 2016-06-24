@@ -23,7 +23,7 @@ let PlayerTrack = React.createClass({
     playerDOM.id = 'player';
     playerDOM.classList.add('video-js');
     playerDOM.classList.add('vjs-default-skin');
-    this.refs.playerContainer.appendChild(playerDOM);
+    this.refs.playerComponent.appendChild(playerDOM);
 
     Player.setPlayer(playerDOM);
     Player.on('play', this._onPlayerPlay);
@@ -35,8 +35,8 @@ let PlayerTrack = React.createClass({
     /* jshint ignore:start */
     return (
       <div
-        className="playerContainer vjs-default-skin"
-        ref="playerContainer">
+        className="playerComponent vjs-default-skin"
+        ref="playerComponent">
       </div>
     );
     /* jshint ignore:end */

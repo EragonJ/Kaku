@@ -105,7 +105,7 @@ let DashboardPage = React.createClass({
             wording="Leave this room"
             onClick={this.props.onLeft}></ActionButton>
         </form>
-        <div className="tracks-container">
+        <div className="tracks-component">
           {finalTracks.map(function(track, index) {
             return <Track key={index} data={track} mode="square"/>;
           })}

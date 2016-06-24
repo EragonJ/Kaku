@@ -7,7 +7,7 @@ let PlayerTrack = require('../player/track');
 let Player = require('../../modules/Player');
 let PlayerControlButtons = require('../player/control-buttons');
 
-let PlayerContainer = React.createClass({
+let PlayerComponent = React.createClass({
   getInitialState: function() {
     return {
       tvMode: false
@@ -57,4 +57,4 @@ let PlayerContainer = React.createClass({
   }
 });
 
-module.exports = PlayerContainer;
+module.exports = PlayerComponent;

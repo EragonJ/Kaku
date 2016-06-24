@@ -21,20 +21,19 @@ var Tracker = require('./modules/Tracker');
 var _ = L10nManager.get.bind(L10nManager);
 
 // views > components
-var ToolbarContainer = require('./views/components/toolbar/container');
-var TopRankingContainer = require('./views/components/topranking/container');
-var NewsContainer = require('./views/components/news/container');
-var AllTracksContainer = require('./views/components/alltracks/container');
-var PlayerContainer = require('./views/components/player/container');
-var MenusContainer = require('./views/components/menus/container');
-var HistoryContainer = require('./views/components/history/container');
-var PlaylistContainer = require('./views/components/playlist/container');
-var SettingsContainer = require('./views/components/settings/container');
-var OnlineDJContainer = require('./views/components/online-dj/container');
-var AboutContainer = require('./views/components/about/container');
-var ChatroomContainer = require('./views/components/chatroom/container');
-var ConnectionCheckContainer =
-  require('./views/components/connection-check/container');
+var ToolbarComponent = require('./views/components/toolbar');
+var TopRankingComponent = require('./views/components/topranking');
+var NewsComponent = require('./views/components/news');
+var AllTracksComponent = require('./views/components/alltracks');
+var PlayerComponent = require('./views/components/player');
+var MenusComponent = require('./views/components/menus');
+var HistoryComponent = require('./views/components/history');
+var PlaylistComponent = require('./views/components/playlist');
+var SettingsComponent = require('./views/components/settings');
+var OnlineDJComponent = require('./views/components/online-dj');
+var AboutComponent = require('./views/components/about');
+var ChatroomComponent = require('./views/components/chatroom');
+var ConnectionCheckComponent = require('./views/components/connection-check');
 
 // views > modules
 var TabManager = require('./views/modules/TabManager');
@@ -201,20 +200,20 @@ var KakuApp = React.createClass({
     /* jshint ignore:start */
     return (
       <div className="root">
-        <ConnectionCheckContainer/>
-        <ChatroomContainer/>
+        <ConnectionCheckComponent/>
+        <ChatroomComponent/>
         <div className="row row-no-padding top-row">
           <div className="col-md-12">
             <div className="toolbar-slot">
-              <ToolbarContainer/>
+              <ToolbarComponent/>
             </div>
           </div>
         </div>
         <div className="row row-no-padding bottom-row">
           <div className="left">
             <div className="sidebar">
-              <MenusContainer/>
-              <PlayerContainer/>
+              <MenusComponent/>
+              <PlayerComponent/>
             </div>
           </div>
           <div className="right">
@@ -223,49 +222,49 @@ var KakuApp = React.createClass({
                 role="tabpanel"
                 className="tab-pane active"
                 id="tab-home">
-                  <TopRankingContainer/>
+                  <TopRankingComponent/>
               </div>
               <div
                 role="tabpanel"
                 className="tab-pane"
                 id="tab-news">
-                  <NewsContainer/>
+                  <NewsComponent/>
               </div>
               <div
                 role="tabpanel"
                 className="tab-pane"
                 id="tab-search">
-                  <AllTracksContainer/>
+                  <AllTracksComponent/>
               </div>
               <div
                 role="tabpanel"
                 className="tab-pane"
                 id="tab-settings">
-                  <SettingsContainer/>
+                  <SettingsComponent/>
               </div>
               <div
                 role="tabpanel"
                 className="tab-pane"
                 id="tab-online-dj">
-                  <OnlineDJContainer/>
+                  <OnlineDJComponent/>
               </div>
               <div
                 role="tabpanel"
                 className="tab-pane"
                 id="tab-about">
-                  <AboutContainer/>
+                  <AboutComponent/>
               </div>
               <div
                 role="tabpanel"
                 className="tab-pane"
                 id="tab-history">
-                  <HistoryContainer/>
+                  <HistoryComponent/>
               </div>
               <div
                 role="tabpanel"
                 className="tab-pane"
                 id="tab-playlist">
-                  <PlaylistContainer/>
+                  <PlaylistComponent/>
               </div>
             </div>
           </div>

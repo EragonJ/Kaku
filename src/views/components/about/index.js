@@ -9,7 +9,7 @@ var AppCore = require('../../../modules/AppCore');
 var L10nManager = require('../../../modules/L10nManager');
 var _ = L10nManager.get.bind(L10nManager);
 
-var AboutContainer = React.createClass({
+var AboutComponent = React.createClass({
   getInitialState: function() {
     return {
       thanksMessage: ''
@@ -122,7 +122,7 @@ var AboutContainer = React.createClass({
             <L10nSpan l10nId="about_header"/>
           </h1>
         </div>
-        <div className="about-container">
+        <div className="about-component">
           <p className="well">
             <L10nSpan l10nId="about_intro"/>
           </p>
@@ -252,4 +252,4 @@ var AboutContainer = React.createClass({
   }
 });
 
-module.exports = AboutContainer;
+module.exports = AboutComponent;

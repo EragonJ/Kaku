@@ -3,8 +3,8 @@ require('./setup');
 suite('Tooltip', () => {
   'use strict';
 
-  var trackContainerSelector = '.topranking-container';
-  var firstTrackSelector = trackContainerSelector + ' > .track:first-child';
+  var trackComponentSelector = '.topranking-component';
+  var firstTrackSelector = trackComponentSelector + ' > .track:first-child';
   var tooltipSelector = '.__react_component_tooltip';
 
   test('it should show correct tooltip when users hover on it', () => {

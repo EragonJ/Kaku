@@ -23,7 +23,7 @@ var L10nSpan = require('../shared/l10n-span');
 var Notifier = require('../../modules/Notifier');
 var Dialog = require('../../modules/Dialog');
 
-var SettingsContainer = React.createClass({
+var SettingsComponent = React.createClass({
   getInitialState: function() {
     return {
       'desktop.notification.enabled': false
@@ -328,7 +328,7 @@ var SettingsContainer = React.createClass({
             <L10nSpan l10nId="settings_header"/>
           </h1>
         </div>
-        <div className="settings-container">
+        <div className="settings-component">
           <form className="form-horizontal" onSubmit={this._onFormSubmit}>
             <div className="form-group">
               <label className="col-sm-3 control-label">
@@ -507,4 +507,4 @@ var SettingsContainer = React.createClass({
   }
 });
 
-module.exports = SettingsContainer;
+module.exports = SettingsComponent;

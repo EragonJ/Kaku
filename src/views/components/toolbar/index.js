@@ -4,11 +4,11 @@ var App = Remote.app;
 
 var React = require('react');
 
-var SearchbarContainer = require('../searchbar/container');
+var SearchbarComponent = require('../searchbar');
 var DownloadManager = require('../../../modules/DownloadManager');
 var AppCore = require('../../../modules/AppCore');
 
-var ToolbarContainer = React.createClass({
+var ToolbarComponent = React.createClass({
   getInitialState: function() {
     return {
       downloadPercent: 0,
@@ -74,7 +74,7 @@ var ToolbarContainer = React.createClass({
 
     /* jshint ignore:start */
     return (
-      <div className="toolbar-container clearfix">
+      <div className="toolbar-component clearfix">
         <div className="toolbar-buttons">
           <span
             className="button close-button"
@@ -96,7 +96,7 @@ var ToolbarContainer = React.createClass({
           {title}
         </div>
         <div className="searchbar-slot">
-          <SearchbarContainer/>
+          <SearchbarComponent/>
         </div>
         <div className="toolbar-progressbar" style={progressStyle}></div>
       </div>
@@ -105,4 +105,4 @@ var ToolbarContainer = React.createClass({
   }
 });
 
-module.exports = ToolbarContainer;
+module.exports = ToolbarComponent;

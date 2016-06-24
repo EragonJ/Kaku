@@ -2,7 +2,7 @@ var React = require('react');
 var ClassNames = require('classnames');
 var L10nSpan = require('../shared/l10n-span');
 
-var ConnectionCheckContainer = React.createClass({
+var ConnectionCheckComponent = React.createClass({
   getInitialState: function() {
     return {
       isOnline: navigator.onLine
@@ -22,7 +22,7 @@ var ConnectionCheckContainer = React.createClass({
 
   render: function() {
     var className = ClassNames({
-      'connection-check-container': true,
+      'connection-check-component': true,
       'global-overlay': true,
       'is-online': this.state.isOnline
     });
@@ -40,4 +40,4 @@ var ConnectionCheckContainer = React.createClass({
   }
 });
 
-module.exports = ConnectionCheckContainer;
+module.exports = ConnectionCheckComponent;

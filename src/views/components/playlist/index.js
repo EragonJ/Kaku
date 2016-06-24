@@ -2,8 +2,8 @@ var React = require('react');
 var TabManager = require('../../modules/TabManager');
 var PlaylistManager = require('../../../modules/PlaylistManager');
 
-var TracksContainer = require('../shared/tracks-container');
-var PlaylistContainer = React.createClass({
+var TracksComponent = require('../shared/tracks');
+var PlaylistComponent = React.createClass({
   getInitialState: function() {
     return {
       playlist: {},
@@ -62,7 +62,7 @@ var PlaylistContainer = React.createClass({
 
     /* jshint ignore:start */
     return (
-      <TracksContainer
+      <TracksComponent
         headerWording={playlistName}
         headerIconClass="fa fa-fw fa-music"
         controls={controls}
@@ -73,4 +73,4 @@ var PlaylistContainer = React.createClass({
   }
 });
 
-module.exports = PlaylistContainer;
+module.exports = PlaylistComponent;

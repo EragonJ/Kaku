@@ -1,8 +1,8 @@
 var React = require('react');
 var HistoryManager = require('../../../modules/HistoryManager');
-var TracksContainer = require('../shared/tracks-container');
+var TracksComponent = require('../shared/tracks');
 
-var HistoryContainer = React.createClass({
+var HistoryComponent = React.createClass({
   getInitialState: function() {
     return {
       tracks: []
@@ -39,7 +39,7 @@ var HistoryContainer = React.createClass({
     };
 
     return (
-      <TracksContainer
+      <TracksComponent
         headerL10nId="history_header"
         headerIconClass="fa fa-fw fa-history"
         controls={controls}
@@ -51,4 +51,4 @@ var HistoryContainer = React.createClass({
   }
 });
 
-module.exports = HistoryContainer;
+module.exports = HistoryComponent;

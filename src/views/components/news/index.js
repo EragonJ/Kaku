@@ -3,7 +3,7 @@ var L10nSpan = require('../shared/l10n-span');
 var NewsTag = require('../news/news-tag');
 var NewsFetcher = require('../../../modules/NewsFetcher');
 
-var NewsContainer = React.createClass({
+var NewsComponent = React.createClass({
   getInitialState: function() {
     return {
       news: []
@@ -30,7 +30,7 @@ var NewsContainer = React.createClass({
             <L10nSpan l10nId="news_header"/>
           </h1>
         </div>
-        <div className="news-container">
+        <div className="news-component">
           {news.map(function(eachNews, index) {
             return <NewsTag key={index} data={eachNews}/>
           })}
@@ -41,4 +41,4 @@ var NewsContainer = React.createClass({
   }
 });
 
-module.exports = NewsContainer;
+module.exports = NewsComponent;

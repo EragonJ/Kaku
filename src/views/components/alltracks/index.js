@@ -1,9 +1,9 @@
 var React = require('react');
 var ReactTooltip = require('react-tooltip');
 var Searcher = require('../../../modules/Searcher');
-var TracksContainer = require('../shared/tracks-container');
+var TracksComponent = require('../shared/tracks');
 
-var AllTracksContainer = React.createClass({
+var AllTracksComponent = React.createClass({
   getInitialState: function() {
     return {
       tracks: []
@@ -32,7 +32,7 @@ var AllTracksContainer = React.createClass({
 
     /* jshint ignore:start */
     return (
-      <TracksContainer
+      <TracksComponent
         headerL10nId="search_header"
         headerIconClass="fa fa-fw fa-search"
         controls={controls}
@@ -43,4 +43,4 @@ var AllTracksContainer = React.createClass({
   }
 });
 
-module.exports = AllTracksContainer;
+module.exports = AllTracksComponent;
