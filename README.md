@@ -44,6 +44,7 @@ If you are interested in mobile app, there is also another [app repo](https://gi
 + Русский
 + Türkçe
 + Deutsche
++ 한국어
 + ... keep adding :)
 
 # Build Status
