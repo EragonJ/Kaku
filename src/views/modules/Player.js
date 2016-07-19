@@ -39,6 +39,7 @@ function Player() {
 
   this._pendingDefers = [];
   this._bindShortcuts();
+  this._bindTray();
 }
 
 Player.prototype = Object.create(EventEmitter.prototype);
@@ -101,6 +102,20 @@ Player.prototype._bindShortcuts = function() {
     if (this._player.isFullscreen()) {
       this._player.exitFullscreen();
     }
+  });
+};
+
+Player.prototype._bindTray = function () {
+  IpcRenderer.on('tray-MediaPreviousTrack', () => {
+    this.playPreviousTrack();
+  });
+
+  IpcRenderer.on('tray-MediaNextTrack', () => {
+    this.playNextTrack();
+  });
+
+  IpcRenderer.on('tray-MediaPlayPause', () => {
+    this.playOrPause();
   });
 };
 
