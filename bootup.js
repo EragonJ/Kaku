@@ -1,16 +1,27 @@
 const path = require('path');
-const { app, shell, Tray, Menu, crashReporter, BrowserWindow } = require('electron');
 const ShortcutManager = require('electron-localshortcut');
+const {
+  app,
+  shell,
+  Tray,
+  Menu,
+  crashReporter,
+  BrowserWindow
+} = require('electron');
 
 // Report crashes to our server.
 crashReporter.start();
 
-// Kaku icon
-const KakuIcon = path.join(__dirname + '/src/public/images/icons/kaku-desktop-icon.png');
+const iconsFolder = path.join(__dirname, 'src', 'public', 'images', 'icons');
+
+const kakuIcon = path.join(iconsFolder, 'kaku.png');
+const trayDefaultIcon = path.join(iconsFolder, 'tray', 'default.png');
+const trayWindowsIcon = path.join(iconsFolder, 'tray', 'windows.ico');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the javascript object is GCed.
 let mainWindow = null;
+let tray = null;
 let isWindowLoaded = false;
 
 class Bootup {
@@ -32,7 +43,7 @@ class Bootup {
 
       // Create the browser window.
       mainWindow = new BrowserWindow({
-        'icon': KakuIcon,
+        'icon': kakuIcon,
         'width': 1060,
         'height': 600,
         'minWidth': 1060,
@@ -82,8 +93,13 @@ class Bootup {
   }
 
   _setToolBar(mainWindow) {
-    const icon = path.join(__dirname, '/src/public/images/icons/kaku-toolbar-icon.png');
-    const tray = new Tray(icon);
+    let icon = trayDefaultIcon;
+    if (process.platform === 'win32') {
+      icon = trayWindowsIcon;
+    }
+
+    tray = new Tray(icon);
+
     const trayMenu = [{
       label: 'Show/Minimize',
       click() {
@@ -126,7 +142,6 @@ class Bootup {
     }];
 
     tray.setToolTip('Kaku');
-    tray.setTitle('Kaku App');
     tray.setContextMenu(Menu.buildFromTemplate(trayMenu));
   }
 }
