@@ -1,71 +1,73 @@
-var EventEmitter = require('events').EventEmitter;
-var YoutubeSearcher = require('../modules/searcher/YoutubeSearcher');
-var VimeoSearcher = require('../modules/searcher/VimeoSearcher');
-var SoundCloudSearcher = require('../modules/searcher/SoundCloudSearcher');
+import { EventEmitter } from 'events';
+import Constants from './Constants';
 
-function Searcher() {
-  EventEmitter.call(this);
-  
-  // default searcher
-  this._selectedSearcherName = 'youtube';
+// searchers
+import YoutubeSearcher from 'kaku-core/modules/searcher/YoutubeSearcher';
+import VimeoSearcher from 'kaku-core/modules/searcher/VimeoSearcher';
+import SoundCloudSearcher from 'kaku-core/modules/searcher/SoundCloudSearcher';
 
-  // supported searchers
-  this._searchers = {
-    'youtube': YoutubeSearcher,
-    'vimeo': VimeoSearcher,
-    'soundcloud': SoundCloudSearcher
-  };
+class Searcher extends EventEmitter {
+  constructor() {
+    super();
 
-  this._searchResults = [];
-}
+    // default searcher
+    this._selectedSearcherName = 'youtube';
 
-Searcher.prototype = Object.create(EventEmitter.prototype);
-Searcher.constructor = Searcher;
+    // supported searchers
+    this._searchers = {
+      'youtube': new YoutubeSearcher({
+        apiKey: Constants.API.YOUTUBE_API_KEY
+      }),
+      'vimeo': new VimeoSearcher({
+        clientId: Constants.API.VIMEO_API_CLIENT_ID,
+        clientSecret: Constants.API.VIMEO_API_CLIENT_SECRET
+      }),
+      'soundcloud': new SoundCloudSearcher({
+        clientId: Constants.API.SOUND_CLOUD_API_CLIENT_ID,
+        clientSecret: Constants.API.SOUND_CLOUD_API_CLIENT_SECRET
+      })
+    };
 
-Object.defineProperty(Searcher.prototype, 'selectedSearcher', {
-  enumerable: true,
-  configurable: false,
-  get: function() {
+    this._searchResults = [];
+  }
+
+  get selectedSearcher() {
     return this._searchers[this._selectedSearcherName];
   }
-});
 
-Object.defineProperty(Searcher.prototype, 'searchResults', {
-  enumerable: true,
-  configurable: false,
-  get: function() {
+  get searchResults() {
     return this._searchResults;
   }
-});
 
-Searcher.prototype.getSupportedSearchers = function() {
-  var promise = new Promise((resolve, rejct) => {
-    resolve(Object.keys(this._searchers));
-  });
-  return promise;
-};
-
-Searcher.prototype.search = function(keyword, limit, toSave = false) {
-  if (!keyword) {
-    return Promise.resolve([]);
-  }
-  else {
-    return this.selectedSearcher.search(keyword, limit).then((results) => {
-      if (toSave) {
-        this._searchResults = results;
-        this.emit('search-results-updated', results);
-      }
-      return results;
+  getSupportedSearchers() {
+    let promise = new Promise((resolve, rejct) => {
+      resolve(Object.keys(this._searchers));
     });
+    return promise;
   }
-};
 
-Searcher.prototype.changeSearcher = function(searcherName) {
-  var searcher = this._searchers[searcherName];
-  if (searcher) {
-    this._selectedSearcherName = searcherName;
-    this.emit('searcher-changed', searcherName);
+  search(keyword, limit, toSave = false) {
+    if (!keyword) {
+      return Promise.resolve([]);
+    }
+    else {
+      return this.selectedSearcher.search(keyword, limit).then((results) => {
+        if (toSave) {
+          this._searchResults = results;
+          this.emit('search-results-updated', results);
+        }
+        return results;
+      });
+    }
   }
-};
+
+  changeSearcher(searcherName) {
+    let searcher = this._searchers[searcherName];
+    if (searcher) {
+      this._selectedSearcherName = searcherName;
+      this.emit('searcher-changed', searcherName);
+    }
+  }
+}
 
 module.exports = new Searcher();
