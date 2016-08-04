@@ -1,20 +1,22 @@
-var Crypto = require('crypto');
-var Electron = require('electron');
-var Remote = Electron.remote;
-var Menu = Remote.Menu;
-var MenuItem = Remote.MenuItem;
+import UniqueId from 'kaku-core/modules/UniqueId';
+import Electron from 'electron';
 
-var $ = require('jquery');
-var React = require('react');
+const Remote = Electron.remote;
+const Menu = Remote.Menu;
+const MenuItem = Remote.MenuItem;
 
-var PlaylistManager = require('../../../modules/PlaylistManager');
-var L10nManager = require('../../../modules/L10nManager');
-var TabManager = require('../../modules/TabManager');
-var Notifier = require('../../modules/Notifier');
-var Dialog = require('../../modules/Dialog');
-var _ = L10nManager.get.bind(L10nManager);
+import $ from 'jquery';
+import React from 'react';
 
-var L10nSpan = require('../shared/l10n-span');
+import PlaylistManager from '../../../modules/PlaylistManager';
+import L10nManager from '../../../modules/L10nManager';
+import TabManager from '../../modules/TabManager';
+import Notifier from '../../modules/Notifier';
+import Dialog from '../../modules/Dialog';
+
+const _ = L10nManager.get.bind(L10nManager);
+
+import L10nSpan from '../shared/l10n-span';
 
 var MenusComponent = React.createClass({
   getInitialState: function() {
@@ -101,7 +103,7 @@ var MenusComponent = React.createClass({
   },
 
   _addPlaylist: function() {
-    var randomSuffix = Crypto.randomBytes(3).toString('hex');
+    var randomSuffix = UniqueId(6);
     Dialog.prompt({
       title: _('notifier_input_playlist_name'),
       value: _('notifier_playlist') + '-' + randomSuffix,

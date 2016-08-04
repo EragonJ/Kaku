@@ -1,7 +1,7 @@
-var Crypto = require('crypto');
-var Youtube = require('../wrapper/Youtube');
-var PlaylistManager = require('../../modules/PlaylistManager');
-var YoutubeTrack = require('kaku-core/models/track/YoutubeTrack');
+import UniqueId from 'kaku-core/modules/UniqueId';
+import Youtube from '../wrapper/Youtube';
+import PlaylistManager from '../../modules/PlaylistManager';
+import YoutubeTrack from 'kaku-core/models/track/YoutubeTrack';
 
 function YoutubeImporter() {
   // TODO
@@ -21,7 +21,7 @@ YoutubeImporter.prototype._getPlaylistTitle = function(id) {
           result.items[0] &&
           result.items[0].snippet &&
           result.items[0].snippet.title ||
-          'playlist - ' + Crypto.randomBytes(3).toString('hex');
+          'playlist - ' + UniqueId(6);
         resolve(title);
       }
     });
