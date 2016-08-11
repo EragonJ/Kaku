@@ -1,7 +1,9 @@
 import Fs from 'fs';
 import Path from 'path';
-import { app as App } from 'remote';
+import { remote } from 'electron';
 import { EventEmitter } from 'events';
+
+const App = remote.app;
 
 class AppCore extends EventEmitter {
   constructor() {
