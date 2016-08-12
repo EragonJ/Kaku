@@ -1,61 +1,60 @@
-var Fs = require('fs');
-var Path = require('path');
-var Electron = require('electron');
-var Remote = Electron.remote;
-var App = Remote.app;
-var EventEmitter = require('events').EventEmitter;
+import Fs from 'fs';
+import Path from 'path';
+import { remote } from 'electron';
+import { EventEmitter } from 'events';
 
-var AppCore = function() {
-  EventEmitter.call(this);
-  this._envInfo = null;
-  this._title = '';
-};
+const App = remote.app;
 
-AppCore.prototype = Object.create(EventEmitter.prototype);
-AppCore.constructor = AppCore;
+class AppCore extends EventEmitter {
+  constructor() {
+    super();
+    this._envInfo = null;
+    this._title = '';
 
-Object.defineProperty(AppCore.prototype, 'title', {
-  enumerable: true,
-  configurable: true,
-  set: function(title) {
-    this._title = title;
-    this.emit('titleUpdated', title);
-  },
-  get: function() {
-    return this._title;
+    Object.defineProperty(this, 'title', {
+      enumerable: true,
+      configurable: true,
+      set(title) {
+        this._title = title;
+        this.emit('titleUpdated', title);
+      },
+      get() {
+        return this._title;
+      }
+    });
   }
-});
 
-AppCore.prototype.isDev = function() {
-  if (!this._envInfo) {
-    this._envInfo = this.getEnvInfo();
+  isDev() {
+    if (!this._envInfo) {
+      this._envInfo = this.getEnvInfo();
+    }
+    return this._envInfo.env === 'development';
   }
-  return this._envInfo.env === 'development';
-};
 
-AppCore.prototype.isProduction = function() {
-  if (!this._envInfo) {
-    this._envInfo = this.getEnvInfo();
+  isProduction() {
+    if (!this._envInfo) {
+      this._envInfo = this.getEnvInfo();
+    }
+    return this._envInfo.env === 'production';
   }
-  return this._envInfo.env === 'production';
-};
 
-AppCore.prototype.getEnvInfo = function() {
-  var envFilePath = Path.join(App.getAppPath(), 'env.json');
-  var envInfo = Fs.readFileSync(envFilePath, 'utf8');
-  return JSON.parse(envInfo);
-};
+  getEnvInfo() {
+    const envFilePath = Path.join(App.getAppPath(), 'env.json');
+    const envInfo = Fs.readFileSync(envFilePath, 'utf8');
+    return JSON.parse(envInfo);
+  }
 
-AppCore.prototype.getPackageInfo = function() {
-  var packageFilePath = Path.join(App.getAppPath(), 'package.json');
-  var packageInfo = Fs.readFileSync(packageFilePath, 'utf8');
-  return JSON.parse(packageInfo);
-};
+  getPackageInfo() {
+    const packageFilePath = Path.join(App.getAppPath(), 'package.json');
+    const packageInfo = Fs.readFileSync(packageFilePath, 'utf8');
+    return JSON.parse(packageInfo);
+  }
 
-AppCore.prototype.getInfoFromDataFolder = function(filename) {
-  var filePath = Path.join(App.getAppPath(), 'data', filename);
-  var fileInfo = Fs.readFileSync(filePath, 'utf8');
-  return JSON.parse(fileInfo);
-};
+  getInfoFromDataFolder(filename) {
+    const filePath = Path.join(App.getAppPath(), 'data', filename);
+    const fileInfo = Fs.readFileSync(filePath, 'utf8');
+    return JSON.parse(fileInfo);
+  }
+}
 
 module.exports = new AppCore();

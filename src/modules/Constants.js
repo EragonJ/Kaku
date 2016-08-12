@@ -1,4 +1,4 @@
-var Constants = {};
+let Constants = {};
 
 try {
   Constants.API = require('../../config/api_config.production.json');
