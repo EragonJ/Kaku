@@ -1,35 +1,34 @@
-var EventEmitter = require('events').EventEmitter;
+const { EventEmitter } = require('events');
 
-function PreferenceManager() {
-  EventEmitter.call(this);
-  this._preferenceStorage = window.localStorage;
+class PreferenceManager extends EventEmitter {
+  constructor() {
+    super();
+    this._preferenceStorage = window.localStorage;
+  }
+
+  setPreference(key, newPreference) {
+    const oldPreference = this.getPreference(key);
+    if (oldPreference !== newPreference) {
+      this._preferenceStorage[key] = newPreference;
+      this.emit('preference-updated', key, newPreference, oldPreference);
+    }
+  }
+
+  getPreference(key) {
+    const preference = this._preferenceStorage[key];
+    if (preference === 'true') {
+      return true;
+    }
+    else if (preference === 'false') {
+      return false;
+    }
+    else if (typeof preference === 'undefined') {
+      return false;
+    }
+    else {
+      return preference;
+    }
+  }
 }
-
-PreferenceManager.prototype = Object.create(EventEmitter.prototype);
-PreferenceManager.constructor = PreferenceManager;
-
-PreferenceManager.prototype.setPreference = function(key, newPreference) {
-  var oldPreference = this.getPreference(key);
-  if (oldPreference !== newPreference) {
-    this._preferenceStorage[key] = newPreference;
-    this.emit('preference-updated', key, newPreference, oldPreference);
-  }
-};
-
-PreferenceManager.prototype.getPreference = function(key) {
-  var preference = this._preferenceStorage[key];
-  if (preference === 'true') {
-    return true;
-  }
-  else if (preference === 'false') {
-    return false;
-  }
-  else if (typeof preference === 'undefined') {
-    return false;
-  }
-  else {
-    return preference;
-  }
-};
 
 module.exports = new PreferenceManager();
