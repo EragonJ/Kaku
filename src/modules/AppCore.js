@@ -1,7 +1,7 @@
-import Fs from 'fs';
-import Path from 'path';
-import { remote } from 'electron';
-import { EventEmitter } from 'events';
+const Fs = require('fs');
+const Path = require('path');
+const { remote } = require('electron');
+const { EventEmitter } = require('events');
 
 const App = remote.app;
 
