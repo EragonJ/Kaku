@@ -1,8 +1,8 @@
-var Constants = require('../Constants');
-var Dropbox = require('node-dropbox');
+import Constants from '../Constants';
+import Dropbox from 'node-dropbox';
 
 Dropbox.auth = function() {
-  var promise = new Promise((resolve, reject) => {
+  let promise = new Promise((resolve, reject) => {
     this.Authenticate(
       Constants.API.DROPBOX_API_APP_KEY,
       Constants.API.DROPBOX_API_APP_SECRET,
