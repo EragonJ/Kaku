@@ -1,5 +1,5 @@
-var PouchDB = require('pouchdb');
-var KakuDB = new PouchDB('kaku');
+const PouchDB = require('pouchdb');
+const KakuDB = new PouchDB('kaku');
 
 // Note:
 // Because we add something new in the prototype chain and this is not safe,
