@@ -159,7 +159,7 @@ gulp.task('watch', function() {
   kakuApp.start();
 
   // create a child process for webpack --watch
-  shell.exec('webpack --watch', {
+  shell.exec('./node_modules/.bin/webpack --watch', {
     async: true
   });
 

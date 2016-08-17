@@ -115,10 +115,12 @@ var SettingsComponent = React.createClass({
     searchers = searchers || [];
     defaultSearcher = defaultSearcher || 'youtube';
 
-    var select = this.refs.supportedSearcherSelect;
+    let select = this.refs.supportedSearcherSelect;
     searchers.forEach((searcherName) => {
-      var option = document.createElement('option');
-      option.text = searcherName;
+      let option = document.createElement('option');
+      let l10nId = `settings_option_searcher_${searcherName}`;
+
+      option.text = _(l10nId);
       option.value = searcherName;
       option.selected = (searcherName === defaultSearcher);
       select.add(option);
