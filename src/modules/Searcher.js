@@ -10,6 +10,8 @@ class Searcher extends EventEmitter {
   constructor() {
     super();
 
+    let self = this;
+
     // default searcher
     this._selectedSearcherName = 'youtube';
 
@@ -25,7 +27,17 @@ class Searcher extends EventEmitter {
       'soundcloud': new SoundCloudSearcher({
         clientId: Constants.API.SOUND_CLOUD_API_CLIENT_ID,
         clientSecret: Constants.API.SOUND_CLOUD_API_CLIENT_SECRET
-      })
+      }),
+      'all': {
+        search: function(keyword, limit) {
+          let promises = [
+            self._searchers.youtube.search(keyword, limit),
+            self._searchers.vimeo.search(keyword, limit),
+            self._searchers.soundcloud.search(keyword, limit)
+          ];
+          return Promise.all(promises);
+        }
+      }
     };
 
     this._searchResults = [];
@@ -52,6 +64,11 @@ class Searcher extends EventEmitter {
     }
     else {
       return this.selectedSearcher.search(keyword, limit).then((results) => {
+        // merge arrays into one array
+        if (this._selectedSearcherName === 'all') {
+          results = [].concat.apply([], results);
+        }
+
         if (toSave) {
           this._searchResults = results;
           this.emit('search-results-updated', results);
