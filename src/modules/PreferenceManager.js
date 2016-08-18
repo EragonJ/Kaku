@@ -1,4 +1,4 @@
-const { EventEmitter } = require('events');
+import { EventEmitter } from 'events';
 
 class PreferenceManager extends EventEmitter {
   constructor() {

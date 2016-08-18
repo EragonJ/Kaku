@@ -1,5 +1,5 @@
-const Constants = require('./Constants');
-const Ua = require('universal-analytics');
+import Constants from './Constants';
+import Ua from 'universal-analytics';
 const Visitor = Ua(Constants.GA.RESOURCE_KEY);
 
 module.exports = Visitor;

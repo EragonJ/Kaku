@@ -1,4 +1,4 @@
-const Request = require('request');
+import Request from 'request';
 
 class NewsFetcher {
   constructor() {

@@ -2,10 +2,10 @@
 // 1. handle multiple downloads
 // 2. support pause / canel downloads
 // ... etc
-const Fs = require('fs');
-const Request = require('request');
-const RequestProgress = require('request-progress');
-const { EventEmitter } = require('events');
+import Fs from 'fs';
+import Request from 'request';
+import RequestProgress from 'request-progress';
+import { EventEmitter } from 'events';
 
 class DownloadManager extends EventEmitter {
   constructor() {
