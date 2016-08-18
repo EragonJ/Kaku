@@ -10,6 +10,8 @@
     { "label": "Portuguese", "lang": "pt" },
     { "label": "Čeština", "lang": "cs" },
     { "label": "Türkçe", "lang": "tr" },
-    { "label": "Deutsch", "lang": "de" }
+    { "label": "Deutsch", "lang": "de" },
+    { "label": "Slovenčina", "lang": "sk_SK" },
+    { "label": "Polski", "lang": "pl" }
   ]
 }

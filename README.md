@@ -45,6 +45,8 @@ If you are interested in mobile app, there is also another [app repo](https://gi
 + Türkçe
 + Deutsche
 + 한국어
++ Slovenčina
++ Polski
 + ... keep adding :)
 
 # Let's Talk !
