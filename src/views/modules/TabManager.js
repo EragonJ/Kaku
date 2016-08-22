@@ -17,7 +17,13 @@ class TabManager extends EventEmitter {
   }
 
   setTab(tabName, tabOptions) {
-    this.emit('changed', tabName, tabOptions);
+    if (tabName === this._currentTab) {
+      return;
+    }
+    else {
+      this._currentTab = tabName;
+      this.emit('changed', tabName, tabOptions);
+    }
   }
 }
 
