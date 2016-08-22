@@ -1,25 +1,24 @@
-var EventEmitter = require('events').EventEmitter;
+import { EventEmitter } from 'events';
 
-function TabManager() {
-  EventEmitter.call(this);
+class TabManager extends EventEmitter {
+  constructor() {
+    super();
 
-  // default tab is home
-  this._currentTab = 'home';
-}
+    // default tab is home
+    this._currentTab = 'home';
 
-TabManager.prototype = Object.create(EventEmitter.prototype);
-TabManager.constructor = TabManager;
-
-Object.defineProperty(TabManager, 'currentTab', {
-  enumerable: true,
-  configurable: false,
-  get: function() {
-    return this._currentTab;
+    Object.defineProperty(TabManager, 'currentTab', {
+      enumerable: true,
+      configurable: false,
+      get() {
+        return this._currentTab;
+      }
+    });
   }
-});
 
-TabManager.prototype.setTab = function(tabName, tabOptions) {
-  this.emit('changed', tabName, tabOptions);
-};
+  setTab(tabName, tabOptions) {
+    this.emit('changed', tabName, tabOptions);
+  }
+}
 
 module.exports = new TabManager();
