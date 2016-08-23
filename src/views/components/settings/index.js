@@ -1,7 +1,7 @@
 var Electron = require('electron');
 var Remote = Electron.remote;
 var App = Remote.app;
-var AppDialog = Remote.Dialog;
+var AppDialog = Remote.dialog;
 
 var React = require('react');
 
