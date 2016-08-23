@@ -257,7 +257,7 @@ class PlaylistManager extends EventEmitter {
     });
   }
 
-  import() {
+  import(playlistObjects) {
     playlistObjects.map((playlistObject) => {
       return this._importPlaylist(playlistObject);
     });
