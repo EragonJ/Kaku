@@ -4,15 +4,13 @@ import PlaylistManager from '../../modules/PlaylistManager';
 import YoutubeTrack from 'kaku-core/models/track/YoutubeTrack';
 
 class YoutubeImporter {
-  costructor() {
-    // TODO
-    // we need to add more protect here
+  constructor() {
     this._regex = /[&?]list=([a-z0-9_-]+)/i;
   }
 
   _getPlaylistTitle(id) {
     let promise = new Promise((resolve, reject) => {
-      Youtube.getPlayListsById(id, (error, result) => {
+      Youtube.getPlayListsById(id, function(error, result) {
         if (error) {
           reject(error);
         }
@@ -42,7 +40,7 @@ class YoutubeImporter {
       let promise = new Promise((resolve, reject) => {
         // TODO
         // support paging to make sure we can fetch all items back
-        Youtube.getPlayListsItemsById(id, 50, (error, result) => {
+        Youtube.getPlayListsItemsById(id, 50, function(error, result) {
           if (error) {
             reject(error);
           }
@@ -69,7 +67,6 @@ class YoutubeImporter {
     url = url || '';
     let result;
     let matches = url.match(this._regex);
-
     if (matches && matches.length > 0) {
       return matches[1];
     }
