@@ -10,7 +10,7 @@ class YoutubeImporter {
 
   _getPlaylistTitle(id) {
     let promise = new Promise((resolve, reject) => {
-      Youtube.getPlayListsById(id, function(error, result) {
+      Youtube.getPlayListsById(id, (error, result) => {
         if (error) {
           reject(error);
         }
@@ -40,7 +40,7 @@ class YoutubeImporter {
       let promise = new Promise((resolve, reject) => {
         // TODO
         // support paging to make sure we can fetch all items back
-        Youtube.getPlayListsItemsById(id, 50, function(error, result) {
+        Youtube.getPlayListsItemsById(id, 50, (error, result) => {
           if (error) {
             reject(error);
           }
