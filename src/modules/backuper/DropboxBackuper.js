@@ -13,7 +13,7 @@ class DropboxBackuper {
     this._dropbox = null;
   }
 
-  backup(datas, opitons) {
+  backup(datas, options) {
     if (!options || !datas) {
       return Promise.reject();
     }
