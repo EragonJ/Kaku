@@ -1,7 +1,7 @@
-const { EventEmitter } = require('events');
-const BasePlaylist = require('kaku-core/models/playlist/BasePlaylist');
-const Tracker = require('./Tracker');
-const DB = require('./Database');
+import { EventEmitter } from 'events';
+import BasePlaylist from 'kaku-core/models/playlist/BasePlaylist';
+import Tracker from './Tracker';
+import DB from './Database';
 
 class PlaylistManager extends EventEmitter {
   constructor() {

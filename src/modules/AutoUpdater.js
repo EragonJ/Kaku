@@ -1,11 +1,11 @@
-const { remote } = require('electron');
-const Path = require('path');
-const Semver = require('semver');
-const GithubAPI = require('github');
-const AppCore = require('./AppCore');
-const YoutubeDlDownloader = require('youtube-dl/lib/downloader');
 
-const App = remote.app;
+import Path from 'path';
+import Semver from 'semver';
+import GithubAPI from 'github';
+import AppCore from './AppCore';
+import YoutubeDlDownloader from 'youtube-dl/lib/downloader';
+const Remote = require('electron').remote;
+const App = Remote.app;
 
 class AutoUpdater {
   constructor() {

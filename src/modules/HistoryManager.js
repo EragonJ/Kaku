@@ -1,6 +1,6 @@
-const DB = require('./Database');
-const { EventEmitter } = require('events');
-const BaseTrack = require('kaku-core/models/track/BaseTrack');
+import DB from './Database';
+import { EventEmitter } from 'events';
+import BaseTrack from 'kaku-core/models/track/BaseTrack';
 
 class HistoryManager extends EventEmitter {
   constructor() {

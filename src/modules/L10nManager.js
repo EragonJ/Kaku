@@ -1,11 +1,10 @@
-const Fs = require('fs');
-const Path = require('path');
-const { remote } = require('electron');
-const { EventEmitter } = require('events');
-const IniParser = require('kaku-core/modules/IniParser');
+import Fs from 'fs';
+import Path from 'path';
+import { EventEmitter } from 'events';
+import IniParser from 'kaku-core/modules/IniParser';
 const L10nMetadata = require('../locales/metadata').languages;
-
-const App = remote.app;
+const Remote = require('electron').remote;
+const App = Remote.app;
 
 class L10nManager extends EventEmitter {
   constructor() {
@@ -36,7 +35,7 @@ class L10nManager extends EventEmitter {
       return;
     }
     else {
-      var oldLanguage = this._currentLanguage;
+      let oldLanguage = this._currentLanguage;
       this._currentLanguage = newLanguage;
       this.emit('language-changed', newLanguage, oldLanguage);
     }

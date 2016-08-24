@@ -1,9 +1,8 @@
-const Fs = require('fs');
-const Path = require('path');
-const { remote } = require('electron');
-const { EventEmitter } = require('events');
-
-const App = remote.app;
+import Fs from 'fs';
+import Path from 'path';
+import { EventEmitter } from 'events';
+const Remote = require('electron').remote;
+const App = Remote.app;
 
 class AppCore extends EventEmitter {
   constructor() {
