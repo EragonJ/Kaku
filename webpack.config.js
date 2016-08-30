@@ -1,11 +1,11 @@
-var fs = require('fs');
-var path = require('path');
-var webpack = require("webpack");
-var webpackTargetElectronRenderer = require('webpack-target-electron-renderer');
+const fs = require('fs');
+const path = require('path');
+const webpack = require("webpack");
+const webpackTargetElectronRenderer = require('webpack-target-electron-renderer');
 
-var nodeModules = {};
+const nodeModules = {};
 fs.readdirSync('node_modules')
-  .filter(function(x) {
+  .filter((x) => {
     return [
       '.bin',
       'jquery',
@@ -14,11 +14,11 @@ fs.readdirSync('node_modules')
       'bootbox'
     ].indexOf(x) === -1;
   })
-  .forEach(function(mod) {
+  .forEach((mod) => {
     nodeModules[mod] = 'commonjs ' + mod;
   });
 
-var config = {
+const config = {
   entry: './src/main.js',
   output: {
     path: __dirname,
