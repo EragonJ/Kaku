@@ -1,28 +1,27 @@
-var Electron = require('electron');
-var Remote = Electron.remote;
-var App = Remote.app;
-var Menu = Remote.Menu;
-var MenuItem = Remote.MenuItem;
-var BrowserWindow = Remote.BrowserWindow;
+const Remote = require('electron').remote;
+const App = Remote.app;
+const Menu = Remote.Menu;
+const MenuItem = Remote.MenuItem;
+const BrowserWindow = Remote.BrowserWindow;
 
-var Player = require('./Player');
-var L10nManager = require('../../modules/L10nManager');
-var _ = L10nManager.get.bind(L10nManager);
+import Player from './Player';
+import L10nManager from '../../modules/L10nManager';
+const _ = L10nManager.get.bind(L10nManager);
 
-function AppMenus() {
-  L10nManager.on('language-changed', () => {
-    this.build();
-  });
-}
+class AppMenus {
+  constructor() {
+    L10nManager.on('language-changed', () => {
+      this.build();
+    });
+  }
 
-AppMenus.prototype = {
-  build: function() {
-    var templates = this._getMenusTemplateForCurrentPlatform();
-    var menus = Menu.buildFromTemplate(templates);
+  build() {
+    let templates = this._getMenusTemplateForCurrentPlatform();
+    let menus = Menu.buildFromTemplate(templates);
     Menu.setApplicationMenu(menus);
-  },
+  }
 
-  _getMenuTemplateForAbout: function() {
+  _getMenuTemplateForAbout() {
     return {
       label: _('app_menu_kaku'),
       submenu: [
@@ -60,15 +59,15 @@ AppMenus.prototype = {
         {
           label: _('app_menu_quit'),
           accelerator: 'CmdOrCtrl+Q',
-          click: function() {
+          click() {
             App.quit();
           }
         }
       ]
     };
-  },
+  }
 
-  _getMenuTemplateForEdit: function() {
+  _getMenuTemplateForEdit() {
     return {
       label: _('app_menu_edit'),
       submenu: [
@@ -107,16 +106,16 @@ AppMenus.prototype = {
         },
       ]
     };
-  },
+  }
 
-  _getMenuTemplateForView: function() {
+  _getMenuTemplateForView() {
     return {
       label: _('app_menu_view'),
       submenu: [
         {
           label: _('app_menu_search_track'),
           accelerator: 'CmdOrCtrl+F',
-          click: function() {
+          click() {
             // TODO
             // need to move this out to its own module
             document.querySelector('.searchbar-user-input').focus();
@@ -128,43 +127,43 @@ AppMenus.prototype = {
         {
           label: _('app_menu_reload'),
           accelerator: 'CmdOrCtrl+R',
-          click: function() {
+          click() {
             BrowserWindow.getFocusedWindow().reloadIgnoringCache();
           }
         },
         {
           label: _('app_menu_toggle_devtools'),
           accelerator: 'Alt+CmdOrCtrl+I',
-          click: function() {
+          click() {
             BrowserWindow.getFocusedWindow().toggleDevTools();
           }
         }
       ]
     };
-  },
+  }
 
-  _getMenuTemplateForControl: function() {
+  _getMenuTemplateForControl() {
     return {
       label: _('app_menu_control'),
       submenu: [
         {
           label: _('app_menu_play_previous_track'),
           accelerator: 'CmdOrCtrl+Left',
-          click: function() {
+          click() {
             Player.playPreviousTrack();
           }
         },
         {
           label: _('app_menu_play_or_pause_track'),
           accelerator: 'CmdOrCtrl+P',
-          click: function() {
+          click() {
             Player.playOrPause();
           }
         },
         {
           label: _('app_menu_play_next_track'),
           accelerator: 'CmdOrCtrl+Right',
-          click: function() {
+          click() {
             Player.playNextTrack();
           }
         },
@@ -174,14 +173,14 @@ AppMenus.prototype = {
         {
           label: _('app_menu_increase_volume'),
           accelerator: 'CmdOrCtrl+Up',
-          click: function() {
+          click() {
             Player.setVolume('up');
           }
         },
         {
           label: _('app_menu_decrease_volume'),
           accelerator: 'CmdOrCtrl+Down',
-          click: function() {
+          click() {
             Player.setVolume('down');
           }
         },
@@ -191,15 +190,15 @@ AppMenus.prototype = {
         {
           label: _('app_menu_download_track'),
           accelerator: 'CmdOrCtrl+D',
-          click: function() {
+          click() {
             Player.downloadCurrentTrack();
           }
         }
       ]
     };
-  },
+  }
 
-  _getMenuTemplateForWindow: function() {
+  _getMenuTemplateForWindow() {
     return {
       label: _('app_menu_window'),
       submenu: [
@@ -222,11 +221,11 @@ AppMenus.prototype = {
         },
       ]
     };
-  },
+  }
 
-  _getMenusTemplateForCurrentPlatform: function() {
-    var templates = [];
-    var platform = process.platform;
+  _getMenusTemplateForCurrentPlatform() {
+    let templates = [];
+    let platform = process.platform;
 
     switch (platform) {
       case 'darwin':
@@ -245,6 +244,6 @@ AppMenus.prototype = {
 
     return templates;
   }
-};
+}
 
 module.exports = new AppMenus();
