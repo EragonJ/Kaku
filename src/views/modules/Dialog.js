@@ -1,7 +1,7 @@
-var $ = require('jquery');
-var Bootstrap = require('bootstrap');
-var Bootbox = require('bootbox');
-var L10nManager = require('../../modules/L10nManager');
+import $ from 'jquery';
+import Bootstrap from 'bootstrap';
+import Bootbox from 'bootbox';
+import L10nManager from '../../modules/L10nManager';
 
 function Dialog() {}
 
@@ -15,10 +15,10 @@ function Dialog() {}
   };
 });
 
-var dialog = new Dialog();
+let dialog = new Dialog();
 
 L10nManager.on('language-changed', (newLanguage) => {
-  var transformedLanguage = newLanguage;
+  let transformedLanguage = newLanguage;
 
   // TODO
   // we have to make sure our language naming is the same with
