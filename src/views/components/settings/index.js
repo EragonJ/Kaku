@@ -224,7 +224,7 @@ var SettingsComponent = React.createClass({
     Notifier.alert('Start to backup data !');
 
     DropboxBackuper.backup(playlists, {
-      folderName: 'playlists'
+      folderPath: '/playlists'
     }).then(() => {
       Notifier.alert('backup data successfully :)');
     }).catch((error) => {
