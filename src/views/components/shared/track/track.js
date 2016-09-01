@@ -1,6 +1,7 @@
-let remote = require('remote');
-let Menu = remote.require('menu');
-let MenuItem = remote.require('menu-item');
+let Electron = require('electron');
+let Remote = Electron.remote;
+let Menu = Remote.Menu;
+let MenuItem = Remote.MenuItem;
 
 let React = require('react');
 let ClassNames = require('classnames');
@@ -49,7 +50,7 @@ let Track = React.createClass({
     // we should not shown this context menu
     event.preventDefault();
     let menu = this._createContextMenu(track);
-    menu.popup(remote.getCurrentWindow());
+    menu.popup(Remote.getCurrentWindow());
   },
 
   _createContextMenu: function(track) {

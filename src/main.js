@@ -1,7 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var Shell = require('shell');
 var Electron = require('electron');
+var Shell = Electron.shell;
 var Remote = Electron.remote;
 var Dialog = Remote.dialog;
 var App = Remote.app;
@@ -58,7 +58,7 @@ var KakuApp = React.createClass({
     // Need to figure out why `Loading` showing up so slowly
     setTimeout(() => {
       this._hideLoadingPage();
-    }, 1000);
+    }, 3000);
   },
 
   componentDidMount: function() {

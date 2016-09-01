@@ -1,5 +1,4 @@
 *.swp
-build
 dist
 src/public/css
 config/*.production.json

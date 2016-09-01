@@ -1,6 +1,6 @@
 import React from 'react';
 import Firebase from 'firebase';
-import Clipboard from 'clipboard';
+import { Clipboard } from 'electron';
 import ReactFireMixin from 'reactfire';
 import Track from '../shared/track/track';
 import L10nSpan from '../shared/l10n-span';

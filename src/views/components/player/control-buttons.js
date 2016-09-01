@@ -1,4 +1,5 @@
-var Shell = require('shell');
+var Electron = require('electron');
+var Shell = Electron.shell;
 var React = require('react');
 var Player = require('../../modules/Player');
 var L10nSpan = require('../shared/l10n-span');

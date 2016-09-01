@@ -16,6 +16,10 @@ If you are keen to help Kaku, you can first try to help translating it with your
 
 ![Latest Screenshot](http://i.imgur.com/9nrYuB9.jpg)
 
+# How to develop
+
+Please check our [wiki](https://github.com/EragonJ/Kaku/wiki) here for more information.
+
 # Support this project
 
 Hi all, if you think this open source project does help you, please do support me if you can. With your help, I'll keep updating this project and adding more features as my dedicated side project :) :beers: :beers:
@@ -46,10 +50,6 @@ My bitcoin wallet : **1KtpFtaLW52tCe2VhWxCMHmRt8Mrxqj4WB** :moneybag:
 + Bahasa Indonesia
 + Italiano
 + ... keep adding :)
-
-# How to develop
-
-Please check our [wiki](https://github.com/EragonJ/Kaku/wiki) here for more information.
 
 # Author
 

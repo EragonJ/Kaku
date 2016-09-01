@@ -1,6 +1,6 @@
 var Electron = require('electron');
 var Clipboard = Electron.clipboard;
-var Shell = require('shell');
+var Shell = Electron.shell;
 var React = require('react');
 var L10nSpan = require('../shared/l10n-span');
 var Dialog = require('../../modules/Dialog');

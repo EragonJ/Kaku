@@ -1,0 +1,21 @@
+#!/usr/bin/env node
+
+var fs = require('fs');
+var shell = require('shelljs');
+var command = shell.exec('git log --format="%H" -n 1', {
+  silent: true
+});
+var env = process.env.NODE_ENV || 'development';
+var commitId = 'unknown';
+
+if (command.code === 0) {
+  // take off ending new line
+  commitId = command.output.replace(/\r|\n/, '');
+}
+
+var envInfo = {
+  env: env,
+  commitId: commitId
+};
+
+fs.writeFileSync('env.json', JSON.stringify(envInfo));

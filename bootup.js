@@ -5,15 +5,10 @@ const {
   shell,
   Tray,
   Menu,
-  crashReporter,
   BrowserWindow
 } = require('electron');
 
-// Report crashes to our server.
-crashReporter.start();
-
 const iconsFolder = path.join(__dirname, 'src', 'public', 'images', 'icons');
-
 const kakuIcon = path.join(iconsFolder, 'kaku.png');
 const trayDefaultIcon = path.join(iconsFolder, 'tray', 'default.png');
 const trayWindowsIcon = path.join(iconsFolder, 'tray', 'windows.ico');
