@@ -13,6 +13,7 @@
     { "label": "Deutsch", "lang": "de" },
     { "label": "Slovenčina", "lang": "sk_SK" },
     { "label": "Polski", "lang": "pl" },
-    { "label": "Bahasa Indonesia", "lang": "id_ID" }
+    { "label": "Bahasa Indonesia", "lang": "id_ID" },
+    { "label": "Italiano", "lang": "it" }
   ]
 }
