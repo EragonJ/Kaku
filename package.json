@@ -24,6 +24,8 @@
   },
   "homepage": "https://github.com/EragonJ/Kaku",
   "scripts": {
+    "dev": "./node_modules/.bin/webpack --watch",
+    "start": "./node_modules/.bin/electron .",
     "compile:less": "./node_modules/.bin/lessc src/public/less/index.less src/public/css/index.css",
     "compile:js": "./node_modules/.bin/webpack",
     "compile:env": "./bin/compile-env",
