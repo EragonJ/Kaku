@@ -43,6 +43,7 @@ My bitcoin wallet : **1KtpFtaLW52tCe2VhWxCMHmRt8Mrxqj4WB** :moneybag:
 + 한국어
 + Slovenčina
 + Polski
++ Bahasa Indonesia
 + ... keep adding :)
 
 # How to develop

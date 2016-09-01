@@ -12,6 +12,7 @@
     { "label": "Türkçe", "lang": "tr" },
     { "label": "Deutsch", "lang": "de" },
     { "label": "Slovenčina", "lang": "sk_SK" },
-    { "label": "Polski", "lang": "pl" }
+    { "label": "Polski", "lang": "pl" },
+    { "label": "Bahasa Indonesia", "lang": "id_ID" }
   ]
 }
