@@ -1,7 +1,7 @@
 language: node_js
 script:
   - npm test
-  - gulp linter:all
+#  - gulp linter:all
 
 before_install:
   - npm install -g npm@2
