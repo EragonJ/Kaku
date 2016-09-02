@@ -79,6 +79,19 @@ var L10nSpan = React.createClass({
       props[where] = translation;
     }
 
+    // [Note] - can be refactored later
+    //
+    // React.js will check unknown props for us, it's a quick hack to remove
+    // them because of the effort to change the interface.
+
+    props['data-l10nId'] = props.l10nId;
+    props['data-l10nParams'] = props.l10nParams;
+    props['data-where'] = props.where;
+
+    delete props.l10nId;
+    delete props.l10nParams;
+    delete props.where;
+
     return React.createElement('span', props, children);
     /* jshint ignore:end */
   }
