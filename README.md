@@ -49,6 +49,7 @@ My bitcoin wallet : **1KtpFtaLW52tCe2VhWxCMHmRt8Mrxqj4WB** :moneybag:
 + Polski
 + Bahasa Indonesia
 + Italiano
++ Nederlands (België)
 + ... keep adding :)
 
 # Author

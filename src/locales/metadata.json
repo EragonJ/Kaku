@@ -14,6 +14,7 @@
     { "label": "Slovenčina", "lang": "sk_SK" },
     { "label": "Polski", "lang": "pl" },
     { "label": "Bahasa Indonesia", "lang": "id_ID" },
-    { "label": "Italiano", "lang": "it" }
+    { "label": "Italiano", "lang": "it" },
+    { "label": "Nederlands (België)", "lang": "nl_BE" }
   ]
 }
