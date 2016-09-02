@@ -8,6 +8,10 @@ class Comment extends React.Component {
 
   render() {
     let data = this.props.data;
+
+    // TODO
+    // drop ReactEmoji since we do have emoji-mart now.
+    // need to figure out the way to parse strings to <span>
     let emojifiedComment = ReactEmoji.emojify(data.comment);
 
     /* jshint ignore:start */

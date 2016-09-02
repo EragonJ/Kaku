@@ -145,8 +145,42 @@
       border-top: 1px solid #cccccc;
 
       button[type="submit"] {
-        margin-left: 5px;
+        color: #0498f5;
+        margin-left: 10px;
       }
+    }
+  }
+
+  .emoji-mart {
+    position: absolute;
+    bottom: 48px;
+    right: -77px;
+    z-index: 2;
+
+    &:before {
+      content: ' ';
+      width: 0;
+      height: 0;
+      border: solid transparent;
+      position: absolute;
+      left: 50%;
+      border-top-color: white;
+      border-width: 9px;
+      margin-left: -9px;
+      bottom: -18px;
+      z-index: 1;
+    }
+
+    &:after {
+      content: " ";
+      width: 0;
+      height: 0;
+      border: solid transparent;
+      position: absolute;
+      left: 50%;
+      border-top-color: #d9d9d9;
+      border-width: 10px;
+      margin-left: -10px;
     }
   }
 }
