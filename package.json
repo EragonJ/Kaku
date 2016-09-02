@@ -127,6 +127,6 @@
     "video.js": "^4.12.12",
     "vimeo": "^1.1.4",
     "youtube-dl": "EragonJ/node-youtube-dl",
-    "youtube-node": "Eragonj/youtube-node"
+    "youtube-node": "EragonJ/youtube-node"
   }
 }
