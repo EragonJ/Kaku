@@ -93,23 +93,39 @@ var AboutComponent = React.createClass({
     }
     else {
       let thanksInfo = AppCore.getInfoFromDataFolder('thanks.json');
-      let people = thanksInfo.people;
+      let author = [thanksInfo.author];
+      let contributors = thanksInfo.contributors;
+      let translators = thanksInfo.translators;
+      let others = thanksInfo.others;
 
-      thanksMessage += '<ul>';
-      people.forEach((name) =>{
-        thanksMessage += [
-          '<li>',
-            name,
-          '</li>'
-        ].join('');
-      });
-      thanksMessage += '</ul>';
+      thanksMessage += this._generateThanksHTML('Author', author);
+      thanksMessage += this._generateThanksHTML('Contributors', contributors);
+      thanksMessage += this._generateThanksHTML('Translators', translators);
+      thanksMessage += this._generateThanksHTML('Awesome People', others);
+
       // save that into state
       this.setState({
         thanksMessage: thanksMessage
       });
     }
     return thanksMessage;
+  },
+
+  _generateThanksHTML: function(title, list) {
+    let html = '';
+
+    html += `<h1>${title}</h1>`;
+    html += '<ul>';
+    list.forEach((name) =>{
+      html += [
+        '<li>',
+          name,
+        '</li>'
+      ].join('');
+    });
+    html += '</ul>';
+
+    return html;
   },
 
   render: function() {
