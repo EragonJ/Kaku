@@ -25,6 +25,9 @@ class Bootup {
   }
 
   _setupBrowserWindow() {
+    // This may help the black screen / option issue
+    app.disableHardwareAcceleration();
+
     // Quit when all windows are closed.
     app.on('window-all-closed', () => {
       if (process.platform !== 'darwin') {
