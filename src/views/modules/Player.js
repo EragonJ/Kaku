@@ -31,6 +31,7 @@ function Player() {
   this._player = null;
 
   this._role = 'default';
+  this._supportedModes = ['no', 'one', 'all', 'random'];
 
   // TODO
   // If users click on track, we have to update this index ?
@@ -62,7 +63,7 @@ Object.defineProperty(Player.prototype, 'repeatMode', {
       return;
     }
 
-    if (mode === 'no' || mode === 'one' || mode === 'all') {
+    if (this._supportedModes.indexOf(mode) >= 0) {
       this._playerRepeatMode = mode;
       this.emit('repeatModeUpdated', mode);
     }
@@ -82,6 +83,14 @@ Object.defineProperty(Player.prototype, 'playingTrackTime', {
   configurable: false,
   get: function() {
     return this._playingTrackTime;
+  }
+});
+
+Object.defineProperty(Player.prototype, 'supportedModes', {
+  enumerable: true,
+  configurable: false,
+  get: function() {
+    return this._supportedModes;
   }
 });
 
@@ -219,8 +228,16 @@ Player.prototype.playAll = function(tracks) {
     return;
   }
 
-  // let's override tracks at first
-  this._pendingTracks = tracks;
+  // TODO
+  // we need to support that we can change the mode when playing later
+  // (same with playing previous tracks)
+  if (this._playerRepeatMode === 'random') {
+    this._pendingTracks = this.getRandomizedTracks(tracks);
+  }
+  else {
+    this._pendingTracks = tracks;
+  }
+
   this._pendingTrackIndex = -1;
 
   // then play the first one !
@@ -247,7 +264,7 @@ Player.prototype.playNextTrack = function() {
   }
 
   // By default, when hit end in this mode, we will stop the player.
-  if (this._playerRepeatMode === 'no') {
+  if (this._playerRepeatMode === 'no' || this._playerRepeatMode === 'random') {
     if (this._pendingTrackIndex > this._pendingTracks.length - 1) {
       this._pendingTracks = [];
       this.stop();
@@ -523,6 +540,24 @@ Player.prototype.downloadCurrentTrack = function() {
       }
     });
   });
+};
+
+Player.prototype.getRandomizedTracks = function(array) {
+  // Fisher-Yates (aka Knuth) Shuffle
+  let temp;
+  let randomIndex;
+  let currentIndex = array.length;
+
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    temp = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temp;
+  }
+
+  return array;
 };
 
 Player.prototype.changeRole = function(role) {

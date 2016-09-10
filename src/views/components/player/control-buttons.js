@@ -68,8 +68,6 @@ var PlayerControlButtons = React.createClass({
 
   _repeatModeIndex: 0,
 
-  _repeatModes: ['no', 'one', 'all'],
-
   _updatePlayIconState: function(state) {
     var resumeIconDOM = this.refs.resumeIcon;
     if (state === 'play') {
@@ -139,8 +137,8 @@ var PlayerControlButtons = React.createClass({
   _onRepeatButtonClick: function() {
     Player.ready().then((player) => {
       this._repeatModeIndex =
-        (this._repeatModeIndex + 1) % this._repeatModes.length;
-      var selectedRepeatMode = this._repeatModes[this._repeatModeIndex];
+        (this._repeatModeIndex + 1) % Player.supportedModes.length;
+      var selectedRepeatMode = Player.supportedModes[this._repeatModeIndex];
       Player.repeatMode = selectedRepeatMode;
     });
   },
@@ -161,6 +159,9 @@ var PlayerControlButtons = React.createClass({
         break;
       case 'all':
         playerRepeatWording = 'All';
+        break;
+      case 'random':
+        playerRepeatWording = '?';
         break;
     }
 
