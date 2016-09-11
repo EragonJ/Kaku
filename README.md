@@ -2,7 +2,7 @@
 
 ![Kaku Icon](http://i.imgur.com/c3KKQ9t.png)
 
-Kaku is an online music player which supports many differnt platform Like YouTube, Vimeo ... etc. With Kaku, you can easily listen to all kinds of music with just few simple clicks and don't need to leave this desktop application.
+Kaku is an online music player which supports many different platform Like YouTube, Vimeo ... etc. With Kaku, you can easily listen to all kinds of music with just few simple clicks and don't need to leave this desktop application.
 
 We do support desktop application for `Windows`, `Mac OS X`, `Linux 32` and `Linux 64`, so please go check it [here](https://github.com/EragonJ/Kaku/releases).
 
