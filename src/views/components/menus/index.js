@@ -8,6 +8,8 @@ const MenuItem = Remote.MenuItem;
 import $ from 'jquery';
 import React from 'react';
 
+import PlaylistUI from './playlist';
+
 import PlaylistManager from '../../../modules/PlaylistManager';
 import L10nManager from '../../../modules/L10nManager';
 import TabManager from '../../modules/TabManager';
@@ -51,48 +53,20 @@ var MenusComponent = React.createClass({
     PlaylistManager.on('cleanup', () => {
       this._updatePlaylistsStates();
     });
-
-    this._bindTabChangeEvent();
-  },
-
-  componentDidUpdate: function() {
-    this._unbindTabChangeEvent();
-    this._bindTabChangeEvent();
-  },
-
-  _bindTabChangeEvent: function() {
-    var menusDOM = this.refs.menus;
-    var links = menusDOM.querySelectorAll('a[role="tab"]');
-
-    // NOTE
-    // not sure whether this would conflict with pre-bound
-    // bootstrap events
-    $(links).on('click', function() {
-      var href = $(this).attr('href');
-      var tabOptions = $(this).attr('data-tab-options');
-      var tabName = href.replace('#tab-', '');
-      TabManager.setTab(tabName, tabOptions);
-    });
-  },
-
-  _unbindTabChangeEvent: function() {
-    var menusDOM = this.refs.menus;
-    var links = menusDOM.querySelectorAll('a[role="tab"]');
-    $(links).off('click');
   },
 
   _showTab: function(tabName, tabOptions) {
-    var linkToTabRef;
+    let sel;
+
     if (tabName === 'playlist') {
-      var playlistId = tabOptions;
-      linkToTabRef = this.refs['tab-playlist' + playlistId];
+      sel = `a[href="#tab-playlist"][data-tab-options="${tabOptions}"]`;
     }
     else {
-      linkToTabRef = this.refs['tab-' + tabName];
+      sel = `a[href="#tab-${tabName}"]`;
     }
 
-    if (linkToTabRef) {
-      $(linkToTabRef).tab('show');
+    if (sel) {
+      $(sel).tab('show');
     }
   },
 
@@ -198,7 +172,9 @@ var MenusComponent = React.createClass({
             <a
               href="#tab-home"
               role="tab"
-              ref="tab-home">
+              onClick={function() {
+                TabManager.setTab('home');
+              }}>
                 <i className="icon fa fa-fw fa-lg fa-home"></i>
                 <span className="title"><L10nSpan l10nId="sidebar_home"/></span>
             </a>
@@ -207,7 +183,9 @@ var MenusComponent = React.createClass({
             <a
               href="#tab-news"
               role="tab"
-              ref="tab-news">
+              onClick={function() {
+                TabManager.setTab('news');
+              }}>
                 <i className="icon fa fa-fw fa-lg fa-rss"></i>
                 <span className="title"><L10nSpan l10nId="sidebar_news"/></span>
             </a>
@@ -216,7 +194,9 @@ var MenusComponent = React.createClass({
             <a
               href="#tab-search"
               role="tab"
-              ref="tab-search">
+              onClick={function() {
+                TabManager.setTab('search');
+              }}>
                 <i className="icon fa fa-fw fa-lg fa-search"></i>
                 <span className="title"><L10nSpan l10nId="sidebar_search_results"/></span>
             </a>
@@ -234,7 +214,9 @@ var MenusComponent = React.createClass({
             <a
               href="#tab-settings"
               role="tab"
-              ref="tab-settings">
+              onClick={function() {
+                TabManager.setTab('settings');
+              }}>
                 <i className="icon fa fa-fw fa-lg fa-cog"></i>
                 <span className="title"><L10nSpan l10nId="sidebar_settings"/></span>
             </a>
@@ -243,7 +225,9 @@ var MenusComponent = React.createClass({
             <a
               href="#tab-online-dj"
               role="tab"
-              ref="tab-online-dj">
+              onClick={function() {
+                TabManager.setTab('online-dj');
+              }}>
                 <i className="icon fa fa-fw fa-lg fa-hand-peace-o"></i>
                 <span className="title"><L10nSpan l10nId="sidebar_online_dj"/></span>
             </a>
@@ -252,7 +236,9 @@ var MenusComponent = React.createClass({
             <a
               href="#tab-about"
               role="tab"
-              ref="tab-about">
+              onClick={function() {
+                TabManager.setTab('about');
+              }}>
                 <i className="icon fa fa-fw fa-lg fa-info"></i>
                 <span className="title"><L10nSpan l10nId="sidebar_about"/></span>
             </a>
@@ -266,21 +252,12 @@ var MenusComponent = React.createClass({
             </a>
           </li>
           {playlists.map((playlist, index) => {
-            var ref= 'tab-playlist' + playlist.id;
-            var clickToShowContextMenu =
-              this._clickToShowContextMenu.bind(this, playlist);
             return (
-              <li role="presentation" className="playlist" key={index}>
-                <a
-                  href="#tab-playlist"
-                  role="tab"
-                  data-tab-options={playlist.id}
-                  onContextMenu={clickToShowContextMenu}
-                  ref={ref}>
-                    <i className="icon fa fa-fw fa-lg fa-music"></i>
-                    <span className="title">{playlist.name}</span>
-                  </a>
-              </li>
+              <PlaylistUI
+                playlist={playlist}
+                key={index}
+                index={index}>
+              </PlaylistUI>
             );
           })}
         </ul>
