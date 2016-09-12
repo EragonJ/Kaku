@@ -1,9 +1,9 @@
-
 import Path from 'path';
 import Semver from 'semver';
 import GithubAPI from 'github';
 import AppCore from './AppCore';
 import YoutubeDlDownloader from 'youtube-dl/lib/downloader';
+
 const Remote = require('electron').remote;
 const App = Remote.app;
 
