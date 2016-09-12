@@ -33,10 +33,16 @@ let Track = React.createClass({
   },
 
   componentDidMount: function() {
-    Player.on('play', () => {
-      this.setState({
-        playingTrack: Player.playingTrack
-      });
+    Player.on('play', this._setPlayingTrack);
+  },
+
+  componentWillUnmount: function() {
+    Player.off('play', this._setPlayingTrack);
+  },
+
+  _setPlayingTrack: function() {
+    this.setState({
+      playingTrack: Player.playingTrack
     });
   },
 
