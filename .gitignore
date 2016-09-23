@@ -8,5 +8,4 @@ node_modules
 kaku/
 kaku.bundled.js
 kaku.bundled.js.map
-index.html
 npm-debug.log
