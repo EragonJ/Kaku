@@ -42,6 +42,7 @@ var CastingManager = require('./views/modules/CastingManager');
 var KonamiCodeManager = require('./views/modules/KonamiCodeManager');
 var EasterEggs = require('./views/modules/EasterEggs');
 var AppMenus = require('./views/modules/AppMenus');
+var AppTray = require('./views/modules/AppTray');
 var Player = require('./views/modules/Player');
 
 var loadingPageDOM = document.querySelector('.loading-page');
@@ -50,6 +51,7 @@ var contentPageDOM = document.querySelector('.content-page');
 var KakuApp = React.createClass({
   componentWillMount: function() {
     AppMenus.build();
+    AppTray.build();
 
     // this should be run first
     this._initializeDefaultTopRanking();

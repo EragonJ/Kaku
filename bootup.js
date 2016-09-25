@@ -1,22 +1,13 @@
 const path = require('path');
 const ShortcutManager = require('electron-localshortcut');
-const {
-  app,
-  shell,
-  Tray,
-  Menu,
-  BrowserWindow
-} = require('electron');
+const { app, BrowserWindow } = require('electron');
 
 const iconsFolder = path.join(__dirname, 'src', 'public', 'images', 'icons');
 const kakuIcon = path.join(iconsFolder, 'kaku.png');
-const trayDefaultIcon = path.join(iconsFolder, 'tray', 'default.png');
-const trayWindowsIcon = path.join(iconsFolder, 'tray', 'windows.ico');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the javascript object is GCed.
 let mainWindow = null;
-let tray = null;
 let isWindowLoaded = false;
 
 class Bootup {
@@ -65,7 +56,6 @@ class Bootup {
       });
 
       this._bindShortcuts();
-      this._setToolBar(mainWindow);
     });
   }
 
@@ -88,59 +78,6 @@ class Bootup {
     if (isLoaded) {
       win.webContents.send('key-' + shortcut);
     }
-  }
-
-  _setToolBar(mainWindow) {
-    let icon = trayDefaultIcon;
-    if (process.platform === 'win32') {
-      icon = trayWindowsIcon;
-    }
-
-    tray = new Tray(icon);
-
-    const trayMenu = [{
-      label: 'Show/Minimize',
-      click() {
-        !mainWindow.isMinimized() ? mainWindow.minimize() : mainWindow.show();
-      }
-    }, {
-      label: 'Prev Track',
-      click() {
-        mainWindow.webContents.send('tray-MediaPreviousTrack');
-      }
-    }, {
-      label: 'Next Track',
-      click() {
-        mainWindow.webContents.send('tray-MediaNextTrack');
-      }
-    }, {
-      label: 'Play/Pause',
-      click() {
-        mainWindow.webContents.send('tray-MediaPlayPause');
-      }
-    }, {
-      label: 'Help',
-      submenu: [{
-          label: 'Docs',
-          click() {
-            shell.openExternal('http://kaku.rocks/docs/index.html');
-          }
-        }, {
-          label: 'Issue',
-          click() {
-            shell.openExternal('https://github.com/EragonJ/Kaku/issues');
-          }
-        }
-      ]
-    }, {
-      label: 'Quit',
-      click() {
-        app.quit();
-      }
-    }];
-
-    tray.setToolTip('Kaku');
-    tray.setContextMenu(Menu.buildFromTemplate(trayMenu));
   }
 }
 
