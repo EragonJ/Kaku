@@ -205,7 +205,9 @@ var MenusComponent = React.createClass({
             <a
               href="#tab-history"
               role="tab"
-              ref="tab-history">
+              onClick={function() {
+                TabManager.setTab('history');
+              }}>
                 <i className="icon fa fa-fw fa-lg fa-history"></i>
                 <span className="title"><L10nSpan l10nId="sidebar_history"/></span>
             </a>
