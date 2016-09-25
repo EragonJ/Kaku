@@ -1,15 +1,14 @@
-var React = require('react');
-var TopRanking = require('kaku-core/modules/TopRanking');
-var TracksComponent = require('../shared/tracks');
+import React, { Componet } from 'react';
+import TopRanking from 'kaku-core/modules/TopRanking';
+import TracksComponent from '../shared/tracks';
 
-var TopRankingComponent = React.createClass({
-  getInitialState: function() {
-    return {
-      tracks: []
-    };
-  },
+class TopRankingComponent extends Componet {
+  constructor() {
+    super();
+    this.tracks = [];
+  }
 
-  componentDidMount: function() {
+  componentDidMount() {
     TopRanking.on('topRanking-changed', () => {
       TopRanking.get().then((tracks) => {
         this.setState({
@@ -23,9 +22,9 @@ var TopRankingComponent = React.createClass({
         tracks: tracks
       });
     });
-  },
+  }
 
-  render: function() {
+  render() {
     let tracks = this.state.tracks;
     let controls = {
       trackModeButton: true,
@@ -44,6 +43,6 @@ var TopRankingComponent = React.createClass({
     );
     /* jshint ignore:end */
   }
-});
+}
 
 module.exports = TopRankingComponent;
