@@ -128,14 +128,20 @@ class AppMenus {
           label: _('app_menu_reload'),
           accelerator: 'CmdOrCtrl+R',
           click() {
-            BrowserWindow.getFocusedWindow().reloadIgnoringCache();
+            let win = BrowserWindow.getFocusedWindow();
+            if (win) {
+              win.webContents.reloadIgnoringCache();
+            }
           }
         },
         {
           label: _('app_menu_toggle_devtools'),
           accelerator: 'Alt+CmdOrCtrl+I',
           click() {
-            BrowserWindow.getFocusedWindow().toggleDevTools();
+            let win = BrowserWindow.getFocusedWindow();
+            if (win) {
+              win.webContents.toggleDevTools();
+            }
           }
         }
       ]
