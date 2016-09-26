@@ -1,11 +1,14 @@
-import React, { Componet } from 'react';
+import React, { Component } from 'react';
 import TopRanking from 'kaku-core/modules/TopRanking';
 import TracksComponent from '../shared/tracks';
 
-class TopRankingComponent extends Componet {
-  constructor() {
-    super();
-    this.tracks = [];
+class TopRankingComponent extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      tracks: []
+    };
   }
 
   componentDidMount() {
