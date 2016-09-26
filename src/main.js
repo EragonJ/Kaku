@@ -53,6 +53,10 @@ var KakuApp = React.createClass({
     AppMenus.build();
     AppTray.build();
 
+    window.addEventListener('beforeunload', () => {
+      AppTray.destroy();
+    });
+
     // this should be run first
     this._initializeDefaultTopRanking();
 

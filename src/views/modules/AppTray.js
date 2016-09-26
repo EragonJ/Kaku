@@ -16,10 +16,16 @@ const trayWindowsIcon = path.join(iconsFolder, 'tray', 'windows.ico');
 
 class AppTray {
   constructor() {
+    this._initialized = false;
     this.tray = null;
   }
 
   build() {
+    if (this._initialized) {
+      return;
+    }
+
+    this._initialized = true;
     let mainWindow = Remote.getCurrentWindow();
     let icon = trayDefaultIcon;
 
@@ -85,6 +91,12 @@ class AppTray {
 
     this.tray.setToolTip('Kaku');
     this.tray.setContextMenu(Menu.buildFromTemplate(trayMenu));
+  }
+
+  destroy() {
+    if (this.tray) {
+      this.tray.destroy();
+    }
   }
 }
 
