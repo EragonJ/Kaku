@@ -6,6 +6,13 @@ Kaku is an online music player which supports many different platform Like YouTu
 
 We do support desktop application for `Windows`, `Mac OS X`, `Linux 32` and `Linux 64`, so please go check it [here](https://github.com/EragonJ/Kaku/releases).
 
+# Support this project
+
+1. By Patreon - https://www.patreon.com/EragonJ
+2. By Bitcoin - my wallet address **1KtpFtaLW52tCe2VhWxCMHmRt8Mrxqj4WB**
+
+Hi all, if you think this open source project does help you, feel free to support me :)
+
 # NEED TRANSLATORS !
 
 If you are keen to help Kaku, you can first try to help translating it with your native language ! For more details, please check [this post](https://github.com/EragonJ/Kaku/issues/377) ! Can't wait to see you in our community :)
@@ -19,12 +26,6 @@ If you are keen to help Kaku, you can first try to help translating it with your
 # How to develop
 
 Please check our [wiki](https://github.com/EragonJ/Kaku/wiki) here for more information.
-
-# Support this project
-
-Hi all, if you think this open source project does help you, please do support me if you can. With your help, I'll keep updating this project and adding more features as my dedicated side project :) :beers: :beers:
-
-My bitcoin wallet : **1KtpFtaLW52tCe2VhWxCMHmRt8Mrxqj4WB** :moneybag:
 
 # Supported Streaming Platform
 
