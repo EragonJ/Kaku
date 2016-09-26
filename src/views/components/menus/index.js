@@ -230,7 +230,7 @@ var MenusComponent = React.createClass({
               onClick={function() {
                 TabManager.setTab('online-dj');
               }}>
-                <i className="icon fa fa-fw fa-lg fa-hand-peace-o"></i>
+                <i className="icon fa fa-fw fa-lg fa-headphones"></i>
                 <span className="title"><L10nSpan l10nId="sidebar_online_dj"/></span>
             </a>
           </li>

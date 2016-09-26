@@ -74,7 +74,7 @@ let OnlineDJComponent = React.createClass({
       <div className="online-dj-slot" data-page={page}>
         <div className="header clearfix">
           <h1>
-            <i className="fa fa-fw fa-hand-peace-o"></i>
+            <i className="fa fa-fw fa-headphones"></i>
             <L10nSpan l10nId="online_dj_header"/>
           </h1>
         </div>
