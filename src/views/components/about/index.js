@@ -20,7 +20,7 @@ var AboutComponent = React.createClass({
     event.preventDefault();
   },
 
-  _onClickToSuppportUs: function() {
+  _onClickToShowBitcoinModal: function() {
     let title = _('about_option_support_wallet_address');
     let walletAddress = '1KtpFtaLW52tCe2VhWxCMHmRt8Mrxqj4WB';
 
@@ -40,6 +40,10 @@ var AboutComponent = React.createClass({
         }
       }
     });
+  },
+
+  _onClickToOpenPatreon: function() {
+    Shell.openExternal('https://www.patreon.com/eragonj');
   },
 
   _onClickToOpenFacebook: function() {
@@ -147,12 +151,18 @@ var AboutComponent = React.createClass({
               <label className="col-sm-3 control-label">
                 <L10nSpan l10nId="about_option_support_intro"/>
               </label>
-              <div className="col-sm-3">
+              <div className="col-sm-9">
                 <button
                   className="btn btn-danger"
-                  onClick={this._onClickToSuppportUs}>
-                    <i className="fa fa-credit-card"></i>
+                  onClick={this._onClickToShowBitcoinModal}>
+                    <i className="fa fa-btc"></i>
                     <L10nSpan l10nId="about_option_support_button_wording"/>
+                </button>
+                <button
+                  className="btn btn-danger"
+                  onClick={this._onClickToOpenPatreon}>
+                    <i className="fa fa-credit-card"></i>
+                    <L10nSpan l10nId="about_option_support_button_patreon_wording"/>
                 </button>
               </div>
             </div>
@@ -160,7 +170,7 @@ var AboutComponent = React.createClass({
               <label className="col-sm-3 control-label">
                 <L10nSpan l10nId="about_option_facebook_intro"/>
               </label>
-              <div className="col-sm-3">
+              <div className="col-sm-9">
                 <button
                   className="btn btn-primary"
                   onClick={this._onClickToOpenFacebook}>
@@ -173,7 +183,7 @@ var AboutComponent = React.createClass({
               <label className="col-sm-3 control-label">
                 <L10nSpan l10nId="about_option_twitter_intro"/>
               </label>
-              <div className="col-sm-3">
+              <div className="col-sm-9">
                 <button
                   className="btn btn-info"
                   onClick={this._onClickToOpenTwitter}>
@@ -186,7 +196,7 @@ var AboutComponent = React.createClass({
               <label className="col-sm-3 control-label">
                 <L10nSpan l10nId="about_option_github_intro"/>
               </label>
-              <div className="col-sm-3">
+              <div className="col-sm-9">
                 <button
                   className="btn btn-success"
                   onClick={this._onClickToOpenGithub}>
@@ -199,7 +209,7 @@ var AboutComponent = React.createClass({
               <label className="col-sm-3 control-label">
                 <L10nSpan l10nId="about_option_bug_intro"/>
               </label>
-              <div className="col-sm-3">
+              <div className="col-sm-9">
                 <button
                   className="btn btn-warning"
                   onClick={this._onClickToOpenGithubIssues}>
@@ -212,7 +222,7 @@ var AboutComponent = React.createClass({
               <label className="col-sm-3 control-label">
                 <L10nSpan l10nId="about_option_special_thanks_intro"/>
               </label>
-              <div className="col-sm-3">
+              <div className="col-sm-9">
                 <button
                   className="btn btn-default"
                   onClick={this._onClickToShowSpecialThanks}>
@@ -225,7 +235,7 @@ var AboutComponent = React.createClass({
               <label className="col-sm-3 control-label">
                 <L10nSpan l10nId="about_option_comment_intro"/>
               </label>
-              <div className="col-sm-3">
+              <div className="col-sm-9">
                 <button
                   className="btn btn-default"
                   onClick={this._onClickToOpenGitter}>
@@ -238,7 +248,7 @@ var AboutComponent = React.createClass({
               <label className="col-sm-3 control-label">
                 <L10nSpan l10nId="about_option_facebook_dm_intro"/>
               </label>
-              <div className="col-sm-3">
+              <div className="col-sm-9">
                 <button
                   className="btn btn-default"
                   onClick={this._onClickToOpenFacebookDM}>
@@ -251,7 +261,7 @@ var AboutComponent = React.createClass({
               <label className="col-sm-3 control-label">
                 <L10nSpan l10nId="about_option_qa_intro"/>
               </label>
-              <div className="col-sm-3">
+              <div className="col-sm-9">
                 <button
                   className="btn btn-default"
                   onClick={this._onClickToOpenQA}>
