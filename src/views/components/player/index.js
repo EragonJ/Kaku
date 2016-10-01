@@ -1,27 +1,26 @@
-let React = require('react');
-let Electron = require('electron');
-let Remote = Electron.remote;
-let IpcRender = Electron.ipcRenderer;
-let ClassNames = require('classnames');
-let PlayerTrack = require('../player/track');
-let Player = require('../../modules/Player');
-let PlayerControlButtons = require('../player/control-buttons');
+import React from, { Component } 'react';
+import {
+  remote as Remote,
+  ipcRenderer as IpcRender
+} from 'electron';
+import ClassNames from 'classnames';
+import PlayerTrack from '../player/track';
+import Player from '../../modules/Player';
+import PlayerControlButtons from '../player/control-buttons';
 
-let PlayerComponent = React.createClass({
-  getInitialState: function() {
-    return {
-      tvMode: false
-    };
-  },
+class PlayerComponent extends Component {
+  constructor() {
+    this.tvMode = false;
+  }
 
-  _onClickToToggleTVMode: function() {
+  _onClickToToggleTVMode() {
     // Note : this is not the same with fullscreen !
     this.setState({
       tvMode: !this.state.tvMode
     });
-  },
+  }
 
-  componentDidMount: function() {
+  componentDidMount() {
     IpcRender.on('key-Escape', () => {
       if (this.state.tvMode) {
         this.setState({
@@ -38,9 +37,9 @@ let PlayerComponent = React.createClass({
         tvMode: false
       });
     });
-  },
+  }
 
-  render: function() {
+  render() {
     let playerClass = ClassNames({
       'player': true,
       'tv-mode': this.state.tvMode
@@ -55,6 +54,6 @@ let PlayerComponent = React.createClass({
     );
     /* jshint ignore:end */
   }
-});
+}
 
-module.exports = PlayerComponent;
+exports default PlayerComponent;
