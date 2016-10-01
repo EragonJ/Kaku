@@ -1,26 +1,27 @@
-var Electron = require('electron');
-var Clipboard = Electron.clipboard;
-var Shell = Electron.shell;
-var React = require('react');
-var L10nSpan = require('../shared/l10n-span');
-var Dialog = require('../../modules/Dialog');
-var Notifier = require('../../modules/Notifier');
-var AppCore = require('../../../modules/AppCore');
-var L10nManager = require('../../../modules/L10nManager');
-var _ = L10nManager.get.bind(L10nManager);
+import {
+  clipboard as Clipboard,
+  shell as Shell
+} from 'electron';
+import React, { Component } from 'react';
+import L10nSpan from '../shared/l10n-span';
+import Dialog from '../../modules/Dialog';
+import Notifier from '../../modules/Notifier';
+import AppCore from '../../../modules/AppCore';
+import L10nManager from '../../../modules/L10nManager';
 
-var AboutComponent = React.createClass({
-  getInitialState: function() {
-    return {
-      thanksMessage: ''
-    };
-  },
+const _ = L10nManager.get.bind(L10nManager);
 
-  _onFormSubmit: function(event) {
+class AboutComponent extends Component {
+  constructor() {
+    super();
+    this.thanksMessage = '';
+  }
+
+  _onFormSubmit(event) {
     event.preventDefault();
-  },
+  }
 
-  _onClickToShowBitcoinModal: function() {
+  _onClickToShowBitcoinModal() {
     let title = _('about_option_support_wallet_address');
     let walletAddress = '1KtpFtaLW52tCe2VhWxCMHmRt8Mrxqj4WB';
 
@@ -40,45 +41,45 @@ var AboutComponent = React.createClass({
         }
       }
     });
-  },
+  }
 
-  _onClickToOpenPatreon: function() {
+  _onClickToOpenPatreon() {
     Shell.openExternal('https://www.patreon.com/eragonj');
-  },
+  }
 
-  _onClickToOpenFacebook: function() {
+  _onClickToOpenFacebook() {
     Shell.openExternal('http://facebook.com/kaku.rocks');
-  },
+  }
 
-  _onClickToOpenTwitter: function() {
-    var link = '';
+  _onClickToOpenTwitter() {
+    let link = '';
     link += 'https://twitter.com/intent/tweet?text=';
     link += 'I%20am%20listening%20music%20on%20Kaku%20!';
     link += '%20http%3A%2F%2Fkaku.rocks%20%23kaku_rocks%20';
     Shell.openExternal(link);
-  },
+  }
 
-  _onClickToOpenGithub: function() {
+  _onClickToOpenGithub() {
     Shell.openExternal('https://github.com/EragonJ/Kaku');
-  },
+  }
 
-  _onClickToOpenGithubIssues: function() {
+  _onClickToOpenGithubIssues() {
     Shell.openExternal('https://github.com/EragonJ/Kaku/issues');
-  },
+  }
 
-  _onClickToOpenGitter: function() {
+  _onClickToOpenGitter() {
     Shell.openExternal('https://gitter.im/EragonJ/Kaku');
-  },
+  }
 
-  _onClickToOpenFacebookDM: function() {
+  _onClickToOpenFacebookDM() {
     Shell.openExternal('https://www.facebook.com/messages/kaku.rocks');
-  },
+  }
 
-  _onClickToOpenQA: function() {
+  _onClickToOpenQA() {
     Shell.openExternal('http://kaku.rocks/docs/');
-  },
+  }
 
-  _onClickToShowSpecialThanks: function() {
+  _onClickToShowSpecialThanks() {
     let thanksMessage = this._getThanksMessage();
     let title = '<i class="fa fa-gift"></i> Thanks <i class="fa fa-gift"></i>';
 
@@ -87,9 +88,9 @@ var AboutComponent = React.createClass({
       message: thanksMessage,
       className: 'special-thanks-modal'
     });
-  },
+  }
 
-  _getThanksMessage: function() {
+  _getThanksMessage() {
     let thanksMessage = this.state.thanksMessage;
 
     if (thanksMessage !== '') {
@@ -113,14 +114,14 @@ var AboutComponent = React.createClass({
       });
     }
     return thanksMessage;
-  },
+  }
 
-  _generateThanksHTML: function(title, list) {
+  _generateThanksHTML(title, list) {
     let html = '';
 
     html += `<h1>${title}</h1>`;
     html += '<ul>';
-    list.forEach((name) =>{
+    list.forEach((name) => {
       html += [
         '<li>',
           name,
@@ -130,9 +131,9 @@ var AboutComponent = React.createClass({
     html += '</ul>';
 
     return html;
-  },
+  }
 
-  render: function() {
+  render() {
     /* jshint ignore:start */
     return (
       <div className="about-slot">
@@ -276,6 +277,6 @@ var AboutComponent = React.createClass({
     );
     /* jshint ignore:end */
   }
-});
+}
 
-module.exports = AboutComponent;
+exports default AboutComponent;
