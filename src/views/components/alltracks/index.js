@@ -1,28 +1,26 @@
-var React = require('react');
-var ReactTooltip = require('react-tooltip');
-var Searcher = require('../../../modules/Searcher');
-var TracksComponent = require('../shared/tracks');
+import React, { Component } from 'react';
+import ReactTooltip from 'react-tooltip';
+import Searcher from '../../../modules/Searcher';
+import TracksComponent from '../shared/tracks';
 
-var AllTracksComponent = React.createClass({
-  getInitialState: function() {
-    return {
-      tracks: []
-    };
-  },
+class AllTracksComponent extends Component {
+  constructor() {
+    this.tracks = [];
+  }
 
-  componentDidMount: function() {
+  componentDidMount() {
     Searcher.on('search-results-updated', (results) => {
       this.setState({
         tracks: results
       });
     });
-  },
+  }
 
-  componentDidUpdate: function() {
+  componentDidUpdate() {
     ReactTooltip.rebuild();
-  },
+  }
 
-  render: function() {
+  render() {
     let tracks = this.state.tracks;
     let controls = {
       trackModeButton: true,
@@ -41,6 +39,6 @@ var AllTracksComponent = React.createClass({
     );
     /* jshint ignore:end */
   }
-});
+}
 
-module.exports = AllTracksComponent;
+exports default AllTracksComponent;
