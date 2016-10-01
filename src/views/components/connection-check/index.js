@@ -1,27 +1,25 @@
-var React = require('react');
-var ClassNames = require('classnames');
-var L10nSpan = require('../shared/l10n-span');
+import React, { Component } from 'react';
+import ClassNames from 'classnames';
+import L10nSpan from '../shared/l10n-span';
 
-var ConnectionCheckComponent = React.createClass({
-  getInitialState: function() {
-    return {
-      isOnline: navigator.onLine
-    };
-  },
+class ConnectionCheckComponent extends Component {
+  constructor() {
+    this.isOnline = navigator.onLine;
+  }
 
-  componentDidMount: function() {
+  componentDidMount() {
     window.addEventListener('online', this._checkConnection);
     window.addEventListener('offline', this._checkConnection);
-  },
+  }
 
-  _checkConnection: function() {
+  _checkConnection() {
     this.setState({
       isOnline: navigator.onLine
     });
-  },
+  }
 
-  render: function() {
-    var className = ClassNames({
+  render() {
+    const className = ClassNames({
       'connection-check-component': true,
       'global-overlay': true,
       'is-online': this.state.isOnline
@@ -38,6 +36,6 @@ var ConnectionCheckComponent = React.createClass({
     );
     /* jshint ignore:end */
   }
-});
+}
 
-module.exports = ConnectionCheckComponent;
+exports default ConnectionCheckComponent;
