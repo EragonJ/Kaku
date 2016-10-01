@@ -1,29 +1,17 @@
-var React = require('react');
-var ClassNames = require('classnames');
+import React, { Component, PropTypes } from 'react';
+import ClassNames from 'classnames';
 
-var NewsTag = React.createClass({
-  propTypes: {
-    data: React.PropTypes.object.isRequired
-  },
+class NewsTag extends Component {
+  render() {
+    let data = this.props.data;
+    let title = data.date + ' - ' + data.title;
+    let content = data.content;
+    let label = 'panel-' + data.label || 'panel-default';
 
-  getDefaultProps: function() {
-    return {
-      date: '',
-      title: '',
-      content: ''
-    };
-  },
-
-  render: function() {
-    var data = this.props.data;
-    var title = data.date + ' - ' + data.title;
-    var content = data.content;
-    var label = 'panel-' + data.label || 'panel-default';
-
-    var classObject = {};
+    let classObject = {};
     classObject.panel = true;
     classObject[label] = true;
-    var className = ClassNames(classObject);
+    let className = ClassNames(classObject);
 
     /* jshint ignore:start */
     return (
@@ -39,6 +27,15 @@ var NewsTag = React.createClass({
     );
     /* jshint ignore:end */
   }
-});
+}
 
-module.exports = NewsTag;
+NewsTag.propTypes = {
+  data: PropTypes.object.isRequired
+};
+NewsTag.defaultProps = {
+  date: '',
+  title: '',
+  content: ''
+};
+
+exports default NewsTag;

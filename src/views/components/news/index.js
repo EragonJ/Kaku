@@ -6,7 +6,7 @@ import NewsFetcher from '../../../modules/NewsFetcher';
 class NewsComponent extends Component {
   constructor() {
     this.news = [];
-  },
+  }
 
   componentDidMount() {
     NewsFetcher.get().then((news) => {
