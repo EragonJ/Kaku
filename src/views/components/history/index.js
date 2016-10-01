@@ -1,35 +1,33 @@
-var React = require('react');
-var HistoryManager = require('../../../modules/HistoryManager');
-var TracksComponent = require('../shared/tracks');
+import React, { Component } from 'react';
+import HistoryManager from '../../../modules/HistoryManager';
+import TracksComponent from '../shared/tracks';
 
-var HistoryComponent = React.createClass({
-  getInitialState: function() {
-    return {
-      tracks: []
-    };
+class HistoryComponent extends Component {
+  constructor() {
+    this.tracks = [];
   },
 
-  componentWillMount: function() {
+  componentWillMount() {
     HistoryManager.ready().then(() => {
       this.setState({
         tracks: HistoryManager.tracks
       });
     });
-  },
+  }
 
-  componentDidMount: function() {
+  componentDidMount() {
     HistoryManager.on('history-updated', (tracks) => {
       this.setState({
         tracks: tracks
       });
     });
-  },
+  }
 
-  _clickToDeleteAll: function() {
+  _clickToDeleteAll() {
     HistoryManager.clean();
-  },
+  }
 
-  render: function() {
+  render() {
     /* jshint ignore:start */
     let tracks = this.state.tracks;
     let controls = {
@@ -49,6 +47,6 @@ var HistoryComponent = React.createClass({
     );
     /* jshint ignore:end */
   }
-});
+}
 
-module.exports = HistoryComponent;
+exports default HistoryComponent;
