@@ -148,10 +148,9 @@ var KakuApp = React.createClass({
         // Need l10n here
         Dialog.showMessageBox({
           type: 'info',
-          title: 'New release',
+          title: 'New Release is Ready',
           message:
-            'Detect a new release version ' + release.version + '\n' +
-            'Click ok to download it.',
+            'Click ok to download Kaku version ' + release.version + '.',
           detail: release.note,
           buttons: ['ok', 'cancel']
         }, (response) => {
