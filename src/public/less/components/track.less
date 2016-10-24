@@ -3,16 +3,16 @@
 
 .track {
   position: relative;
-  background-color: rgba(0, 0, 0, 0.8);
-  border-radius: 10px;
+  border-radius: 5px;
   overflow: hidden;
   cursor: pointer;
 }
 
 .track-square {
   display: inline-block;
-  padding: @defaultTrackPadding;
-  margin: @defaultTrackMargin;
+  padding: 5px;
+  margin: 5px 10px 0 0;
+  border: 1px solid #000;
 
   &.active {
     background-color: lightskyblue;
@@ -25,8 +25,8 @@
   }
 
   img {
-    width: @defaultTrackImageSize;
-    height: @defaultTrackImageSize;
+    width: 170px;
+    height: 170px;
     border-radius: 5px;
     object-fit: contain;
   }
@@ -38,8 +38,7 @@
     right: 0;
     background-color: rgba(0, 0, 0, 0.3);
     color: white;
-    padding: 0 8px @defaultTrackPadding;
-    border-radius: 0 0 10px 10px;
+    padding: 0 8px 5px;
   }
 
   .ribbon {
@@ -75,8 +74,10 @@
 .track-list {
   display: block;
   height: 30px;
-  margin-bottom: 5px;
-  color: white;
+  margin: 10px 0;
+  color: #000;
+  border: 1px solid #000;
+  background: #ffffff;
 
   &.active {
     background-color: rgba(0, 0, 0, 0.5);
