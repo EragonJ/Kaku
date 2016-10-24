@@ -16,16 +16,15 @@ const trayWindowsIcon = path.join(iconsFolder, 'tray', 'windows.ico');
 
 class AppTray {
   constructor() {
-    this._initialized = false;
     this.tray = null;
+
+    L10nManager.on('language-changed', () => {
+      this.destroy();
+      this.build();
+    });
   }
 
   build() {
-    if (this._initialized) {
-      return;
-    }
-
-    this._initialized = true;
     let mainWindow = Remote.getCurrentWindow();
     let icon = trayDefaultIcon;
 
