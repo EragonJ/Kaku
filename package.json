@@ -53,13 +53,13 @@
       "contents": [
         {
           "x": 410,
-          "y": 220,
+          "y": 190,
           "type": "link",
           "path": "/Applications"
         },
         {
           "x": 130,
-          "y": 220,
+          "y": 190,
           "type": "file",
           "path": "computed path to artifact"
         }
