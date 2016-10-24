@@ -6,16 +6,17 @@
   border-radius: 5px;
   overflow: hidden;
   cursor: pointer;
+  background: #efefef;
 }
 
 .track-square {
   display: inline-block;
   padding: 5px;
-  margin: 5px 10px 0 0;
+  margin: 0 10px 5px 0;
   border: 1px solid #000;
 
   &.active {
-    background-color: lightskyblue;
+    background-color: darken(#d9f8fa, 10%);
   }
 
   &:hover {
@@ -43,8 +44,8 @@
 
   .ribbon {
     position: absolute;
-    top: 5px;
-    right: -15px;
+    top: 2px;
+    right: -17px;
     background: rgba(255, 255, 255, 0.8);
     width: 60px;
     transform: rotate(45deg);
@@ -76,11 +77,9 @@
   height: 30px;
   margin: 10px 0;
   color: #000;
-  border: 1px solid #000;
-  background: #ffffff;
 
   &.active {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: #d9f8fa;
   }
 
   i {
