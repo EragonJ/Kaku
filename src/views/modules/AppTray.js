@@ -10,7 +10,8 @@ const Tray = Remote.Tray;
 const App = Remote.app;
 
 const _ = L10nManager.get.bind(L10nManager);
-const iconsFolder = path.join('src', 'public', 'images', 'icons');
+const iconsFolder =
+  path.join(App.getAppPath(), 'src', 'public', 'images', 'icons');
 const trayDefaultIcon = path.join(iconsFolder, 'tray', 'default.png');
 const trayWindowsIcon = path.join(iconsFolder, 'tray', 'windows.ico');
 
