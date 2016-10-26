@@ -13,7 +13,7 @@
   h1 {
     float: left;
     margin: 0;
-    width: calc(100% - 210px);
+    width: calc(~"100% - 210px");
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -53,5 +53,9 @@
   .tab-pane {
     padding: 10px;
     overflow-x: hidden;
+  }
+
+  #tab-history h1 {
+    width: calc(~"100% - 310px");
   }
 }
