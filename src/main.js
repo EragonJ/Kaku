@@ -141,59 +141,7 @@ var KakuApp = React.createClass({
   },
 
   _triggerAutoUpdater: function() {
-    AutoUpdater.checkUpdate().then((result) => {
-      if (result.isNewer) {
-        var release = result.release;
-        // TODO
-        // Need l10n here
-        Dialog.showMessageBox({
-          type: 'info',
-          title: 'New Release is Ready',
-          message:
-            'Click ok to download Kaku version ' + release.version + '.',
-          detail: release.note,
-          buttons: ['ok', 'cancel']
-        }, (response) => {
-          // means ok
-          if (response === 0) {
-            var downloadLink = '';
-            var platform = process.platform;
-            var arch = process.arch;
-
-            if (platform.match(/win32/)) {
-              downloadLink = release.download.win.link;
-            }
-            else if (platform.match(/darwin/)) {
-              downloadLink = release.download.mac.link;
-            }
-            else if (platform.match(/linux/)) {
-              if (arch === 'x64') {
-                downloadLink = release.download.linux64.link;
-              }
-              else {
-                downloadLink = release.download.linux32.link;
-              }
-            }
-
-            if (downloadLink) {
-              Shell.openExternal(downloadLink);
-              // a little delay to quit application
-              setTimeout(() => {
-                App.quit();
-              }, 1000);
-            }
-            else {
-              console.log('Cant find download link for the user');
-              console.log('platform - ' + platform + ', arch - ', arch);
-            }
-          }
-        });
-      }
-      else {
-        // Silently update the core modules for users when bootup everytime !
-        AutoUpdater.updateYoutubeDl();
-      }
-    });
+    AutoUpdater.updateYoutubeDl();
   },
 
   _hideLoadingPage: function() {
