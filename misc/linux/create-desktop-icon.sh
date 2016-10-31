@@ -12,7 +12,7 @@ DIR=$(pwd)
 # Store some informations for later usage.
 APP_NAME="Kaku"
 APP_DESCRIPTION="The next generation music client http://kaku.rocks"
-APP_VERSION="1.7.0"
+APP_VERSION="1.8.0"
 APP_CATEGORIES="Application;Music;"
 
 # Define the file paths for easier configuration.
