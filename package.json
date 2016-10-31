@@ -67,7 +67,7 @@
       "iconUrl": "https://raw.githubusercontent.com/EragonJ/Kaku/master/src/public/images/icons/kaku.ico"
     },
     "linux": {
-      "target": "zip",
+      "target": ["zip", "AppImage"],
       "extraFiles": [
         {
           "from": "misc/${os}/create-desktop-icon.sh",
