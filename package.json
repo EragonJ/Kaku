@@ -59,9 +59,7 @@
         },
         {
           "x": 130,
-          "y": 190,
-          "type": "file",
-          "path": "computed path to artifact"
+          "y": 190
         }
       ]
     },
