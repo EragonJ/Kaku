@@ -19,9 +19,9 @@ If you are keen to help Kaku, you can first try to help translating it with your
 
 # Screenshots
 
-![Latest Screenshot](http://i.imgur.com/RjSGvse.png)
-
-![Latest Screenshot](http://i.imgur.com/9nrYuB9.jpg)
+![1](http://i.imgur.com/HudKZou.png)
+![2](http://i.imgur.com/mMm8ZH4.png)
+![3](http://i.imgur.com/7oUKNDk.png)
 
 # How to develop
 
