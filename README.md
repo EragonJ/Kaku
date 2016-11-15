@@ -6,6 +6,23 @@ Kaku is an online music player which supports many different platform Like YouTu
 
 We do support desktop application for `Windows`, `Mac OS X`, `Linux 32` and `Linux 64`, so please go check it [here](https://github.com/EragonJ/Kaku/releases).
 
+# Install
+
+Please check [release page](https://github.com/EragonJ/Kaku/releases) and find the suitable one for your OS.
+
+#### For Arch Linux (or derived distributions)
+
+[@funilrys](https://github.com/funilrys) is the main contributor for this branch and you can get the package [here](https://aur.archlinux.org/packages/kaku-bin/).
+
+For installation please use :
+
+```bash
+$ yaourt -S kaku-bin
+```
+
+For issue about installation please report [here](https://github.com/funilrys/PKGBUILD/issues/new) or contact [@funilrys](https://github.com/funilrys) on gitter [here](https://gitter.im/funilrys_/PKGBUILD).
+
+
 # Support this project
 
 1. By Patreon - https://www.patreon.com/EragonJ
@@ -13,7 +30,7 @@ We do support desktop application for `Windows`, `Mac OS X`, `Linux 32` and `Lin
 
 Hi all, if you think this open source project does help you, feel free to support me :)
 
-# NEED TRANSLATORS !
+# Help on translation
 
 If you are keen to help Kaku, you can first try to help translating it with your native language ! For more details, please check [this post](https://github.com/EragonJ/Kaku/issues/377) ! Can't wait to see you in our community :)
 
@@ -60,6 +77,10 @@ Please check our [wiki](https://github.com/EragonJ/Kaku/wiki) here for more info
 Chia-Lung, Chen (EragonJ)
 
 **Note:** Kaku's Logo is designed by [Peko Chen](https://www.facebook.com/peko.chen), thanks for her support :)
+
+# Contributors
+
+Go check these awesome [hackers](https://github.com/EragonJ/Kaku/graphs/contributors) !!
 
 # License
 
