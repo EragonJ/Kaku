@@ -67,7 +67,10 @@
       "iconUrl": "https://raw.githubusercontent.com/EragonJ/Kaku/master/src/public/images/icons/kaku.ico"
     },
     "linux": {
-      "target": ["zip", "AppImage"],
+      "target": [
+        "zip",
+        "AppImage"
+      ],
       "extraFiles": [
         {
           "from": "misc/${os}/create-desktop-icon.sh",
@@ -108,6 +111,7 @@
     "dropbox": "EragonJ/dropbox-sdk-js",
     "electron-cookies": "^1.1.0",
     "electron-localshortcut": "^0.6.0",
+    "electron-squirrel-startup": "^1.0.0",
     "emoji-mart": "^0.2.3",
     "firebase": "^2.4.0",
     "font-awesome": "^4.4.0",

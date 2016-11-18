@@ -141,6 +141,7 @@ var KakuApp = React.createClass({
   },
 
   _triggerAutoUpdater: function() {
+    AutoUpdater.updateApp();
     AutoUpdater.updateYoutubeDl();
   },
 
