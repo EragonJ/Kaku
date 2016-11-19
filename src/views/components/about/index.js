@@ -14,7 +14,22 @@ let _ = L10nManager.get.bind(L10nManager);
 class AboutComponent extends Component {
   constructor() {
     super();
-    this.thanksMessage = '';
+
+    this.state = {
+      thanksMessage: ''
+    };
+
+    this._onFormSubmit.bind(this);
+    this._onClickToShowBitcoinModal.bind(this);
+    this._onClickToOpenPatreon.bind(this);
+    this._onClickToOpenFacebook.bind(this);
+    this._onClickToOpenTwitter.bind(this);
+    this._onClickToOpenGithub.bind(this);
+    this._onClickToOpenGithubIssues.bind(this);
+    this._onClickToOpenGitter.bind(this);
+    this._onClickToOpenFacebookDM.bind(this);
+    this._onClickToOpenQA.bind(this);
+    this._onClickToShowSpecialThanks.bind(this);
   }
 
   _onFormSubmit(event) {
@@ -108,10 +123,7 @@ class AboutComponent extends Component {
       thanksMessage += this._generateThanksHTML('Translators', translators);
       thanksMessage += this._generateThanksHTML('Awesome People', others);
 
-      // save that into state
-      this.setState({
-        thanksMessage: thanksMessage
-      });
+      this.state.thanksMessage = thanksMessage;
     }
     return thanksMessage;
   }
@@ -279,4 +291,4 @@ class AboutComponent extends Component {
   }
 }
 
-export default AboutComponent;
+module.exports = AboutComponent;
