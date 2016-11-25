@@ -3,11 +3,13 @@ import Path from 'path';
 import AppCore from './AppCore';
 import YoutubeDlDownloader from 'youtube-dl/lib/downloader';
 import Constants from './Constants';
+import L10nManager from './L10nManager';
 
 const Remote = require('electron').remote;
 const App = Remote.app;
 const Updater = Remote.autoUpdater;
 const Dialog = Remote.dialog;
+const _ = L10nManager.get.bind(L10nManager);
 
 class AutoUpdater {
   constructor() {
@@ -16,10 +18,6 @@ class AutoUpdater {
     }
 
     if (os.platform() !== 'darwin' && os.platform() !== 'win32') {
-      return;
-    }
-
-    if (os.platform() === 'win32' && os.arch() !== 'x64') {
       return;
     }
 
@@ -41,24 +39,29 @@ class AutoUpdater {
       console.log(error);
     });
 
-    Updater.on('update-downloaded', (e, releaseNotes, releaseName, releaseDate, updateURL) => {
-      console.log('update downloaded');
+    Updater.on('update-downloaded',
+      (e, releaseNotes, releaseName, releaseDate, updateURL) => {
+        console.log('update downloaded');
 
-      let title = 'A new update is ready to install';
-      let message = `Version ${releaseName} is downloaded`;
-      message += ' and will be automatically installed on Quit';
+        let title = _('autoupdater_found_update_title');
+        let message = _('autoupdater_found_update_message', {
+          version:  releaseName
+        });
 
-      Dialog.showMessageBox({
-        type: 'question',
-        title: title,
-        message: message,
-        buttons: ['Yes', 'No'],
-        cancelId: -1
-      }, (response) => {
-        if (response === 0) {
-          Updater.quitAndInstall();
-        }
-      });
+        Dialog.showMessageBox({
+          type: 'question',
+          title: title,
+          message: message,
+          buttons: [
+            _('autoupdater_yes_button_wording'),
+            _('autoupdater_no_button_wording')
+          ],
+          cancelId: -1
+        }, (response) => {
+          if (response === 0) {
+            Updater.quitAndInstall();
+          }
+        });
     });
 
     Updater.setFeedURL(this._getFeedUrl());
