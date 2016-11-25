@@ -66,7 +66,7 @@ class AutoUpdater {
 
   _getFeedUrl() {
     let version = App.getVersion();
-    let url = Constants.DESKTOP_UPDATE_SERVER_URL + '/desktop/update';
+    let url = Constants.API.KAKU_SERVER_URL + '/desktop/update';
 
     if (os.platform() === 'darwin') {
       url += `/osx/${version}`;
