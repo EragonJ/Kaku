@@ -203,6 +203,17 @@ var MenusComponent = React.createClass({
           </li>
           <li role="presentation">
             <a
+              href="#tab-play-queue"
+              role="tab"
+              onClick={function() {
+                TabManager.setTab('play-queue');
+              }}>
+                <i className="icon fa fa-fw fa-lg fa-ellipsis-h"></i>
+                <span className="title"><L10nSpan l10nId="sidebar_play_queue"/></span>
+            </a>
+          </li>
+          <li role="presentation">
+            <a
               href="#tab-history"
               role="tab"
               onClick={function() {

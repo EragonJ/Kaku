@@ -17,7 +17,7 @@ var PlayerControlButtons = React.createClass({
 
   getInitialState: function() {
     return {
-      playerRepeatMode: 'no',
+      playerMode: Player.mode,
       isCasting: false,
       isConnecting: false
     };
@@ -30,9 +30,9 @@ var PlayerControlButtons = React.createClass({
   },
 
   componentDidMount: function() {
-    Player.on('repeatModeUpdated', (mode) => {
+    Player.on('modeUpdated', (mode) => {
       this.setState({
-        playerRepeatMode: mode
+        playerMode: mode
       });
     });
 
@@ -65,8 +65,6 @@ var PlayerControlButtons = React.createClass({
       });
     });
   },
-
-  _repeatModeIndex: 0,
 
   _updatePlayIconState: function(state) {
     var resumeIconDOM = this.refs.resumeIcon;
@@ -136,21 +134,18 @@ var PlayerControlButtons = React.createClass({
 
   _onRepeatButtonClick: function() {
     Player.ready().then((player) => {
-      this._repeatModeIndex =
-        (this._repeatModeIndex + 1) % Player.supportedModes.length;
-      var selectedRepeatMode = Player.supportedModes[this._repeatModeIndex];
-      Player.repeatMode = selectedRepeatMode;
+      Player.changeMode();
     });
   },
 
   render: function() {
-    var playerRepeatMode = this.state.playerRepeatMode;
-    var l10nIdForRepeat = 'player_repeat_' + playerRepeatMode;
+    var playerMode = this.state.playerMode;
+    var l10nIdForRepeat = 'player_repeat_' + playerMode;
     var playerRepeatWording = '';
 
     // TODO
     // add a translation here later
-    switch (playerRepeatMode) {
+    switch (playerMode) {
       case 'no':
         playerRepeatWording = 'x';
         break;

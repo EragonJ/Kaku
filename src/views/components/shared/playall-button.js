@@ -8,7 +8,8 @@ var PlayAllButton = React.createClass({
   },
 
   _clickToPlayAll: function() {
-    Player.playAll(this.props.data);
+    Player.addTracks(this.props.data);
+    Player.playNextTrack();
   },
 
   render: function() {

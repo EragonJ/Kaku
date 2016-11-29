@@ -123,7 +123,7 @@ var TracksComponent = React.createClass({
         <div className="tracks-component">
           {noTracksDiv}
           {tracks.map(function(track, index) {
-            return <Track key={index} data={track} mode={trackMode}/>;
+            return <Track key={index} data={track} mode={trackMode} index={index}/>;
           })}
         </div>
       </div>

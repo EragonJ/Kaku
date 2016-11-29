@@ -1,11 +1,16 @@
-const Remote = require('electron').remote;
+import Electron from 'electron';
+import Notifier from './Notifier';
+import Player from './Player';
+import L10nManager from '../../modules/L10nManager';
+import DownloadManager from '../../modules/DownloadManager';
+
+const Remote = Electron.remote;
 const App = Remote.app;
 const Menu = Remote.Menu;
+const Dialog = Remote.dialog;
 const MenuItem = Remote.MenuItem;
 const BrowserWindow = Remote.BrowserWindow;
 
-import Player from './Player';
-import L10nManager from '../../modules/L10nManager';
 const _ = L10nManager.get.bind(L10nManager);
 
 class AppMenus {
@@ -197,7 +202,28 @@ class AppMenus {
           label: _('app_menu_download_track'),
           accelerator: 'CmdOrCtrl+D',
           click() {
-            Player.downloadCurrentTrack();
+            let track = Player.playingTrack;
+            if (track) {
+              let filename = track.title + '.' + track.ext;
+              let src = track.platformTrackRealUrl;
+
+              Dialog.showSaveDialog({
+                title: 'Where to download your track ?',
+                defaultPath: filename
+              }, (path) => {
+                if (path) {
+                  Notifier.alert('Start to download your track !');
+                  var req = DownloadManager.download(src, path);
+                  req.on('error', () => {
+                    Notifier.alert(
+                      'Sorry, something went wrong, please try again');
+                  }).on('close', () => {
+                    Notifier.alert(
+                      'Download finished ! Go check your track :)');
+                  });
+                }
+              });
+            }
           }
         }
       ]

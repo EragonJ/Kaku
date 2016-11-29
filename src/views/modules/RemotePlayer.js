@@ -20,7 +20,10 @@ class RemotePlayer {
     Firebase.on('setup', (userInfo) => {
       // keep this in internal variable
       this.userInfo = userInfo;
-      Player.changeRole(userInfo.role);
+      if (userInfo.role !== 'dj') {
+        // disable non-dj users' players
+        Player.disable(true);
+      }
 
       this._playedTracksRef = Firebase.joinPlayedTracksRoom();
       this._commandRef = Firebase.joinCommandRoom();
@@ -65,7 +68,7 @@ class RemotePlayer {
         }
         this._playedTracksRef = null;
         this._commandRef = null;
-        Player.changeRole('default');
+        Player.disable(false);
       }
     });
   }

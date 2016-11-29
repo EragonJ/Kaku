@@ -1,131 +1,76 @@
-var Electron = require('electron');
-var Remote = Electron.remote;
-var IpcRenderer = Electron.ipcRenderer;
-var Dialog = Remote.dialog;
-var EventEmitter = require('events').EventEmitter;
-var Notifier = require('./Notifier');
-var videojs = require('video.js');
-
-var PreferenceManager = require('../../modules/PreferenceManager');
-var TrackInfoFetcher = require('kaku-core/modules/TrackInfoFetcher');
-var DownloadManager = require('../../modules/DownloadManager');
-var HistoryManager = require('../../modules/HistoryManager');
-var L10nManager = require('../../modules/L10nManager');
-var AppCore = require('../../modules/AppCore');
-var Searcher = require('../../modules/Searcher');
-var Tracker = require('../../modules/Tracker');
-var Defer = require('kaku-core/modules/Defer');
-var _ = L10nManager.get.bind(L10nManager);
-
+import Electron from 'electron';
+import Notifier from './Notifier';
+import { EventEmitter } from 'events';
+import videojs from 'video.js';
 videojs.options.flash.swf = 'dist/vendor/video.js/dist/video-js.swf';
+
+const Remote = Electron.remote;
+const Dialog = Remote.dialog;
+
+import PreferenceManager from '../../modules/PreferenceManager';
+import TrackInfoFetcher from 'kaku-core/modules/TrackInfoFetcher';
+import HistoryManager from '../../modules/HistoryManager';
+import L10nManager from '../../modules/L10nManager';
+import AppCore from '../../modules/AppCore';
+import Searcher from '../../modules/Searcher';
+import Tracker from '../../modules/Tracker';
+import Defer from 'kaku-core/modules/Defer';
+
+const _ = L10nManager.get.bind(L10nManager);
 
 // This should be a wrapper of Videojs and expose
 // needed events / API out for callee to use
 function Player() {
   EventEmitter.call(this);
 
-  this._playingTrack = null;
-  this._playingTrackTime = 0;
-  this._playerRepeatMode = 'no';
+  this.playingTrack = null;
+  this.playingTrackTime = 0;
+
+  this.trackIndex = -1;
+  this.randomIndex = -1;
+  this.randomIndexes = [];
+  this.tracks = [];
+  this.disabled = false;
+
+  this.modes = ['no', 'one', 'all', 'random'];
+  this.mode = this.modes[0];
+
   this._playerDOM = null;
   this._player = null;
-
-  this._role = 'default';
-  this._supportedModes = ['no', 'one', 'all', 'random'];
-
-  // TODO
-  // If users click on track, we have to update this index ?
-  this._pendingTrackIndex = 0;
-  this._pendingTracks = [];
-
-  this._pendingDefers = [];
-  this._bindShortcuts();
-  this._bindTray();
+  this._pendingReadyDefers = [];
 }
 
 Player.prototype = Object.create(EventEmitter.prototype);
 Player.constructor = Player;
+Player.cache = {};
 
 // Because we share on() for customized & vjs's event,
 // we need to bind to the right place when using it.
 Player.CUSTOMIZED_EVENTS = [
-  'repeatModeUpdated'
+  'modeUpdated',
+  'tracksUpdated'
 ];
 
-Object.defineProperty(Player.prototype, 'repeatMode', {
-  enumerable: true,
-  configurable: true,
-  get: function() {
-    return this._playerRepeatMode;
-  },
-  set: function(mode) {
-    if (this.isRoleGuest()) {
-      return;
-    }
-
-    if (this._supportedModes.indexOf(mode) >= 0) {
-      this._playerRepeatMode = mode;
-      this.emit('repeatModeUpdated', mode);
+Player.prototype.changeMode = function(mode) {
+  // like Player.changeMode('no')
+  if (typeof mode === 'string') {
+    let index = this.modes.indexOf(mode);
+    if (index >= 0) {
+      this.mode = mode;
+      this.emit('modeUpdated', this.mode);
     }
   }
-});
+  // like Player.changeMode() - jump to next one
+  else {
+    let maxLength = this.modes.length;
 
-Object.defineProperty(Player.prototype, 'playingTrack', {
-  enumerable: true,
-  configurable: false,
-  get: function() {
-    return this._playingTrack;
+    let index = this.modes.indexOf(this.mode);
+    index = (index + 1) % maxLength;
+    let newIndex = Math.max(0, Math.min(index, maxLength - 1));
+
+    this.mode = this.modes[newIndex];
+    this.emit('modeUpdated', this.mode);
   }
-});
-
-Object.defineProperty(Player.prototype, 'playingTrackTime', {
-  enumerable: true,
-  configurable: false,
-  get: function() {
-    return this._playingTrackTime;
-  }
-});
-
-Object.defineProperty(Player.prototype, 'supportedModes', {
-  enumerable: true,
-  configurable: false,
-  get: function() {
-    return this._supportedModes;
-  }
-});
-
-Player.prototype._bindShortcuts = function() {
-  IpcRenderer.on('key-MediaNextTrack', () => {
-    this.playNextTrack();
-  });
-
-  IpcRenderer.on('key-MediaPreviousTrack', () => {
-    this.playPreviousTrack();
-  });
-
-  IpcRenderer.on('key-MediaPlayPause', () => {
-    this.playOrPause();
-  });
-
-  IpcRenderer.on('key-Escape', () => {
-    if (this._player.isFullscreen()) {
-      this._player.exitFullscreen();
-    }
-  });
-};
-
-Player.prototype._bindTray = function () {
-  IpcRenderer.on('tray-MediaPreviousTrack', () => {
-    this.playPreviousTrack();
-  });
-
-  IpcRenderer.on('tray-MediaNextTrack', () => {
-    this.playNextTrack();
-  });
-
-  IpcRenderer.on('tray-MediaPlayPause', () => {
-    this.playOrPause();
-  });
 };
 
 Player.prototype._getDefaultVideoJSConfig = function() {
@@ -150,7 +95,7 @@ Player.prototype._addPlayerEvents = function() {
 
   this._player.on('timeupdate', () => {
     let time = this._player.currentTime();
-    this._playingTrackTime = time || 0;
+    this.playingTrackTime = time || 0;
   });
 
   this._player.on('ended', () => {
@@ -175,7 +120,7 @@ Player.prototype._toggleSpinner = function(show) {
   // Because _player.loadingSpinner.show() doesn't work in this case,
   // we have to forcely toggle vjs-waiting class to make the loading
   // spinner work.
-  var elem = this._player.el();
+  let elem = this._player.el();
   if (show) {
     elem.classList.add('vjs-waiting');
   }
@@ -184,11 +129,12 @@ Player.prototype._toggleSpinner = function(show) {
   }
 };
 
-Player.prototype._executePendingDefers = function() {
-  this._pendingDefers.forEach((defer) => {
-    defer.resolve(this._player);
+Player.prototype.exitFullscreen = function() {
+  this.ready().then(() => {
+    if (this._player.isFullscreen()) {
+      this._player.exitFullscreen();
+    }
   });
-  this._pendingDefers = [];
 };
 
 Player.prototype.setPlayer = function(playerDOM) {
@@ -205,15 +151,15 @@ Player.prototype.ready = function() {
     return Promise.resolve(this._player);
   }
   else {
-    var self = this;
-    var promise = new Promise((resolve) => {
+    let self = this;
+    let promise = new Promise((resolve) => {
       videojs(
         this._playerDOM,
         this._getDefaultVideoJSConfig()
       ).ready(function() {
         self._player = this;
         self._addPlayerEvents();
-        self._executePendingDefers();
+        self._executePendingReadyDefers();
 
         // return real videojs-ed player out
         resolve(self._player);
@@ -223,88 +169,104 @@ Player.prototype.ready = function() {
   }
 };
 
-Player.prototype.playAll = function(tracks) {
-  if (this.isRoleGuest()) {
+Player.prototype.addTracks = function(tracks) {
+  if (this.disabled) {
     return;
   }
 
-  // TODO
-  // we need to support that we can change the mode when playing later
-  // (same with playing previous tracks)
-  if (this._playerRepeatMode === 'random') {
-    this._pendingTracks = this.getRandomizedTracks(tracks);
-  }
-  else {
-    this._pendingTracks = tracks;
-  }
+  this.tracks = tracks;
+  this.trackIndex = -1;
+  this.randomIndex = -1;
+  this.randomIndexes = this.makeRandomIndexes(this.tracks.length);
 
-  this._pendingTrackIndex = -1;
-
-  // then play the first one !
-  this.playNextTrack();
+  this.emit('tracksUpdated', this.tracks);
 };
 
-Player.prototype.playPreviousTrack = function() {
-  if (this.isRoleGuest()) {
+Player.prototype.playNextTrack = function(forceIndex) {
+  if (this.disabled) {
     return;
   }
 
-  if (this._pendingTrackIndex <= 0) {
-    this._pendingTrackIndex = 0;
-  }
-  else {
-    this._pendingTrackIndex -= 1;
-  }
-  this.play(this._pendingTracks[this._pendingTrackIndex]);
-};
-
-Player.prototype.playNextTrack = function() {
-  if (this.isRoleGuest()) {
+  if (forceIndex) {
+    this.trackIndex = Math.max(0, Math.min(forceIndex, this.tracks.length -1));
+    this.play(this.tracks[this.trackIndex]);
     return;
   }
 
-  // By default, when hit end in this mode, we will stop the player.
-  if (this._playerRepeatMode === 'no' || this._playerRepeatMode === 'random') {
-    if (this._pendingTrackIndex > this._pendingTracks.length - 1) {
-      this._pendingTracks = [];
+  if (this.mode === 'no') {
+    this.trackIndex += 1;
+
+    if (this.trackIndex >= this.tracks.length) {
       this.stop();
     }
     else {
-      this._pendingTrackIndex += 1;
-      this.play(this._pendingTracks[this._pendingTrackIndex]);
+      this.trackIndex = Math.min(this.trackIndex, this.tracks.length - 1);
+      this.play(this.tracks[this.trackIndex]);
     }
   }
-  // Users want to keep listening the same track, so let's keep playing.
-  else if (this._playerRepeatMode === 'one') {
-    // No need to update the index
-    this.play(this._pendingTracks[this._pendingTrackIndex]);
-  }
-  // Loop all tracks
-  else if (this._playerRepeatMode === 'all') {
-    this._pendingTrackIndex += 1;
-    if (this._pendingTrackIndex > this._pendingTracks.length - 1) {
-      this._pendingTrackIndex = 0;
-    }
+  else if (this.mode === 'random') {
+    this.randomIndex += 1;
 
-    this.play(this._pendingTracks[this._pendingTrackIndex]);
+    if (this.randomIndex >= this.tracks.length) {
+      this.stop();
+    }
+    else {
+      this.randomIndex = Math.min(this.randomIndex, this.tracks.length - 1);
+      this.trackIndex = this.randomIndexes[this.randomIndex];
+      this.play(this.tracks[this.trackIndex]);
+    }
+  }
+  else if (this.mode === 'one') {
+    this.trackIndex = Math.max(0, this.trackIndex);
+    this.play(this.tracks[this.trackIndex]);
+  }
+  else if (this.mode === 'all') {
+    this.trackIndex = (this.trackIndex + 1) % this.tracks.length;
+    this.play(this.tracks[this.trackIndex]);
   }
 };
 
 Player.prototype.playPreviousTrack = function() {
-  if (this._pendingTrackIndex <= 0) {
-    // if we keep pressing play previous button,
-    // we will keep playing the first one
-    this._pendingTrackIndex = 0;
+  if (this.disabled) {
+    return;
   }
-  else {
-    this._pendingTrackIndex -= 1;
+
+  if (this.mode === 'no' || this.mode === 'random') {
+    this.trackIndex -= 1;
+
+    if (this.trackIndex < 0) {
+      this.stop();
+    }
+    else {
+      this.trackIndex = Math.max(this.trackIndex, 0);
+      this.play(this.tracks[this.trackIndex]);
+    }
   }
-  this.play(this._pendingTracks[this._pendingTrackIndex]);
+  else if (this.mode === 'random') {
+    this.randomIndex -= 1;
+
+    if (this.randomIndex < 0) {
+      this.stop();
+    }
+    else {
+      this.randomIndex = Math.max(this.randomIndex, 0);
+      this.trackIndex = this.randomIndexes[this.randomIndex];
+      this.play(this.tracks[this.trackIndex]);
+    }
+  }
+  else if (this.mode === 'one') {
+    this.trackIndex = Math.max(this.trackIndex, 0);
+    this.play(this.tracks[this.trackIndex]);
+  }
+  else if (this.mode === 'all') {
+    this.trackIndex = Math.max(0, this.trackIndex - 1);
+    this.play(this.tracks[this.trackIndex]);
+  }
 };
 
 Player.prototype.on = function() {
-  var args = arguments;
-  var eventName = args[0];
+  let args = arguments;
+  let eventName = args[0];
 
   if (Player.CUSTOMIZED_EVENTS.indexOf(eventName) !== -1) {
     this.constructor.prototype.on.apply(this, args);
@@ -317,8 +279,8 @@ Player.prototype.on = function() {
 };
 
 Player.prototype.off = function() {
-  var args = arguments;
-  var eventName = args[0];
+  let args = arguments;
+  let eventName = args[0];
 
   if (Player.CUSTOMIZED_EVENTS.indexOf(eventName) !== -1) {
     this.constructor.prototype.removeEventListener.apply(this, args);
@@ -331,14 +293,16 @@ Player.prototype.off = function() {
 };
 
 Player.prototype._prepareTrackData = function(rawTrack) {
-  if (rawTrack.platformTrackUrl) {
-    return Promise.resolve(rawTrack);
+  let id = rawTrack.platformId;
+
+  if (Player.cache[id]) {
+    return Promise.resolve(Player.cache[id]);
   }
   else {
-    var promise = new Promise((resolve) => {
-      var keyword = rawTrack.artist + ' - ' + rawTrack.title;
+    let promise = new Promise((resolve) => {
+      let keyword = rawTrack.artist + ' - ' + rawTrack.title;
       Searcher.search(keyword, 1).then(function(tracks) {
-        var trackInfo;
+        let trackInfo;
         // NOTE
         // We may not find any track when searching.
         if (tracks.length > 0) {
@@ -358,24 +322,27 @@ Player.prototype._prepareTrackData = function(rawTrack) {
 };
 
 Player.prototype._getRealTrack = function(track) {
-  if (track.platformTrackRealUrl) {
-    return Promise.resolve(track);
+  let id = track.platformId;
+
+  if (Player.cache[id]) {
+    return Promise.resolve(Player.cache[id]);
   }
   else {
-    var trackUrl = track.platformTrackUrl;
+    let trackUrl = track.platformTrackUrl;
     return TrackInfoFetcher.getInfo(trackUrl).then((fetchedInfo) => {
       track.platformTrackRealUrl= fetchedInfo.url;
       track.ext = fetchedInfo.ext;
+      Player.cache[id] = track;
       return Promise.resolve(track);
     });
   }
 };
 
 Player.prototype._updateAppHeader = function(state) {
-  if (state === 'play' && this._playingTrack && this._playingTrack.title) {
-    var maxLength = 40;
-    var translatedTitle = _('app_title_playing', {
-      name: this._playingTrack.title
+  if (state === 'play' && this.playingTrack && this.playingTrack.title) {
+    let maxLength = 40;
+    let translatedTitle = _('app_title_playing', {
+      name: this.playingTrack.title
     });
     if (translatedTitle.length > maxLength) {
       translatedTitle = translatedTitle.substr(0, maxLength) + ' ...';
@@ -387,11 +354,17 @@ Player.prototype._updateAppHeader = function(state) {
   }
 };
 
+Player.prototype._executePendingReadyDefers = function() {
+  this._pendingReadyDefers.forEach((defer) => {
+    defer.resolve(this._player);
+  });
+};
+
 Player.prototype.setVolume = function(operation) {
   // Videojs will check volume's max / min by itself,
   // so we don't have to do extra check
   this.ready().then(() => {
-    var currentVolume = this._player.volume();
+    let currentVolume = this._player.volume();
     switch (operation) {
       case 'default':
         this._player.volume(0.5);
@@ -420,19 +393,21 @@ Player.prototype.setVolume = function(operation) {
   });
 };
 
-Player.prototype.stop = function(fromDJ) {
-  if (this.isRoleGuest() && !fromDJ) {
+Player.prototype.stop = function(force) {
+  if (this.disabled && !force) {
     return;
   }
 
   this.ready().then(() => {
+    this.trackIndex = -1;
+    this.randomIndex = -1;
     this._player.pause();
     this._player.currentTime(0);
   });
 };
 
-Player.prototype.playOrPause = function(fromDJ) {
-  if (this.isRoleGuest() && !fromDJ) {
+Player.prototype.playOrPause = function(force) {
+  if (this.disabled && !force) {
     return;
   }
 
@@ -446,8 +421,8 @@ Player.prototype.playOrPause = function(fromDJ) {
   });
 };
 
-Player.prototype.pause = function(fromDJ) {
-  if (this.isRoleGuest() && !fromDJ) {
+Player.prototype.pause = function(force) {
+  if (this.disabled && !force) {
     return;
   }
 
@@ -456,14 +431,14 @@ Player.prototype.pause = function(fromDJ) {
   });
 };
 
-Player.prototype.play = function(rawTrack, time, fromDJ) {
+Player.prototype.play = function(rawTrack, time, force) {
   // This may be coming from Online DJ
   let currentTime = time || 0;
 
   // If the role is guest and the "play" request is not coming from DJ,
   // then it means the user is trying to control the player by himself and
   // this should be forbidden.
-  if (this.isRoleGuest() && !fromDJ) {
+  if (this.disabled && !force) {
     return;
   }
 
@@ -472,7 +447,7 @@ Player.prototype.play = function(rawTrack, time, fromDJ) {
     // when this.play() is called, we will directly play the same track
     // instead of fetching from remote again.
     if (!rawTrack) {
-      if (this._player.paused() && this._playingTrack) {
+      if (this._player.paused() && this.playingTrack) {
         this._player.play();
       }
     }
@@ -486,7 +461,7 @@ Player.prototype.play = function(rawTrack, time, fromDJ) {
             Tracker.event('Player', 'play',
               realTrack.platformTrackUrl).send();
 
-            this._playingTrack = realTrack;
+            this.playingTrack = realTrack;
             this._player.src(realTrack.platformTrackRealUrl);
             this._player.currentTime(currentTime);
             this._player.play();
@@ -514,39 +489,16 @@ Player.prototype.play = function(rawTrack, time, fromDJ) {
   });
 };
 
-Player.prototype.downloadCurrentTrack = function() {
-  this.ready().then((player) => {
-    var src = player.src();
-    if (!src) {
-      return;
-    }
-
-    // All needed info will be stored here
-    var playingTrack = this.playingTrack;
-    var filename = playingTrack.title + '.' + playingTrack.ext;
-
-    Dialog.showSaveDialog({
-      title: 'Where to download your track ?',
-      defaultPath: filename
-    }, (path) => {
-      if (path) {
-        Notifier.alert('Start to download your track !');
-        var req = DownloadManager.download(src, path);
-        req.on('error', () => {
-          Notifier.alert('Sorry, something went wrong, please try again');
-        }).on('close', () => {
-          Notifier.alert('Download finished ! Go check your track :)');
-        });
-      }
-    });
-  });
-};
-
-Player.prototype.getRandomizedTracks = function(array) {
+Player.prototype.makeRandomIndexes = function(length) {
   // Fisher-Yates (aka Knuth) Shuffle
   let temp;
   let randomIndex;
-  let currentIndex = array.length;
+  let currentIndex = length;
+
+  // length = 5 -> array = [0, 1, 2, 3, 4]
+  let array = Array.from({
+    length: length
+  }, (v, k) => k);
 
   while (currentIndex !== 0) {
     randomIndex = Math.floor(Math.random() * currentIndex);
@@ -560,32 +512,8 @@ Player.prototype.getRandomizedTracks = function(array) {
   return array;
 };
 
-Player.prototype.changeRole = function(role) {
-  if (role === 'guest') {
-    this._role = 'guest';
-  }
-  else if (role === 'dj') {
-    this._role = 'dj';
-  }
-  else {
-    this._role = 'default';
-  }
-};
-
-Player.prototype.isRoleDJ = function() {
-  return this.getRole() === 'dj';
-};
-
-Player.prototype.isRoleGuest = function() {
-  return this.getRole() === 'guest';
-};
-
-Player.prototype.isRoleDefault = function() {
-  return this.getRole() === 'default';
-};
-
-Player.prototype.getRole = function() {
-  return this._role;
+Player.prototype.disable = function(val) {
+  this.disabled = !!val;
 };
 
 module.exports = new Player();

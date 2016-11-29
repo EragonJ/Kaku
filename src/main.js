@@ -1,6 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Electron = require('electron');
+var IpcRenderer = Electron.ipcRenderer;
 var Shell = Electron.shell;
 var Remote = Electron.remote;
 var Dialog = Remote.dialog;
@@ -28,6 +29,7 @@ var AllTracksComponent = require('./views/components/alltracks');
 var PlayerComponent = require('./views/components/player');
 var MenusComponent = require('./views/components/menus');
 var HistoryComponent = require('./views/components/history');
+var PlayQueueComponent = require('./views/components/play-queue');
 var PlaylistComponent = require('./views/components/playlist');
 var SettingsComponent = require('./views/components/settings');
 var OnlineDJComponent = require('./views/components/online-dj');
@@ -69,6 +71,10 @@ var KakuApp = React.createClass({
 
   componentDidMount: function() {
     this._triggerAutoUpdater();
+
+    this._bindShortcutEvents();
+    this._bindTrayEvents();
+
     this._initializeAppTitle();
     this._initializeDefaultAlwaysOnTop();
     this._initializeDefaultLanguage();
@@ -83,6 +89,38 @@ var KakuApp = React.createClass({
 
     // Say hi :)
     Tracker.pageview('/').send();
+  },
+
+  _bindShortcutEvents: function() {
+    IpcRenderer.on('key-MediaNextTrack', () => {
+      Player.playNextTrack();
+    });
+
+    IpcRenderer.on('key-MediaPreviousTrack', () => {
+      Player.playPreviousTrack();
+    });
+
+    IpcRenderer.on('key-MediaPlayPause', () => {
+      Player.playOrPause();
+    });
+
+    IpcRenderer.on('key-Escape', () => {
+      Player.exitFullscreen();
+    });
+  },
+
+  _bindTrayEvents: function() {
+    IpcRenderer.on('tray-MediaPreviousTrack', () => {
+      Player.playPreviousTrack();
+    });
+
+    IpcRenderer.on('tray-MediaNextTrack', () => {
+      Player.playNextTrack();
+    });
+
+    IpcRenderer.on('tray-MediaPlayPause', () => {
+      Player.playOrPause();
+    });
   },
 
   _initializeDefaultTopRanking: function() {
@@ -146,7 +184,6 @@ var KakuApp = React.createClass({
   },
 
   _hideLoadingPage: function() {
-    // for better UX
     loadingPageDOM.hidden = true;
   },
 
@@ -213,6 +250,12 @@ var KakuApp = React.createClass({
                 className="tab-pane"
                 id="tab-history">
                   <HistoryComponent/>
+              </div>
+              <div
+                role="tabpanel"
+                className="tab-pane"
+                id="tab-play-queue">
+                  <PlayQueueComponent/>
               </div>
               <div
                 role="tabpanel"

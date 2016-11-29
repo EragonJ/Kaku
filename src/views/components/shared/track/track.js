@@ -12,17 +12,20 @@ let Player = require('../../../modules/Player');
 
 let TrackList = require('./track-list');
 let TrackSquare = require('./track-square');
+let TabManager = require('../../../modules/TabManager');
 
 let Track = React.createClass({
   propTypes: {
     data: React.PropTypes.object.isRequired,
-    mode: React.PropTypes.string
+    mode: React.PropTypes.string,
+    index: React.PropTypes.number
   },
 
   getDefaultProps: function() {
     return {
       data: {},
-      mode: 'square'
+      mode: 'square',
+      index: -1
     };
   },
 
@@ -47,7 +50,14 @@ let Track = React.createClass({
   },
 
   _clickToPlay: function(track) {
-    Player.play(track);
+    if (TabManager.tabName === 'play-queue') {
+      let index = this.props.index;
+      Player.playNextTrack(index);
+    }
+    else {
+      Player.addTracks([track]);
+      Player.playNextTrack();
+    }
   },
 
   _clickToShowContextMenu: function(track, event) {
