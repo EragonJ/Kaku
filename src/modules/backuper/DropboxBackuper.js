@@ -76,7 +76,7 @@ class DropboxBackuper {
         title: 'Kaku',
         'node-integration': false
       });
-      authWindow.loadUrl(url);
+      authWindow.loadURL(url);
       authWindow.show();
       authWindow.on('close', () => {
         authWindow = null;
