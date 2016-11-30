@@ -74,6 +74,7 @@ var KakuApp = React.createClass({
 
     this._bindShortcutEvents();
     this._bindTrayEvents();
+    this._bindPlayerEvents();
 
     this._initializeAppTitle();
     this._initializeDefaultAlwaysOnTop();
@@ -120,6 +121,27 @@ var KakuApp = React.createClass({
 
     IpcRenderer.on('tray-MediaPlayPause', () => {
       Player.playOrPause();
+    });
+  },
+
+  _bindPlayerEvents: function() {
+    Player.on('play', () => {
+      let playingTrack = Player.playingTrack;
+      if (playingTrack) {
+        let title = playingTrack.title;
+        let maxLength = 40;
+        let translatedTitle = _('app_title_playing', {
+          name: title
+        });
+        if (translatedTitle.length > maxLength) {
+          translatedTitle = translatedTitle.substr(0, maxLength) + ' ...';
+        }
+        AppCore.title = translatedTitle;
+      }
+    });
+
+    Player.on('ended', () => {
+      AppCore.title = _('app_title_normal');
     });
   },
 

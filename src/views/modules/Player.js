@@ -89,17 +89,12 @@ Player.prototype._getDefaultVideoJSConfig = function() {
 };
 
 Player.prototype._addPlayerEvents = function() {
-  this._player.on('play', () => {
-    this._updateAppHeader('play');
-  });
-
   this._player.on('timeupdate', () => {
     let time = this._player.currentTime();
     this.playingTrackTime = time || 0;
   });
 
   this._player.on('ended', () => {
-    this._updateAppHeader('ended');
     this.playNextTrack();
   });
 
@@ -335,22 +330,6 @@ Player.prototype._getRealTrack = function(track) {
       Player.cache[id] = track;
       return Promise.resolve(track);
     });
-  }
-};
-
-Player.prototype._updateAppHeader = function(state) {
-  if (state === 'play' && this.playingTrack && this.playingTrack.title) {
-    let maxLength = 40;
-    let translatedTitle = _('app_title_playing', {
-      name: this.playingTrack.title
-    });
-    if (translatedTitle.length > maxLength) {
-      translatedTitle = translatedTitle.substr(0, maxLength) + ' ...';
-    }
-    AppCore.title = translatedTitle;
-  }
-  else if (state === 'ended') {
-    AppCore.title = _('app_title_normal');
   }
 };
 
