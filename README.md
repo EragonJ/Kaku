@@ -70,6 +70,7 @@ Please check our [wiki](https://github.com/EragonJ/Kaku/wiki) here for more info
 + Nederlands (België)
 + ‏العربية‏
 + Slovenščina
++ فارسی
 + ... keep adding :)
 
 # Author
