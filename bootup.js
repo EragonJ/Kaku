@@ -1,6 +1,10 @@
 const path = require('path');
 const ShortcutManager = require('electron-localshortcut');
-const { app, BrowserWindow } = require('electron');
+const {
+  app,
+  BrowserWindow,
+  globalShortcut
+} = require('electron');
 
 const iconsFolder = path.join(__dirname, 'src', 'public', 'images', 'icons');
 const kakuIcon = path.join(iconsFolder, 'kaku.png');
@@ -62,16 +66,25 @@ class Bootup {
   }
 
   _bindShortcuts() {
-    const shortcuts = [
-      'MediaNextTrack',
-      'MediaPreviousTrack',
-      'MediaPlayPause',
+    const localKeys = [
       'Escape'
     ];
 
-    shortcuts.forEach(shortcut => {
-      ShortcutManager.register(shortcut, () => {
-        this._emitShortcutEvent(mainWindow, isWindowLoaded, shortcut);
+    const globalKeys = [
+      'MediaNextTrack',
+      'MediaPreviousTrack',
+      'MediaPlayPause'
+    ];
+
+    globalKeys.forEach(key => {
+      globalShortcut.register(key, () => {
+        this._emitShortcutEvent(mainWindow, isWindowLoaded, key);
+      });
+    });
+
+    localKeys.forEach(key => {
+      ShortcutManager.register(key, () => {
+        this._emitShortcutEvent(mainWindow, isWindowLoaded, key);
       });
     });
   }
