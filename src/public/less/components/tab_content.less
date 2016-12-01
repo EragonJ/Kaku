@@ -5,15 +5,14 @@
 
   .header {
     position: relative;
+    display: flex;
     border-bottom: 1px solid #cccccc;
     padding-bottom: 10px;
     margin-bottom: 10px;
   }
 
   h1 {
-    float: left;
     margin: 0;
-    width: calc(~"100% - 210px");
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -25,7 +24,7 @@
   }
 
   .control-buttons {
-    float: right;
+    margin-left: auto;
 
     i {
       pointer-events: none;
@@ -53,9 +52,5 @@
   .tab-pane {
     padding: 10px;
     overflow-x: hidden;
-  }
-
-  #tab-history h1 {
-    width: calc(~"100% - 310px");
   }
 }

@@ -1,14 +1,25 @@
 var React = require('react');
 var Player = require('../../modules/Player');
 var L10nSpan = require('./l10n-span');
+var TabManager = require('../../modules/TabManager');
 
 var PlayAllButton = React.createClass({
   propTypes: {
     data: React.PropTypes.array.isRequired
   },
 
+  getDefaultProps: function() {
+    return {
+      data: []
+    };
+  },
+
   _clickToPlayAll: function() {
-    Player.addTracks(this.props.data);
+    // TODO
+    // extract out play all logics
+    if (TabManager.tabName !== 'play-queue') {
+      Player.addTracks(this.props.data);
+    }
     Player.playNextTrack();
   },
 

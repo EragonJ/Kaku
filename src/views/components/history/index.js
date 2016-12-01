@@ -35,7 +35,8 @@ var HistoryComponent = React.createClass({
     let controls = {
       trackModeButton: true,
       playAllButton: true,
-      deleteAllButton: true
+      deleteAllButton: true,
+      addToPlayQueueButton: false
     };
 
     return (

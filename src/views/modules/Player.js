@@ -169,11 +169,16 @@ Player.prototype.addTracks = function(tracks) {
     return;
   }
 
-  this.tracks = tracks;
+  this.tracks = [].concat(this.tracks, tracks);
   this.trackIndex = -1;
   this.randomIndex = -1;
   this.randomIndexes = this.makeRandomIndexes(this.tracks.length);
 
+  this.emit('tracksUpdated', this.tracks);
+};
+
+Player.prototype.cleanupTracks = function() {
+  this.tracks = [];
   this.emit('tracksUpdated', this.tracks);
 };
 

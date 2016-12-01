@@ -6,6 +6,7 @@ import L10nSpan from './l10n-span';
 import ActionButton from './action-button';
 import TrackModeButton from './track-mode-button';
 import PlayAllButton from './playall-button';
+import AddToPlayQueueButton from './add-to-play-queue-button';
 
 var TracksComponent = React.createClass({
   propTypes: {
@@ -25,6 +26,7 @@ var TracksComponent = React.createClass({
       controls: {
         trackModeButton: true,
         playAllButton: true,
+        addToPlayQueueButton: true,
         deleteAllButton: false
       },
       onDeleteAllClick: function() {},
@@ -102,6 +104,11 @@ var TracksComponent = React.createClass({
       playAllButton = <PlayAllButton data={tracks}/>
     }
 
+    let addToPlayQueueButton;
+    if (controls.addToPlayQueueButton) {
+      addToPlayQueueButton = <AddToPlayQueueButton data={tracks}/>
+    }
+
     let noTracksDiv;
     if (noTracks) {
       noTracksDiv = <NoTrack/>;
@@ -116,6 +123,7 @@ var TracksComponent = React.createClass({
           </h1>
           <div className="control-buttons">
             {trackModeButton}
+            {addToPlayQueueButton}
             {deleteAllButton}
             {playAllButton}
           </div>

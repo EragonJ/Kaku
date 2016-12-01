@@ -9,6 +9,12 @@ class PlayQueueComponent extends Component {
     this.state = {
       tracks: []
     };
+
+    this._clickToDeleteAll.bind(this);
+  }
+
+  _clickToDeleteAll() {
+    Player.cleanupTracks();
   }
 
   componentWillMount() {
@@ -31,7 +37,9 @@ class PlayQueueComponent extends Component {
     let tracks = this.state.tracks;
     let controls = {
       trackModeButton: true,
-      playAllButton: true
+      playAllButton: true,
+      deleteAllButton: true,
+      addToPlayQueueButton: false
     };
 
     return (
@@ -40,6 +48,7 @@ class PlayQueueComponent extends Component {
         headerIconClass="fa fa-fw fa-ellipsis-h"
         controls={controls}
         tracks={tracks}
+        onDeleteAllClick={this._clickToDeleteAll}
       />
     );
   }

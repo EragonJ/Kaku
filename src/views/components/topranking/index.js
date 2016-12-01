@@ -32,7 +32,8 @@ class TopRankingComponent extends Component {
     let controls = {
       trackModeButton: true,
       playAllButton: true,
-      deleteAllButton: false
+      deleteAllButton: false,
+      addToPlayQueueButton: true
     };
 
     /* jshint ignore:start */
