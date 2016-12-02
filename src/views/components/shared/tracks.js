@@ -5,7 +5,6 @@ import NoTrack from './track/no-track';
 import L10nSpan from './l10n-span';
 import ActionButton from './action-button';
 import TrackModeButton from './track-mode-button';
-import PlayAllButton from './playall-button';
 import AddToPlayQueueButton from './add-to-play-queue-button';
 
 var TracksComponent = React.createClass({
@@ -16,6 +15,7 @@ var TracksComponent = React.createClass({
     controls: React.PropTypes.object,
     tracks: React.PropTypes.array.isRequired,
     onDeleteAllClick: React.PropTypes.func,
+    onPlayAllClick: React.PropTypes.func
   },
 
   getDefaultProps: function() {
@@ -30,6 +30,7 @@ var TracksComponent = React.createClass({
         deleteAllButton: false
       },
       onDeleteAllClick: function() {},
+      onPlayAllClick: function() {},
       tracks: []
     };
   },
@@ -62,7 +63,8 @@ var TracksComponent = React.createClass({
       headerWording,
       headerIconClass,
       controls,
-      onDeleteAllClick
+      onDeleteAllClick,
+      onPlayAllClick
     } = this.props;
 
     let trackMode = this.state.trackMode;
@@ -79,8 +81,6 @@ var TracksComponent = React.createClass({
       headerSpan = <span>{headerWording}</span>;
     }
 
-    // TODO
-    // add deleteAllButton later
     let deleteAllButton;
     if (controls.deleteAllButton) {
       deleteAllButton =
@@ -101,12 +101,19 @@ var TracksComponent = React.createClass({
 
     let playAllButton;
     if (controls.playAllButton) {
-      playAllButton = <PlayAllButton data={tracks}/>
+      playAllButton =
+        <ActionButton
+          l10nId='component_play_all'
+          buttonClass='btn btn-default playall-button'
+          iconClass='fa fa-fw fa-play-circle'
+          isDisabled={noTracks}
+          onClick={onPlayAllClick} />
     }
 
     let addToPlayQueueButton;
     if (controls.addToPlayQueueButton) {
-      addToPlayQueueButton = <AddToPlayQueueButton data={tracks}/>
+      addToPlayQueueButton =
+        <AddToPlayQueueButton data={tracks}/>
     }
 
     let noTracksDiv;

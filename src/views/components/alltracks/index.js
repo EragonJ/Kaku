@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import ReactTooltip from 'react-tooltip';
 import Searcher from '../../../modules/Searcher';
 import TracksComponent from '../shared/tracks';
+import Player from '../../modules/Player';
 
 class AllTracksComponent extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       tracks: []
@@ -24,6 +25,13 @@ class AllTracksComponent extends Component {
     ReactTooltip.rebuild();
   }
 
+  _clickToPlayAll() {
+    let noUpdate = true;
+    Player.cleanupTracks(noUpdate);
+    Player.addTracks(this.state.tracks);
+    Player.playNextTrack(0);
+  }
+
   render() {
     let tracks = this.state.tracks;
     let controls = {
@@ -39,6 +47,7 @@ class AllTracksComponent extends Component {
         headerIconClass="fa fa-fw fa-search"
         controls={controls}
         tracks={tracks}
+        onPlayAllClick={this._clickToPlayAll.bind(this)}
       />
     );
   }

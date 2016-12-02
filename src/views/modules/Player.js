@@ -164,22 +164,29 @@ Player.prototype.ready = function() {
   }
 };
 
-Player.prototype.addTracks = function(tracks) {
+Player.prototype.addTracks = function(tracks, noUpdate) {
   if (this.disabled) {
     return;
   }
 
   this.tracks = [].concat(this.tracks, tracks);
-  this.trackIndex = -1;
-  this.randomIndex = -1;
   this.randomIndexes = this.makeRandomIndexes(this.tracks.length);
 
-  this.emit('tracksUpdated', this.tracks);
+  if (!noUpdate) {
+    this.emit('tracksUpdated', this.tracks);
+  }
 };
 
-Player.prototype.cleanupTracks = function() {
+Player.prototype.cleanupTracks = function(noUpdate) {
+  if (this.disabled) {
+    return;
+  }
+
   this.tracks = [];
-  this.emit('tracksUpdated', this.tracks);
+
+  if (!noUpdate) {
+    this.emit('tracksUpdated', this.tracks);
+  }
 };
 
 Player.prototype.playNextTrack = function(forceIndex) {
@@ -187,8 +194,11 @@ Player.prototype.playNextTrack = function(forceIndex) {
     return;
   }
 
-  if (forceIndex) {
+  if (typeof forceIndex !== 'undefined') {
     this.trackIndex = Math.max(0, Math.min(forceIndex, this.tracks.length -1));
+    // TODO
+    // double check this randomIndex later
+    this.randomIndex = this.trackIndex;
     this.play(this.tracks[this.trackIndex]);
     return;
   }

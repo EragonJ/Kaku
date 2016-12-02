@@ -3,26 +3,12 @@ import Player from '../../modules/Player';
 import TracksComponent from '../shared/tracks';
 
 class PlayQueueComponent extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       tracks: []
     };
-
-    this._clickToDeleteAll.bind(this);
-  }
-
-  _clickToDeleteAll() {
-    Player.cleanupTracks();
-  }
-
-  componentWillMount() {
-    Player.ready().then(() => {
-      this.setState({
-        tracks: Player.tracks
-      });
-    });
   }
 
   componentDidMount() {
@@ -31,6 +17,14 @@ class PlayQueueComponent extends Component {
         tracks: tracks
       });
     });
+  }
+
+  _clickToDeleteAll() {
+    Player.cleanupTracks();
+  }
+
+  _clickToPlayAll() {
+    Player.playNextTrack(0);
   }
 
   render() {
@@ -48,7 +42,8 @@ class PlayQueueComponent extends Component {
         headerIconClass="fa fa-fw fa-ellipsis-h"
         controls={controls}
         tracks={tracks}
-        onDeleteAllClick={this._clickToDeleteAll}
+        onPlayAllClick={this._clickToPlayAll.bind(this)}
+        onDeleteAllClick={this._clickToDeleteAll.bind(this)}
       />
     );
   }

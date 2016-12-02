@@ -55,8 +55,10 @@ let Track = React.createClass({
       Player.playNextTrack(index);
     }
     else {
+      let noUpdate = true;
+      Player.cleanupTracks(noUpdate);
       Player.addTracks([track]);
-      Player.playNextTrack();
+      Player.playNextTrack(0);
     }
   },
 

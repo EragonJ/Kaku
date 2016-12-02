@@ -1,6 +1,7 @@
-var React = require('react');
-var HistoryManager = require('../../../modules/HistoryManager');
-var TracksComponent = require('../shared/tracks');
+import React from 'react';
+import Player from '../../modules/Player';
+import HistoryManager from '../../../modules/HistoryManager';
+import TracksComponent from '../shared/tracks';
 
 var HistoryComponent = React.createClass({
   getInitialState: function() {
@@ -34,7 +35,7 @@ var HistoryComponent = React.createClass({
     let tracks = this.state.tracks;
     let controls = {
       trackModeButton: true,
-      playAllButton: true,
+      playAllButton: false,
       deleteAllButton: true,
       addToPlayQueueButton: false
     };
