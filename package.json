@@ -64,11 +64,17 @@
       ]
     },
     "win": {
+      "target": [
+        "nsis",
+        "squirrel"
+      ],
       "iconUrl": "https://raw.githubusercontent.com/EragonJ/Kaku/master/src/public/images/icons/kaku.ico"
+    },
+    "nsis": {
+      "oneClick": true 
     },
     "linux": {
       "target": [
-        "zip",
         "AppImage"
       ],
       "extraFiles": [
