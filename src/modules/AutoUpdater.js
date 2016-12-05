@@ -21,6 +21,11 @@ class AutoUpdater {
       return;
     }
 
+    // disable autoupdate for win32
+    if (os.platform() === 'win32' && os.platform() !== 'x64') {
+      return;
+    }
+
     this._hasFeedUrl = true;
 
     Updater.on('checking-for-update', (e) => {
