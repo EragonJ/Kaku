@@ -128,7 +128,7 @@
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
     "react-emoji": "^0.4.4",
-    "react-tooltip": "^1.2.1",
+    "react-tooltip": "^3.2.2",
     "reactfire": "^0.7.0",
     "request": "^2.69.0",
     "request-progress": "^2.0.1",
