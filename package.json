@@ -71,7 +71,7 @@
       "iconUrl": "https://raw.githubusercontent.com/EragonJ/Kaku/master/src/public/images/icons/kaku.ico"
     },
     "nsis": {
-      "oneClick": true 
+      "oneClick": true
     },
     "linux": {
       "target": [
@@ -83,10 +83,10 @@
     }
   },
   "devDependencies": {
-    "babel-core": "^6.4.5",
-    "babel-loader": "^6.2.2",
-    "babel-preset-es2015": "^6.3.13",
-    "babel-preset-react": "^6.3.13",
+    "babel-core": "^6.20.0",
+    "babel-loader": "^6.2.9",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
     "chai": "^3.5.0",
     "chai-as-promised": "^5.2.0",
     "chromedriver": "^2.21.2",
@@ -110,12 +110,12 @@
     "bootstrap": "^3.3.6",
     "bootstrap-notify": "^3.1.3",
     "castv2-client": "^1.1.1",
-    "classnames": "2.2.3",
+    "classnames": "2.2.5",
     "dropbox": "EragonJ/dropbox-sdk-js",
     "electron-cookies": "^1.1.0",
     "electron-localshortcut": "^0.6.0",
     "electron-squirrel-startup": "^1.0.0",
-    "emoji-mart": "^0.2.3",
+    "emoji-mart": "^0.3.5",
     "firebase": "^2.4.0",
     "font-awesome": "^4.4.0",
     "jquery": "^2.2.0",
@@ -128,7 +128,7 @@
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
     "react-emoji": "^0.4.4",
-    "react-tooltip": "^1.2.1",
+    "react-tooltip": "^3.2.2",
     "reactfire": "^0.7.0",
     "request": "^2.69.0",
     "request-progress": "^2.0.1",
