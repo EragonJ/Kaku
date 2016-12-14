@@ -1,0 +1,5 @@
+#!/usr/bin/env node
+
+const shell = require('shelljs');
+
+shell.exec('./node_modules/.bin/build --linux --x64 --ia32');
