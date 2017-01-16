@@ -5,6 +5,7 @@ import Constants from './Constants';
 import YoutubeSearcher from 'kaku-core/modules/searcher/YoutubeSearcher';
 import VimeoSearcher from 'kaku-core/modules/searcher/VimeoSearcher';
 import SoundCloudSearcher from 'kaku-core/modules/searcher/SoundCloudSearcher';
+import MixCloudSearcher from 'kaku-core/modules/searcher/MixCloudSearcher';
 
 class Searcher extends EventEmitter {
   constructor() {
@@ -28,12 +29,14 @@ class Searcher extends EventEmitter {
         clientId: Constants.API.SOUND_CLOUD_API_CLIENT_ID,
         clientSecret: Constants.API.SOUND_CLOUD_API_CLIENT_SECRET
       }),
+      'mixcloud': new MixCloudSearcher(),
       'all': {
         search: function(keyword, limit) {
           let promises = [
             self._searchers.youtube.search(keyword, limit),
             self._searchers.vimeo.search(keyword, limit),
-            self._searchers.soundcloud.search(keyword, limit)
+            self._searchers.soundcloud.search(keyword, limit),
+            self._searchers.mixcloud.search(keyword, limit)
           ];
           return Promise.all(promises);
         }

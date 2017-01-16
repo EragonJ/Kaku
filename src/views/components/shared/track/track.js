@@ -154,6 +154,10 @@ let Track = React.createClass({
         iconObject['fa-soundcloud'] = true;
         break;
 
+      case 'MixCloudTrack':
+        iconObject['fa-mixcloud'] = true;
+        break;
+
       default:
         iconObject['fa-music'] = true;
         break;
