@@ -308,9 +308,13 @@ Player.prototype._prepareTrackData = function(rawTrack) {
   if (Player.cache[id]) {
     return Promise.resolve(Player.cache[id]);
   }
+  else if (id && !Player.cache[id]) {
+    return Promise.resolve(rawTrack);
+  }
   else {
+    // This is for clicking on tracks in Top Ranking
     let promise = new Promise((resolve) => {
-      let keyword = rawTrack.artist + ' - ' + rawTrack.title;
+      let keyword = rawTrack.artist + ' ' + rawTrack.title;
       Searcher.search(keyword, 1).then(function(tracks) {
         let trackInfo;
         // NOTE
