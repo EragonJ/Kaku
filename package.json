@@ -120,7 +120,7 @@
     "firebase": "^2.4.0",
     "font-awesome": "^4.4.0",
     "jquery": "^2.2.0",
-    "kaku-core": "0.0.10",
+    "kaku-core": "0.0.11",
     "mdns-js": "^0.5.0",
     "node-itunes-rss-data": "^1.1.1",
     "node-soundcloud": "0.0.5",
