@@ -23,7 +23,7 @@ Please check [release page](https://github.com/EragonJ/Kaku/releases) and find t
 For installation please use :
 
 ```bash
-$ yaourt -S kaku-bin
+$ pacaur -S kaku-bin
 ```
 
 For issue about installation please report [here](https://github.com/funilrys/PKGBUILD/issues/new) or contact [@funilrys](https://github.com/funilrys) on gitter [here](https://gitter.im/funilrys_/PKGBUILD).
