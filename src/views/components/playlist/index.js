@@ -1,17 +1,20 @@
-var React = require('react');
-var TabManager = require('../../modules/TabManager');
-var PlaylistManager = require('../../../modules/PlaylistManager');
+import React, { Component } from 'react';
+import TabManager from '../../modules/TabManager';
+import Player from '../../modules/Player';
+import PlaylistManager from '../../../modules/PlaylistManager';
+import TracksComponent from '../shared/tracks';
 
-var TracksComponent = require('../shared/tracks');
-var PlaylistComponent = React.createClass({
-  getInitialState: function() {
-    return {
+class PlaylistComponent extends Component {
+  constructor() {
+    super();
+
+    this.state = {
       playlist: {},
       tracks: []
     };
-  },
+  }
 
-  componentDidMount: function() {
+  componentDidMount() {
     TabManager.on('changed', (tabName, tabOptions) => {
       if (tabName === 'playlist') {
         var playlistId = tabOptions;
@@ -43,15 +46,23 @@ var PlaylistComponent = React.createClass({
         this._updateInternalPlaylist(playlist);
       }
     });
-  },
+  }
 
-  _updateInternalPlaylist: function(playlist) {
+  _updateInternalPlaylist(playlist) {
     this.setState({
       playlist: playlist
     });
-  },
+  }
 
-  render: function() {
+  _clickToPlayAll() {
+    let noUpdate = true;
+
+    Player.cleanupTracks(noUpdate);
+    Player.addTracks(this.state.tracks);
+    Player.playNextTrack(0);
+  }
+
+  render() {
     let playlistName = this.state.playlist.name || '';
     let tracks = this.state.tracks;
     let controls = {
@@ -68,10 +79,11 @@ var PlaylistComponent = React.createClass({
         headerIconClass="fa fa-fw fa-music"
         controls={controls}
         tracks={tracks}
+        onPlayAllClick={this._clickToPlayAll.bind(this)}
       />
     );
     /* jshint ignore:end */
   }
-});
+}
 
 module.exports = PlaylistComponent;
