@@ -61,13 +61,13 @@ Please check our [wiki](https://github.com/EragonJ/Kaku/wiki) here for more info
 
 + 繁體中文 (沒錯，這個程式 Made in Taiwan XD)
 + 日本語
-+ Portuguese
++ Português
 + English
 + Français
-+ Spanish
++ Español
 + Русский
 + Türkçe
-+ Deutsche
++ Deutsch
 + 한국어
 + Slovenčina
 + Polski
