@@ -27,7 +27,8 @@ best video (or best audio)
 #### Is there any error coming from Inspector?
 
 You can use:
-* `ctrl + alt + i` on **Windows** and **Linux** 
+* `ctrl + alt + i` on **Windows**
+* `ctrl +  shift + i` on **Linux** 
 * `cmd + option + i` on **Mac** 
 
 To turn on `inspector`.
