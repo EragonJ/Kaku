@@ -1,6 +1,6 @@
-Fixed :bug: #XXX
+Fixed bug: #XXX
 
 What got changed here :
-- A
-- B
-- B
+* A
+* B
+* C
