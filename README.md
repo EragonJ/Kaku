@@ -2,9 +2,9 @@
 
 ![Kaku Icon](http://i.imgur.com/c3KKQ9t.png)
 
-Kaku is an highly integrated music player supports different online platform like YouTube, SoundCloud, Vimeo and more. Available on `Windows`, `Linux` and `macOS` !
+Kaku is an highly integrated music player that supports different online platforms like YouTube, SoundCloud, Vimeo and more. Available on `Windows`, `Linux` and `macOS` !
 
-Some social medias that you should know and follow for latest news :laughing:
+Some social media that you should know and follow for latest news :laughing:
 
 1. Twitter: https://twitter.com/KakuPlayer
 2. Facebook Page: https://www.facebook.com/kaku.rocks
@@ -26,7 +26,7 @@ For installation please use :
 $ pacaur -S kaku-bin
 ```
 
-For issue about installation please report [here](https://github.com/funilrys/PKGBUILD/issues/new) or contact [@funilrys](https://github.com/funilrys) on gitter [here](https://gitter.im/funilrys_/PKGBUILD).
+For issues about installation please report [here](https://github.com/funilrys/PKGBUILD/issues/new) or contact [@funilrys](https://github.com/funilrys) on gitter [here](https://gitter.im/funilrys_/PKGBUILD).
 
 
 # Support this project
@@ -34,11 +34,11 @@ For issue about installation please report [here](https://github.com/funilrys/PK
 1. By Patreon - https://www.patreon.com/EragonJ
 2. By Bitcoin - my wallet address **1KtpFtaLW52tCe2VhWxCMHmRt8Mrxqj4WB**
 
-Hi all, if you think this open source project does help you, feel free to support me :)
+Hi all, if you think this open source project helps you, feel free to support me :)
 
 # Help on translation
 
-If you are keen to help Kaku, you can first try to help translating it with your native language ! For more details, please check [this post](https://github.com/EragonJ/Kaku/issues/377) ! Can't wait to see you in our community :)
+If you are keen to help Kaku, you can first try to help by translating it into your native language! For more details, please check [this post](https://github.com/EragonJ/Kaku/issues/377)! Can't wait to see you in our community :)
 
 # Screenshots
 
@@ -87,7 +87,7 @@ Chia-Lung, Chen (EragonJ)
 
 # Contributors
 
-Go check these awesome [hackers](https://github.com/EragonJ/Kaku/graphs/contributors) !!
+Go check out these awesome [hackers](https://github.com/EragonJ/Kaku/graphs/contributors) !!
 
 # License
 
