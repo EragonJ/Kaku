@@ -14,7 +14,7 @@ If you do find a solid way to reproduce this, please write them down here becaus
 
 Mac 10.11 (for example)
 
-*Note for Linux Users: Please provide here the result of `uname -srmv`* 
+*Note for Linux Users: Please provide here the result of `uname -srmv`*
 
 #### Which platform are you using to listen to music?
 
@@ -28,12 +28,12 @@ best video (or best audio)
 
 You can use:
 * `ctrl + alt + i` on **Windows**
-* `ctrl +  shift + i` on **Linux** 
-* `cmd + option + i` on **Mac** 
+* `ctrl +  alt + i` on **Linux** 
+* `cmd + option + i` on **Mac**
 
 To turn on `inspector`.
 
-Then switch to the `console` tab and copy the error(s) message(s) you found! 
+Then switch to the `console` tab and copy the error(s) message(s) you found!
 If possible, any screenshot would be better!
 
 #### Others
