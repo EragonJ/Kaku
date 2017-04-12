@@ -133,6 +133,7 @@
     "reactfire": "^0.7.0",
     "request": "^2.69.0",
     "request-progress": "^2.0.1",
+    "rollbar-browser": "rollbar/rollbar.js",
     "universal-analytics": "^0.3.9",
     "validator": "^5.2.0",
     "video.js": "^4.12.12",
