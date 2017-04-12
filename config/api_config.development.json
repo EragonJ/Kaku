@@ -6,6 +6,7 @@
   "SOUND_CLOUD_API_CLIENT_SECRET": "c0584366dfc4b6ddbfa7817e5cf7de8a",
   "DROPBOX_API_APP_KEY": "gkz21dn23wuohgc",
   "DROPBOX_API_APP_SECRET": "ikah3z67vfjxkaq",
+  "ROLLBAR_API_KEY": "4f8054c006fa4052b8299a8132be597a",
   "FIREBASE_URL": "https://kaku-development.firebaseio.com",
   "KAKU_SERVER_URL": "http://localhost:3000"
 }

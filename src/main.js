@@ -10,6 +10,7 @@ var App = Remote.app;
 var ReactTooltip = require('react-tooltip');
 
 // general modules
+var ErrorMonitor = require('./modules/ErrorMonitor');
 var PreferenceManager = require('./modules/PreferenceManager');
 var TrackInfoFetcher = require('kaku-core/modules/TrackInfoFetcher');
 var PlaylistManager = require('./modules/PlaylistManager');
