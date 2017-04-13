@@ -38,7 +38,7 @@ class AboutComponent extends Component {
 
   _onClickToShowBitcoinModal() {
     let title = _('about_option_support_wallet_address');
-    let walletAddress = '1KtpFtaLW52tCe2VhWxCMHmRt8Mrxqj4WB';
+    let walletAddress = '3Ar6wuyrta9AciZAYMFi3QCByXF6S5HneT';
 
     Dialog.confirm({
       title: title,
