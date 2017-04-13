@@ -32,7 +32,7 @@ For issues about installation please report [here](https://github.com/funilrys/P
 # Support this project
 
 1. By Patreon - https://www.patreon.com/EragonJ
-2. By Bitcoin - my wallet address **1KtpFtaLW52tCe2VhWxCMHmRt8Mrxqj4WB**
+2. By Bitcoin - my wallet address **3Ar6wuyrta9AciZAYMFi3QCByXF6S5HneT**
 
 Hi all, if you think this open source project helps you, feel free to support me :)
 
