@@ -1,12 +1,8 @@
 import UniqueId from 'kaku-core/modules/UniqueId';
 import Electron from 'electron';
 
-const Remote = Electron.remote;
-const Menu = Remote.Menu;
-const MenuItem = Remote.MenuItem;
-
 import $ from 'jquery';
-import React from 'react';
+import React, { Component } from 'react';
 
 import PlaylistUI from './playlist';
 
@@ -16,18 +12,26 @@ import TabManager from '../../modules/TabManager';
 import Notifier from '../../modules/Notifier';
 import Dialog from '../../modules/Dialog';
 
+const Remote = Electron.remote;
+const Menu = Remote.Menu;
+const MenuItem = Remote.MenuItem;
+
 const _ = L10nManager.get.bind(L10nManager);
 
 import L10nSpan from '../shared/l10n-span';
 
-var MenusComponent = React.createClass({
-  getInitialState: function() {
-    return {
-      playlists: []
-    };
-  },
+class MenusComponent extends Component {
+  constructor() {
+    super();
 
-  componentDidMount: function() {
+    this.state = {
+      playlists: []
+    }
+
+    this._updatePlaylistsStates = this._updatePlaylistsStates.bind(this);
+  }
+
+  componentDidMount() {
     // tab is clicked -> trigger bootstrap .tab('show')
     //                -> trigger TabManager.on('changed')
     TabManager.on('changed', (tabName, tabOptions) => {
@@ -53,9 +57,9 @@ var MenusComponent = React.createClass({
     PlaylistManager.on('cleanup', () => {
       this._updatePlaylistsStates();
     });
-  },
+  }
 
-  _showTab: function(tabName, tabOptions) {
+  _showTab(tabName, tabOptions) {
     let sel;
 
     if (tabName === 'playlist') {
@@ -68,22 +72,22 @@ var MenusComponent = React.createClass({
     if (sel) {
       $(sel).tab('show');
     }
-  },
+  }
 
-  _updatePlaylistsStates: function() {
+  _updatePlaylistsStates() {
     this.setState({
       playlists: PlaylistManager.playlists
     });
-  },
+  }
 
-  _addPlaylist: function() {
-    var randomSuffix = UniqueId(6);
+  _addPlaylist() {
+    const randomSuffix = UniqueId(6);
     Dialog.prompt({
       title: _('notifier_input_playlist_name'),
       value: _('notifier_playlist') + '-' + randomSuffix,
       callback: (rawPlaylistName) => {
         rawPlaylistName = rawPlaylistName || '';
-        var sanitizedPlaylistName = rawPlaylistName.trim();
+        const sanitizedPlaylistName = rawPlaylistName.trim();
         if (!sanitizedPlaylistName) {
           // do nothing
         }
@@ -99,12 +103,12 @@ var MenusComponent = React.createClass({
         }
       }
     });
-  },
+  }
 
-  _createContextMenuForPlaylist: function(playlist) {
-    var menu = new Menu();
+  _createContextMenuForPlaylist(playlist) {
+    let menu = new Menu();
 
-    var removeMenuItem = new MenuItem({
+    const removeMenuItem = new MenuItem({
       label: 'Remove this playlist',
       click: () => {
         PlaylistManager
@@ -123,7 +127,7 @@ var MenusComponent = React.createClass({
       }
     });
 
-    var renameMenuItem = new MenuItem({
+    const renameMenuItem = new MenuItem({
       label: 'Rename this playlist',
       click: () => {
         Dialog.prompt({
@@ -131,7 +135,7 @@ var MenusComponent = React.createClass({
           value: playlist.name,
           callback: (rawPlaylistName) => {
             rawPlaylistName = rawPlaylistName || '';
-            var sanitizedPlaylistName = rawPlaylistName.trim();
+            const sanitizedPlaylistName = rawPlaylistName.trim();
             if (!sanitizedPlaylistName) {
               // do nothing
             }
@@ -152,17 +156,18 @@ var MenusComponent = React.createClass({
 
     menu.append(renameMenuItem);
     menu.append(removeMenuItem);
+
     return menu;
-  },
+  }
 
-  _clickToShowContextMenu: function(playlist, event) {
+  _clickToShowContextMenu(playlist, event) {
     event.preventDefault();
-    var menu = this._createContextMenuForPlaylist(playlist);
+    let menu = this._createContextMenuForPlaylist(playlist);
     menu.popup(Remote.getCurrentWindow());
-  },
+  }
 
-  render: function() {
-    var playlists = this.state.playlists;
+  render() {
+    let playlists = this.state.playlists;
 
     /* jshint ignore:start */
     return (
@@ -269,7 +274,8 @@ var MenusComponent = React.createClass({
               <PlaylistUI
                 playlist={playlist}
                 key={index}
-                index={index}>
+                index={index}
+                updatePlaylistsStates={this._updatePlaylistsStates}>
               </PlaylistUI>
             );
           })}
@@ -278,6 +284,6 @@ var MenusComponent = React.createClass({
     );
     /* jshint ignore:end */
   }
-});
+}
 
 module.exports = MenusComponent;

@@ -3,6 +3,8 @@ import Electron from 'electron';
 
 import TabManager from '../../modules/TabManager';
 import PlaylistManager from '../../../modules/PlaylistManager';
+import Notifier from '../../modules/Notifier';
+import Dialog from '../../modules/Dialog';
 
 const Remote = Electron.remote;
 const Menu = Remote.Menu;
@@ -14,9 +16,9 @@ class PlaylistUI extends React.Component {
   }
 
   _createContextMenuForPlaylist(playlist) {
-    var menu = new Menu();
+    let menu = new Menu();
 
-    var removeMenuItem = new MenuItem({
+    const removeMenuItem = new MenuItem({
       label: 'Remove this playlist',
       click: () => {
         PlaylistManager
@@ -35,7 +37,7 @@ class PlaylistUI extends React.Component {
       }
     });
 
-    var renameMenuItem = new MenuItem({
+    const renameMenuItem = new MenuItem({
       label: 'Rename this playlist',
       click: () => {
         Dialog.prompt({
@@ -51,7 +53,7 @@ class PlaylistUI extends React.Component {
               PlaylistManager
                 .renamePlaylistById(playlist.id, sanitizedPlaylistName)
                 .then(() => {
-                  this._updatePlaylistsStates();
+                  this.props.updatePlaylistsStates();
                 })
                 .catch((error) => {
                   Notifier.alert(error);
@@ -64,6 +66,7 @@ class PlaylistUI extends React.Component {
 
     menu.append(renameMenuItem);
     menu.append(removeMenuItem);
+
     return menu;
   }
 
