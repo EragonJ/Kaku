@@ -46,9 +46,9 @@ suite('PreferenceManager', () => {
       assert.equal(preferenceManager.getPreference(testKey), false);
     });
 
-    test('undefined would be false', () => {
+    test('undefined would be undefined', () => {
       preferenceManager._preferenceStorage[testKey] = undefined;
-      assert.equal(preferenceManager.getPreference(testKey), false);
+      assert.equal(preferenceManager.getPreference(testKey), undefined);
     });
 
     test('othwers would be its original value', () => {

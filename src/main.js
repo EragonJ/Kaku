@@ -79,6 +79,7 @@ var KakuApp = React.createClass({
 
     this._initializeAppTitle();
     this._initializeDefaultAlwaysOnTop();
+    this._initializeDefaultChatroom();
     this._initializeDefaultLanguage();
     this._initializeDefaultSearcher();
     this._initializeDefaultTrackFormat();
@@ -163,6 +164,14 @@ var KakuApp = React.createClass({
       PreferenceManager.getPreference('default.alwaysOnTop.enabled');
     if (defaultAlwaysOnTop) {
       Remote.getCurrentWindow().setAlwaysOnTop(defaultAlwaysOnTop);
+    }
+  },
+
+  _initializeDefaultChatroom: function() {
+    var defaultChatroom =
+      PreferenceManager.getPreference('default.chatroom.enabled');
+    if (typeof defaultChatroom === 'undefined') {
+      PreferenceManager.setPreference('default.chatroom.enabled', true);
     }
   },
 

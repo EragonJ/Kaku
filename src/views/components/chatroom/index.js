@@ -6,12 +6,16 @@ import CommentForm from './comment/comment-form';
 import CommentList from './comment/comment-list';
 import Constants from '../../../modules/Constants';
 import Firebase from '../../../modules/wrapper/Firebase';
+import PreferenceManager from '../../../modules/PreferenceManager';
+
+const PREFERENCE_KEY = 'default.chatroom.enabled';
 
 let ChatroomComponent = React.createClass({
   mixins: [ReactFireMixin],
 
   getInitialState: function() {
     return {
+      enabled: PreferenceManager.getPreference(PREFERENCE_KEY),
       shown: false,
       unreadMessageCount: 0,
       isRoomConnected: false,
@@ -23,6 +27,14 @@ let ChatroomComponent = React.createClass({
   },
 
   componentWillMount: function() {
+    PreferenceManager.on('preference-updated', (key, enabled) => {
+      if (key === PREFERENCE_KEY) {
+        this.setState({
+          enabled: enabled
+        });
+      }
+    });
+
     Firebase.on('meatadata-updated', (metadata) => {
       this.setState({
         roomName: metadata.roomName
@@ -128,6 +140,7 @@ let ChatroomComponent = React.createClass({
     /* jshint ignore:start */
     let headerSpan;
     let unreadCountSpan;
+    let enabled = this.state.enabled;
     let roomName = this.state.roomName;
     let comments = this.state.comments;
     let shown = this.state.shown;
@@ -137,7 +150,8 @@ let ChatroomComponent = React.createClass({
 
     if (roomName) {
       headerSpan = <span>{roomName}</span>;
-    } else {
+    }
+    else {
       headerSpan = <L10nSpan l10nId="chatroom_header"/>;
     }
 
@@ -146,6 +160,7 @@ let ChatroomComponent = React.createClass({
     }
 
     let chatroomClass = ClassNames({
+      'disabled': !enabled,
       'chatroom': true,
       'shown': shown,
       'online': isRoomConnected,

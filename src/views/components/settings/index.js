@@ -24,12 +24,6 @@ var Notifier = require('../../modules/Notifier');
 var Dialog = require('../../modules/Dialog');
 
 var SettingsComponent = React.createClass({
-  getInitialState: function() {
-    return {
-      'desktop.notification.enabled': false
-    };
-  },
-
   componentDidMount: function() {
     // Country
     var countryData = TopRanking.getCountryList();
@@ -321,6 +315,9 @@ var SettingsComponent = React.createClass({
     var isAlwaysOnTopEnabled =
       PreferenceManager.getPreference('default.alwaysOnTop.enabled');
 
+    var isChatroomEnabled =
+      PreferenceManager.getPreference('default.chatroom.enabled');
+
     /* jshint ignore:start */
     return (
       <div className="settings-slot">
@@ -359,6 +356,22 @@ var SettingsComponent = React.createClass({
                       type="checkbox"
                       checked={isAlwaysOnTopEnabled}
                       data-key="default.alwaysOnTop.enabled"
+                      onChange={this._onChangeToSetPreference}/>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div className="form-group">
+              <label className="col-sm-3 control-label">
+                <L10nSpan l10nId="settings_option_chatroom_enabled"/>
+              </label>
+              <div className="col-sm-3">
+                <div className="checkbox">
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={isChatroomEnabled}
+                      data-key="default.chatroom.enabled"
                       onChange={this._onChangeToSetPreference}/>
                   </label>
                 </div>

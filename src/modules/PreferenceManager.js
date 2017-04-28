@@ -23,7 +23,7 @@ class PreferenceManager extends EventEmitter {
       return false;
     }
     else if (typeof preference === 'undefined') {
-      return false;
+      return undefined;
     }
     else {
       return preference;
