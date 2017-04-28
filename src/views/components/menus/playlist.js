@@ -3,6 +3,8 @@ import Electron from 'electron';
 
 import TabManager from '../../modules/TabManager';
 import PlaylistManager from '../../../modules/PlaylistManager';
+import Notifier from '../../modules/Notifier';
+import Dialog from '../../modules/Dialog';
 
 const Remote = Electron.remote;
 const Menu = Remote.Menu;
@@ -14,28 +16,20 @@ class PlaylistUI extends React.Component {
   }
 
   _createContextMenuForPlaylist(playlist) {
-    var menu = new Menu();
+    let menu = new Menu();
 
-    var removeMenuItem = new MenuItem({
+    let removeMenuItem = new MenuItem({
       label: 'Remove this playlist',
       click: () => {
         PlaylistManager
           .removePlaylistById(playlist.id)
-          .then(() => {
-            // playlist UI will be re-created by event
-            //
-            // [Note]
-            // Redirect users back to default home page, otherwise they
-            // will still see deleted page on the screen.
-            TabManager.setTab('home');
-          })
           .catch((error) => {
             Notifier.alert(error);
           });
       }
     });
 
-    var renameMenuItem = new MenuItem({
+    let renameMenuItem = new MenuItem({
       label: 'Rename this playlist',
       click: () => {
         Dialog.prompt({
@@ -50,9 +44,6 @@ class PlaylistUI extends React.Component {
             else {
               PlaylistManager
                 .renamePlaylistById(playlist.id, sanitizedPlaylistName)
-                .then(() => {
-                  this._updatePlaylistsStates();
-                })
                 .catch((error) => {
                   Notifier.alert(error);
                 });

@@ -42,7 +42,15 @@ var MenusComponent = React.createClass({
       this._updatePlaylistsStates();
     });
 
-    PlaylistManager.on('removed', () => {
+    PlaylistManager.on('removed', (removedPlaylist) => {
+      // [Note]
+      // Redirect users back to default home page, otherwise they
+      // will still see deleted page on the screen.
+      if (PlaylistManager.activePlaylist &&
+        PlaylistManager.activePlaylist.id === removedPlaylist.id) {
+        TabManager.setTab('home');
+      }
+
       this._updatePlaylistsStates();
     });
 
@@ -51,6 +59,10 @@ var MenusComponent = React.createClass({
     });
 
     PlaylistManager.on('cleanup', () => {
+      this._updatePlaylistsStates();
+    });
+
+    PlaylistManager.on('renamed', () => {
       this._updatePlaylistsStates();
     });
   },
@@ -99,66 +111,6 @@ var MenusComponent = React.createClass({
         }
       }
     });
-  },
-
-  _createContextMenuForPlaylist: function(playlist) {
-    var menu = new Menu();
-
-    var removeMenuItem = new MenuItem({
-      label: 'Remove this playlist',
-      click: () => {
-        PlaylistManager
-          .removePlaylistById(playlist.id)
-          .then(() => {
-            // playlist UI will be re-created by event
-            //
-            // [Note]
-            // Redirect users back to default home page, otherwise they
-            // will still see deleted page on the screen.
-            TabManager.setTab('home');
-          })
-          .catch((error) => {
-            Notifier.alert(error);
-          });
-      }
-    });
-
-    var renameMenuItem = new MenuItem({
-      label: 'Rename this playlist',
-      click: () => {
-        Dialog.prompt({
-          title: 'Please input your playlist name',
-          value: playlist.name,
-          callback: (rawPlaylistName) => {
-            rawPlaylistName = rawPlaylistName || '';
-            var sanitizedPlaylistName = rawPlaylistName.trim();
-            if (!sanitizedPlaylistName) {
-              // do nothing
-            }
-            else {
-              PlaylistManager
-                .renamePlaylistById(playlist.id, sanitizedPlaylistName)
-                .then(() => {
-                  this._updatePlaylistsStates();
-                })
-                .catch((error) => {
-                  Notifier.alert(error);
-                });
-            }
-          }
-        });
-      }
-    });
-
-    menu.append(renameMenuItem);
-    menu.append(removeMenuItem);
-    return menu;
-  },
-
-  _clickToShowContextMenu: function(playlist, event) {
-    event.preventDefault();
-    var menu = this._createContextMenuForPlaylist(playlist);
-    menu.popup(Remote.getCurrentWindow());
   },
 
   render: function() {

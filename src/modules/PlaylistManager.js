@@ -183,7 +183,7 @@ class PlaylistManager extends EventEmitter {
         reject('Can\'t find the playlist');
       }
       else {
-        const removedPlaylist = this._playlists.splice(index, 1);
+        const removedPlaylist = this._playlists.splice(index, 1)[0];
         this._storePlaylistsToDB().then(() => {
           // TODO
           // we can try to remove listeners from playlist here if needed
