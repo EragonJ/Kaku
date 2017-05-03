@@ -1,8 +1,11 @@
-let React = require('react');
+import React from 'react';
 
-let TrackSquare = React.createClass({
-  render: function() {
-    /* jshint ignore:start */
+class TrackSquare extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
     return (
       <div
         data-tip={this.props.track.title}
@@ -19,8 +22,7 @@ let TrackSquare = React.createClass({
           </div>
       </div>
     );
-    /* jshint ignore:end */
   }
-});
+}
 
 module.exports = TrackSquare;
