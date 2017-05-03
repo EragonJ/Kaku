@@ -1,8 +1,12 @@
-var React = require('react');
-var L10nSpan = require('../l10n-span');
+import React from 'react';
+import L10nSpan from '../l10n-span';
 
-var NoTrack = React.createClass({
-  render: function() {
+class NoTrack extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
     /* jshint ignore:start */
     return (
       <div className="notracks">
@@ -11,6 +15,6 @@ var NoTrack = React.createClass({
     );
     /* jshint ignore:end */
   }
-});
+}
 
-module.exports = NoTrack;
+export default NoTrack;
