@@ -1,8 +1,11 @@
-let React = require('react');
+import React from 'react';
 
-let TrackList = React.createClass({
-  render: function() {
-    /* jshint ignore:start */
+class TrackList extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
     return (
       <div
         className={this.props.trackClassName}
@@ -14,8 +17,7 @@ let TrackList = React.createClass({
           <div className="track-name">{this.props.track.title}</div>
       </div>
     );
-    /* jshint ignore:end */
   }
-});
+}
 
 module.exports = TrackList;
