@@ -7,14 +7,12 @@ class NoTrack extends React.Component {
   }
 
   render() {
-    /* jshint ignore:start */
     return (
       <div className="notracks">
         <L10nSpan l10nId="component_no_track"/>
       </div>
     );
-    /* jshint ignore:end */
   }
 }
 
-export default NoTrack;
+module.exports = NoTrack;
