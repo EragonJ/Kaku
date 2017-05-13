@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.8.5
+Name=Kaku
+Comment=The next generation music client http://kaku.rocks
+Exec=/usr/bin/kaku
+Icon=/usr/share/kaku/logo.png
+Terminal=false
+Type=Application
+Categories=Application;Audio;AudioVideo;
