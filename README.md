@@ -1,4 +1,4 @@
-# Kaku [![Build Status](https://travis-ci.org/EragonJ/Kaku.svg?branch=master)](https://travis-ci.org/EragonJ/Kaku) [![GitHub version](https://badge.fury.io/gh/EragonJ%2Fkaku.svg)](https://github.com/EragonJ/Kaku/releases) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/EragonJ/Kaku/blob/master/LICENSE) [![Dependency Status](https://david-dm.org/EragonJ/kaku.svg)](https://david-dm.org/EragonJ/kaku) [![devDependency Status](https://david-dm.org/EragonJ/kaku/dev-status.svg)](https://david-dm.org/EragonJ/kaku#info=devDependencies)
+# Kaku [![Build Status](https://travis-ci.org/EragonJ/Kaku.svg?branch=master)](https://travis-ci.org/EragonJ/Kaku) [![GitHub version](https://badge.fury.io/gh/EragonJ%2Fkaku.svg)](https://github.com/EragonJ/Kaku/releases) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/EragonJ/Kaku/blob/master/LICENSE) [![Dependency Status](https://david-dm.org/EragonJ/kaku.svg)](https://david-dm.org/EragonJ/kaku) [![devDependency Status](https://david-dm.org/EragonJ/kaku/dev-status.svg)](https://david-dm.org/EragonJ/kaku#info=devDependencies) [![OpenCollective](https://opencollective.com/kaku/backers/badge.svg)](#backers) [![OpenCollective](https://opencollective.com/kaku/sponsors/badge.svg)](#sponsors)
 
 ![Kaku Icon](http://i.imgur.com/c3KKQ9t.png)
 
@@ -94,6 +94,77 @@ Chia-Lung, Chen (EragonJ)
 # Contributors
 
 Go check out these awesome [hackers](https://github.com/EragonJ/Kaku/graphs/contributors) !!
+
+# Backers
+
+Support us with a monthly donation and help us continue our activities. [[Become a backer](https://opencollective.com/kaku#backer)]
+
+<a href="https://opencollective.com/kaku/backer/0/website" target="_blank"><img src="https://opencollective.com/kaku/backer/0/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/backer/1/website" target="_blank"><img src="https://opencollective.com/kaku/backer/1/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/backer/2/website" target="_blank"><img src="https://opencollective.com/kaku/backer/2/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/backer/3/website" target="_blank"><img src="https://opencollective.com/kaku/backer/3/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/backer/4/website" target="_blank"><img src="https://opencollective.com/kaku/backer/4/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/backer/5/website" target="_blank"><img src="https://opencollective.com/kaku/backer/5/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/backer/6/website" target="_blank"><img src="https://opencollective.com/kaku/backer/6/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/backer/7/website" target="_blank"><img src="https://opencollective.com/kaku/backer/7/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/backer/8/website" target="_blank"><img src="https://opencollective.com/kaku/backer/8/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/backer/9/website" target="_blank"><img src="https://opencollective.com/kaku/backer/9/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/backer/10/website" target="_blank"><img src="https://opencollective.com/kaku/backer/10/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/backer/11/website" target="_blank"><img src="https://opencollective.com/kaku/backer/11/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/backer/12/website" target="_blank"><img src="https://opencollective.com/kaku/backer/12/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/backer/13/website" target="_blank"><img src="https://opencollective.com/kaku/backer/13/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/backer/14/website" target="_blank"><img src="https://opencollective.com/kaku/backer/14/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/backer/15/website" target="_blank"><img src="https://opencollective.com/kaku/backer/15/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/backer/16/website" target="_blank"><img src="https://opencollective.com/kaku/backer/16/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/backer/17/website" target="_blank"><img src="https://opencollective.com/kaku/backer/17/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/backer/18/website" target="_blank"><img src="https://opencollective.com/kaku/backer/18/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/backer/19/website" target="_blank"><img src="https://opencollective.com/kaku/backer/19/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/backer/20/website" target="_blank"><img src="https://opencollective.com/kaku/backer/20/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/backer/21/website" target="_blank"><img src="https://opencollective.com/kaku/backer/21/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/backer/22/website" target="_blank"><img src="https://opencollective.com/kaku/backer/22/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/backer/23/website" target="_blank"><img src="https://opencollective.com/kaku/backer/23/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/backer/24/website" target="_blank"><img src="https://opencollective.com/kaku/backer/24/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/backer/25/website" target="_blank"><img src="https://opencollective.com/kaku/backer/25/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/backer/26/website" target="_blank"><img src="https://opencollective.com/kaku/backer/26/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/backer/27/website" target="_blank"><img src="https://opencollective.com/kaku/backer/27/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/backer/28/website" target="_blank"><img src="https://opencollective.com/kaku/backer/28/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/backer/29/website" target="_blank"><img src="https://opencollective.com/kaku/backer/29/avatar.svg"></a>
+
+
+# Sponsors
+
+Become a sponsor and get your logo on our README on Github with a link to your site. [[Become a sponsor](https://opencollective.com/kaku#sponsor)]
+
+<a href="https://opencollective.com/kaku/sponsor/0/website" target="_blank"><img src="https://opencollective.com/kaku/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/sponsor/1/website" target="_blank"><img src="https://opencollective.com/kaku/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/sponsor/2/website" target="_blank"><img src="https://opencollective.com/kaku/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/sponsor/3/website" target="_blank"><img src="https://opencollective.com/kaku/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/sponsor/4/website" target="_blank"><img src="https://opencollective.com/kaku/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/sponsor/5/website" target="_blank"><img src="https://opencollective.com/kaku/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/sponsor/6/website" target="_blank"><img src="https://opencollective.com/kaku/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/sponsor/7/website" target="_blank"><img src="https://opencollective.com/kaku/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/sponsor/8/website" target="_blank"><img src="https://opencollective.com/kaku/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/sponsor/9/website" target="_blank"><img src="https://opencollective.com/kaku/sponsor/9/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/sponsor/10/website" target="_blank"><img src="https://opencollective.com/kaku/sponsor/10/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/sponsor/11/website" target="_blank"><img src="https://opencollective.com/kaku/sponsor/11/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/sponsor/12/website" target="_blank"><img src="https://opencollective.com/kaku/sponsor/12/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/sponsor/13/website" target="_blank"><img src="https://opencollective.com/kaku/sponsor/13/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/sponsor/14/website" target="_blank"><img src="https://opencollective.com/kaku/sponsor/14/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/sponsor/15/website" target="_blank"><img src="https://opencollective.com/kaku/sponsor/15/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/sponsor/16/website" target="_blank"><img src="https://opencollective.com/kaku/sponsor/16/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/sponsor/17/website" target="_blank"><img src="https://opencollective.com/kaku/sponsor/17/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/sponsor/18/website" target="_blank"><img src="https://opencollective.com/kaku/sponsor/18/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/sponsor/19/website" target="_blank"><img src="https://opencollective.com/kaku/sponsor/19/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/sponsor/20/website" target="_blank"><img src="https://opencollective.com/kaku/sponsor/20/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/sponsor/21/website" target="_blank"><img src="https://opencollective.com/kaku/sponsor/21/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/sponsor/22/website" target="_blank"><img src="https://opencollective.com/kaku/sponsor/22/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/sponsor/23/website" target="_blank"><img src="https://opencollective.com/kaku/sponsor/23/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/sponsor/24/website" target="_blank"><img src="https://opencollective.com/kaku/sponsor/24/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/sponsor/25/website" target="_blank"><img src="https://opencollective.com/kaku/sponsor/25/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/sponsor/26/website" target="_blank"><img src="https://opencollective.com/kaku/sponsor/26/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/sponsor/27/website" target="_blank"><img src="https://opencollective.com/kaku/sponsor/27/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/sponsor/28/website" target="_blank"><img src="https://opencollective.com/kaku/sponsor/28/avatar.svg"></a>
+<a href="https://opencollective.com/kaku/sponsor/29/website" target="_blank"><img src="https://opencollective.com/kaku/sponsor/29/avatar.svg"></a>
 
 # License
 
