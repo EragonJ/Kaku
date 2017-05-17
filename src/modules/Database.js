@@ -1,4 +1,5 @@
 import PouchDB from 'pouchdb';
+
 const KakuDB = new PouchDB('kaku');
 
 // Note:
