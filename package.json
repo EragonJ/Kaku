@@ -1,144 +1,145 @@
 {
-    "name": "Kaku",
-    "version": "1.8.5",
-    "description": "The next generation music client",
-    "main": "bootup.js",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/EragonJ/Kaku"
-    },
-    "keywords": [
-        "Kaku",
-        "music",
-        "player",
-        "youtube"
+  "name": "Kaku",
+  "version": "1.8.5",
+  "description": "The next generation music client",
+  "main": "bootup.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/EragonJ/Kaku"
+  },
+  "keywords": [
+    "Kaku",
+    "music",
+    "player",
+    "youtube"
+  ],
+  "author": {
+    "name": "Chia-Lung, Chen (EragonJ)",
+    "email": "eragonj@eragonj.me",
+    "url": "http://eragonj.me"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/EragonJ/Kaku/issues"
+  },
+  "homepage": "https://github.com/EragonJ/Kaku",
+  "scripts": {
+    "dev": "./node_modules/.bin/webpack --watch",
+    "start": "./node_modules/.bin/electron .",
+    "compile:less": "./node_modules/.bin/lessc src/public/less/index.less src/public/css/index.css",
+    "compile:js": "./node_modules/.bin/webpack",
+    "compile:env": "./bin/compile-env",
+    "compile": "./bin/compile",
+    "build:mac": "./bin/build-mac",
+    "build:linux": "./bin/build-linux",
+    "build:windows": "./bin/build-windows",
+    "build": "NODE_ENV=production ./bin/build",
+    "build:development": "NODE_ENV=development ./bin/build",
+    "test": "./node_modules/mocha/bin/mocha -u tdd -t 5000 --reporter dot --compilers js:babel-core/register --require ./tests/unit/setup.js --harmony_arrow_functions 'tests/unit/*.test.js'",
+    "uitest-all": "npm run-script prepare-build && npm run-script uitest",
+    "uitest": "./node_modules/mocha/bin/mocha -u tdd -t 15000 --reporter dot --harmony_arrow_functions tests/ui/*.test.js"
+  },
+  "build": {
+    "appId": "com.kaku.kaku-desktop",
+    "category": "public.app-category.music",
+    "files": [
+      "**/*",
+      "!dist/**/*",
+      "!tests/**/*",
+      "!kaku/**/*",
+      "!bin/**/*"
     ],
-    "author": {
-        "name": "Chia-Lung, Chen (EragonJ)",
-        "email": "eragonj@eragonj.me",
-        "url": "http://eragonj.me"
-    },
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/EragonJ/Kaku/issues"
-    },
-    "homepage": "https://github.com/EragonJ/Kaku",
-    "scripts": {
-        "dev": "./node_modules/.bin/webpack --watch",
-        "start": "./node_modules/.bin/electron .",
-        "compile:less": "./node_modules/.bin/lessc src/public/less/index.less src/public/css/index.css",
-        "compile:js": "./node_modules/.bin/webpack",
-        "compile:env": "./bin/compile-env",
-        "compile": "./bin/compile",
-        "build:mac": "./bin/build-mac",
-        "build:linux": "./bin/build-linux",
-        "build:windows": "./bin/build-windows",
-        "build": "NODE_ENV=production ./bin/build",
-        "build:development": "NODE_ENV=development ./bin/build",
-        "test": "./node_modules/mocha/bin/mocha -u tdd -t 5000 --reporter dot --compilers js:babel-core/register --require ./tests/unit/setup.js --harmony_arrow_functions 'tests/unit/*.test.js'",
-        "uitest-all": "npm run-script prepare-build && npm run-script uitest",
-        "uitest": "./node_modules/mocha/bin/mocha -u tdd -t 15000 --reporter dot --harmony_arrow_functions tests/ui/*.test.js"
-    },
-    "build": {
-        "appId": "com.kaku.kaku-desktop",
-        "category": "public.app-category.music",
-        "files": [
-            "**/*",
-            "!dist/**/*",
-            "!tests/**/*",
-            "!kaku/**/*",
-            "!bin/**/*"
-        ],
-        "dmg": {
-            "contents": [{
-                    "x": 410,
-                    "y": 190,
-                    "type": "link",
-                    "path": "/Applications"
-                },
-                {
-                    "x": 130,
-                    "y": 190
-                }
-            ]
+    "dmg": {
+      "contents": [
+        {
+          "x": 410,
+          "y": 190,
+          "type": "link",
+          "path": "/Applications"
         },
-        "win": {
-            "target": [
-                "nsis",
-                "squirrel"
-            ],
-            "iconUrl": "https://raw.githubusercontent.com/EragonJ/Kaku/master/src/public/images/icons/kaku.ico"
-        },
-        "nsis": {
-            "oneClick": true
-        },
-        "linux": {
-            "target": [
-                "tar.gz"
-            ],
-            "extraFiles": [
-                "misc/${os}/kaku.desktop",
-                "logo.png"
-            ]
+        {
+          "x": 130,
+          "y": 190
         }
+      ]
     },
-    "devDependencies": {
-        "babel-core": "^6.20.0",
-        "babel-loader": "^6.2.9",
-        "babel-preset-es2015": "^6.18.0",
-        "babel-preset-react": "^6.16.0",
-        "chai": "^3.5.0",
-        "chai-as-promised": "^5.2.0",
-        "chromedriver": "^2.21.2",
-        "colors": "^1.1.2",
-        "electron": "^1.3.4",
-        "electron-builder": "^7.0.0",
-        "jsdom": "^3.1.2",
-        "jshint": "^2.9.1",
-        "jshint-stylish": "^2.1.0",
-        "json-loader": "^0.5.4",
-        "less": "^2.7.1",
-        "mocha": "^2.4.5",
-        "proxyquire": "^1.7.4",
-        "shelljs": "^0.6.0",
-        "sinon": "^1.17.3",
-        "webdriverio": "^4.0.1",
-        "webpack": "^1.12.12"
+    "win": {
+      "target": [
+        "nsis",
+        "squirrel"
+      ],
+      "iconUrl": "https://raw.githubusercontent.com/EragonJ/Kaku/master/src/public/images/icons/kaku.ico"
     },
-    "dependencies": {
-        "animate.css": "^3.5.1",
-        "bootbox": "^4.4.0",
-        "bootstrap": "^3.3.6",
-        "bootstrap-notify": "^3.1.3",
-        "castv2-client": "^1.1.1",
-        "classnames": "2.2.5",
-        "dropbox": "EragonJ/dropbox-sdk-js",
-        "electron-cookies": "^1.1.0",
-        "electron-localshortcut": "^0.6.0",
-        "electron-squirrel-startup": "^1.0.0",
-        "emoji-mart": "^0.3.5",
-        "firebase": "^2.4.0",
-        "font-awesome": "^4.4.0",
-        "jquery": "^2.2.0",
-        "kaku-core": "0.0.11",
-        "mdns-js": "^0.5.0",
-        "node-itunes-rss-data": "^1.1.1",
-        "node-soundcloud": "0.0.5",
-        "node-uuid": "^1.4.7",
-        "pouchdb": "^3.6.0",
-        "react": "^15.3.1",
-        "react-dom": "^15.3.1",
-        "react-emoji": "^0.4.4",
-        "react-tooltip": "^3.2.2",
-        "reactfire": "^0.7.0",
-        "request": "^2.69.0",
-        "request-progress": "^2.0.1",
-        "rollbar-browser": "rollbar/rollbar.js",
-        "universal-analytics": "^0.3.9",
-        "validator": "^5.2.0",
-        "video.js": "^4.12.12",
-        "vimeo": "^1.1.4",
-        "youtube-dl": "EragonJ/node-youtube-dl",
-        "youtube-node": "EragonJ/youtube-node"
+    "nsis": {
+      "oneClick": true
+    },
+    "linux": {
+      "target": [
+        "tar.gz"
+      ],
+      "extraFiles": [
+        "misc/${os}/kaku.desktop",
+        "logo.png"
+      ]
     }
+  },
+  "devDependencies": {
+    "babel-core": "^6.20.0",
+    "babel-loader": "^6.2.9",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "chai": "^3.5.0",
+    "chai-as-promised": "^5.2.0",
+    "chromedriver": "^2.21.2",
+    "colors": "^1.1.2",
+    "electron": "^1.3.4",
+    "electron-builder": "^7.0.0",
+    "jsdom": "^3.1.2",
+    "jshint": "^2.9.1",
+    "jshint-stylish": "^2.1.0",
+    "json-loader": "^0.5.4",
+    "less": "^2.7.1",
+    "mocha": "^2.4.5",
+    "proxyquire": "^1.7.4",
+    "shelljs": "^0.6.0",
+    "sinon": "^1.17.3",
+    "webdriverio": "^4.0.1",
+    "webpack": "^1.12.12"
+  },
+  "dependencies": {
+    "animate.css": "^3.5.1",
+    "bootbox": "^4.4.0",
+    "bootstrap": "^3.3.6",
+    "bootstrap-notify": "^3.1.3",
+    "castv2-client": "^1.1.1",
+    "classnames": "2.2.5",
+    "dropbox": "EragonJ/dropbox-sdk-js",
+    "electron-cookies": "^1.1.0",
+    "electron-localshortcut": "^0.6.0",
+    "electron-squirrel-startup": "^1.0.0",
+    "emoji-mart": "^0.3.5",
+    "firebase": "^2.4.0",
+    "font-awesome": "^4.4.0",
+    "jquery": "^2.2.0",
+    "kaku-core": "0.0.11",
+    "mdns-js": "^0.5.0",
+    "node-itunes-rss-data": "^1.1.1",
+    "node-soundcloud": "0.0.5",
+    "node-uuid": "^1.4.7",
+    "pouchdb": "^3.6.0",
+    "react": "^15.3.1",
+    "react-dom": "^15.3.1",
+    "react-emoji": "^0.4.4",
+    "react-tooltip": "^3.2.2",
+    "reactfire": "^0.7.0",
+    "request": "^2.69.0",
+    "request-progress": "^2.0.1",
+    "rollbar-browser": "^1.9.4",
+    "universal-analytics": "^0.3.9",
+    "validator": "^5.2.0",
+    "video.js": "^4.12.12",
+    "vimeo": "^1.1.4",
+    "youtube-dl": "EragonJ/node-youtube-dl",
+    "youtube-node": "EragonJ/youtube-node"
+  }
 }
