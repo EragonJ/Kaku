@@ -14,7 +14,6 @@ class ConnectionCheckComponent extends Component {
   }
 
   componentDidMount() {
-    console.log('connect check');
     window.addEventListener('online', this._checkConnection);
     window.addEventListener('offline', this._checkConnection);
   }
