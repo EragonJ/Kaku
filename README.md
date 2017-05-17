@@ -1,4 +1,4 @@
-# Kaku [![Build Status](https://travis-ci.org/EragonJ/Kaku.svg?branch=master)](https://travis-ci.org/EragonJ/Kaku) [![GitHub version](https://badge.fury.io/gh/EragonJ%2Fkaku.svg)](https://github.com/EragonJ/Kaku/releases) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/EragonJ/Kaku/blob/master/LICENSE) [![Dependency Status](https://david-dm.org/EragonJ/kaku.svg)](https://david-dm.org/EragonJ/kaku) [![devDependency Status](https://david-dm.org/EragonJ/kaku/dev-status.svg)](https://david-dm.org/EragonJ/kaku#info=devDependencies) [![OpenCollective](https://opencollective.com/kaku/backers/badge.svg)](#backers) [![OpenCollective](https://opencollective.com/kaku/sponsors/badge.svg)](#sponsors)
+# Kaku [![Build Status](https://travis-ci.org/EragonJ/Kaku.svg?branch=master)](https://travis-ci.org/EragonJ/Kaku) [![GitHub version](https://badge.fury.io/gh/EragonJ%2Fkaku.svg)](https://github.com/EragonJ/Kaku/releases) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/EragonJ/Kaku/blob/master/LICENSE) [![Dependency Status](https://david-dm.org/EragonJ/kaku.svg)](https://david-dm.org/EragonJ/kaku) [![devDependency Status](https://david-dm.org/EragonJ/kaku/dev-status.svg)](https://david-dm.org/EragonJ/kaku#info=devDependencies) [![OpenCollective](https://opencollective.com/kaku/backers/badge.svg)](#backers) [![OpenCollective](https://opencollective.com/kaku/sponsors/badge.svg)](#sponsors) [![Join the chat at https://gitter.im/EragonJ/Kaku](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/EragonJ/Kaku?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Our Slack](http://now-examples-slackin-rmailvxrtk.now.sh/badge.svg)](https://now-examples-slackin-rmailvxrtk.now.sh)
 
 ![Kaku Icon](http://i.imgur.com/c3KKQ9t.png)
 
@@ -10,11 +10,19 @@ Some social media that you should know and follow for latest news :laughing:
 2. Facebook Page: https://www.facebook.com/kaku.rocks
 3. Newsletter: http://eepurl.com/chlSNf
 
-# Let's Chat !
+# Support this project :money_with_wings:
 
-Our Gitter channel [![Join the chat at https://gitter.im/EragonJ/Kaku](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/EragonJ/Kaku?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) 
+1. By open collective - https://opencollective.com/kaku
+2. By Patreon - https://www.patreon.com/EragonJ
+3. By Bitcoin - my wallet address **3Ar6wuyrta9AciZAYMFi3QCByXF6S5HneT**
 
-Our Slack channel [![Our Slack](http://now-examples-slackin-rmailvxrtk.now.sh/badge.svg)](https://now-examples-slackin-rmailvxrtk.now.sh)
+Hi all, if you think this open source project helps you, please support us! :D
+
+# Screenshots
+
+![1](http://i.imgur.com/HudKZou.png)
+![2](http://i.imgur.com/mMm8ZH4.png)
+![3](http://i.imgur.com/7oUKNDk.png)
 
 # Install :laughing:
 
@@ -34,23 +42,9 @@ $ pacaur -S kaku-bin
 
 For issues about installation please report [here](https://github.com/funilrys/PKGBUILD/issues/new) or contact [@funilrys](https://github.com/funilrys) on gitter [here](https://gitter.im/funilrys_/PKGBUILD).
 
-
-# Support this project
-
-1. By Patreon - https://www.patreon.com/EragonJ
-2. By Bitcoin - my wallet address **3Ar6wuyrta9AciZAYMFi3QCByXF6S5HneT**
-
-Hi all, if you think this open source project helps you, feel free to support me :)
-
 # Help on translation
 
 If you are keen to help Kaku, you can first try to help by translating it into your native language! For more details, please check [this post](https://github.com/EragonJ/Kaku/issues/377)! Can't wait to see you in our community :)
-
-# Screenshots
-
-![1](http://i.imgur.com/HudKZou.png)
-![2](http://i.imgur.com/mMm8ZH4.png)
-![3](http://i.imgur.com/7oUKNDk.png)
 
 # How to develop
 
