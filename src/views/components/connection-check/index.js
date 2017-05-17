@@ -24,8 +24,8 @@ class ConnectionCheckComponent extends Component {
     });
   }
 
-  /* jshint ignore:start */
   render() {
+    /* jshint ignore:start */
     const className = ClassNames({
       'connection-check-component': true,
       'global-overlay': true,
