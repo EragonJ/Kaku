@@ -217,7 +217,6 @@ class SearchbarComponent extends Component {
           </form>
           <ul className="autocomplete-list list-unstyled">
             {searchTracks.map((track, trackIndex) => {
-              console.log(track);
               let className = ClassNames({
                 'selected': trackIndex == selectedIndex
               });
