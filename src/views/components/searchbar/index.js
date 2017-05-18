@@ -10,8 +10,8 @@ const SEARCH_LIMIT_FOR_ALL = 50;
 const BLUR_TIMEOUT = 100;
 
 class SearchbarComponent extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       keyword: '',
