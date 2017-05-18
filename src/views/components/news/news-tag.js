@@ -8,10 +8,10 @@ class NewsTag extends Component {
   }
 
   render() {
-    const data = this.props.data;
-    const title = `${data.date} - ${data.title}`;
-    const content = data.content;
-    const label = `panel-${data.label}` || 'panel-default';
+    let data = this.props.data;
+    let title = `${data.date} - ${data.title}`;
+    let content = data.content;
+    let label = `panel-${data.label}` || 'panel-default';
 
     let classObject = {};
     classObject.panel = true;
