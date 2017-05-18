@@ -1,25 +1,27 @@
-var React = require('react');
-var L10nSpan = require('../shared/l10n-span');
-var NewsTag = require('../news/news-tag');
-var NewsFetcher = require('../../../modules/NewsFetcher');
+import React, { Component } from 'react';
+import L10nSpan from '../shared/l10n-span';
+import NewsTag from '../news/news-tag';
+import NewsFetcher from '../../../modules/NewsFetcher';
 
-var NewsComponent = React.createClass({
-  getInitialState: function() {
-    return {
+class NewsComponent extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
       news: []
     };
-  },
+  }
 
-  componentDidMount: function() {
+  componentDidMount() {
     NewsFetcher.get().then((news) => {
       this.setState({
         news: news
       });
     });
-  },
+  }
 
-  render: function() {
-    var news = this.state.news;
+  render() {
+    const news = this.state.news;
 
     /* jshint ignore:start */
     return (
@@ -31,7 +33,7 @@ var NewsComponent = React.createClass({
           </h1>
         </div>
         <div className="news-component">
-          {news.map(function(eachNews, index) {
+          {news.map((eachNews, index) => {
             return <NewsTag key={index} data={eachNews}/>
           })}
         </div>
@@ -39,6 +41,6 @@ var NewsComponent = React.createClass({
     );
     /* jshint ignore:end */
   }
-});
+}
 
 module.exports = NewsComponent;
