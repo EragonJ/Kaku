@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import L10nSpan from '../shared/l10n-span';
 import ChooseRolePage from './choose-role-page';
 import DashboardPage from './dashboard-page';
@@ -6,19 +6,21 @@ import Firebase from '../../../modules/wrapper/Firebase';
 
 const MAX_PAGE_COUNT = 2;
 
-let OnlineDJComponent = React.createClass({
-  getInitialState: function() {
-    return {
+class OnlineDJComponent extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
       page: 0,
       userInfo: {}
     };
-  },
 
-  componentDidMount: function() {
+    this._onRoleChoose = this._onRoleChoose.bind(this);
+    this._onLeft = this._onLeft.bind(this);
+    this._changeToPage = this._changeToPage.bind(this);
+  }
 
-  },
-
-  _onRoleChoose: function(userInfo) {
+  _onRoleChoose(userInfo) {
     this.setState({
       userInfo: userInfo
     });
@@ -49,22 +51,22 @@ let OnlineDJComponent = React.createClass({
       });
     }
     this._changeToPage(1);
-  },
+  }
 
-  _onLeft: function() {
+  _onLeft() {
     Firebase.leaveAll();
     this._changeToPage(0);
-  },
+  }
 
-  _changeToPage: function(page) {
+  _changeToPage(page) {
     page = Math.max(0, Math.min(page, MAX_PAGE_COUNT - 1));
 
     this.setState({
       page: page
     });
-  },
+  }
 
-  render: function() {
+  render() {
     /* jshint ignore:start */
     let page = this.state.page;
     let userInfo = this.state.userInfo;
@@ -86,6 +88,6 @@ let OnlineDJComponent = React.createClass({
     );
     /* jshint ignore:end */
   }
-});
+}
 
 module.exports = OnlineDJComponent;
