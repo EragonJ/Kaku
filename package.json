@@ -127,6 +127,7 @@
     "node-soundcloud": "0.0.5",
     "node-uuid": "^1.4.7",
     "pouchdb": "^3.6.0",
+    "prop-types": "^15.5.10",
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
     "react-emoji": "^0.4.4",

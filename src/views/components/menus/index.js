@@ -1,33 +1,35 @@
+import React, { Component } from 'react';
 import UniqueId from 'kaku-core/modules/UniqueId';
 import Electron from 'electron';
-
-const Remote = Electron.remote;
-const Menu = Remote.Menu;
-const MenuItem = Remote.MenuItem;
-
 import $ from 'jquery';
-import React from 'react';
-
 import PlaylistUI from './playlist';
-
 import PlaylistManager from '../../../modules/PlaylistManager';
 import L10nManager from '../../../modules/L10nManager';
 import TabManager from '../../modules/TabManager';
 import Notifier from '../../modules/Notifier';
 import Dialog from '../../modules/Dialog';
+import L10nSpan from '../shared/l10n-span';
+
+const Remote = Electron.remote;
+const Menu = Remote.Menu;
+const MenuItem = Remote.MenuItem;
 
 const _ = L10nManager.get.bind(L10nManager);
 
-import L10nSpan from '../shared/l10n-span';
+class MenusComponent extends Component {
+  constructor(props) {
+    super(props);
 
-var MenusComponent = React.createClass({
-  getInitialState: function() {
-    return {
+    this.state = {
       playlists: []
-    };
-  },
+    }
 
-  componentDidMount: function() {
+    this._showTab = this._showTab.bind(this);
+    this._updatePlaylistsStates = this._updatePlaylistsStates.bind(this);
+    this._addPlaylist = this._addPlaylist.bind(this);
+  }
+
+  componentDidMount() {
     // tab is clicked -> trigger bootstrap .tab('show')
     //                -> trigger TabManager.on('changed')
     TabManager.on('changed', (tabName, tabOptions) => {
@@ -65,9 +67,9 @@ var MenusComponent = React.createClass({
     PlaylistManager.on('renamed', () => {
       this._updatePlaylistsStates();
     });
-  },
+  }
 
-  _showTab: function(tabName, tabOptions) {
+  _showTab(tabName, tabOptions) {
     let sel;
 
     if (tabName === 'playlist') {
@@ -80,22 +82,22 @@ var MenusComponent = React.createClass({
     if (sel) {
       $(sel).tab('show');
     }
-  },
+  }
 
-  _updatePlaylistsStates: function() {
+  _updatePlaylistsStates() {
     this.setState({
       playlists: PlaylistManager.playlists
     });
-  },
+  }
 
-  _addPlaylist: function() {
-    var randomSuffix = UniqueId(6);
+  _addPlaylist() {
+    let randomSuffix = UniqueId(6);
     Dialog.prompt({
       title: _('notifier_input_playlist_name'),
       value: _('notifier_playlist') + '-' + randomSuffix,
       callback: (rawPlaylistName) => {
         rawPlaylistName = rawPlaylistName || '';
-        var sanitizedPlaylistName = rawPlaylistName.trim();
+        let sanitizedPlaylistName = rawPlaylistName.trim();
         if (!sanitizedPlaylistName) {
           // do nothing
         }
@@ -111,10 +113,10 @@ var MenusComponent = React.createClass({
         }
       }
     });
-  },
+  }
 
-  render: function() {
-    var playlists = this.state.playlists;
+  render() {
+    const playlists = this.state.playlists;
 
     /* jshint ignore:start */
     return (
@@ -230,6 +232,6 @@ var MenusComponent = React.createClass({
     );
     /* jshint ignore:end */
   }
-});
+}
 
 module.exports = MenusComponent;

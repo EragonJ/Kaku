@@ -1,25 +1,34 @@
-let Player = require('../../modules/Player');
-let React = require('react');
+import React, { Component } from 'react';
+import Player from '../../modules/Player';
 
-let PlayerTrack = React.createClass({
-  componentDidMount: function() {
+class PlayerTrack extends Component {
+  constructor(props) {
+    super(props);
+
+    this._onPlayerPlay = this._onPlayerPlay.bind(this);
+    this._onPlayerPause = this._onPlayerPause.bind(this);
+    this._onPlayerProgress = this._onPlayerProgress.bind(this);
+    this._setupPlayer = this._setupPlayer.bind(this);
+  }
+
+  componentDidMount() {
     this._setupPlayer();
-  },
+  }
 
-  _onPlayerPlay: function() {
+  _onPlayerPlay() {
 
-  },
+  }
 
-  _onPlayerPause: function() {
+  _onPlayerPause() {
 
-  },
+  }
 
-  _onPlayerProgress: function() {
+  _onPlayerProgress() {
 
-  },
+  }
 
-  _setupPlayer: function() {
-    var playerDOM = document.createElement('video');
+  _setupPlayer() {
+    let playerDOM = document.createElement('video');
     playerDOM.id = 'player';
     playerDOM.classList.add('video-js');
     playerDOM.classList.add('vjs-default-skin');
@@ -29,9 +38,9 @@ let PlayerTrack = React.createClass({
     Player.on('play', this._onPlayerPlay);
     Player.on('pause', this._onPlayerPause);
     Player.on('progress', this._onPlayerProgress);
-  },
+  }
 
-  render: function() {
+  render() {
     /* jshint ignore:start */
     return (
       <div
@@ -41,6 +50,6 @@ let PlayerTrack = React.createClass({
     );
     /* jshint ignore:end */
   }
-});
+}
 
 module.exports = PlayerTrack;

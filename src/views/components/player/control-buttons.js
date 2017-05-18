@@ -1,35 +1,38 @@
-var Electron = require('electron');
-var Shell = Electron.shell;
-var React = require('react');
-var Player = require('../../modules/Player');
-var L10nSpan = require('../shared/l10n-span');
-var Notifier = require('../../modules/Notifier');
-var Dialog = require('../../modules/Dialog');
-var CastingManager = require('../../modules/CastingManager');
-var L10nManager = require('../../../modules/L10nManager');
-var ClassNames = require('classnames');
-var _ = L10nManager.get.bind(L10nManager);
+import Electron from 'electron';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import Player from '../../modules/Player';
+import L10nSpan from '../shared/l10n-span';
+import Notifier from '../../modules/Notifier';
+import Dialog from '../../modules/Dialog';
+import CastingManager from '../../modules/CastingManager';
+import L10nManager from '../../../modules/L10nManager';
+import ClassNames from 'classnames';
 
-var PlayerControlButtons = React.createClass({
-  propTypes: {
-    onToggleTVMode: React.PropTypes.func
-  },
+const Shell = Electron.shell;
+const _ = L10nManager.get.bind(L10nManager);
 
-  getInitialState: function() {
-    return {
+class PlayerControlButtons extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
       playerMode: Player.mode,
       isCasting: false,
       isConnecting: false
     };
-  },
 
-  getDefaultProps: function() {
-    return {
-      onToggleTVMode: function() {}
-    };
-  },
+    this._updatePlayIconState = this._updatePlayIconState.bind(this);
+    this._onBackwardButtonClick = this._onBackwardButtonClick.bind(this);
+    this._onForwardButtonClick = this._onForwardButtonClick.bind(this);
+    this._onResumeButtonClick = this._onResumeButtonClick.bind(this);
+    this._onExternalButtonClick = this._onExternalButtonClick.bind(this);
+    this._onCastToDeviceButtonClick = this._onCastToDeviceButtonClick.bind(this);
+    this._onTVButtonClick = this._onTVButtonClick.bind(this);
+    this._onRepeatButtonClick = this._onRepeatButtonClick.bind(this);
+  }
 
-  componentDidMount: function() {
+  componentDidMount() {
     Player.on('modeUpdated', (mode) => {
       this.setState({
         playerMode: mode
@@ -64,10 +67,10 @@ var PlayerControlButtons = React.createClass({
         isCasting: false
       });
     });
-  },
+  }
 
-  _updatePlayIconState: function(state) {
-    var resumeIconDOM = this.refs.resumeIcon;
+  _updatePlayIconState(state) {
+    let resumeIconDOM = this.refs.resumeIcon;
     if (state === 'play') {
       // show pause button
       resumeIconDOM.classList.remove('fa-play');
@@ -78,17 +81,17 @@ var PlayerControlButtons = React.createClass({
       resumeIconDOM.classList.add('fa-play');
       resumeIconDOM.classList.remove('fa-pause');
     }
-  },
+  }
 
-  _onBackwardButtonClick: function() {
+  _onBackwardButtonClick() {
     Player.playPreviousTrack();
-  },
+  }
 
-  _onForwardButtonClick: function() {
+  _onForwardButtonClick() {
     Player.playNextTrack();
-  },
+  }
 
-  _onResumeButtonClick: function() {
+  _onResumeButtonClick() {
     Player.ready().then((internalPlayer) => {
       if (internalPlayer.paused()) {
         Player.play();
@@ -97,16 +100,16 @@ var PlayerControlButtons = React.createClass({
         Player.pause();
       }
     });
-  },
+  }
 
-  _onExternalButtonClick: function() {
-    var track = Player.playingTrack;
+  _onExternalButtonClick() {
+    let track = Player.playingTrack;
     if (track) {
       Shell.openExternal(track.platformTrackUrl);
     }
-  },
+  }
 
-  _onCastToDeviceButtonClick: function() {
+  _onCastToDeviceButtonClick() {
     if (!this.state.isCasting) {
       let services = CastingManager.services.values();
       let topService = services.next().value;
@@ -126,22 +129,22 @@ var PlayerControlButtons = React.createClass({
     else {
       CastingManager.close();
     }
-  },
+  }
 
-  _onTVButtonClick: function() {
+  _onTVButtonClick() {
     this.props.onToggleTVMode();
-  },
+  }
 
-  _onRepeatButtonClick: function() {
+  _onRepeatButtonClick() {
     Player.ready().then((player) => {
       Player.changeMode();
     });
-  },
+  }
 
-  render: function() {
-    var playerMode = this.state.playerMode;
-    var l10nIdForRepeat = 'player_repeat_' + playerMode;
-    var playerRepeatWording = '';
+  render() {
+    let playerMode = this.state.playerMode;
+    let l10nIdForRepeat = `player_repeat_${playerMode}`;
+    let playerRepeatWording = '';
 
     // TODO
     // add a translation here later
@@ -160,7 +163,7 @@ var PlayerControlButtons = React.createClass({
         break;
     }
 
-    var castButtonClass = ClassNames({
+    const castButtonClass = ClassNames({
       'cast-button': true,
       'btn': true,
       'is-casting': this.state.isCasting,
@@ -224,6 +227,14 @@ var PlayerControlButtons = React.createClass({
     );
     /* jshint ignore:end */
   }
-});
+}
+
+PlayerControlButtons.propTypes = {
+  onToggleTVMode: PropTypes.func
+};
+
+PlayerControlButtons.defaultProps = {
+  onToggleTVMode: function() {}
+};
 
 module.exports = PlayerControlButtons;
