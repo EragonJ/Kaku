@@ -4,8 +4,8 @@ import HistoryManager from '../../../modules/HistoryManager';
 import TracksComponent from '../shared/tracks';
 
 class HistoryComponent extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       tracks: []

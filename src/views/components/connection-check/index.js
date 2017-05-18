@@ -3,8 +3,8 @@ import ClassNames from 'classnames';
 import L10nSpan from '../shared/l10n-span';
 
 class ConnectionCheckComponent extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       isOnline: navigator.onLine
