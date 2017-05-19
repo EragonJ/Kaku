@@ -5,8 +5,8 @@ import PlaylistManager from '../../../modules/PlaylistManager';
 import TracksComponent from '../shared/tracks';
 
 class PlaylistComponent extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       playlist: {},
