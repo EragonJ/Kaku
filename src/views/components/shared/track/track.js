@@ -1,55 +1,49 @@
-let Electron = require('electron');
-let Remote = Electron.remote;
-let Menu = Remote.Menu;
-let MenuItem = Remote.MenuItem;
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import Electron from 'electron';
+import ClassNames from 'classnames';
 
-let React = require('react');
-let ClassNames = require('classnames');
+import PlaylistManager from '../../../../modules/PlaylistManager';
+import Notifier from '../../../modules/Notifier';
+import Player from '../../../modules/Player';
 
-let PlaylistManager = require('../../../../modules/PlaylistManager');
-let Notifier = require('../../../modules/Notifier');
-let Player = require('../../../modules/Player');
+import TrackList from './track-list';
+import TrackSquare from './track-square';
+import TabManager from '../../../modules/TabManager';
 
-let TrackList = require('./track-list');
-let TrackSquare = require('./track-square');
-let TabManager = require('../../../modules/TabManager');
+const Remote = Electron.remote;
+const Menu = Remote.Menu;
+const MenuItem = Remote.MenuItem;
 
-let Track = React.createClass({
-  propTypes: {
-    data: React.PropTypes.object.isRequired,
-    mode: React.PropTypes.string,
-    index: React.PropTypes.number
-  },
+class Track extends Component {
+  constructor(props) {
+    super(props);
 
-  getDefaultProps: function() {
-    return {
-      data: {},
-      mode: 'square',
-      index: -1
-    };
-  },
-
-  getInitialState: function() {
-    return {
+    this.state = {
       playingTrack: {}
     };
-  },
 
-  componentDidMount: function() {
+    this._setPlayingTrack = this._setPlayingTrack.bind(this);
+    this._clickToPlay = this._clickToPlay.bind(this);
+    this._clickToShowContextMenu = this._clickToShowContextMenu.bind(this);
+    this._createContextMenu = this._createContextMenu.bind(this);
+  }
+
+  componentDidMount() {
     Player.on('play', this._setPlayingTrack);
-  },
+  }
 
-  componentWillUnmount: function() {
+  componentWillUnmount() {
     Player.off('play', this._setPlayingTrack);
-  },
+  }
 
-  _setPlayingTrack: function() {
+  _setPlayingTrack() {
     this.setState({
       playingTrack: Player.playingTrack
     });
-  },
+  }
 
-  _clickToPlay: function(track) {
+  _clickToPlay(track) {
     if (TabManager.tabName === 'play-queue') {
       let index = this.props.index;
       Player.playNextTrack(index);
@@ -60,18 +54,18 @@ let Track = React.createClass({
       Player.addTracks([track]);
       Player.playNextTrack(0);
     }
-  },
+  }
 
-  _clickToShowContextMenu: function(track, event) {
+  _clickToShowContextMenu(track, event) {
     // TODO
     // if we are under playlist section already,
     // we should not shown this context menu
     event.preventDefault();
     let menu = this._createContextMenu(track);
     menu.popup(Remote.getCurrentWindow());
-  },
+  }
 
-  _createContextMenu: function(track) {
+  _createContextMenu(track) {
     let menu = new Menu();
     let playlists = PlaylistManager.playlists;
 
@@ -99,12 +93,12 @@ let Track = React.createClass({
       // TODO
       // add l10n support here
       let menuItemToAddTrack = new MenuItem({
-        label: 'Add to ' + playlist.name,
+        label: `Add to ${playlist.name}`,
         click: clickToAddTrack
       });
 
       let menuItemToRemoveTrack = new MenuItem({
-        label: 'Remove from ' + playlist.name,
+        label: `Remove from ${playlist.name}`,
         click: clickToRemoveTrack
       });
 
@@ -126,9 +120,9 @@ let Track = React.createClass({
       }
     });
     return menu;
-  },
+  }
 
-  render: function() {
+  render() {
     let mode = this.props.mode;
     let track = this.props.data;
     let trackClassName = ClassNames({
@@ -185,6 +179,18 @@ let Track = React.createClass({
     return trackUI;
     /* jshint ignore:end */
   }
-});
+}
+
+Track.propTypes = {
+  data: PropTypes.object.isRequired,
+  mode: PropTypes.string,
+  index: PropTypes.number
+};
+
+Track.defaultProps = {
+  data: {},
+  mode: 'square',
+  index: -1
+};
 
 module.exports = Track;

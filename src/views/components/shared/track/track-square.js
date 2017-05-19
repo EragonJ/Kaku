@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-class TrackSquare extends React.Component {
+class TrackSquare extends Component {
   constructor(props) {
     super(props);
   }

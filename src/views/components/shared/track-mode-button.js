@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ClassNames from 'classnames';
 import PreferenceManager from '../../../modules/PreferenceManager';
 
 const PREFERENCE_KEY = 'default.track.mode';
 
-class TrackModeButton extends React.Component {
-  constructor() {
-    super();
+class TrackModeButton extends Component {
+  constructor(props) {
+    super(props);
+
     this.state = {
       mode: 'square'
     };
+
+    this._onClick = this._onClick.bind(this);
   }
 
   componentDidMount() {
@@ -57,7 +61,7 @@ class TrackModeButton extends React.Component {
       'track-square-mode': true,
       'active': (mode === 'square')
     });
-    
+
     return (
       <div className="btn-group" role="group">
         <button
@@ -81,7 +85,7 @@ class TrackModeButton extends React.Component {
 }
 
 TrackModeButton.propTypes = {
-  onTrackModeChange: React.PropTypes.func
+  onTrackModeChange: PropTypes.func
 };
 
 TrackModeButton.defaultProps = {

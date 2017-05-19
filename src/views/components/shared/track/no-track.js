@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import L10nSpan from '../l10n-span';
 
-class NoTrack extends React.Component {
+class NoTrack extends Component {
   constructor(props) {
     super(props);
   }

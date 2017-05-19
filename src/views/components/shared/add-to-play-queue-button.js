@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import L10nSpan from './l10n-span';
 import Player from '../../modules/Player';
 
 class AddToPlayQueueButton extends Component {
   constructor(props) {
     super(props);
+
+    this._clickToAddToPlayQueue = this._clickToAddToPlayQueue.bind(this);
   }
 
   _clickToAddToPlayQueue() {
@@ -27,10 +30,10 @@ class AddToPlayQueueButton extends Component {
 }
 
 AddToPlayQueueButton.propTypes = {
-  data: React.PropTypes.array.isRequired
+  data: PropTypes.array.isRequired
 };
 
-AddToPlayQueueButton.getDefaultProps = {
+AddToPlayQueueButton.defaultProps = {
   data: []
 };
 
