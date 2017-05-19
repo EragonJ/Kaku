@@ -1,39 +1,62 @@
-var Electron = require('electron');
-var Remote = Electron.remote;
-var App = Remote.app;
-var AppDialog = Remote.dialog;
+import React, { Component } from 'react';
+import Electron from 'electron';
 
-var React = require('react');
+import PreferenceManager from '../../../modules/PreferenceManager';
+import TrackInfoFetcher from 'kaku-core/modules/TrackInfoFetcher';
+import PlaylistManager from '../../../modules/PlaylistManager';
+import YoutubeImporter from '../../../modules/importer/YoutubeImporter';
+import DropboxBackuper from '../../../modules/backuper/DropboxBackuper';
+import LocalBackuper from '../../../modules/backuper/LocalBackuper';
+import AutoUpdater from '../../../modules/AutoUpdater';
+import TopRanking from 'kaku-core/modules/TopRanking';
 
-var PreferenceManager = require('../../../modules/PreferenceManager');
-var TrackInfoFetcher = require('kaku-core/modules/TrackInfoFetcher');
-var PlaylistManager = require('../../../modules/PlaylistManager');
-var YoutubeImporter = require('../../../modules/importer/YoutubeImporter');
-var DropboxBackuper = require('../../../modules/backuper/DropboxBackuper');
-var LocalBackuper = require('../../../modules/backuper/LocalBackuper');
-var AutoUpdater = require('../../../modules/AutoUpdater');
-var TopRanking = require('kaku-core/modules/TopRanking');
+import L10nManager from '../../../modules/L10nManager';
+import Searcher from '../../../modules/Searcher';
+import DB from '../../../modules/Database';
 
-var L10nManager = require('../../../modules/L10nManager');
-var Searcher = require('../../../modules/Searcher');
-var DB = require('../../../modules/Database');
-var _ = L10nManager.get.bind(L10nManager);
 
-var L10nSpan = require('../shared/l10n-span');
-var Notifier = require('../../modules/Notifier');
-var Dialog = require('../../modules/Dialog');
+import L10nSpan from '../shared/l10n-span';
+import Notifier from '../../modules/Notifier';
+import Dialog from '../../modules/Dialog';
 
-var SettingsComponent = React.createClass({
-  componentDidMount: function() {
+const Remote = Electron.remote;
+const App = Remote.app;
+const AppDialog = Remote.dialog;
+const _ = L10nManager.get.bind(L10nManager);
+
+class SettingsComponent extends Component {
+  constructor(props) {
+    super(props);
+
+    this._makeLanguageOptions = this._makeLanguageOptions.bind(this);
+    this._makeTopRankingOptions = this._makeTopRankingOptions.bind(this);
+    this._makeSearcherOptions = this._makeSearcherOptions.bind(this);
+    this._buildTrackFormatOptions = this._buildTrackFormatOptions.bind(this);
+    this._onChangeToSetPreference = this._onChangeToSetPreference.bind(this);
+    this._onLanguageChange = this._onLanguageChange.bind(this);
+    this._onTopRankingChange = this._onTopRankingChange.bind(this);
+    this._onSearcherChange = this._onSearcherChange.bind(this);
+    this._onTrackFormatChange = this._onTrackFormatChange.bind(this);
+    this._onClickToImportYoutubePlaylist = this._onClickToImportYoutubePlaylist.bind(this);
+    this._onFormSubmit = this._onFormSubmit.bind(this);
+    this._onClickToBackupLocalData = this._onClickToBackupLocalData.bind(this);
+    this._onClickToBackupDropboxData = this._onClickToBackupDropboxData.bind(this);
+    this._onClickToSyncLocalData = this._onClickToSyncLocalData.bind(this);
+    this._onClickToSyncDropboxData = this._onClickToSyncDropboxData.bind(this);
+    this._onClickToUpdatePlayer = this._onClickToUpdatePlayer.bind(this);
+    this._onClickToResetDatabse = this._onClickToResetDatabse.bind(this);
+  }
+
+  componentDidMount() {
     // Country
-    var countryData = TopRanking.getCountryList();
-    var defaultCountryCode =
+    const countryData = TopRanking.getCountryList();
+    let defaultCountryCode =
       PreferenceManager.getPreference('default.topRanking.countryCode');
     this._makeTopRankingOptions(countryData, defaultCountryCode);
 
     // Languages
-    var languages = L10nManager.getSupportedLanguages();
-    var defaultLanguage = PreferenceManager.getPreference('default.language');
+    const languages = L10nManager.getSupportedLanguages();
+    let defaultLanguage = PreferenceManager.getPreference('default.language');
     this._makeLanguageOptions(languages, defaultLanguage);
 
     // Track Format
@@ -41,14 +64,14 @@ var SettingsComponent = React.createClass({
 
     // Searchers
     Searcher.getSupportedSearchers().then((searchers) => {
-      var defaultSearcher =
+      let defaultSearcher =
         PreferenceManager.getPreference('default.searcher');
       this._makeSearcherOptions(searchers, defaultSearcher);
     });
 
     // Events
     PreferenceManager.on('preference-updated', (key, newPreference) => {
-      var obj = {};
+      let obj = {};
       obj[key] = newPreference;
       this.setState(obj);
     });
@@ -78,34 +101,34 @@ var SettingsComponent = React.createClass({
         Remote.getCurrentWindow().setAlwaysOnTop(newPreference);
       }
     });
-  },
+  }
 
-  _makeLanguageOptions: function(languages, defaultLanguage) {
+  _makeLanguageOptions (languages, defaultLanguage) {
     languages = languages || [];
     defaultLanguage = defaultLanguage || 'en';
 
-    var select = this.refs.supportedLanguagesSelect;
+    let select = this.refs.supportedLanguagesSelect;
     languages.forEach((language) => {
-      var option = document.createElement('option');
+      let option = document.createElement('option');
       option.text = language.label;
       option.value = language.lang;
       option.selected = (language.lang === defaultLanguage);
       select.add(option);
     });
-  },
+  }
 
-  _makeTopRankingOptions: function(countryData, defaultCountryCode) {
-    var select = this.refs.topRankingSelect;
+  _makeTopRankingOptions (countryData, defaultCountryCode) {
+    let select = this.refs.topRankingSelect;
     Object.keys(countryData).forEach((countryCode) => {
-      var option = document.createElement('option');
+      let option = document.createElement('option');
       option.text = countryData[countryCode];
       option.value = countryCode;
       option.selected = (defaultCountryCode === countryCode);
       select.add(option);
     });
-  },
+  }
 
-  _makeSearcherOptions: function(searchers, defaultSearcher) {
+  _makeSearcherOptions(searchers, defaultSearcher) {
     searchers = searchers || [];
     defaultSearcher = defaultSearcher || 'youtube';
 
@@ -119,13 +142,13 @@ var SettingsComponent = React.createClass({
       option.selected = (searcherName === defaultSearcher);
       select.add(option);
     });
-  },
+  }
 
-  _buildTrackFormatOptions: function() {
-    var trackFormats = TrackInfoFetcher.getSupportedFormats();
-    var defaultFormat =
+  _buildTrackFormatOptions() {
+    let trackFormats = TrackInfoFetcher.getSupportedFormats();
+    let defaultFormat =
       PreferenceManager.getPreference('default.track.format') || 'best';
-    var select = this.refs.trackFormatSelect;
+    let select = this.refs.trackFormatSelect;
 
     // remove childrens first
     while (select.lastChild) {
@@ -134,45 +157,45 @@ var SettingsComponent = React.createClass({
 
     // then build
     trackFormats.forEach((format) => {
-      var option = document.createElement('option');
+      let option = document.createElement('option');
       option.text = _(format.l10nId);
       option.value = format.value;
       option.selected = (format.value === defaultFormat);
       select.add(option);
     });
-  },
+  }
 
-  _onChangeToSetPreference: function(event) {
-    var target = event.target;
-    var enabled = target.checked;
-    var key = target.dataset.key;
+  _onChangeToSetPreference(event) {
+    let target = event.target;
+    let enabled = target.checked;
+    let key = target.dataset.key;
 
     if (key) {
       PreferenceManager.setPreference(key, enabled);
     }
-  },
+  }
 
-  _onLanguageChange: function(event) {
-    var language = event.target.value;
+  _onLanguageChange(event) {
+    let language = event.target.value;
     L10nManager.changeLanguage(language);
-  },
+  }
 
-  _onTopRankingChange: function(event) {
-    var countryCode = event.target.value;
+  _onTopRankingChange(event) {
+    let countryCode = event.target.value;
     TopRanking.changeCountry(countryCode);
-  },
+  }
 
-  _onSearcherChange: function(event) {
-    var searcherName = event.target.value;
+  _onSearcherChange(event) {
+    let searcherName = event.target.value;
     Searcher.changeSearcher(searcherName);
-  },
+  }
 
-  _onTrackFormatChange: function(event) {
-    var trackFormat = event.target.value;
+  _onTrackFormatChange(event) {
+    let trackFormat = event.target.value;
     TrackInfoFetcher.changeFormat(trackFormat);
-  },
+  }
 
-  _onClickToImportYoutubePlaylist: function() {
+  _onClickToImportYoutubePlaylist() {
     Dialog.prompt({
       title: _('settings_option_enter_playlist_url_prompt'),
       value: '',
@@ -187,20 +210,20 @@ var SettingsComponent = React.createClass({
         }
       }
     });
-  },
+  }
 
-  _onFormSubmit: function(event) {
+  _onFormSubmit(event) {
     event.preventDefault();
-  },
+  }
 
-  _onClickToBackupLocalData: function() {
+  _onClickToBackupLocalData() {
     AppDialog.showOpenDialog({
       title: 'Where to backup your track ?',
       properties: ['openDirectory']
     }, (folderPath) => {
       Notifier.alert('Start to backup data !');
 
-      var playlists = PlaylistManager.export();
+      let playlists = PlaylistManager.export();
       LocalBackuper.backup(playlists, {
         basePath: folderPath[0],
         folderName: 'kaku-backup'
@@ -211,10 +234,10 @@ var SettingsComponent = React.createClass({
         console.log(error);
       });
     });
-  },
+  }
 
-  _onClickToBackupDropboxData: function() {
-    var playlists = PlaylistManager.export();
+  _onClickToBackupDropboxData() {
+    let playlists = PlaylistManager.export();
     Notifier.alert('Start to backup data !');
 
     DropboxBackuper.backup(playlists, {
@@ -225,9 +248,9 @@ var SettingsComponent = React.createClass({
       Notifier.alert('Something went wrong, please try again');
       console.log(error);
     });
-  },
+  }
 
-  _onClickToSyncLocalData: function() {
+  _onClickToSyncLocalData() {
     Dialog.confirm(
       _('settings_option_sync_data_confirm'),
       (sure) => {
@@ -256,9 +279,9 @@ var SettingsComponent = React.createClass({
           });
         }, 1000);
     });
-  },
+  }
 
-  _onClickToSyncDropboxData: function() {
+  _onClickToSyncDropboxData() {
     Dialog.confirm(
       _('settings_option_sync_data_confirm'),
       (sure) => {
@@ -283,9 +306,9 @@ var SettingsComponent = React.createClass({
           }, 1000);
         }
     });
-  },
+  }
 
-  _onClickToUpdatePlayer: function() {
+  _onClickToUpdatePlayer() {
     Notifier.alert('Start to update, please don\'t play music when updating');
 
     AutoUpdater.updateYoutubeDl().then(() => {
@@ -294,9 +317,9 @@ var SettingsComponent = React.createClass({
       Notifier.alert('Something went wrong when updating');
       console.log(error);
     });
-  },
+  }
 
-  _onClickToResetDatabse: function() {
+  _onClickToResetDatabse() {
     Dialog.confirm(
       _('settings_option_reset_database_confirm'),
       (sure) => {
@@ -306,16 +329,16 @@ var SettingsComponent = React.createClass({
           });
         }
     });
-  },
+  }
 
-  render: function() {
-    var isDesktopNotificationEnabled =
+  render() {
+    let isDesktopNotificationEnabled =
       PreferenceManager.getPreference('desktop.notification.enabled');
 
-    var isAlwaysOnTopEnabled =
+    let isAlwaysOnTopEnabled =
       PreferenceManager.getPreference('default.alwaysOnTop.enabled');
 
-    var isChatroomEnabled =
+    let isChatroomEnabled =
       PreferenceManager.getPreference('default.chatroom.enabled');
 
     /* jshint ignore:start */
@@ -520,6 +543,6 @@ var SettingsComponent = React.createClass({
     );
     /* jshint ignore:end */
   }
-});
+}
 
 module.exports = SettingsComponent;
