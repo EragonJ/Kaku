@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Comment from './comment';
 import CommentNoData  from './comment-no-data';
 
@@ -33,7 +34,7 @@ class CommentList extends React.Component {
 }
 
 CommentList.propTypes = {
-  comments: React.PropTypes.array.isRequired
+  comments: PropTypes.array.isRequired
 };
 
 CommentList.defaultProps = {

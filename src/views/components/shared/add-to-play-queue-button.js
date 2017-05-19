@@ -20,7 +20,7 @@ class AddToPlayQueueButton extends Component {
     return (
       <button
         className="add-to-play-queue-button btn btn-default"
-        onClick={this._clickToAddToPlayQueue.bind(this)}
+        onClick={this._clickToAddToPlayQueue}
         disabled={isDiabled}>
           <i className="fa fa-fw fa-ellipsis-h"></i>
           <L10nSpan l10nId="component_add_to_play_queue"/>

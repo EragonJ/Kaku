@@ -24,8 +24,6 @@ class Track extends Component {
     };
 
     this._setPlayingTrack = this._setPlayingTrack.bind(this);
-    this._clickToPlay = this._clickToPlay.bind(this);
-    this._clickToShowContextMenu = this._clickToShowContextMenu.bind(this);
     this._createContextMenu = this._createContextMenu.bind(this);
   }
 

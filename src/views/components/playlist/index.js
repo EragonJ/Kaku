@@ -12,6 +12,8 @@ class PlaylistComponent extends Component {
       playlist: {},
       tracks: []
     };
+
+    this._clickToPlayAll = this._clickToPlayAll.bind(this);
   }
 
   componentDidMount() {
@@ -78,7 +80,7 @@ class PlaylistComponent extends Component {
         headerIconClass="fa fa-fw fa-music"
         controls={controls}
         tracks={tracks}
-        onPlayAllClick={this._clickToPlayAll.bind(this)}
+        onPlayAllClick={this._clickToPlayAll}
       />
     );
   }

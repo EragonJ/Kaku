@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactEmoji from 'react-emoji';
 
 class Comment extends React.Component {
@@ -26,7 +27,7 @@ class Comment extends React.Component {
 }
 
 Comment.propTypes = {
-  data: React.PropTypes.object.isRequired
+  data: PropTypes.object.isRequired
 };
 
 Comment.defaultProps = {

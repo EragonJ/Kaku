@@ -67,14 +67,14 @@ class TrackModeButton extends Component {
           type="button"
           className={listButtonClass}
           data-mode="list"
-          onClick={this._onClick.bind(this)}>
+          onClick={this._onClick}>
             <i className="fa fa-fw fa-list"></i>
         </button>
         <button
           type="button"
           className={squareButtonClass}
           data-mode="square"
-          onClick={this._onClick.bind(this)}>
+          onClick={this._onClick}>
             <i className="glyphicon glyphicon-th"></i>
         </button>
       </div>

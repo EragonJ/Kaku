@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ActionButton from '../../shared/action-button';
 import { Picker } from 'emoji-mart';
 
@@ -10,6 +11,7 @@ class CommentForm extends React.Component {
       isPickerShown: false
     };
 
+    this._onSubmit = this._onSubmit.bind(this);
     this._toggleEmojiPicker = this._toggleEmojiPicker.bind(this);
     this._selectEmoji = this._selectEmoji.bind(this);
     this._handleInputChange = this._handleInputChange.bind(this);
@@ -69,12 +71,11 @@ class CommentForm extends React.Component {
   }
 
   render() {
-    let onSubmit = this._onSubmit.bind(this);
     let isRoomConnected = this.props.connected;
     let isPickerShown = this.state.isPickerShown;
 
     return (
-      <form className="comment-form form-inline" onSubmit={onSubmit}>
+      <form className="comment-form form-inline" onSubmit={this._onSubmit}>
         <div className="form-group">
           <div className="input-group">
             <input
@@ -114,9 +115,9 @@ class CommentForm extends React.Component {
 }
 
 CommentForm.propTypes = {
-  onSubmit: React.PropTypes.func.isRequired,
-  connected: React.PropTypes.bool,
-  shown: React.PropTypes.bool
+  onSubmit: PropTypes.func.isRequired,
+  connected: PropTypes.bool,
+  shown: PropTypes.bool
 };
 
 CommentForm.defaultProps = {
