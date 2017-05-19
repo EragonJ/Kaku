@@ -11,6 +11,8 @@ class AllTracksComponent extends Component {
     this.state = {
       tracks: []
     };
+
+    this._clickToPlayAll = this._clickToPlayAll.bind(this);
   }
 
   componentDidMount() {
@@ -47,7 +49,7 @@ class AllTracksComponent extends Component {
         headerIconClass="fa fa-fw fa-search"
         controls={controls}
         tracks={tracks}
-        onPlayAllClick={this._clickToPlayAll.bind(this)}
+        onPlayAllClick={this._clickToPlayAll}
       />
     );
   }

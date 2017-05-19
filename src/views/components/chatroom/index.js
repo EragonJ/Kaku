@@ -137,7 +137,6 @@ let ChatroomComponent = React.createClass({
   },
 
   render: function() {
-    /* jshint ignore:start */
     let headerSpan;
     let unreadCountSpan;
     let enabled = this.state.enabled;
@@ -183,7 +182,6 @@ let ChatroomComponent = React.createClass({
         </div>
       </div>
     );
-    /* jshint ignore:end */
   }
 });
 

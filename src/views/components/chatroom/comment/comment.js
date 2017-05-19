@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactEmoji from 'react-emoji';
 
 class Comment extends React.Component {
@@ -14,7 +15,6 @@ class Comment extends React.Component {
     // need to figure out the way to parse strings to <span>
     let emojifiedComment = ReactEmoji.emojify(data.comment);
 
-    /* jshint ignore:start */
     return (
       <div className="comment">
         <span className="comment-author">{data.userName}</span>
@@ -23,12 +23,11 @@ class Comment extends React.Component {
         </div>
       </div>
     );
-    /* jshint ignore:end */
   }
 }
 
 Comment.propTypes = {
-  data: React.PropTypes.object.isRequired
+  data: PropTypes.object.isRequired
 };
 
 Comment.defaultProps = {

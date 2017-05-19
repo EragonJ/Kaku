@@ -7,7 +7,6 @@ class CommentNoData extends React.Component {
   }
 
   render() {
-    /* jshint ignore:start */
     return (
       <div className="comment">
         <div className="comment-no-data">
@@ -15,7 +14,6 @@ class CommentNoData extends React.Component {
         </div>
       </div>
     );
-    /* jshint ignore:end */
   }
 }
 

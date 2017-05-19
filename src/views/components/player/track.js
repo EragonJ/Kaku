@@ -41,14 +41,12 @@ class PlayerTrack extends Component {
   }
 
   render() {
-    /* jshint ignore:start */
     return (
       <div
         className="playerComponent vjs-default-skin"
         ref="playerComponent">
       </div>
     );
-    /* jshint ignore:end */
   }
 }
 

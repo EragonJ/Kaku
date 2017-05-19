@@ -9,6 +9,9 @@ class PlayQueueComponent extends Component {
     this.state = {
       tracks: []
     };
+
+    this._clickToPlayAll = this._clickToPlayAll.bind(this)
+    this._clickToDeleteAll = this._clickToDeleteAll.bind(this)
   }
 
   componentDidMount() {
@@ -42,8 +45,8 @@ class PlayQueueComponent extends Component {
         headerIconClass="fa fa-fw fa-ellipsis-h"
         controls={controls}
         tracks={tracks}
-        onPlayAllClick={this._clickToPlayAll.bind(this)}
-        onDeleteAllClick={this._clickToDeleteAll.bind(this)}
+        onPlayAllClick={this._clickToPlayAll}
+        onDeleteAllClick={this._clickToDeleteAll}
       />
     );
   }

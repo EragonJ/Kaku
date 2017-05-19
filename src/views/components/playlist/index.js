@@ -5,13 +5,15 @@ import PlaylistManager from '../../../modules/PlaylistManager';
 import TracksComponent from '../shared/tracks';
 
 class PlaylistComponent extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       playlist: {},
       tracks: []
     };
+
+    this._clickToPlayAll = this._clickToPlayAll.bind(this);
   }
 
   componentDidMount() {
@@ -72,17 +74,15 @@ class PlaylistComponent extends Component {
       addToPlayQueueButton: true
     };
 
-    /* jshint ignore:start */
     return (
       <TracksComponent
         headerWording={playlistName}
         headerIconClass="fa fa-fw fa-music"
         controls={controls}
         tracks={tracks}
-        onPlayAllClick={this._clickToPlayAll.bind(this)}
+        onPlayAllClick={this._clickToPlayAll}
       />
     );
-    /* jshint ignore:end */
   }
 }
 

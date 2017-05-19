@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Electron from 'electron';
 
 import TabManager from '../../modules/TabManager';
@@ -96,8 +97,8 @@ class PlaylistUI extends React.Component {
 };
 
 PlaylistUI.propTypes = {
-  index: React.PropTypes.number,
-  playlist: React.PropTypes.object
+  index: PropTypes.number,
+  playlist: PropTypes.object
 };
 
 PlaylistUI.defaultProps = {

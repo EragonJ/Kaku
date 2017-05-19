@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Comment from './comment';
 import CommentNoData  from './comment-no-data';
 
@@ -14,7 +15,6 @@ class CommentList extends React.Component {
   }
 
   render() {
-    /* jshint ignore:start */
     let renderedElement;
     let commentNodes = this.props.comments.map((comment, index) => {
       return <Comment key={index} data={comment}></Comment>;
@@ -30,12 +30,11 @@ class CommentList extends React.Component {
     return (
       <div className="comment-list" ref="commentList">{renderedElement}</div>
     );
-    /* jshint ignore:end */
   }
 }
 
 CommentList.propTypes = {
-  comments: React.PropTypes.array.isRequired
+  comments: PropTypes.array.isRequired
 };
 
 CommentList.defaultProps = {

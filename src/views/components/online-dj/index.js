@@ -67,7 +67,6 @@ class OnlineDJComponent extends Component {
   }
 
   render() {
-    /* jshint ignore:start */
     let page = this.state.page;
     let userInfo = this.state.userInfo;
     let renderedElement;
@@ -86,7 +85,6 @@ class OnlineDJComponent extends Component {
         </div>
       </div>
     );
-    /* jshint ignore:end */
   }
 }
 

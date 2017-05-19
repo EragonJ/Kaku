@@ -1,11 +1,12 @@
 import $ from 'jquery';
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Uuid from 'node-uuid';
 import Validator from 'validator';
 import ActionButton from '../shared/action-button';
 import L10nSpan from '../shared/l10n-span';
 
-class ChooseRolePage extends React.Component {
+class ChooseRolePage extends Component {
   constructor(props) {
     super(props);
   }
@@ -62,7 +63,6 @@ class ChooseRolePage extends React.Component {
     let onDJSubmit = this._onSubmit.bind(this, 'dj');
     let onGuestSubmit = this._onSubmit.bind(this, 'guest');
 
-    /* jshint ignore:start */
     return (
       <div className="choose-role-page">
         <ul className="nav nav-pills" role="tablist">
@@ -153,12 +153,11 @@ class ChooseRolePage extends React.Component {
         </div>
       </div>
     );
-    /* jshint ignore:end */
   }
 }
 
 ChooseRolePage.propTypes = {
-  onRoleChoose: React.PropTypes.func.isRequired
+  onRoleChoose: PropTypes.func.isRequired
 };
 
 ChooseRolePage.defaultProps = {

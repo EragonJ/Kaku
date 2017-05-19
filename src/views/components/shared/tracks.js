@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import Track from './track/track';
 import NoTrack from './track/no-track';
@@ -7,56 +8,32 @@ import ActionButton from './action-button';
 import TrackModeButton from './track-mode-button';
 import AddToPlayQueueButton from './add-to-play-queue-button';
 
-var TracksComponent = React.createClass({
-  propTypes: {
-    headerL10nId: React.PropTypes.string,
-    headerWording: React.PropTypes.string,
-    headerIconClass: React.PropTypes.string.isRequired,
-    controls: React.PropTypes.object,
-    tracks: React.PropTypes.array.isRequired,
-    onDeleteAllClick: React.PropTypes.func,
-    onPlayAllClick: React.PropTypes.func
-  },
+class TracksComponent extends Component {
+  constructor(props) {
+    super(props);
 
-  getDefaultProps: function() {
-    return {
-      headerL10nId: '',
-      headerWording: '',
-      headerIconClass: '',
-      controls: {
-        trackModeButton: true,
-        playAllButton: true,
-        addToPlayQueueButton: true,
-        deleteAllButton: false
-      },
-      onDeleteAllClick: function() {},
-      onPlayAllClick: function() {},
-      tracks: []
-    };
-  },
-
-  getInitialState: function() {
-    return {
+    this.state = {
       trackMode: 'square'
     };
-  },
 
-  _onTrackModeChange: function(mode) {
+    this._onTrackModeChange = this._onTrackModeChange.bind(this);
+  }
+
+  _onTrackModeChange(mode) {
     this.setState({
       trackMode: mode
     });
-  },
+  }
 
-  componentDidUpdate: function() {
+  componentDidUpdate() {
     // Only rebuild the tooltip when we are under sqaure more
     // this can avoid manipulate DOM tree too much
     if (this.state.trackMode === 'square') {
       ReactTooltip.rebuild();
     }
-  },
+  }
 
-  render: function() {
-    /* jshint ignore:start */
+  render() {
     let {
       tracks,
       headerL10nId,
@@ -143,8 +120,32 @@ var TracksComponent = React.createClass({
         </div>
       </div>
     );
-    /* jshint ignore:end */
   }
-});
+}
+
+TracksComponent.propTypes = {
+  headerL10nId: PropTypes.string,
+  headerWording: PropTypes.string,
+  headerIconClass: PropTypes.string.isRequired,
+  controls: PropTypes.object,
+  tracks: PropTypes.array.isRequired,
+  onDeleteAllClick: PropTypes.func,
+  onPlayAllClick: PropTypes.func
+};
+
+TracksComponent.defaultProps = {
+  headerL10nId: '',
+  headerWording: '',
+  headerIconClass: '',
+  controls: {
+    trackModeButton: true,
+    playAllButton: true,
+    addToPlayQueueButton: true,
+    deleteAllButton: false
+  },
+  onDeleteAllClick: function() {},
+  onPlayAllClick: function() {},
+  tracks: []
+};
 
 module.exports = TracksComponent;

@@ -1,22 +1,28 @@
-var Electron = require('electron');
-var Remote = Electron.remote;
-var App = Remote.app;
+import React, { Component } from 'react';
+import Electron from 'electron';
+import SearchbarComponent from '../searchbar';
+import DownloadManager from '../../../modules/DownloadManager';
+import AppCore from '../../../modules/AppCore';
 
-var React = require('react');
+const Remote = Electron.remote;
+const App = Remote.app;
 
-var SearchbarComponent = require('../searchbar');
-var DownloadManager = require('../../../modules/DownloadManager');
-var AppCore = require('../../../modules/AppCore');
+class ToolbarComponent extends Component {
+  constructor(props) {
+    super(props);
 
-var ToolbarComponent = React.createClass({
-  getInitialState: function() {
-    return {
+    this.state = {
       downloadPercent: 0,
       title: ''
     };
-  },
 
-  componentDidMount: function() {
+    this._onCloseButtonClick = this._onCloseButtonClick.bind(this);
+    this._onShrinkButtonClick = this._onShrinkButtonClick.bind(this);
+    this._onEnlargeButtonClick = this._onEnlargeButtonClick.bind(this);
+    this._processDownloadProgress = this._processDownloadProgress.bind(this);
+  }
+
+  componentDidMount() {
     this.setState({
       title: AppCore.title
     });
@@ -38,41 +44,40 @@ var ToolbarComponent = React.createClass({
     DownloadManager.on('download-error', () => {
       this._processDownloadProgress(0);
     });
-  },
+  }
 
-  _onCloseButtonClick: function() {
+  _onCloseButtonClick() {
     App.quit();
-  },
+  }
 
-  _onShrinkButtonClick: function() {
+  _onShrinkButtonClick() {
     Remote.getCurrentWindow().minimize();
-  },
+  }
 
-  _onEnlargeButtonClick: function() {
-    var win = Remote.getCurrentWindow();
+  _onEnlargeButtonClick() {
+    let win = Remote.getCurrentWindow();
     if (win.isMaximized()) {
       win.unmaximize();
     }
     else {
       win.maximize();
     }
-  },
+  }
 
-  _processDownloadProgress: function(percent) {
+  _processDownloadProgress(percent) {
     this.setState({
       downloadPercent: percent
     });
-  },
+  }
 
-  render: function() {
-    var title = this.state.title;
-    var downloadPercent = this.state.downloadPercent;
+  render() {
+    let title = this.state.title;
+    let downloadPercent = this.state.downloadPercent;
 
-    var progressStyle = {
-      width: downloadPercent + '%'
+    let progressStyle = {
+      width: `${downloadPercent}%`
     };
 
-    /* jshint ignore:start */
     return (
       <div className="toolbar-component clearfix">
         <div className="toolbar-buttons">
@@ -101,8 +106,7 @@ var ToolbarComponent = React.createClass({
         <div className="toolbar-progressbar" style={progressStyle}></div>
       </div>
     );
-    /* jshint ignore:end */
   }
-});
+}
 
 module.exports = ToolbarComponent;

@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ClassNames from 'classnames';
 import L10nSpan from './l10n-span';
 
-class ActionButton extends React.Component {
+class ActionButton extends Component {
   constructor(props) {
     super(props);
   }
 
   render() {
-    /* jshint ignore:start */
     let buttonSpan;
 
     if (this.props.l10nId) {
@@ -28,18 +28,17 @@ class ActionButton extends React.Component {
           {buttonSpan}
       </button>
     );
-    /* jshint ignore:end */
   }
 }
 
 ActionButton.propTypes = {
-  type: React.PropTypes.string,
-  wording: React.PropTypes.string,
-  l10nId: React.PropTypes.string,
-  buttonClass: React.PropTypes.string,
-  iconClass: React.PropTypes.string,
-  isDisabled: React.PropTypes.bool,
-  onClick: React.PropTypes.func
+  type: PropTypes.string,
+  wording: PropTypes.string,
+  l10nId: PropTypes.string,
+  buttonClass: PropTypes.string,
+  iconClass: PropTypes.string,
+  isDisabled: PropTypes.bool,
+  onClick: PropTypes.func
 };
 
 ActionButton.defaultProps = {

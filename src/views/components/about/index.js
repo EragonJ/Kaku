@@ -12,8 +12,8 @@ import L10nManager from '../../../modules/L10nManager';
 let _ = L10nManager.get.bind(L10nManager);
 
 class AboutComponent extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       thanksMessage: ''
@@ -146,7 +146,6 @@ class AboutComponent extends Component {
   }
 
   render() {
-    /* jshint ignore:start */
     return (
       <div className="about-slot">
         <div className="header clearfix">
@@ -287,7 +286,6 @@ class AboutComponent extends Component {
         </div>
       </div>
     );
-    /* jshint ignore:end */
   }
 }
 

@@ -10,6 +10,8 @@ class TopRankingComponent extends Component {
     this.state = {
       tracks: []
     };
+
+    this._clickToPlayAll = this._clickToPlayAll.bind(this);
   }
 
   componentDidMount() {
@@ -44,17 +46,15 @@ class TopRankingComponent extends Component {
       addToPlayQueueButton: true
     };
 
-    /* jshint ignore:start */
     return (
       <TracksComponent
         headerL10nId="topranking_header"
         headerIconClass="fa fa-fw fa-line-chart"
         controls={controls}
         tracks={tracks}
-        onPlayAllClick={this._clickToPlayAll.bind(this)}
+        onPlayAllClick={this._clickToPlayAll}
       />
     );
-    /* jshint ignore:end */
   }
 }
 

@@ -18,7 +18,6 @@ class NewsTag extends Component {
     classObject[label] = true;
     const className = ClassNames(classObject);
 
-    /* jshint ignore:start */
     return (
       <div className={className}>
         <div className="panel-heading">{title}</div>
@@ -30,7 +29,6 @@ class NewsTag extends Component {
         />
       </div>
     );
-    /* jshint ignore:end */
   }
 }
 

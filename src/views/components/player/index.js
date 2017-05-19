@@ -51,14 +51,12 @@ class PlayerComponent extends Component {
       'tv-mode': this.state.tvMode
     });
 
-    /* jshint ignore:start */
     return (
       <div className={playerClass}>
         <PlayerTrack/>
         <PlayerControlButtons onToggleTVMode={this._onClickToToggleTVMode}/>
       </div>
     );
-    /* jshint ignore:end */
   }
 }
 

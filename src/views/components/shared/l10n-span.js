@@ -1,28 +1,21 @@
-var React = require('react');
-var L10nManager = require('../../../modules/L10nManager');
-var _ = L10nManager.get.bind(L10nManager);
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import L10nManager from '../../../modules/L10nManager';
 
-var L10nSpan = React.createClass({
-  propTypes: {
-    l10nId: React.PropTypes.string.isRequired,
-    l10nParams: React.PropTypes.object,
-    where: React.PropTypes.string
-  },
+const _ = L10nManager.get.bind(L10nManager);
 
-  getDefaultProps: function() {
-    return {
-      l10nId: '',
-      l10nParams: {}
-    };
-  },
+class L10nSpan extends Component {
+  constructor(props) {
+    super(props);
 
-  getInitialState: function() {
-    return {
+    this.state = {
       translation: ''
     };
-  },
 
-  componentDidMount: function() {
+    this._updateL10nTranslation = this._updateL10nTranslation.bind(this);
+  }
+
+  componentDidMount() {
     this._updateL10nTranslation();
 
     L10nManager.on('language-initialized', () => {
@@ -32,31 +25,30 @@ var L10nSpan = React.createClass({
     L10nManager.on('language-changed', () => {
       this._updateL10nTranslation();
     });
-  },
+  }
 
-  componentWillReceiveProps: function(nextProps) {
+  componentWillReceiveProps(nextProps) {
     // NOTE
     // we need to add this to make manually changing l10nId work.
     this._updateL10nTranslation(nextProps);
-  },
+  }
 
-  _updateL10nTranslation: function(nextProps) {
-    var props = nextProps || this.props;
-    var translation = _(props.l10nId, props.l10nParams);
+  _updateL10nTranslation(nextProps) {
+    let props = nextProps || this.props;
+    let translation = _(props.l10nId, props.l10nParams);
     this.setState({
       translation: translation
     });
-  },
+  }
 
-  render: function() {
-    /* jshint ignore:start */
-    var translation = this.state.translation;
-    var where = this.props.where || 'default';
-    var children = null;
-    var props = {};
+  render() {
+    let translation = this.state.translation;
+    let where = this.props.where || 'default';
+    let children = null;
+    let props = {};
 
     // clone props at first
-    for (var key in this.props) {
+    for (let key in this.props) {
       props[key] = this.props[key];
     }
 
@@ -93,8 +85,18 @@ var L10nSpan = React.createClass({
     delete props.where;
 
     return React.createElement('span', props, children);
-    /* jshint ignore:end */
   }
-});
+}
+
+L10nSpan.propTypes = {
+  l10nId: PropTypes.string.isRequired,
+  l10nParams: PropTypes.object,
+  where: PropTypes.string
+};
+
+L10nSpan.defaultProps = {
+  l10nId: '',
+  l10nParams: {}
+};
 
 module.exports = L10nSpan;
