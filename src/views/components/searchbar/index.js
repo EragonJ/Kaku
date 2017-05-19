@@ -195,7 +195,6 @@ class SearchbarComponent extends Component {
       'show': isSearching
     });
 
-    /* jshint ignore:start */
     return (
       <div className="searchbar-component">
         <form
@@ -232,8 +231,6 @@ class SearchbarComponent extends Component {
           </ul>
         </div>
     );
-
-    /* jshint ignore:end */
   }
 }
 

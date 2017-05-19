@@ -103,7 +103,7 @@ class SettingsComponent extends Component {
     });
   }
 
-  _makeLanguageOptions (languages, defaultLanguage) {
+  _makeLanguageOptions(languages, defaultLanguage) {
     languages = languages || [];
     defaultLanguage = defaultLanguage || 'en';
 
@@ -117,7 +117,7 @@ class SettingsComponent extends Component {
     });
   }
 
-  _makeTopRankingOptions (countryData, defaultCountryCode) {
+  _makeTopRankingOptions(countryData, defaultCountryCode) {
     let select = this.refs.topRankingSelect;
     Object.keys(countryData).forEach((countryCode) => {
       let option = document.createElement('option');
@@ -341,7 +341,6 @@ class SettingsComponent extends Component {
     let isChatroomEnabled =
       PreferenceManager.getPreference('default.chatroom.enabled');
 
-    /* jshint ignore:start */
     return (
       <div className="settings-slot">
         <div className="header clearfix">
@@ -541,7 +540,6 @@ class SettingsComponent extends Component {
         </div>
       </div>
     );
-    /* jshint ignore:end */
   }
 }
 

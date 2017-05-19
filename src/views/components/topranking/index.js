@@ -44,7 +44,6 @@ class TopRankingComponent extends Component {
       addToPlayQueueButton: true
     };
 
-    /* jshint ignore:start */
     return (
       <TracksComponent
         headerL10nId="topranking_header"
@@ -54,7 +53,6 @@ class TopRankingComponent extends Component {
         onPlayAllClick={this._clickToPlayAll.bind(this)}
       />
     );
-    /* jshint ignore:end */
   }
 }
 

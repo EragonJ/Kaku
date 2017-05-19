@@ -78,7 +78,6 @@ class ToolbarComponent extends Component {
       width: `${downloadPercent}%`
     };
 
-    /* jshint ignore:start */
     return (
       <div className="toolbar-component clearfix">
         <div className="toolbar-buttons">
@@ -107,7 +106,6 @@ class ToolbarComponent extends Component {
         <div className="toolbar-progressbar" style={progressStyle}></div>
       </div>
     );
-    /* jshint ignore:end */
   }
 }
 

@@ -167,7 +167,6 @@ class Track extends Component {
       trackClassName: trackClassName
     };
 
-    /* jshint ignore:start */
     // We will dispatch do different views here based on incoming mode
     if (mode === 'square') {
       trackUI = <TrackSquare {...trackProps} />;
@@ -177,7 +176,6 @@ class Track extends Component {
     }
 
     return trackUI;
-    /* jshint ignore:end */
   }
 }
 

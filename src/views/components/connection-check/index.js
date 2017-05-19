@@ -25,7 +25,6 @@ class ConnectionCheckComponent extends Component {
   }
 
   render() {
-    /* jshint ignore:start */
     const className = ClassNames({
       'connection-check-component': true,
       'global-overlay': true,
@@ -40,7 +39,6 @@ class ConnectionCheckComponent extends Component {
         </h1>
       </div>
     );
-    /* jshint ignore:end */
   }
 }
 

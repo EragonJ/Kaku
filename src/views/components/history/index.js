@@ -35,7 +35,6 @@ class HistoryComponent extends Component {
   }
 
   render() {
-    /* jshint ignore:start */
     let tracks = this.state.tracks;
     let controls = {
       trackModeButton: true,
@@ -53,7 +52,6 @@ class HistoryComponent extends Component {
         onDeleteAllClick={this._clickToDeleteAll}
       />
     );
-    /* jshint ignore:end */
   }
 }
 

@@ -21,9 +21,8 @@ class NewsComponent extends Component {
   }
 
   render() {
-    const news = this.state.news;
+    let news = this.state.news;
 
-    /* jshint ignore:start */
     return (
       <div className="news-slot">
         <div className="header clearfix">
@@ -39,7 +38,6 @@ class NewsComponent extends Component {
         </div>
       </div>
     );
-    /* jshint ignore:end */
   }
 }
 

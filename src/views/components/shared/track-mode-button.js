@@ -45,7 +45,6 @@ class TrackModeButton extends Component {
   }
 
   render() {
-    /* jshint ignore:start */
     let mode = this.state.mode;
 
     let listButtonClass = ClassNames({
@@ -80,7 +79,6 @@ class TrackModeButton extends Component {
         </button>
       </div>
     );
-    /* jshint ignore:end */
   }
 }
 

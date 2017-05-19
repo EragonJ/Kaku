@@ -42,7 +42,6 @@ class L10nSpan extends Component {
   }
 
   render() {
-    /* jshint ignore:start */
     let translation = this.state.translation;
     let where = this.props.where || 'default';
     let children = null;
@@ -86,7 +85,6 @@ class L10nSpan extends Component {
     delete props.where;
 
     return React.createElement('span', props, children);
-    /* jshint ignore:end */
   }
 }
 

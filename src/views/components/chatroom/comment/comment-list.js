@@ -14,7 +14,6 @@ class CommentList extends React.Component {
   }
 
   render() {
-    /* jshint ignore:start */
     let renderedElement;
     let commentNodes = this.props.comments.map((comment, index) => {
       return <Comment key={index} data={comment}></Comment>;
@@ -30,7 +29,6 @@ class CommentList extends React.Component {
     return (
       <div className="comment-list" ref="commentList">{renderedElement}</div>
     );
-    /* jshint ignore:end */
   }
 }
 

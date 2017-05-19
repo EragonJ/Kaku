@@ -116,9 +116,8 @@ class MenusComponent extends Component {
   }
 
   render() {
-    const playlists = this.state.playlists;
+    let playlists = this.state.playlists;
 
-    /* jshint ignore:start */
     return (
       <div className="menus">
         <ul className="list-unstyled" role="tablist" ref="menus">
@@ -230,7 +229,6 @@ class MenusComponent extends Component {
         </ul>
       </div>
     );
-    /* jshint ignore:end */
   }
 }
 

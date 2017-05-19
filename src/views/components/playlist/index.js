@@ -72,7 +72,6 @@ class PlaylistComponent extends Component {
       addToPlayQueueButton: true
     };
 
-    /* jshint ignore:start */
     return (
       <TracksComponent
         headerWording={playlistName}
@@ -82,7 +81,6 @@ class PlaylistComponent extends Component {
         onPlayAllClick={this._clickToPlayAll.bind(this)}
       />
     );
-    /* jshint ignore:end */
   }
 }
 

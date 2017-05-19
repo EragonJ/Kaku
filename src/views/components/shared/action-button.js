@@ -9,7 +9,6 @@ class ActionButton extends Component {
   }
 
   render() {
-    /* jshint ignore:start */
     let buttonSpan;
 
     if (this.props.l10nId) {
@@ -29,7 +28,6 @@ class ActionButton extends Component {
           {buttonSpan}
       </button>
     );
-    /* jshint ignore:end */
   }
 }
 

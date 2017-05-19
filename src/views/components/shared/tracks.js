@@ -34,7 +34,6 @@ class TracksComponent extends Component {
   }
 
   render() {
-    /* jshint ignore:start */
     let {
       tracks,
       headerL10nId,
@@ -121,7 +120,6 @@ class TracksComponent extends Component {
         </div>
       </div>
     );
-    /* jshint ignore:end */
   }
 }
 

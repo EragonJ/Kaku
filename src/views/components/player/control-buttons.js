@@ -170,7 +170,6 @@ class PlayerControlButtons extends Component {
       'is-connecting': this.state.isConnecting
     });
 
-    /* jshint ignore:start */
     return (
       <div className="control-buttons">
         <L10nSpan
@@ -225,7 +224,6 @@ class PlayerControlButtons extends Component {
         </L10nSpan>
       </div>
     );
-    /* jshint ignore:end */
   }
 }
 

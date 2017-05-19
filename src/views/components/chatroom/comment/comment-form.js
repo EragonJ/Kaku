@@ -73,7 +73,6 @@ class CommentForm extends React.Component {
     let isRoomConnected = this.props.connected;
     let isPickerShown = this.state.isPickerShown;
 
-    /* jshint ignore:start */
     return (
       <form className="comment-form form-inline" onSubmit={onSubmit}>
         <div className="form-group">
@@ -111,7 +110,6 @@ class CommentForm extends React.Component {
         }
       </form>
     );
-    /* jshint ignore:end */
   }
 }
 
