@@ -1,15 +1,18 @@
-import os from 'os';
-import Path from 'path';
-import AppCore from './AppCore';
-import YoutubeDlDownloader from 'youtube-dl/lib/downloader';
-import Constants from './Constants';
-import L10nManager from './L10nManager';
-
 const Remote = require('electron').remote;
 const App = Remote.app;
 const Updater = Remote.autoUpdater;
 const Dialog = Remote.dialog;
+
+import os from 'os';
+import Path from 'path';
+import AppCore from './AppCore';
+import Constants from './Constants';
+import L10nManager from './L10nManager';
+import { Downloader } from 'youtube-dl-node';
+
 const _ = L10nManager.get.bind(L10nManager);
+const ytdlDownloader = new Downloader();
+ytdlDownloader.setPath(App.getPath('userData'))
 
 class AutoUpdater {
   constructor() {
@@ -93,27 +96,7 @@ class AutoUpdater {
   }
 
   updateYoutubeDl() {
-    let ytdlBinPath = App.getAppPath();
-    let appPath;
-
-    if (AppCore.isProduction()) {
-      ytdlBinPath = Path.join(ytdlBinPath, '..', 'app.asar.unpacked');
-    }
-
-    ytdlBinPath = Path.join(ytdlBinPath, 'node_modules', 'youtube-dl', 'bin');
-
-    let promise = new Promise((resolve, reject) => {
-      YoutubeDlDownloader(ytdlBinPath, (error) => {
-        if (error) {
-          reject(error);
-        }
-        else {
-          resolve();
-        }
-      });
-    });
-
-    return promise;
+    return ytdlDownloader.save(os.platform());
   }
 }
 

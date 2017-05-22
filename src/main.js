@@ -212,7 +212,11 @@ var KakuApp = React.createClass({
 
   _triggerAutoUpdater: function() {
     AutoUpdater.updateApp();
-    AutoUpdater.updateYoutubeDl();
+    AutoUpdater.updateYoutubeDl().then(() => {
+      console.log('updated youtube-dl successfully');
+    }).catch(() => {
+      console.log('failed to update youtube-dl');
+    });
   },
 
   _hideLoadingPage: function() {

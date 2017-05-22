@@ -6,6 +6,7 @@ videojs.options.flash.swf = 'dist/vendor/video.js/dist/video-js.swf';
 
 const Remote = Electron.remote;
 const Dialog = Remote.dialog;
+const App = Remote.app;
 
 import PreferenceManager from '../../modules/PreferenceManager';
 import TrackInfoFetcher from 'kaku-core/modules/TrackInfoFetcher';
@@ -15,6 +16,9 @@ import AppCore from '../../modules/AppCore';
 import Searcher from '../../modules/Searcher';
 import Tracker from '../../modules/Tracker';
 import Defer from 'kaku-core/modules/Defer';
+import os from 'os';
+
+TrackInfoFetcher.setPath(App.getPath('userData'))
 
 const _ = L10nManager.get.bind(L10nManager);
 
