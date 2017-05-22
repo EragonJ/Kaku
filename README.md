@@ -81,7 +81,7 @@ Please check our [wiki](https://github.com/EragonJ/Kaku/wiki) here for more info
 
 # Author
 
-Chia-Lung, Chen (EragonJ)
+Chia-Lung Chen (EragonJ)
 
 **Note:** Kaku's Logo is designed by [Peko Chen](https://www.facebook.com/peko.chen), thanks for her support :)
 
