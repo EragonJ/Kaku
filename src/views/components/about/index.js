@@ -19,17 +19,17 @@ class AboutComponent extends Component {
       thanksMessage: ''
     };
 
-    this._onFormSubmit.bind(this);
-    this._onClickToShowBitcoinModal.bind(this);
-    this._onClickToOpenPatreon.bind(this);
-    this._onClickToOpenFacebook.bind(this);
-    this._onClickToOpenTwitter.bind(this);
-    this._onClickToOpenGithub.bind(this);
-    this._onClickToOpenGithubIssues.bind(this);
-    this._onClickToOpenGitter.bind(this);
-    this._onClickToOpenFacebookDM.bind(this);
-    this._onClickToOpenQA.bind(this);
-    this._onClickToShowSpecialThanks.bind(this);
+    this._onFormSubmit = this._onFormSubmit.bind(this);
+    this._onClickToShowBitcoinModal = this._onClickToShowBitcoinModal.bind(this);
+    this._onClickToOpenPatreon = this._onClickToOpenPatreon.bind(this);
+    this._onClickToOpenFacebook = this._onClickToOpenFacebook.bind(this);
+    this._onClickToOpenTwitter = this._onClickToOpenTwitter.bind(this);
+    this._onClickToOpenGithub = this._onClickToOpenGithub.bind(this);
+    this._onClickToOpenGithubIssues = this._onClickToOpenGithubIssues.bind(this);
+    this._onClickToOpenGitter = this._onClickToOpenGitter.bind(this);
+    this._onClickToOpenFacebookDM = this._onClickToOpenFacebookDM.bind(this);
+    this._onClickToOpenQA = this._onClickToOpenQA.bind(this);
+    this._onClickToShowSpecialThanks = this._onClickToShowSpecialThanks.bind(this);
   }
 
   _onFormSubmit(event) {
