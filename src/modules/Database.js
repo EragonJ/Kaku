@@ -1,5 +1,15 @@
-import PouchDB from 'pouchdb';
-const KakuDB = new PouchDB('kaku');
+import PouchDB from 'pouchdb-browser';
+let opt = {};
+
+if (global && global.IS_TEST === true) {
+  PouchDB.plugin(require('pouchdb-adapter-memory'));
+  opt.adapter = 'memory';
+}
+else {
+  opt.adapter = 'idb';
+}
+
+const KakuDB = new PouchDB('kaku', opt);
 
 // Note:
 // Because we add something new in the prototype chain and this is not safe,

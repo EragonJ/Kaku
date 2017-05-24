@@ -3,6 +3,7 @@ import Firebase from 'firebase';
 import {
   clipboard as Clipboard
 } from 'electron';
+import PropTypes from 'prop-types';
 import ReactFireMixin from 'reactfire';
 import Track from '../shared/track/track';
 import L10nSpan from '../shared/l10n-span';
@@ -16,8 +17,8 @@ let DashboardPage = React.createClass({
   mixins: [ReactFireMixin],
 
   propTypes: {
-    userInfo: React.PropTypes.object.isRequired,
-    onLeft: React.PropTypes.func.isRequired
+    userInfo: PropTypes.object.isRequired,
+    onLeft: PropTypes.func.isRequired
   },
 
   getDefaultProps: function() {
