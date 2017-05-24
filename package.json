@@ -99,6 +99,7 @@
     "json-loader": "^0.5.4",
     "less": "^2.7.1",
     "mocha": "^2.4.5",
+    "pouchdb-adapter-memory": "^6.2.0",
     "proxyquire": "^1.7.4",
     "shelljs": "^0.6.0",
     "sinon": "^1.17.3",
