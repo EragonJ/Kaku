@@ -5,7 +5,7 @@ const colors = require('colors/safe');
 
 const env = process.env.NODE_ENV || 'development';
 const CSC_NAME = process.env.CSC_NAME;
-let cmd = './node_modules/.bin/build --mac';
+let cmd = './node_modules/.bin/build --mac -p onTagOrDraft';
 
 if (CSC_NAME) {
   cmd = `CSC_NAME='${CSC_NAME}' ` + cmd;
@@ -18,4 +18,3 @@ if (env === 'production' && !CSC_NAME) {
 }
 
 shell.exec(cmd);
-shell.exec('OS=mac npm run afterbuild:os');

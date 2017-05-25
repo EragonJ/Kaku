@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-var shell = require('shelljs');
-var env = process.env.NODE_ENV || 'development';
+const shell = require('shelljs');
+const env = process.env.NODE_ENV || 'development';
 
 // we'll keep everything in this folder
 shell.exec('mkdir -p dist/release');

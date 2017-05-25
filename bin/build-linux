@@ -2,5 +2,4 @@
 
 const shell = require('shelljs');
 
-shell.exec('./node_modules/.bin/build --linux --x64 --ia32');
-shell.exec('OS=linux npm run afterbuild:os');
+shell.exec('./node_modules/.bin/build --linux --x64 --ia32 -p onTagOrDraft');

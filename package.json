@@ -36,18 +36,12 @@
     "build": "NODE_ENV=production ./bin/build",
     "build:development": "NODE_ENV=development ./bin/build",
     "beforebuild": "./bin/before-build",
-    "afterbuild:os": "./bin/after-build-os",
     "test": "./node_modules/mocha/bin/mocha -u tdd -t 5000 --reporter dot --compilers js:babel-core/register --require ./tests/unit/setup.js 'tests/unit/*.test.js'",
     "uitest-all": "npm run-script prepare-build && npm run-script uitest",
     "uitest": "./node_modules/mocha/bin/mocha -u tdd -t 15000 --reporter dot tests/ui/*.test.js"
   },
   "build": {
     "appId": "com.kaku.kaku-desktop",
-    "publish": [{
-      "provider": "github",
-      "owner": "EragonJ",
-      "repo": "Kaku"
-    }],
     "files": [
       "**/*",
       "!dist/**/*",
