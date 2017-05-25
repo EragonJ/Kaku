@@ -62,7 +62,9 @@ class PlaylistUI extends React.Component {
   _clickToShowContextMenu(playlist, event) {
     event.preventDefault();
     let menu = this._createContextMenuForPlaylist(playlist);
-    menu.popup(Remote.getCurrentWindow());
+    menu.popup(Remote.getCurrentWindow(), {
+      async: true
+    });
   }
 
   _clickToSetTab(id) {

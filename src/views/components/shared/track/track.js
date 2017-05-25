@@ -60,7 +60,9 @@ class Track extends Component {
     // we should not shown this context menu
     event.preventDefault();
     let menu = this._createContextMenu(track);
-    menu.popup(Remote.getCurrentWindow());
+    menu.popup(Remote.getCurrentWindow(), {
+      async: true
+    });
   }
 
   _createContextMenu(track) {
