@@ -1,0 +1,12 @@
+#!/usr/bin/env node
+
+var shell = require('shelljs');
+var env = process.env.NODE_ENV || 'development';
+
+// we'll keep everything in this folder
+shell.exec('mkdir -p dist/release');
+shell.exec('mkdir -p dist/release/mac');
+shell.exec('mkdir -p dist/release/linux');
+shell.exec('mkdir -p dist/release/windows');
+shell.exec('mkdir -p dist/release/windows32');
+shell.exec('mkdir -p release');

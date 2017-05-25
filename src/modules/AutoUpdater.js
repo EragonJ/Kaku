@@ -1,6 +1,5 @@
 const Remote = require('electron').remote;
 const App = Remote.app;
-const Updater = Remote.autoUpdater;
 const Dialog = Remote.dialog;
 
 import os from 'os';
@@ -9,6 +8,7 @@ import AppCore from './AppCore';
 import Constants from './Constants';
 import L10nManager from './L10nManager';
 import { Downloader } from 'kaku-core/modules/YoutubeDL';
+import { autoUpdater } from "electron-updater";
 
 const _ = L10nManager.get.bind(L10nManager);
 const ytdlDownloader = new Downloader();
@@ -31,23 +31,23 @@ class AutoUpdater {
 
     this._hasFeedUrl = true;
 
-    Updater.on('checking-for-update', (e) => {
+    autoUpdater.on('checking-for-update', (e) => {
       console.log('found a new update');
     });
 
-    Updater.on('update-available', (e) => {
+    autoUpdater.on('update-available', (e) => {
       console.log('update is available');
     });
 
-    Updater.on('update-not-available', (e) => {
+    autoUpdater.on('update-not-available', (e) => {
       console.log('update not available');
     });
 
-    Updater.on('error', (error) => {
+    autoUpdater.on('error', (error) => {
       console.log(error);
     });
 
-    Updater.on('update-downloaded',
+    autoUpdater.on('update-downloaded',
       (e, releaseNotes, releaseName, releaseDate, updateURL) => {
         console.log('update downloaded');
 
@@ -67,32 +67,14 @@ class AutoUpdater {
           cancelId: -1
         }, (response) => {
           if (response === 0) {
-            Updater.quitAndInstall();
+            autoUpdater.quitAndInstall();
           }
         });
     });
-
-    Updater.setFeedURL(this._getFeedUrl());
-  }
-
-  _getFeedUrl() {
-    let version = App.getVersion();
-    let url = Constants.API.KAKU_SERVER_URL + '/desktop/update';
-
-    if (os.platform() === 'darwin') {
-      url += `/osx/${version}`;
-    }
-    else {
-      url += `/win32/${version}/RELEASES`;
-    }
-
-    return url;
   }
 
   updateApp() {
-    if (this._hasFeedUrl) {
-      Updater.checkForUpdates();
-    }
+    autoUpdater.checkForUpdates();
   }
 
   updateYoutubeDl(force=false) {

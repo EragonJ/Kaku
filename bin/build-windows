@@ -2,4 +2,10 @@
 
 const shell = require('shelljs');
 
-shell.exec('./node_modules/.bin/build --windows --x64 --ia32');
+// 32 bit
+shell.exec('./node_modules/.bin/build --windows --ia32');
+shell.exec('OS=windows32 npm run afterbuild:os');
+
+// 64 bit
+shell.exec('./node_modules/.bin/build --windows --x64');
+shell.exec('OS=windows npm run afterbuild:os');

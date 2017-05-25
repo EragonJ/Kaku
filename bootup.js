@@ -9,10 +9,6 @@ const {
 const iconsFolder = path.join(__dirname, 'src', 'public', 'images', 'icons');
 const kakuIcon = path.join(iconsFolder, 'kaku.png');
 
-if (require('electron-squirrel-startup')) {
-  return;
-}
-
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the javascript object is GCed.
 let mainWindow = null;

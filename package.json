@@ -35,12 +35,19 @@
     "build:windows": "./bin/build-windows",
     "build": "NODE_ENV=production ./bin/build",
     "build:development": "NODE_ENV=development ./bin/build",
+    "beforebuild": "./bin/before-build",
+    "afterbuild:os": "./bin/after-build-os",
     "test": "./node_modules/mocha/bin/mocha -u tdd -t 5000 --reporter dot --compilers js:babel-core/register --require ./tests/unit/setup.js 'tests/unit/*.test.js'",
     "uitest-all": "npm run-script prepare-build && npm run-script uitest",
     "uitest": "./node_modules/mocha/bin/mocha -u tdd -t 15000 --reporter dot tests/ui/*.test.js"
   },
   "build": {
     "appId": "com.kaku.kaku-desktop",
+    "publish": [{
+      "provider": "github",
+      "owner": "EragonJ",
+      "repo": "Kaku"
+    }],
     "files": [
       "**/*",
       "!dist/**/*",
@@ -112,7 +119,7 @@
     "dropbox": "EragonJ/dropbox-sdk-js",
     "electron-cookies": "^1.1.0",
     "electron-localshortcut": "^0.6.0",
-    "electron-squirrel-startup": "^1.0.0",
+    "electron-updater": "^1.16.0",
     "emoji-mart": "^0.3.5",
     "firebase": "^2.4.0",
     "font-awesome": "^4.4.0",
