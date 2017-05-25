@@ -5,7 +5,7 @@ const colors = require('colors/safe');
 
 const env = process.env.NODE_ENV || 'development';
 const CSC_NAME = process.env.CSC_NAME;
-const command = './node_modules/.bin/build --mac';
+let command = './node_modules/.bin/build --mac';
 
 if (CSC_NAME) {
   command = `CSC_NAME='${CSC_NAME}' ` + command;
