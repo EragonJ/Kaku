@@ -8,7 +8,7 @@ import Path from 'path';
 import AppCore from './AppCore';
 import Constants from './Constants';
 import L10nManager from './L10nManager';
-import { Downloader } from 'youtube-dl-node';
+import { Downloader } from 'kaku-core/modules/YoutubeDL';
 
 const _ = L10nManager.get.bind(L10nManager);
 const ytdlDownloader = new Downloader();
@@ -95,8 +95,8 @@ class AutoUpdater {
     }
   }
 
-  updateYoutubeDl() {
-    return ytdlDownloader.save(os.platform());
+  updateYoutubeDl(force=false) {
+    return ytdlDownloader.save(os.platform(), force);
   }
 }
 

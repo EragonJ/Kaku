@@ -311,7 +311,8 @@ class SettingsComponent extends Component {
   _onClickToUpdatePlayer() {
     Notifier.alert('Start to update, please don\'t play music when updating');
 
-    AutoUpdater.updateYoutubeDl().then(() => {
+    const force = true;
+    AutoUpdater.updateYoutubeDl(force).then(() => {
       Notifier.alert('Success ! You are good to go now :)');
     }).catch((error) => {
       Notifier.alert('Something went wrong when updating');
