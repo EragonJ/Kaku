@@ -1,4 +1,6 @@
-const Remote = require('electron').remote;
+import Electron from 'electron';
+const IpcRenderer = Electron.ipcRenderer;
+const Remote = Electron.remote;
 const App = Remote.app;
 const Dialog = Remote.dialog;
 
@@ -8,7 +10,6 @@ import AppCore from './AppCore';
 import Constants from './Constants';
 import L10nManager from './L10nManager';
 import { Downloader } from 'kaku-core/modules/YoutubeDL';
-import { autoUpdater } from "electron-updater";
 
 const _ = L10nManager.get.bind(L10nManager);
 const ytdlDownloader = new Downloader();
@@ -24,57 +25,51 @@ class AutoUpdater {
       return;
     }
 
-    // disable autoupdate for win32
-    if (os.platform() === 'win32' && os.platform() !== 'x64') {
-      return;
-    }
-
-    this._hasFeedUrl = true;
-
-    autoUpdater.on('checking-for-update', (e) => {
+    IpcRenderer.on('au-checking-for-update', (e) => {
       console.log('found a new update');
     });
 
-    autoUpdater.on('update-available', (e) => {
+    IpcRenderer.on('au-update-available', (e) => {
       console.log('update is available');
     });
 
-    autoUpdater.on('update-not-available', (e) => {
+    IpcRenderer.on('au-update-not-available', (e) => {
       console.log('update not available');
     });
 
-    autoUpdater.on('error', (error) => {
+    IpcRenderer.on('au-error', (e, error) => {
       console.log(error);
     });
 
-    autoUpdater.on('update-downloaded',
-      (e, releaseNotes, releaseName, releaseDate, updateURL) => {
-        console.log('update downloaded');
+    IpcRenderer.on('au-update-downloaded', (e, info) => {
+      let {releaseName} = info;
 
-        let title = _('autoupdater_found_update_title');
-        let message = _('autoupdater_found_update_message', {
-          version:  releaseName
-        });
+      console.log('update downloaded');
 
-        Dialog.showMessageBox({
-          type: 'question',
-          title: title,
-          message: message,
-          buttons: [
-            _('autoupdater_yes_button_wording'),
-            _('autoupdater_no_button_wording')
-          ],
-          cancelId: -1
-        }, (response) => {
-          if (response === 0) {
-            autoUpdater.quitAndInstall();
-          }
-        });
+      let title = _('autoupdater_found_update_title');
+      let message = _('autoupdater_found_update_message', {
+        version:  releaseName
+      });
+
+      Dialog.showMessageBox({
+        type: 'question',
+        title: title,
+        message: message,
+        buttons: [
+          _('autoupdater_yes_button_wording'),
+          _('autoupdater_no_button_wording')
+        ],
+        cancelId: -1
+      }, (response) => {
+        if (response === 0) {
+          IpcRenderer.send('au-quit-and-install');
+        }
+      });
     });
   }
 
   updateApp() {
-    autoUpdater.checkForUpdates();
+    IpcRenderer.send('au-check-for-update', AppCore.isDev());
   }
 
   updateYoutubeDl(force=false) {

@@ -1,9 +1,12 @@
+const autoUpdater = require('electron-updater').autoUpdater;
 const path = require('path');
 const ShortcutManager = require('electron-localshortcut');
+
 const {
   app,
   BrowserWindow,
-  globalShortcut
+  globalShortcut,
+  ipcMain
 } = require('electron');
 
 const iconsFolder = path.join(__dirname, 'src', 'public', 'images', 'icons');
@@ -58,6 +61,7 @@ class Bootup {
       });
 
       this._bindShortcuts();
+      this._bindAutoUpdate();
     });
   }
 
@@ -82,6 +86,38 @@ class Bootup {
       ShortcutManager.register(key, () => {
         this._emitShortcutEvent(mainWindow, isWindowLoaded, key);
       });
+    });
+  }
+
+  _bindAutoUpdate() {
+    autoUpdater.on('checking-for-update', (e) => {
+      mainWindow.webContents.send('au-checking-for-update', e);
+    });
+
+    autoUpdater.on('update-available', (e) => {
+      mainWindow.webContents.send('au-update-available', e);
+    });
+
+    autoUpdater.on('update-not-available', (e) => {
+      mainWindow.webContents.send('au-update-not-available', e);
+    });
+
+    autoUpdater.on('error', (e, error) => {
+      mainWindow.webContents.send('au-error', e, error);
+    });
+
+    autoUpdater.on('update-downloaded', (e, info) => {
+      mainWindow.webContents.send('au-update-downloaded', e, info);
+		});
+
+    ipcMain.on('au-check-for-update', (e, isDev) => {
+      if (!isDev) {
+        autoUpdater.checkForUpdates();
+      }
+    });
+
+    ipcMain.on('au-quit-and-install', () => {
+      autoUpdater.quitAndInstall();
     });
   }
 
