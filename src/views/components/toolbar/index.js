@@ -73,7 +73,6 @@ class ToolbarComponent extends Component {
   render() {
     let title = this.state.title;
     let downloadPercent = this.state.downloadPercent;
-
     let progressStyle = {
       width: `${downloadPercent}%`
     };

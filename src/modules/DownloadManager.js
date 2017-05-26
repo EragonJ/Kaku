@@ -10,6 +10,8 @@ import { EventEmitter } from 'events';
 class DownloadManager extends EventEmitter {
   constructor() {
     super();
+
+    this._cssAnimationTime = 1000;
     this._downloads = [];
   }
 
@@ -19,7 +21,7 @@ class DownloadManager extends EventEmitter {
     });
 
     req.on('progress', (state) => {
-      this.emit('download-progress', state.percent);
+      this.emit('download-progress', Math.floor(state.percentage * 100));
     })
     .on('error', (error) => {
       console.log('error when requesting file');
@@ -37,7 +39,12 @@ class DownloadManager extends EventEmitter {
       if (index >= 0) {
         this._downloads.splice(index, 1);
       }
-      this.emit('download-finish');
+
+      this.emit('download-progress', 100);
+
+      setTimeout(() => {
+        this.emit('download-finish');
+      }, this._cssAnimationTime);
     });
 
     this._downloads.push(req);
