@@ -47,6 +47,7 @@ var EasterEggs = require('./views/modules/EasterEggs');
 var AppMenus = require('./views/modules/AppMenus');
 var AppTray = require('./views/modules/AppTray');
 var Player = require('./views/modules/Player');
+var Notifier = require('./views/modules/Notifier');
 
 var loadingPageDOM = document.querySelector('.loading-page');
 var contentPageDOM = document.querySelector('.content-page');
@@ -67,12 +68,11 @@ var KakuApp = React.createClass({
     // Need to figure out why `Loading` showing up so slowly
     setTimeout(() => {
       this._hideLoadingPage();
+      this._triggerAutoUpdater();
     }, 3000);
   },
 
   componentDidMount: function() {
-    this._triggerAutoUpdater();
-
     this._bindShortcutEvents();
     this._bindTrayEvents();
     this._bindPlayerEvents();
@@ -212,9 +212,13 @@ var KakuApp = React.createClass({
 
   _triggerAutoUpdater: function() {
     AutoUpdater.updateApp();
+
+    Notifier.alert('Auto updating core modules, please wait (it takes 5~30 secs for the first time)');
     AutoUpdater.updateYoutubeDl().then(() => {
+      Notifier.alert('Done! You can play music now :)');
       console.log('updated youtube-dl successfully');
     }).catch(() => {
+      Notifier.alert('Something went wrong, feel free to update manually in Settings');
       console.log('failed to update youtube-dl');
     });
   },
