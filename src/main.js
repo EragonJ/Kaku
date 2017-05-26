@@ -216,12 +216,12 @@ var KakuApp = React.createClass({
   _triggerAutoUpdater: function() {
     AutoUpdater.updateApp();
 
-    Notifier.alert('Auto updating core modules, please wait (it takes 5~30 secs for the first time)');
+    Notifier.alert(_('main_autoupdate_ytdl'));
     AutoUpdater.updateYoutubeDl().then(() => {
-      Notifier.alert('Done! You can play music now :)');
+      Notifier.alert(_('main_autoupdate_ytdl_success'));
       console.log('updated youtube-dl successfully');
     }).catch(() => {
-      Notifier.alert('Something went wrong, feel free to update manually in Settings');
+      Notifier.alert(_('main_autoupdate_ytdl_error'));
       console.log('failed to update youtube-dl');
     });
   },

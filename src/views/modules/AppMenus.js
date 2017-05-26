@@ -206,20 +206,17 @@ class AppMenus {
             if (track) {
               let filename = track.title + '.' + track.ext;
               let src = track.platformTrackRealUrl;
-
               Dialog.showSaveDialog({
-                title: 'Where to download your track ?',
+                title: _('app_menu_where_to_download_trak'),
                 defaultPath: filename
               }, (path) => {
                 if (path) {
-                  Notifier.alert('Start to download your track !');
-                  var req = DownloadManager.download(src, path);
+                  Notifier.alert(_('app_menu_start_download_track'));
+                  let req = DownloadManager.download(src, path);
                   req.on('error', () => {
-                    Notifier.alert(
-                      'Sorry, something went wrong, please try again');
+                    Notifier.alert(_('app_menu_start_download_track_error'));
                   }).on('close', () => {
-                    Notifier.alert(
-                      'Download finished ! Go check your track :)');
+                    Notifier.alert(_('app_menu_start_download_track_success'));
                   });
                 }
               });
