@@ -1,56 +1,59 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var Electron = require('electron');
-var IpcRenderer = Electron.ipcRenderer;
-var Shell = Electron.shell;
-var Remote = Electron.remote;
-var Dialog = Remote.dialog;
-var App = Remote.app;
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Electron, {
+  ipcRenderer as IpcRenderer,
+  shell as Shell,
+  remote as Remote,
+} from 'electron';
 
-var ReactTooltip = require('react-tooltip');
+const Dialog = Remote.dialog;
+const App = Remote.app;
+
+import ReactTooltip from 'react-tooltip';
 
 // general modules
-var ErrorMonitor = require('./modules/ErrorMonitor');
-var PreferenceManager = require('./modules/PreferenceManager');
-var TrackInfoFetcher = require('kaku-core/modules/TrackInfoFetcher');
-var PlaylistManager = require('./modules/PlaylistManager');
-var L10nManager = require('./modules/L10nManager');
-var TopRanking = require('kaku-core/modules/TopRanking');
-var AppCore = require('./modules/AppCore');
-var Searcher = require('./modules/Searcher');
-var AutoUpdater = require('./modules/AutoUpdater');
-var Tracker = require('./modules/Tracker');
-var _ = L10nManager.get.bind(L10nManager);
+import ErrorMonitor from './modules/ErrorMonitor';
+import PreferenceManager from './modules/PreferenceManager';
+import TrackInfoFetcher from 'kaku-core/modules/TrackInfoFetcher';
+import PlaylistManager from './modules/PlaylistManager';
+import L10nManager from './modules/L10nManager';
+import TopRanking from 'kaku-core/modules/TopRanking';
+import AppCore from './modules/AppCore';
+import Searcher from './modules/Searcher';
+import AutoUpdater from './modules/AutoUpdater';
+import Tracker from './modules/Tracker';
+
+const _ = L10nManager.get.bind(L10nManager);
 
 // views > components
-var ToolbarComponent = require('./views/components/toolbar');
-var TopRankingComponent = require('./views/components/topranking');
-var NewsComponent = require('./views/components/news');
-var AllTracksComponent = require('./views/components/alltracks');
-var PlayerComponent = require('./views/components/player');
-var MenusComponent = require('./views/components/menus');
-var HistoryComponent = require('./views/components/history');
-var PlayQueueComponent = require('./views/components/play-queue');
-var PlaylistComponent = require('./views/components/playlist');
-var SettingsComponent = require('./views/components/settings');
-var OnlineDJComponent = require('./views/components/online-dj');
-var AboutComponent = require('./views/components/about');
-var ChatroomComponent = require('./views/components/chatroom');
-var ConnectionCheckComponent = require('./views/components/connection-check');
+import ToolbarComponent from './views/components/toolbar';
+import TopRankingComponent from './views/components/topranking';
+import NewsComponent from './views/components/news';
+import AllTracksComponent from './views/components/alltracks';
+import PlayerComponent from './views/components/player';
+import MenusComponent from './views/components/menus';
+import HistoryComponent from './views/components/history';
+import PlayQueueComponent from './views/components/play-queue';
+import PlaylistComponent from './views/components/playlist';
+import SettingsComponent from './views/components/settings';
+import OnlineDJComponent from './views/components/online-dj';
+import AboutComponent from './views/components/about';
+import ChatroomComponent from './views/components/chatroom';
+import ConnectionCheckComponent from './views/components/connection-check';
 
 // views > modules
-var TabManager = require('./views/modules/TabManager');
-var RemotePlayer = require('./views/modules/RemotePlayer');
-var CastingManager = require('./views/modules/CastingManager');
-var KonamiCodeManager = require('./views/modules/KonamiCodeManager');
-var EasterEggs = require('./views/modules/EasterEggs');
-var AppMenus = require('./views/modules/AppMenus');
-var AppTray = require('./views/modules/AppTray');
-var Player = require('./views/modules/Player');
-var Notifier = require('./views/modules/Notifier');
+import TabManager from './views/modules/TabManager';
+import RemotePlayer from './views/modules/RemotePlayer';
+import CastingManager from './views/modules/CastingManager';
+import KonamiCodeManager from './views/modules/KonamiCodeManager';
+import EasterEggs from './views/modules/EasterEggs';
+import AppMenus from './views/modules/AppMenus';
+import AppTray from './views/modules/AppTray';
+import Player from './views/modules/Player';
+import Notifier from './views/modules/Notifier';
 
-var loadingPageDOM = document.querySelector('.loading-page');
-var contentPageDOM = document.querySelector('.content-page');
+const loadingPageDOM = document.querySelector('.loading-page');
+const contentPageDOM = document.querySelector('.content-page');
 
 var KakuApp = React.createClass({
   componentWillMount: function() {
@@ -228,7 +231,6 @@ var KakuApp = React.createClass({
   },
 
   render: function() {
-    /* jshint ignore:start */
     return (
       <div className="root">
         <ConnectionCheckComponent/>
@@ -309,10 +311,7 @@ var KakuApp = React.createClass({
         <ReactTooltip/>
       </div>
     );
-    /* jshint ignore:end */
   }
 });
 
-/* jshint ignore:start */
 ReactDOM.render(<KakuApp/>, contentPageDOM);
-/* jshint ignore:end */
