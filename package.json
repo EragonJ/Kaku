@@ -42,6 +42,10 @@
   },
   "build": {
     "appId": "com.kaku.kaku-desktop",
+    "publish": [{
+      "provider": "github",
+      "vPrefixedTagName": false
+    }],
     "files": [
       "**/*",
       "!dist/**/*",
