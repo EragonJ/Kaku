@@ -13,6 +13,8 @@ import ReactTooltip from 'react-tooltip';
 
 // general modules
 import ErrorMonitor from './modules/ErrorMonitor';
+ErrorMonitor.init();
+
 import PreferenceManager from './modules/PreferenceManager';
 import TrackInfoFetcher from 'kaku-core/modules/TrackInfoFetcher';
 import PlaylistManager from './modules/PlaylistManager';

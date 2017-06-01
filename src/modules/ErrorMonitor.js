@@ -12,4 +12,10 @@ const rollbarConfig = {
   }
 };
 
-module.exports = Rollbar.init(rollbarConfig);
+module.exports = {
+  init: function() {
+    if (env === 'production') {
+      return Rollbar.init(rollbarConfig);
+    }
+  }
+};
