@@ -55,6 +55,7 @@ Please check our [wiki](https://github.com/EragonJ/Kaku/wiki) here for more info
 + YouTube
 + Vimeo
 + SoundCloud
++ MixCloud
 + ... keep adding :)
 
 # Supported Languages
