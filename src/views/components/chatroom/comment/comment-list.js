@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Comment from './comment';
 import CommentNoData  from './comment-no-data';
 
-class CommentList extends React.Component {
+class CommentListComponent extends Component {
   constructor(props) {
     super(props);
   }
@@ -33,12 +33,12 @@ class CommentList extends React.Component {
   }
 }
 
-CommentList.propTypes = {
+CommentListComponent.propTypes = {
   comments: PropTypes.array.isRequired
 };
 
-CommentList.defaultProps = {
+CommentListComponent.defaultProps = {
   comments: []
 };
 
-export default CommentList;
+export default CommentListComponent;

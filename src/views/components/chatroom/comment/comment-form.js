@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ActionButton from '../../shared/action-button';
 import { Picker } from 'emoji-mart';
 
-class CommentForm extends React.Component {
+class CommentFormComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -114,16 +114,16 @@ class CommentForm extends React.Component {
   }
 }
 
-CommentForm.propTypes = {
+CommentFormComponent.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   connected: PropTypes.bool,
   shown: PropTypes.bool
 };
 
-CommentForm.defaultProps = {
+CommentFormComponent.defaultProps = {
   onSubmit: function() { },
   connected: false,
   shown: false
 };
 
-export default CommentForm;
+export default CommentFormComponent;

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import L10nSpan from '../../shared/l10n-span';
 
-class CommentNoData extends React.Component {
+class CommentNoDataComponent extends Component {
   constructor(props) {
     super(props);
   }
@@ -17,4 +17,4 @@ class CommentNoData extends React.Component {
   }
 }
 
-export default CommentNoData;
+export default CommentNoDataComponent;

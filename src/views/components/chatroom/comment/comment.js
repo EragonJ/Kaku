@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactEmoji from 'react-emoji';
 
-class Comment extends React.Component {
+class CommentComponent extends Component {
   constructor(props) {
     super(props);
   }
@@ -26,12 +26,12 @@ class Comment extends React.Component {
   }
 }
 
-Comment.propTypes = {
+CommentComponent.propTypes = {
   data: PropTypes.object.isRequired
 };
 
-Comment.defaultProps = {
+CommentComponent.defaultProps = {
   data: {}
 };
 
-export default Comment;
+export default CommentComponent;
