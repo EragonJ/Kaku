@@ -74,7 +74,9 @@ class DropboxBackuper {
         width: 800,
         height: 600,
         title: 'Kaku',
-        'node-integration': false
+        webPreferences: {
+          nodeIntegration: false
+        }
       });
       authWindow.loadURL(url);
       authWindow.show();
