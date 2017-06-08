@@ -47,7 +47,7 @@ class ToolbarComponent extends Component {
   }
 
   _onCloseButtonClick() {
-    App.quit();
+    Remote.getCurrentWindow().close();
   }
 
   _onShrinkButtonClick() {
