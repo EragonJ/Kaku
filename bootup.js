@@ -6,7 +6,8 @@ const {
   app,
   BrowserWindow,
   globalShortcut,
-  ipcMain
+  ipcMain,
+  Menu
 } = require('electron');
 
 const iconsFolder = path.join(__dirname, 'src', 'public', 'images', 'icons');
@@ -21,6 +22,12 @@ class Bootup {
     this._mainWindow = mainWindow;
     this._isWindowLoaded = false;
     this._setupBrowserWindow();
+  }
+
+  _resetMenus() {
+    // initialize empty menus, all logics will be handled in AppMenus
+    const menu = Menu.buildFromTemplate([]);
+    Menu.setApplicationMenu(menu);
   }
 
   _setupBrowserWindow() {
@@ -41,6 +48,7 @@ class Bootup {
     // This method will be called when Electron has done everything
     // initialization and ready for creating browser windows.
     app.on('ready', () => {
+      this._resetMenus();
       this._spawnWindow();
       this._bindShortcuts();
       this._bindAutoUpdate();

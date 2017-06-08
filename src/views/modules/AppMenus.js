@@ -30,44 +30,15 @@ class AppMenus {
     return {
       label: _('app_menu_kaku'),
       submenu: [
-        {
-          label: _('app_menu_about_kaku'),
-          selector: 'orderFrontStandardAboutPanel:'
-        },
-        {
-          type: 'separator'
-        },
-        {
-          label: _('app_menu_sevices'),
-          submenu: []
-        },
-        {
-          type: 'separator'
-        },
-        {
-          label: _('app_menu_hide_kaku'),
-          accelerator: 'CmdOrCtrl+H',
-          selector: 'hide:'
-        },
-        {
-          label: _('app_menu_hide_others'),
-          accelerator: 'CmdOrCtrl+Shift+H',
-          selector: 'hideOtherApplications:'
-        },
-        {
-          label: _('app_menu_show_all'),
-          selector: 'unhideAllApplications:'
-        },
-        {
-          type: 'separator'
-        },
-        {
-          label: _('app_menu_quit'),
-          accelerator: 'CmdOrCtrl+Q',
-          click() {
-            App.quit();
-          }
-        }
+        { role: 'about', },
+        { type: 'separator' },
+        { role: 'services', submenu: [] },
+        { type: 'separator' },
+        { role: 'hide' },
+        { role: 'hideothers' },
+        { role: 'unhide' },
+        { type: 'separator' },
+        { role: 'quit' }
       ]
     };
   }
@@ -76,39 +47,15 @@ class AppMenus {
     return {
       label: _('app_menu_edit'),
       submenu: [
-        {
-          label: _('app_menu_undo'),
-          accelerator: 'CmdOrCtrl+Z',
-          selector: 'undo:'
-        },
-        {
-          label: _('app_menu_redo'),
-          accelerator: 'Shift+CmdOrCtrl+Z',
-          selector: 'redo:'
-        },
-        {
-          type: 'separator'
-        },
-        {
-          label: _('app_menu_cut'),
-          accelerator: 'CmdOrCtrl+X',
-          selector: 'cut:'
-        },
-        {
-          label: _('app_menu_copy'),
-          accelerator: 'CmdOrCtrl+C',
-          selector: 'copy:'
-        },
-        {
-          label: _('app_menu_paste'),
-          accelerator: 'CmdOrCtrl+V',
-          selector: 'paste:'
-        },
-        {
-          label: _('app_menu_select_all'),
-          accelerator: 'CmdOrCtrl+A',
-          selector: 'selectAll:'
-        },
+        { role: 'undo' },
+        { role: 'redo' },
+        { type: 'separator' },
+        { role: 'cut' },
+        { role: 'copy' },
+        { role: 'paste' },
+        { role: 'pasteandmatchstyle' },
+        { role: 'delete' },
+        { role: 'selectall' }
       ]
     };
   }
@@ -126,29 +73,16 @@ class AppMenus {
             document.querySelector('.searchbar-user-input').focus();
           }
         },
-        {
-          type: 'separator'
-        },
-        {
-          label: _('app_menu_reload'),
-          accelerator: 'CmdOrCtrl+R',
-          click() {
-            let win = BrowserWindow.getFocusedWindow();
-            if (win) {
-              win.webContents.reloadIgnoringCache();
-            }
-          }
-        },
-        {
-          label: _('app_menu_toggle_devtools'),
-          accelerator: 'Alt+CmdOrCtrl+I',
-          click() {
-            let win = BrowserWindow.getFocusedWindow();
-            if (win) {
-              win.webContents.toggleDevTools();
-            }
-          }
-        }
+        { type: 'separator' },
+        { role: 'reload' },
+        { role: 'forcereload' },
+        { role: 'toggledevtools' },
+        { type: 'separator' },
+        { role: 'resetzoom' },
+        { role: 'zoomin' },
+        { role: 'zoomout' },
+        { type: 'separator' },
+        { role: 'togglefullscreen' }
       ]
     };
   }
@@ -231,23 +165,11 @@ class AppMenus {
     return {
       label: _('app_menu_window'),
       submenu: [
-        {
-          label: _('app_menu_minimize'),
-          accelerator: 'CmdOrCtrl+M',
-          selector: 'performMiniaturize:'
-        },
-        {
-          label: _('app_menu_close'),
-          accelerator: 'CmdOrCtrl+W',
-          selector: 'performClose:'
-        },
-        {
-          type: 'separator'
-        },
-        {
-          label: _('app_menu_bring_all_to_front'),
-          selector: 'arrangeInFront:'
-        },
+        { role: 'close' },
+        { role: 'minimize' },
+        { role: 'zoom' },
+        { type: 'separator' },
+        { role: 'front' }
       ]
     };
   }
