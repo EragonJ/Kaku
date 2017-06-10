@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Electron, {
   ipcRenderer as IpcRenderer,
@@ -57,8 +57,8 @@ import Notifier from './views/modules/Notifier';
 const loadingPageDOM = document.querySelector('.loading-page');
 const contentPageDOM = document.querySelector('.content-page');
 
-var KakuApp = React.createClass({
-  componentWillMount: function() {
+class KakuApp extends Component {
+  componentWillMount() {
     AppMenus.build();
     AppTray.build();
 
@@ -75,9 +75,9 @@ var KakuApp = React.createClass({
       this._hideLoadingPage();
       this._triggerAutoUpdater();
     }, 3000);
-  },
+  }
 
-  componentDidMount: function() {
+  componentDidMount() {
     this._bindShortcutEvents();
     this._bindTrayEvents();
     this._bindPlayerEvents();
@@ -97,9 +97,9 @@ var KakuApp = React.createClass({
 
     // Say hi :)
     Tracker.pageview('/').send();
-  },
+  }
 
-  _bindShortcutEvents: function() {
+  _bindShortcutEvents() {
     IpcRenderer.on('key-MediaNextTrack', () => {
       Player.playNextTrack();
     });
@@ -115,9 +115,9 @@ var KakuApp = React.createClass({
     IpcRenderer.on('key-Escape', () => {
       Player.exitFullscreen();
     });
-  },
+  }
 
-  _bindTrayEvents: function() {
+  _bindTrayEvents() {
     IpcRenderer.on('tray-MediaPreviousTrack', () => {
       Player.playPreviousTrack();
     });
@@ -129,9 +129,9 @@ var KakuApp = React.createClass({
     IpcRenderer.on('tray-MediaPlayPause', () => {
       Player.playOrPause();
     });
-  },
+  }
 
-  _bindPlayerEvents: function() {
+  _bindPlayerEvents() {
     Player.on('play', () => {
       let playingTrack = Player.playingTrack;
       if (playingTrack) {
@@ -150,72 +150,72 @@ var KakuApp = React.createClass({
     Player.on('ended', () => {
       AppCore.title = _('app_title_normal');
     });
-  },
+  }
 
-  _initializeDefaultTopRanking: function() {
+  _initializeDefaultTopRanking() {
     var defaultCountryCode =
       PreferenceManager.getPreference('default.topRanking.countryCode');
     if (defaultCountryCode) {
       TopRanking.changeCountry(defaultCountryCode);
     }
-  },
+  }
 
-  _initializeAppTitle: function() {
+  _initializeAppTitle() {
     AppCore.title = _('app_title_normal');
-  },
+  }
 
-  _initializeDefaultAlwaysOnTop: function() {
+  _initializeDefaultAlwaysOnTop() {
     var defaultAlwaysOnTop =
       PreferenceManager.getPreference('default.alwaysOnTop.enabled');
     if (defaultAlwaysOnTop) {
       Remote.getCurrentWindow().setAlwaysOnTop(defaultAlwaysOnTop);
     }
-  },
+  }
 
-  _initializeDefaultChatroom: function() {
+  _initializeDefaultChatroom() {
     var defaultChatroom =
       PreferenceManager.getPreference('default.chatroom.enabled');
     if (typeof defaultChatroom === 'undefined') {
       PreferenceManager.setPreference('default.chatroom.enabled', true);
     }
-  },
+  }
 
-  _initializeDefaultLanguage: function() {
+  _initializeDefaultLanguage() {
     var defaultLanguage =
       PreferenceManager.getPreference('default.language');
     // For new users, there is no `defaultLanguage` in DB yet.
     if (defaultLanguage) {
       L10nManager.changeLanguage(defaultLanguage);
     }
-  },
+  }
 
-  _initializeDefaultSearcher: function() {
+  _initializeDefaultSearcher() {
     var defaultSearcher =
       PreferenceManager.getPreference('default.searcher');
     if (defaultSearcher) {
       Searcher.changeSearcher(defaultSearcher);
     }
-  },
+  }
 
-  _initializeDefaultTrackFormat: function() {
+  _initializeDefaultTrackFormat() {
     var defaultFormat =
       PreferenceManager.getPreference('default.track.format') || 'best';
     TrackInfoFetcher.changeFormat(defaultFormat);
-  },
+  }
 
-  _initializeDefaultVolume: function() {
+  _initializeDefaultVolume() {
     var defaultVolume =
       PreferenceManager.getPreference('default.volume') || 'default';
     Player.setVolume(defaultVolume);
-  },
+  }
 
-  _initializeKonamiCode: function() {
+  _initializeKonamiCode() {
     KonamiCodeManager.attach(document.body, () => {
       EasterEggs.show();
     });
-  },
+  }
 
-  _triggerAutoUpdater: function() {
+  _triggerAutoUpdater() {
     AutoUpdater.updateApp();
 
     Notifier.alert(_('main_autoupdate_ytdl'));
@@ -226,13 +226,13 @@ var KakuApp = React.createClass({
       Notifier.alert(_('main_autoupdate_ytdl_error'));
       console.log('failed to update youtube-dl');
     });
-  },
+  }
 
-  _hideLoadingPage: function() {
+  _hideLoadingPage() {
     loadingPageDOM.hidden = true;
-  },
+  }
 
-  render: function() {
+  render() {
     return (
       <div className="root">
         <ConnectionCheckComponent/>
@@ -314,6 +314,6 @@ var KakuApp = React.createClass({
       </div>
     );
   }
-});
+}
 
 ReactDOM.render(<KakuApp/>, contentPageDOM);

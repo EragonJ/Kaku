@@ -220,7 +220,7 @@ class SearchbarComponent extends Component {
                 'selected': trackIndex == selectedIndex
               });
               return <li
-                key={track.covers.id}
+                key={trackIndex}
                 className={className}
                 onClick={this._onAutoCompleteItemClick}
                 onMouseEnter={this._onAutoCompleteItemMouseEnter}
