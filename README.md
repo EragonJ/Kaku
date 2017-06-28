@@ -26,7 +26,7 @@ Hi all, if you think this open source project helps you, please support us! :D
 
 # Install :laughing:
 
-#### Fow Windows / Linux / macOS users
+#### For Windows / Linux / macOS users
 
 Please check [release page](https://github.com/EragonJ/Kaku/releases) and find the suitable one for your OS.
 
