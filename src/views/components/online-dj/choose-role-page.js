@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Uuid from 'node-uuid';
+import UuidV4 from 'uuid/v4';
 import Validator from 'validator';
 import ActionButton from '../shared/action-button';
 import L10nSpan from '../shared/l10n-span';
@@ -24,7 +24,7 @@ class ChooseRolePage extends Component {
     if (role === 'dj') {
       userInfo.userName = $form.find('.user-name').val();
       userInfo.roomName = $form.find('.room-name').val();
-      userInfo.roomKey = Uuid.v4();
+      userInfo.roomKey = UuidV4();
 
       if (!userInfo.roomName) {
         errors.push(role + '-room-name');
