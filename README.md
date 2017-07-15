@@ -32,7 +32,7 @@ Please check [release page](https://github.com/EragonJ/Kaku/releases) and find t
 
 [@funilrys](https://github.com/funilrys) is the main contributor for this.
 
-For issues about installation please report a [new issue](https://github.com/EragonJ/Kaku/issues/new?title=[Linux] Can%27t%20install%20Kaku) or contact [@funilrys](https://github.com/funilrys) on [Gitter](https://gitter.im/funilrys).
+For issues about installation please report a [new issue](https://github.com/EragonJ/Kaku/issues/new?title=Linux%20-%20Can%27t%20install%20Kaku) or contact [@funilrys](https://github.com/funilrys) on [Gitter](https://gitter.im/funilrys).
 
 ### For Debian/Ubuntu and derived distributions
 
