@@ -1,14 +1,13 @@
-'use strict';
+const assert = require('assert');
+const chai = require('chai');
+const sinon = require('sinon');
+const { JSDOM } = require('jsdom');
+const proxyquire = require('proxyquire').noCallThru();
 
-var assert = require('assert');
-var chai = require('chai');
-var sinon = require('sinon');
-var jsdom = require('jsdom').jsdom;
-var proxyquire = require('proxyquire').noCallThru();
+const { window } = new JSDOM('<!doctype html><html><body></body></html>');
 
-// We have to fake window object in node.js environment
-var document = jsdom('_');
-global.window = document.defaultView;
+global.window = window;
+global.document = window.document;
 global.IS_TEST = true;
 global.assert = chai.assert;
 global.sinon = sinon;

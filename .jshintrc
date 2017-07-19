@@ -1,7 +1,0 @@
-{
-  "curly": true,
-  "maxlen": 80,
-  "futurehostile": true,
-  "newcap": false,
-  "esnext": true
-}
