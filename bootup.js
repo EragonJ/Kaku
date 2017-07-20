@@ -6,9 +6,17 @@ const {
   app,
   BrowserWindow,
   globalShortcut,
+  TouchBar,
   ipcMain,
   Menu
 } = require('electron');
+
+const {
+  TouchBarLabel,
+  TouchBarButton,
+  TouchBarSpacer,
+  TouchBarSlider
+} = TouchBar;
 
 const iconsFolder = path.join(__dirname, 'src', 'public', 'images', 'icons');
 const kakuIcon = path.join(iconsFolder, 'kaku.png');
@@ -20,7 +28,6 @@ let mainWindow = null;
 class Bootup {
   constructor(mainWindow) {
     this._mainWindow = mainWindow;
-    this._isWindowLoaded = false;
     this._setupBrowserWindow();
   }
 
@@ -28,6 +35,58 @@ class Bootup {
     // initialize empty menus, all logics will be handled in AppMenus
     const menu = Menu.buildFromTemplate([]);
     Menu.setApplicationMenu(menu);
+  }
+
+  _resetTouchBar() {
+    if (!this._mainWindow) {
+      return;
+    }
+
+    const iconPath = './src/public/images/icons/touchbar/kaku.png';
+
+    let kakuButton;
+    kakuButton = new TouchBarButton({
+      icon: iconPath,
+      click: () => {
+        kakuButton.icon = null;
+        kakuButton.label = '♥️ U';
+        setTimeout(() => {
+          kakuButton.icon = iconPath;
+          kakuButton.label = null;
+        }, 500);
+      }
+    })
+
+    const playOrPauseButton = new TouchBarButton({
+      label: 'Play / Pause',
+      click: () => {
+        this._emitShortcutEvent(this._mainWindow, 'MediaPlayPause');
+      }
+    });
+
+    const playPreviousButton = new TouchBarButton({
+      label: '◀ Previous Track',
+      click: () => {
+        this._emitShortcutEvent(this._mainWindow, 'MediaPreviousTrack');
+      }
+    })
+
+    const playNextButton = new TouchBarButton({
+      label: 'Next Track ▶',
+      click: () => {
+        this._emitShortcutEvent(this._mainWindow, 'MediaNextTrack');
+      }
+    })
+
+    const touchbar = new TouchBar([
+      kakuButton,
+      new TouchBarSpacer({size: 'flexible'}),
+      playPreviousButton,
+      playOrPauseButton,
+      playNextButton
+    ]);
+
+    this._mainWindow.setTouchBar(touchbar);
   }
 
   _setupBrowserWindow() {
@@ -50,14 +109,13 @@ class Bootup {
     app.on('ready', () => {
       this._resetMenus();
       this._spawnWindow();
+      this._resetTouchBar();
       this._bindShortcuts();
       this._bindAutoUpdate();
     });
   }
 
   _spawnWindow() {
-    this._isWindowLoaded = false;
-
     // Create the browser window.
     this._mainWindow = new BrowserWindow({
       'icon': kakuIcon,
@@ -76,11 +134,7 @@ class Bootup {
       // Dereference the window object, usually you would store windows
       // in an array if your app supports multi windows, this is the time
       // when you should delete the corresponding element.
-      this._mainWindow= null;
-    });
-
-    this._mainWindow.webContents.on('did-finish-load', () => {
-      this._isWindowLoaded = true;
+      this._mainWindow = null;
     });
   }
 
@@ -97,13 +151,13 @@ class Bootup {
 
     globalKeys.forEach(key => {
       globalShortcut.register(key, () => {
-        this._emitShortcutEvent(this._mainWindow, this._isWindowLoaded, key);
+        this._emitShortcutEvent(this._mainWindow, key);
       });
     });
 
     localKeys.forEach(key => {
       ShortcutManager.register(key, () => {
-        this._emitShortcutEvent(this._mainWindow, this._isWindowLoaded, key);
+        this._emitShortcutEvent(this._mainWindow, key);
       });
     });
   }
@@ -140,8 +194,8 @@ class Bootup {
     });
   }
 
-  _emitShortcutEvent(win, isLoaded, shortcut) {
-    if (isLoaded) {
+  _emitShortcutEvent(win, shortcut) {
+    if (win) {
       win.webContents.send('key-' + shortcut);
     }
   }

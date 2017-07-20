@@ -1,4 +1,5 @@
 *.swp
+.DS_Store
 dist
 src/public/css
 config/*.production.json
