@@ -101,7 +101,10 @@ class Bootup {
     });
 
     app.on('activate', () => {
-      this._spawnWindow();
+      if (!this._mainWindow) {
+        this._spawnWindow();
+        this._resetTouchBar();
+      }
     });
 
     // This method will be called when Electron has done everything
