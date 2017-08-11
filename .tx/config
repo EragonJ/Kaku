@@ -3,7 +3,8 @@ host = https://www.transifex.com
 
 [desktop-app.enini]
 file_filter = src/locales/<lang>.ini
+lang_map = zh: zh-TW, de_DE: de
 source_file = src/locales/en.ini
 source_lang = en
 type = PHP_INI
-lang_map = zh: zh-TW, de_DE: de
+
