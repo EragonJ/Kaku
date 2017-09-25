@@ -2,7 +2,7 @@
 
 ![Kaku Icon](http://i.imgur.com/c3KKQ9t.png)
 
-Kaku is a highly integrated music player that supports different online platforms like YouTube, SoundCloud, Vimeo and more. Available on `Windows`, `Linux` and `macOS'!
+Kaku is a highly integrated music player that supports different online platforms like YouTube, SoundCloud, Vimeo and more. Available on `Windows`, `Linux` and `macOS`!
 
 Some social media that you should know and follow for the latest news :laughing:
 
