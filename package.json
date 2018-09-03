@@ -1,6 +1,6 @@
 {
   "name": "Kaku",
-  "version": "1.9.0",
+  "version": "2.0.0",
   "description": "The next generation music client",
   "main": "bootup.js",
   "repository": {
@@ -36,6 +36,7 @@
     "build": "NODE_ENV=production ./bin/build",
     "build:development": "NODE_ENV=development ./bin/build",
     "beforebuild": "./bin/before-build",
+    "release": "npm run build",
     "test": "./node_modules/mocha/bin/mocha -u tdd -t 5000 --reporter dot --compilers js:babel-core/register --require ./tests/unit/setup.js 'tests/unit/*.test.js'",
     "uitest-all": "npm run-script prepare-build && npm run-script uitest",
     "uitest": "./node_modules/mocha/bin/mocha -u tdd -t 15000 --reporter dot tests/ui/*.test.js"
@@ -104,7 +105,8 @@
     "shelljs": "^0.6.0",
     "sinon": "^1.17.3",
     "webdriverio": "^4.0.1",
-    "webpack": "^1.12.12"
+    "webpack": "^1.12.12",
+    "electron": "^1.8.4"
   },
   "dependencies": {
     "animate.css": "^3.5.1",
@@ -114,7 +116,6 @@
     "castv2-client": "^1.1.1",
     "classnames": "2.2.5",
     "dropbox": "EragonJ/dropbox-sdk-js",
-    "electron": "^1.8.4",
     "electron-cookies": "^1.1.0",
     "electron-localshortcut": "^0.6.0",
     "electron-updater": "^1.16.0",
