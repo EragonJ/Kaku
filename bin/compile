@@ -6,4 +6,4 @@ var env = process.env.NODE_ENV || 'development';
 // compile everything
 shell.exec('npm run compile:less');
 shell.exec('npm run compile:js');
-shell.exec('NODE_ENV=' + env + ' npm run compile:env');
+shell.exec('NODE_ENV=' + env + ' npm run generate:env');

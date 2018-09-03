@@ -1,0 +1,29 @@
+#!/usr/bin/env node
+
+var fs = require('fs');
+var shell = require('shelljs');
+
+if (!process.env.CI) {
+  return;
+}
+
+var apiKeyNames = [
+  'YOUTUBE_API_KEY',
+  'VIMEO_API_CLIENT_ID',
+  'VIMEO_API_CLIENT_SECRET',
+  'SOUND_CLOUD_API_CLIENT_ID',
+  'SOUND_CLOUD_API_CLIENT_SECRET',
+  'DROPBOX_API_APP_KEY',
+  'DROPBOX_API_APP_SECRET',
+  'ROLLBAR_API_KEY',
+  'FIREBASE_URL',
+  'KAKU_SERVER_URL'
+];
+
+var apiKeys = {};
+apiKeyNames.forEach(function(keyName) {
+  // prefix with K_ , so that we can easily recognize them from travis's panel
+  apiKeys[keyName] = process.env['K_' + keyName];
+});
+
+fs.writeFileSync('config/api_config.production.json', JSON.stringify(apiKeys));
