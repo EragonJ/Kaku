@@ -68,7 +68,7 @@ L10nManager will read all locale files from `locales/` and use `IniParser` to pa
 
 ## src/modules/NewsFetcher.js
 
-This helps us fetch latest news from [our website](http://kaku.rocks/news.json) and let users know latest news.
+This helps us fetch latest news from [our website](https://kaku.rocks/news.json) and let users know latest news.
 
 ## src/modules/PackageInfo.js
 

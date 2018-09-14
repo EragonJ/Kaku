@@ -63,7 +63,7 @@ class AboutComponent extends Component {
   }
 
   _onClickToOpenFacebook() {
-    Shell.openExternal('http://facebook.com/kaku.rocks');
+    Shell.openExternal('https://facebook.com/kaku.rocks');
   }
 
   _onClickToOpenTwitter() {
@@ -91,7 +91,7 @@ class AboutComponent extends Component {
   }
 
   _onClickToOpenQA() {
-    Shell.openExternal('http://kaku.rocks/docs/');
+    Shell.openExternal('https://kaku.rocks/docs/');
   }
 
   _onClickToShowSpecialThanks() {

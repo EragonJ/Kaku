@@ -71,7 +71,7 @@ class AppTray {
         submenu: [{
             label: _('app_tray_docs'),
             click() {
-              Shell.openExternal('http://kaku.rocks/docs/index.html');
+              Shell.openExternal('https://kaku.rocks/docs/index.html');
             }
           }, {
             label: _('app_tray_issue'),

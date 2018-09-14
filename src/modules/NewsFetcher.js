@@ -2,7 +2,7 @@ import Request from 'request';
 
 class NewsFetcher {
   constructor() {
-    this._newsLink = 'http://kaku.rocks/news.json';
+    this._newsLink = 'https://kaku.rocks/news.json';
   }
 
   get() {
