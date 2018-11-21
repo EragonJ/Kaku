@@ -79,7 +79,9 @@
     },
     "linux": {
       "target": [
-        "tar.gz"
+        "tar.gz",
+        "AppImage",
+        "deb"
       ],
       "extraFiles": [
         "misc/${os}/kaku.desktop",
