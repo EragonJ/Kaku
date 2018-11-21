@@ -119,7 +119,7 @@
     "dropbox": "EragonJ/dropbox-sdk-js",
     "electron-cookies": "^1.1.0",
     "electron-localshortcut": "^0.6.0",
-    "electron-updater": "^3.0.3",
+    "electron-updater": "^4.0.0",
     "emoji-mart": "^0.3.5",
     "firebase": "^2.4.0",
     "font-awesome": "^4.4.0",
