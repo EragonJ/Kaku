@@ -42,21 +42,6 @@ class Bootup {
       return;
     }
 
-    const iconPath = './src/public/images/icons/touchbar/kaku.png';
-
-    let kakuButton;
-    kakuButton = new TouchBarButton({
-      icon: iconPath,
-      click: () => {
-        kakuButton.icon = null;
-        kakuButton.label = '♥️ U';
-        setTimeout(() => {
-          kakuButton.icon = iconPath;
-          kakuButton.label = null;
-        }, 500);
-      }
-    })
-
     const playOrPauseButton = new TouchBarButton({
       label: 'Play / Pause',
       click: () => {
@@ -69,17 +54,16 @@ class Bootup {
       click: () => {
         this._emitShortcutEvent(this._mainWindow, 'MediaPreviousTrack');
       }
-    })
+    });
 
     const playNextButton = new TouchBarButton({
       label: 'Next Track ▶',
       click: () => {
         this._emitShortcutEvent(this._mainWindow, 'MediaNextTrack');
       }
-    })
+    });
 
     const touchbar = new TouchBar([
-      kakuButton,
       new TouchBarSpacer({size: 'flexible'}),
       playPreviousButton,
       playOrPauseButton,
