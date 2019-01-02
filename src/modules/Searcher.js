@@ -55,7 +55,7 @@ class Searcher extends EventEmitter {
   }
 
   getSupportedSearchers() {
-    let promise = new Promise((resolve, rejct) => {
+    let promise = new Promise((resolve) => {
       resolve(Object.keys(this._searchers));
     });
     return promise;
