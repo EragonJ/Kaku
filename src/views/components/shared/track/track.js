@@ -68,6 +68,20 @@ class Track extends Component {
   _createContextMenu(track) {
     let menu = new Menu();
     let playlists = PlaylistManager.playlists;
+    let position = -1;
+
+    if (TabManager.tabName !== 'play-queue') {
+      let menuItemToAddToQueue = new MenuItem({
+        label: 'Add to Queue',
+        click: () => {
+          Player.addTracks([track]);
+          if (!Player.playingTrack) {
+            Player.playNextTrack(Player.tracks.indexOf(track));
+          }
+        }
+      });
+      menu.insert(++position, menuItemToAddToQueue);
+    }
 
     playlists.forEach((playlist) => {
       let clickToAddTrack = ((playlist) => {
@@ -107,7 +121,7 @@ class Track extends Component {
           menu.append(menuItemToRemoveTrack);
         }
         else {
-          menu.insert(0, menuItemToAddTrack);
+          menu.insert(++position, menuItemToAddTrack);
         }
       }
       else {
@@ -116,7 +130,7 @@ class Track extends Component {
         // but no matter how, right now we have internal protect in
         // playlist.addTrack() to make sure we won't add the same track
         // to the same playlist.
-        menu.insert(0, menuItemToAddTrack);
+        menu.insert(++position, menuItemToAddTrack);
       }
     });
     return menu;
