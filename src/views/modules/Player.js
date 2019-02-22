@@ -173,7 +173,12 @@ Player.prototype.addTracks = function(tracks, noUpdate) {
     return;
   }
 
-  this.tracks = [].concat(this.tracks, tracks);
+  tracks.forEach((track) => {
+    if (!this.tracks.includes(track)) {
+      this.tracks.push(track);
+    }
+  }, this);
+
   this.randomIndexes = this.makeRandomIndexes(this.tracks.length);
 
   if (!noUpdate) {
