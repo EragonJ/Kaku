@@ -98,7 +98,9 @@
     "chai-as-promised": "^7.1.1",
     "chromedriver": "^2.21.2",
     "colors": "^1.1.2",
+    "electron": "^1.8.4",
     "electron-builder": "^20.26.0",
+    "electron-reload": "^1.4.0",
     "jsdom": "^11.1.0",
     "json-loader": "^0.5.4",
     "less": "^2.7.1",
@@ -108,8 +110,7 @@
     "shelljs": "^0.6.0",
     "sinon": "^1.17.3",
     "webdriverio": "^4.0.1",
-    "webpack": "^1.12.12",
-    "electron": "^1.8.4"
+    "webpack": "^1.12.12"
   },
   "dependencies": {
     "animate.css": "^3.5.1",

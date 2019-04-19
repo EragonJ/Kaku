@@ -1,3 +1,5 @@
+require('electron-reload')(__dirname);
+
 const autoUpdater = require('electron-updater').autoUpdater;
 const path = require('path');
 const ShortcutManager = require('electron-localshortcut');
