@@ -10,3 +10,4 @@ kaku/
 kaku.bundled.js
 kaku.bundled.js.map
 npm-debug.log
+.lvimrc
