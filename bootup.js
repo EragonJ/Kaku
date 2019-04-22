@@ -8,17 +8,9 @@ const {
   app,
   BrowserWindow,
   globalShortcut,
-  TouchBar,
   ipcMain,
   Menu
 } = require('electron');
-
-const {
-  TouchBarLabel,
-  TouchBarButton,
-  TouchBarSpacer,
-  TouchBarSlider
-} = TouchBar;
 
 const iconsFolder = path.join(__dirname, 'src', 'public', 'images', 'icons');
 const kakuIcon = path.join(iconsFolder, 'kaku.png');
@@ -39,42 +31,6 @@ class Bootup {
     Menu.setApplicationMenu(menu);
   }
 
-  _resetTouchBar() {
-    if (!this._mainWindow) {
-      return;
-    }
-
-    const playOrPauseButton = new TouchBarButton({
-      label: 'Play / Pause',
-      click: () => {
-        this._emitShortcutEvent(this._mainWindow, 'MediaPlayPause');
-      }
-    });
-
-    const playPreviousButton = new TouchBarButton({
-      label: '◀ Previous Track',
-      click: () => {
-        this._emitShortcutEvent(this._mainWindow, 'MediaPreviousTrack');
-      }
-    });
-
-    const playNextButton = new TouchBarButton({
-      label: 'Next Track ▶',
-      click: () => {
-        this._emitShortcutEvent(this._mainWindow, 'MediaNextTrack');
-      }
-    });
-
-    const touchbar = new TouchBar([
-      new TouchBarSpacer({size: 'flexible'}),
-      playPreviousButton,
-      playOrPauseButton,
-      playNextButton
-    ]);
-
-    this._mainWindow.setTouchBar(touchbar);
-  }
-
   _setupBrowserWindow() {
     // This may help the black screen / option issue
     app.disableHardwareAcceleration();
@@ -89,7 +45,6 @@ class Bootup {
     app.on('activate', () => {
       if (!this._mainWindow) {
         this._spawnWindow();
-        this._resetTouchBar();
       }
     });
 
@@ -98,7 +53,6 @@ class Bootup {
     app.on('ready', () => {
       this._resetMenus();
       this._spawnWindow();
-      this._resetTouchBar();
       this._bindShortcuts();
       this._bindAutoUpdate();
     });

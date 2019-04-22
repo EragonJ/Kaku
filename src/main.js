@@ -49,6 +49,7 @@ import RemotePlayer from './views/modules/RemotePlayer';
 import CastingManager from './views/modules/CastingManager';
 import KonamiCodeManager from './views/modules/KonamiCodeManager';
 import EasterEggs from './views/modules/EasterEggs';
+import AppTouchBar from './views/modules/AppTouchBar';
 import AppMenus from './views/modules/AppMenus';
 import AppTray from './views/modules/AppTray';
 import Player from './views/modules/Player';
@@ -61,9 +62,11 @@ class KakuApp extends Component {
   componentWillMount() {
     AppMenus.build();
     AppTray.build();
+    AppTouchBar.build();
 
     window.addEventListener('beforeunload', () => {
       AppTray.destroy();
+      AppTouchBar.destroy();
     });
 
     // this should be run first
