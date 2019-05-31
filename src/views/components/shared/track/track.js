@@ -73,12 +73,7 @@ class Track extends Component {
     if (TabManager.tabName !== 'play-queue') {
       let menuItemToAddToQueue = new MenuItem({
         label: 'Add to Queue',
-        click: () => {
-          Player.addTracks([track]);
-          if (!Player.playingTrack) {
-            Player.playNextTrack(Player.tracks.indexOf(track));
-          }
-        }
+        click: () => Player.addTracks([track])
       });
       menu.insert(++position, menuItemToAddToQueue);
     }
