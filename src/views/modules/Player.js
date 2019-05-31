@@ -174,7 +174,7 @@ Player.prototype.addTracks = function(tracks, noUpdate) {
   }
 
   tracks.forEach((track) => {
-    if (!this.tracks.includes(track)) {
+    if (!this.tracks.some(item => item.id === track.id)) {
       this.tracks.push(track);
     }
   }, this);
