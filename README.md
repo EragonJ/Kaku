@@ -98,6 +98,9 @@ Please check our [wiki](https://github.com/EragonJ/Kaku/wiki) here for more info
 - ‏العربية‏
 - Slovenščina
 - ‏فارسی‏
+- Brezhoneg
+- Nederland
+- Ελληνικά
 - ... keep adding :)
 
 # Author
